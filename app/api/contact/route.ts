@@ -90,7 +90,10 @@ export async function POST(request: NextRequest) {
       const safeMessage = escapeHtml(message);
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
+        // Sender must be on the `send.` subdomain (Resend-verified). Zoho
+        // hosts the root domain and rejects mail from non-Zoho servers that
+        // claim to be from the root as self-spoofing (SMTP 553/554 5.7.7).
+        from: "Norwich Free Tour <notifications@send.norwichfreewalkingtours.co.uk>",
         to: "hello@norwichfreewalkingtours.co.uk",
         replyTo: email,
         subject: `Contact form: ${name}`,
