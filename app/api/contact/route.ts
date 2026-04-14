@@ -89,11 +89,8 @@ export async function POST(request: NextRequest) {
       const safeEmail = escapeHtml(email);
       const safeMessage = escapeHtml(message);
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
-        // Sender must be on the `send.` subdomain (Resend-verified). Zoho
-        // hosts the root domain and rejects mail from non-Zoho servers that
-        // claim to be from the root as self-spoofing (SMTP 553/554 5.7.7).
-        from: "Norwich Free Tour <notifications@send.norwichfreewalkingtours.co.uk>",
+      const { data, error: resendError } = await resend.emails.send({
+        from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
         to: "hello@norwichfreewalkingtours.co.uk",
         replyTo: email,
         subject: `Contact form: ${name}`,
@@ -107,6 +104,11 @@ export async function POST(request: NextRequest) {
           <p style="white-space:pre-wrap;">${safeMessage}</p>
         `,
       });
+      if (resendError) {
+        console.error("[Contact form] Resend API rejected:", resendError);
+      } else {
+        console.log("[Contact form] Resend accepted, id:", data?.id);
+      }
     } else {
       // Fallback logging when RESEND_API_KEY is not set (dev / pre-launch)
       console.log("[Contact form] RESEND_API_KEY not set — logging only:", { name, email, message });

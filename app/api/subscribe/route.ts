@@ -111,11 +111,8 @@ export async function POST(request: NextRequest) {
       const safeTimestamp = escapeHtml(timestamp);
       const resend = new Resend(process.env.RESEND_API_KEY);
       try {
-        await resend.emails.send({
-          // Sender must be on the `send.` subdomain (Resend-verified). Zoho
-          // hosts the root domain and rejects mail from non-Zoho servers that
-          // claim to be from the root as self-spoofing (SMTP 553/554 5.7.7).
-          from: "Norwich Free Tour <notifications@send.norwichfreewalkingtours.co.uk>",
+        const { data, error: resendError } = await resend.emails.send({
+          from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
           to: "hello@norwichfreewalkingtours.co.uk",
           subject: `New subscriber: ${email}`,
           text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
@@ -125,6 +122,11 @@ export async function POST(request: NextRequest) {
             <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
           `,
         });
+        if (resendError) {
+          console.error("[Subscribe] Resend API rejected:", resendError);
+        } else {
+          console.log("[Subscribe] Resend accepted, id:", data?.id);
+        }
       } catch (emailErr) {
         // Don't fail the request if the notification email breaks — the
         // subscriber is already safely in Supabase.
