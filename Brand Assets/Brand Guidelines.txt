@@ -1,0 +1,10 @@
+  Brand details 
+Background colour: 
+#FCFAF8
+Main Accent colour: 
+#2DA96B
+Additional colour: 
+#E8F8F1
+White and black too
+Fonts: Caveat (display/headings) and Lora (body/subheadings)
+Lots of images of Norwich (found at upsplash)

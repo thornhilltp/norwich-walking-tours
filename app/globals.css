@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * ── Norwich Free Walking Tour — Brand Theme ──────────────────────────────────
+ *
+ * Tailwind v4 @theme block. Defines:
+ *   - Brand colour tokens (overriding shadcn defaults)
+ *   - Font family tokens (Caveat + Lora, loaded via next/font in layout.tsx)
+ *   - Type scale
+ *   - Spacing tokens
+ *
+ * CSS variables from shadcn are overridden in :root below.
+ */
+
+@theme inline {
+  /* ── Colours ── */
+  --color-brand-bg:           #FCFAF8;
+  --color-brand-accent:       #2DA96B;
+  --color-brand-accent-light: #E8F8F1;
+  --color-brand-text:         #1A1A1A;
+  --color-brand-white:        #FFFFFF;
+
+  /* ── Fonts — mapped to CSS variables injected by next/font ── */
+  --font-caveat:   var(--font-caveat), cursive;
+  --font-lora:     var(--font-lora), Georgia, serif;
+  --font-sans:     var(--font-lora), Georgia, serif;
+
+  /* ── Card design tokens ── */
+  --card-shadow:   0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  --card-border:   1px solid rgba(45,169,107,0.12);
+  --card-radius:   0.75rem;
+
+  /* ── Spacing tokens ── */
+  --spacing-section-sm: 3rem;
+  --spacing-section-md: 5rem;
+  --spacing-section-lg: 7.5rem;
+}
+
+/*
+ * ── Shadcn CSS variable overrides ────────────────────────────────────────────
+ * These override the shadcn/tailwind.css defaults with brand values.
+ */
+@layer base {
+  :root {
+    --background:             #FCFAF8;
+    --foreground:             #1A1A1A;
+    --card:                   #FFFFFF;
+    --card-foreground:        #1A1A1A;
+    --popover:                #FFFFFF;
+    --popover-foreground:     #1A1A1A;
+    --primary:                #2DA96B;
+    --primary-foreground:     #FFFFFF;
+    --secondary:              #E8F8F1;
+    --secondary-foreground:   #1A1A1A;
+    --muted:                  #F4F1EE;
+    --muted-foreground:       #6B7280;
+    --accent:                 #E8F8F1;
+    --accent-foreground:      #2DA96B;
+    --destructive:            #DC2626;
+    --destructive-foreground: #FFFFFF;
+    --border:                 #E5E0DA;
+    --input:                  #E5E0DA;
+    --ring:                   #2DA96B;
+    --radius:                 0.625rem;
+    --radius-md:              0.5rem;
+    --radius-lg:              0.75rem;
+    /* Hero grid background — subtle green grid */
+    --border-grid:            rgba(45, 169, 107, 0.12);
+    /* Sidebar (shadcn sidebar — required by shadcn) */
+    --sidebar:                #F4F1EE;
+    --sidebar-foreground:     #1A1A1A;
+    --sidebar-primary:        #2DA96B;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent:         #E8F8F1;
+    --sidebar-accent-foreground: #1A1A1A;
+    --sidebar-border:         #E5E0DA;
+    --sidebar-ring:           #2DA96B;
+  }
+
+  /* No dark mode — always warm off-white */
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.625;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-caveat), cursive;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--color-brand-accent);
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-lora), Georgia, serif;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .focus-brand {
+    outline: none;
+    &:focus-visible {
+      outline: 2px solid #2DA96B;
+      outline-offset: 2px;
+    }
+  }
+
+  /* CTA buttons use Caveat font for brand personality */
+  .btn-cta {
+    font-family: var(--font-caveat), cursive;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    font-size: 1.1rem;
+  }
+
+  /* Bottom padding on mobile to prevent the sticky CTA bar from overlapping content */
+  .sticky-cta-clearance {
+    padding-bottom: 4.5rem;
+    @media (min-width: 768px) {
+      padding-bottom: 0;
+    }
+  }
+
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    @media (min-width: 768px) {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    @media (min-width: 1024px) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  /* Text shadow for headings/text over images */
+  .text-shadow-sm {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  }
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  .text-shadow-lg {
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  }
+
+  .brand-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 72rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media (min-width: 640px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
