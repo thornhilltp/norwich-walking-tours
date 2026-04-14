@@ -62,8 +62,8 @@ export function PhotoShowcase() {
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             We&apos;ll show you what makes this city special: its medieval
-            streets, its independent spirit, and the stories locals actually
-            care about.
+            streets, its independent spirit, and the stories locals take pride
+            in.
           </p>
         </motion.div>
 
