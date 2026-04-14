@@ -26,7 +26,7 @@ Mobile-first marketing website for the **Norwich Free Walking Tour** ("The Real 
 
 **shadcn/ui (base-nova):** Uses Base UI primitives (not Radix). Button uses `render` prop not `asChild`. PostCSS uses `@tailwindcss/postcss`. Tokens in `globals.css` via `@theme inline {}` — no `tailwind.config.ts` needed.
 
-**Windows casing:** `Components/` and `components/` are the same on Windows. Template .txt files live in `_templates/`. `tsconfig.json` has `forceConsistentCasingInFileNames: false` and excludes `Skills/`, `_templates/`.
+**Casing:** All component files live in `components/` (lowercase) — this is enforced for Vercel (Linux) compatibility. Template .txt files live in `_templates/`. `tsconfig.json` excludes `Skills/`, `_templates/`.
 
 ---
 
