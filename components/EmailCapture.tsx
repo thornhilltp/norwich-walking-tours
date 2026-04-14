@@ -8,6 +8,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 export function EmailCapture() {
   const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
   const [trap, setTrap] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,6 +16,11 @@ export function EmailCapture() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "submitting") return;
+    if (!consent) {
+      setStatus("error");
+      setErrorMessage("Please tick the box to confirm you'd like to receive our emails.");
+      return;
+    }
     setStatus("submitting");
     setErrorMessage("");
 
@@ -22,7 +28,7 @@ export function EmailCapture() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, _trap: trap }),
+        body: JSON.stringify({ email, consent, _trap: trap }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -81,7 +87,7 @@ export function EmailCapture() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              className="flex flex-col gap-4 max-w-md mx-auto"
               noValidate
             >
               {/* Honeypot */}
@@ -96,27 +102,52 @@ export function EmailCapture() {
                 />
               </label>
 
-              <label htmlFor="subscribe-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="subscribe-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                disabled={status === "submitting"}
-                className="flex-grow h-12 px-4 rounded-xl border border-brand-accent/25 bg-white text-brand-text placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent disabled:opacity-60"
+              <div className="flex flex-col sm:flex-row gap-3">
+                <label htmlFor="subscribe-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="subscribe-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  disabled={status === "submitting"}
+                  className="flex-grow h-12 px-4 rounded-xl border border-brand-accent/25 bg-white text-brand-text placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent disabled:opacity-60"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                />
+                <button
+                  type="submit"
+                  disabled={status === "submitting" || !consent}
+                  className="btn-cta inline-flex items-center justify-center h-12 px-6 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {status === "submitting" ? "Sending…" : "Get it in my inbox"}
+                </button>
+              </div>
+
+              <label
+                htmlFor="subscribe-consent"
+                className="flex items-start gap-3 text-left cursor-pointer"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              />
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="btn-cta inline-flex items-center justify-center h-12 px-6 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {status === "submitting" ? "Sending…" : "Get it in my inbox"}
-              </button>
+                <input
+                  id="subscribe-consent"
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  disabled={status === "submitting"}
+                  className="mt-1 h-4 w-4 flex-shrink-0 rounded border-brand-accent/40 text-brand-accent focus:ring-brand-accent cursor-pointer"
+                />
+                <span className="text-xs text-muted-foreground leading-relaxed">
+                  I&apos;d like to receive occasional marketing emails from Norwich Free Walking Tour. Unsubscribe any time. See our{" "}
+                  <a href="/privacy" className="underline hover:text-brand-accent">
+                    Privacy Policy
+                  </a>
+                  .
+                </span>
+              </label>
             </form>
           )}
 

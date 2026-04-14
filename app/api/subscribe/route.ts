@@ -64,6 +64,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // UK GDPR / EU GDPR: marketing requires explicit opt-in. Reject submissions
+    // that arrive without `consent: true` — the browser enforces this via the
+    // required checkbox, but scripted/malformed requests could bypass it.
+    if (body.consent !== true) {
+      return NextResponse.json(
+        { error: "Please confirm your consent to receive marketing emails." },
+        { status: 400 }
+      );
+    }
+
     const timestamp = new Date().toISOString();
 
     // ── 1. Persist to Supabase ───────────────────────────────────────────────
