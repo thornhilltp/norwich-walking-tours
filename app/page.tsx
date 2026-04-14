@@ -193,7 +193,7 @@ export default function HomePage() {
   return (
     <main className="bg-brand-bg" style={{ paddingTop: 0 }}>
       <Hero
-        title={<>Norwich Free Tour</>}
+        title={<>Norwich Free Walking Tour</>}
         buttonText="Book your spot"
         buttonHref="/book"
         widget={
