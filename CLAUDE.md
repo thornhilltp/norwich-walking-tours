@@ -157,6 +157,8 @@ Source files in `_templates/`.
 - [x] DNS cutover: Namecheap → `ns1/ns2.vercel-dns.com`. Site is live.
 - [x] GTM `GTM-PTF5DB67` + GA4 `G-75NZL8LFG9` wired up with Consent Mode v2
 - [x] `subscribers` table created in Supabase with RLS INSERT policy
+- [x] GDPR marketing consent checkbox on homepage subscribe form (client + server validation)
+- [x] Zoho inbound MX records in Vercel DNS + clean root SPF for Zoho
 
 **Still pending:**
 - [ ] **Launch badge:** remove "Coming May 2026" badge from Hero (`components/Hero.tsx` ~line 98) on launch day (tours start May 2026).
@@ -174,9 +176,16 @@ Source files in `_templates/`.
 **Client:** `lib/supabase.ts` — server-side only, `persistSession: false`.
 
 ### Current state
-- `app/api/subscribe/route.ts` — inserts into `subscribers` table (`email`, `source: "homepage"`), handles `23505` unique-violation as silent success, fires Resend notification only for new subscribers.
+- `app/api/subscribe/route.ts` — inserts into `subscribers` table (`email`, `source: "homepage"`), handles `23505` unique-violation as silent success, fires Resend notification only for new subscribers. **Requires `consent: true` in the request body** — rejects 400 otherwise (UK/EU GDPR opt-in requirement).
+- `components/EmailCapture.tsx` — renders a required consent checkbox with a link to `/privacy`; submit button disabled until ticked.
 - `lib/supabase.ts` — lazy Supabase client getter; returns `null` if env vars absent (falls back gracefully).
 - **`subscribers` table is live in Supabase** with RLS INSERT-only policy. Email capture is functional.
+
+### Deployment pipeline — do not skip
+- Env var changes in Vercel **do not apply to existing deployments** — always redeploy (Deployments → latest → ⋯ → Redeploy) after editing env vars.
+- The Supabase anon key is a JWT (`header.payload.signature`) — paste all three dot-separated parts. Pasting only the signature returns **401** from PostgREST.
+- DNS (Vercel → Domains → DNS): root SPF is `v=spf1 include:zoho.com ~all` (Zoho outbound via `hello@`). Resend's SPF lives on the `send` subdomain and must not be added to the root. `~all` is terminal — nothing after it parses.
+- Zoho region is **`.com`** (not `.eu`). MX records: `mx.zoho.com` (10), `mx2.zoho.com` (20), `mx3.zoho.com` (50).
 
 ### Pending architectural decision — Unified contacts table
 Tom asked whether to unify mailing-list signups + booking customers into a single `contacts` (email list) table rather than a standalone `subscribers` table.
