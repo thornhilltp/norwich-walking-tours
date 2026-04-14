@@ -24,7 +24,7 @@ const logistics = [
   {
     icon: Calendar,
     label: "Schedule",
-    value: "Near daily, rain or shine. Booking required. Book your spot on the Book page.",
+    value: "Near daily, rain or shine. Booking required. Secure your spot on the booking page.",
   },
   {
     icon: Globe,
@@ -112,7 +112,7 @@ function WhatIsFreeTour() {
               What&apos;s a free tour?
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 1h 45m with a local guide who actually loves this place, and at the end you pay what you thought it was worth.
+              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 1h 45m with a local guide who will show you the best spots and tell their favourite stories, and at the end you pay what you thought it was worth.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               No fixed price. No pressure. Just a fair exchange.
@@ -210,14 +210,13 @@ export default function HomePage() {
         }
       />
       <PhotoShowcase />
-      <HowItWorks />
-
-      <WhyNorwich />
-      <StopsAndMap />
-      <BookCTA />
       <WhatIsFreeTour />
+      <StopsAndMap />
+      <HowItWorks />
+      <BookCTA />
       <PracticalInfo />
       <FAQ />
+      <WhyNorwich />
       <EmailCapture />
       <Footer />
     </main>

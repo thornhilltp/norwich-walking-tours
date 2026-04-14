@@ -51,7 +51,7 @@ export function Hero({
     <section
       className={cn("relative w-full overflow-hidden", className)}
       style={{
-        backgroundImage: "url('/images/norwich-market-stock.png')",
+        backgroundImage: "url('/images/pottergate-stock.png')",
         backgroundSize: "cover",
         backgroundPosition: "center 75%",
       }}
@@ -129,7 +129,7 @@ export function Hero({
             className="mt-5 text-xs text-white/65 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            1h 45m &bull; £0 to book &bull; Pay at the end by card or Apple Pay
+            1h 45m &bull; £0 to book &bull; Pay at the end by card, Apple Pay or cash
           </motion.p>
         </div>
 

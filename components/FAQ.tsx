@@ -8,11 +8,11 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
   {
     q: "Is it really free?",
-    a: "Yes. There is no upfront cost to join. At the end, you pay what you think the experience was worth. Cards, Apple Pay, and Google Pay all accepted. No cash needed.",
+    a: "Yes. There is no upfront cost to join. At the end, you pay what you think the experience was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
   },
   {
     q: "What if it rains?",
-    a: "The tour runs every single day, rain or shine. Norwich's covered Lanes and the Cathedral Close offer natural shelter along the route. Bring a light jacket and you'll be fine.",
+    a: "The tour runs every single day, rain or shine. Norwich's covered Lanes and the Cathedral Close offer natural shelter along the route. Bring appropriate clothing.",
   },
   {
     q: "How fast do you walk?",
@@ -20,11 +20,11 @@ const faqs = [
   },
   {
     q: "Is this suitable for all ages?",
-    a: "Yes. The route is mostly flat and easy underfoot. Families, solo travellers, and older visitors are all welcome.",
+    a: "Yes. The route is mostly flat and easy underfoot. Families, solo travellers, and people of all ages are all welcome.",
   },
   {
     q: "How is this different from other tours?",
-    a: "Most tours run a fixed script designed for coach parties. This one is built around the stories that locals actually care about: the medieval history, the independent spirit of the city, the things that make Norwich genuinely special. It runs daily so you don't need to plan around a schedule.",
+    a: "Most tours run a fixed script designed for coach parties. This one is built around the stories that locals take pride in: the medieval history, the independent spirit of the city, the things that make Norwich genuinely special. It runs almost daily so you don't need to plan around a schedule.",
   },
   {
     q: "Where exactly do we meet?",
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: "How do I book?",
-    a: "Booking is required. Use the booking form on this page or visit the Book page. It's free to book. You pay what you think the tour was worth at the end.",
+    a: "Booking is required. Use the booking form on this page or visit the booking page. It's free to book. You pay what you think the tour was worth at the end.",
   },
   {
     q: "Is Norwich worth visiting for a day?",
@@ -44,11 +44,11 @@ const faqs = [
   },
   {
     q: "How much should I tip a free walking tour guide in the UK?",
-    a: "There's no fixed amount. Most guests on free walking tours in the UK pay between £15 and £20 per person depending on what they felt it was worth. Cards, Apple Pay and Google Pay all accepted, so no cash needed.",
+    a: "There's no fixed amount. Most guests on free walking tours in the UK pay between £15 and £20 per person depending on what they felt it was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
   },
   {
     q: "Do I need to book in advance for the Norwich free walking tour?",
-    a: "Yes, booking is required. It's still free to reserve. Booking ahead lets us know how many to expect and means we can contact you if anything changes with weather or timing. Use the booking form on this page or head to the Book page.",
+    a: "Yes, booking is required. It's still free to reserve. Booking ahead lets us know how many to expect and means we can contact you if anything changes with weather or timing. Use the booking form on this page or head to the booking page.",
   },
   {
     q: "What's the best walking tour in Norwich?",

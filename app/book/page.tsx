@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tour",
   description:
-    "Book your spot on the Norwich Free Walking Tour. Free to reserve. Near daily from The Forum. Pay what it was worth at the end by card or Apple Pay.",
+    "Book your spot on the Norwich Free Walking Tour. Free to reserve. Near daily from The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/book",
   },
@@ -23,7 +23,7 @@ export default function BookPage() {
             Book your free Norwich walking tour spot
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Free to book. Meet outside The Forum. Pay what it was worth at the end by card, Apple Pay or Google Pay.
+            Free to book. Meet outside The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export default function BookPage() {
             <span className="hidden sm:block text-brand-accent/40">&bull;</span>
             <span>English language &bull; Near daily</span>
             <span className="hidden sm:block text-brand-accent/40">&bull;</span>
-            <span>Pay at the end by card, Apple Pay or Google Pay</span>
+            <span>Pay at the end by card, Apple Pay, Google Pay or cash</span>
           </div>
         </div>
       </main>

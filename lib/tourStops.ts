@@ -60,7 +60,7 @@ export const tourStops: TourStop[] = [
     id: 9,
     name: "Tombland",
     coords: [52.6311, 1.2995],
-    teaser: "The Anglo-Saxon heart of the city. Dark history, plague legends, and two gates into the Cathedral Close.",
+    teaser: "The Anglo-Saxon heart of the city. Dark history, plague legends, and two gates into the Cathedral.",
   },
   {
     id: 10,

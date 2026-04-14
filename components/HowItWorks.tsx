@@ -25,8 +25,8 @@ const steps = [
   {
     number: "03",
     title: "Pay what it was worth",
-    sub: "Our guides do this full time. Most guests give £15–£20.",
-    detail: "Card, Apple Pay, Google Pay",
+    sub: "Our guides do this full time. Most guests tip £15–£20.",
+    detail: "Card, Apple Pay, Google Pay, cash",
     image: "/images/norwich-cathedral-stock.png",
     imageAlt: "Norwich Cathedral, end point of the walking tour",
   },
