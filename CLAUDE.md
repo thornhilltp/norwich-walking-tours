@@ -160,12 +160,51 @@ Source files in `_templates/`.
 - [x] GDPR marketing consent checkbox on homepage subscribe form (client + server validation)
 - [x] Zoho inbound MX records in Vercel DNS + clean root SPF for Zoho
 
-**Still pending:**
+**Still pending — near-term (pre / at launch):**
+
+_Launch admin:_
 - [ ] **Launch badge:** remove "Coming May 2026" badge from Hero (`components/Hero.tsx` ~line 98) on launch day (tours start May 2026).
 - [ ] **Testimonials:** populate `components/Testimonials.tsx` with Google Reviews once tours are live, then add alongside or replace `<WhyNorwich />`.
-- [ ] **Instagram handle:** set up official account, update Footer link (currently `@norwichfreetour`).
+- [ ] **Instagram handle:** set up official account, update Footer link (currently `@norwichfreetour`). Covered by social-accounts TODO below.
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.
 - [ ] **Contacts table (Supabase):** architectural decision pending. See Section 11. Currently using `subscribers` table for homepage signups only.
+- [ ] **Contact form email bounce:** still unresolved — Zoho EU rejects Resend-sent mail with `554 5.7.7 Email policy violation` (suspected self-spoof check). Next steps: (1) test `From: onboarding@resend.dev` in `app/api/contact/route.ts` to confirm hypothesis; (2) either add Resend IPs / `send.` subdomain to Zoho trusted-senders in `mailadmin.zoho.eu` (do NOT use generic Allowed List — became exclusive last time and broke Hotmail), or verify `send.norwichfreewalkingtours.co.uk` in Resend and send from `noreply@send.…`.
+- [ ] **Google Business Profile:** create + verify listing for Norwich Free Walking Tour. Category: Tour agency / Walking tour. Set service area (Norwich city centre), hours, meeting point, photos, booking link (`/book`), description with entity keywords (Elm Hill, Norwich Lanes, Tombland, etc.). Link GBP ↔ Search Console.
+- [ ] **Social media accounts:** reserve consistent handle across Instagram, Facebook, TikTok, **Pinterest** (consider `@norwichfreewalkingtour` vs `@norwichfreetour`). Post launch assets (hero photos, tour route, meeting point). Pinterest: publish vertical (1000×1500) pinnable cards — text-overlay on Norwich photos — as part of content plan.
+- [ ] **Social icons + UTM tracking in Footer:** add Instagram / TikTok / Facebook / Pinterest icon links to `components/Footer.tsx` (URLs TBD, Tom setting up 2026-04-15). (a) Footer outbound icons: no UTMs needed on outgoing URLs, but set up GA4 outbound-click event via GTM so we see which channels visitors click through to. (b) **Bio / profile links back to the site** must use UTMs, consistent convention: `utm_source={instagram|tiktok|facebook|pinterest}&utm_medium=social&utm_campaign=bio` — document final list in project memory once handles are live.
+- [ ] **Google Analytics + Search Console:** GA4 `G-75NZL8LFG9` already wired via GTM — confirm live data in GA4 dashboard. Set up Google Search Console: verify domain property for `norwichfreewalkingtours.co.uk`, submit `sitemap.xml`, link GA4 ↔ GSC, link GSC ↔ Google Business Profile.
+- [ ] **Public liability insurance:** review UK options for guided walking tours. Target £2m–£5m cover. Quote-compare: PGL (tour-guide specialist), Hiscox, Simply Business, Protectivity, Insure4Sport. Check: premium, cover limits, whether overseas visitors are included, whether pay-as-you-want model affects classification.
+
+_Technical (from April 2026 site review):_
+- [ ] **T1. Dynamic-import Leaflet** in `components/TourMap.tsx` via `next/dynamic({ ssr: false })`. Saves ~80 KB from initial JS bundle.
+- [ ] **T2. Hero background via `next/image`** instead of CSS `background-image`. `Hero.tsx` currently loads `pottergate-stock.png` raw — no webp/avif, no `sizes`, no priority hint. Apply same treatment to any other PNGs >50 KB in `/public/images/`.
+- [ ] **T3. Add `loading.tsx` + `error.tsx`** for `/book` and `/tour`. Booking iframe (`norwich-booking.vercel.app`) currently has no fallback on slow load or failure.
+- [ ] **T4. Tighten CSP** in `next.config.mjs` — remove `'unsafe-eval'` from `script-src`, narrow `connect-src` to required endpoints only.
+- [ ] **T5. Add `public/.well-known/security.txt`** with disclosure contact (likely `hello@norwichfreewalkingtours.co.uk`) and policy link.
+- [ ] **T6. Respect `prefers-reduced-motion`** in `Hero.tsx`, `PhotoShowcase.tsx` and any other Framer Motion components. `globals.css` has the media query but the JS components ignore it. WCAG AA requirement.
+- [ ] **T7. Preload Caveat font** in `app/layout.tsx` — used in hero headline, currently can FOIT on first paint.
+- [ ] **T8. Error monitoring** — add Sentry (free tier) or enable Vercel's built-in observability so failed Resend / Supabase calls + client-side exceptions surface automatically.
+- [ ] **T9. Rate-limit `/api/subscribe` and `/api/contact`** — Vercel or Upstash rate limiter, e.g. 5 submissions per IP per minute. Honeypot helps but doesn't stop burst abuse.
+- [ ] **T10. Inline email validation on contact form** — `type="email"` + aria-describedby error state so bad emails fail client-side, not server-side.
+- [ ] **T11. Remove unused `@next/third-parties`** from `package.json` — imported but never used (GTM is wired manually).
+- [ ] **T12. Audit colour contrast on button hover/focus states** — base green CTA passes WCAG AA 4.5:1 but hover/focus states not verified.
+- [ ] **T13. Booking iframe mobile scroll** in `app/book/page.tsx` — verify on a real phone; if the widget grows beyond its fixed height, users may not be able to scroll inside. Consider `scrolling="yes"` or auto-resize script.
+
+_Marketing — near-term:_
+- [ ] **M3. Replace stock photography with authentic tour photos** once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
+- [ ] **M4. FAQPage JSON-LD** in `components/FAQ.tsx` (separate from existing TouristAttraction schema in `app/layout.tsx`). Unlocks rich FAQ accordions in Google SERP — typically +10–20% CTR.
+- [ ] **M5. Verify "As seen in" publication quotes** in `lib/whyNorwich.ts` — confirm Country Living / Times / Condé Nast / UNESCO are tour-specific or Norwich-general. Adjust wording for accuracy (e.g. "Norwich featured in…") and add genuine tour press post-launch.
+- [ ] **M8. Group size line** — add "Limited to 15 per tour to keep the group walkable" to Hero / Practical Info. Honest scarcity signal.
+- [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
+- [ ] **M12. OG image upgrade** — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
+
+**Longer-term / post-launch iteration:**
+- [ ] **M1. Meet Your Guide page** (`/about-the-guide`) — headshot, 2–3 paragraph story, favourite stop, Q&A section. Biggest trust gap on the site today.
+- [ ] **M6. Per-stop deep-dive pages** — decision deferred until Search Console has ~4–6 weeks of impression data post-GSC setup. Pick the 2 stops with highest impressions and lowest average position (signal Google is already ranking us for that query but we're not top — a dedicated page pushes us up). Candidates to watch: Elm Hill, Norwich Cathedral, Norwich Castle, The Norwich Lanes, Norwich Market, Tombland. Target format once picked: ~500 words each, per-stop OG image, internal links from `/tour`.
+- [ ] **M7. Blog / editorial section** — pillar post "Norwich city guide"; long-tail: "Things to do in Norwich", "Norwich for families", "Norwich in the rain", "Self-guided Norwich walk". Monthly cadence, feeds the email list.
+- [ ] **M9. Hotel / concierge partnership sheet** — printable A5 PDF for hotel front desks with QR → `/book`. Distribute to Norwich hotels, hostels, B&Bs.
+- [ ] **M11. Press kit page** (`/press`) — brand assets, guide bio, high-res photos, quote sheet. Makes journalist coverage frictionless.
+- [ ] **M15. Seasonal landing pages** — "Norwich in spring / autumn" etc. Decision deferred until Search Console data shows which seasonal queries are getting impressions.
 
 ---
 
