@@ -113,22 +113,6 @@ const jsonLd = [
       availability: "https://schema.org/InStock",
       description: "Book free. Pay what it was worth at the end. Most guests tip £15–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "5",
-      bestRating: "5",
-    },
-    event: {
-      "@type": "Event",
-      name: "Norwich Free Walking Tour",
-      duration: "PT1H45M",
-      inLanguage: "en",
-      eventSchedule: {
-        "@type": "Schedule",
-        repeatFrequency: "P1D",
-      },
-    },
   },
   {
     "@context": "https://schema.org",
@@ -153,12 +137,6 @@ const jsonLd = [
       "@type": "GeoCoordinates",
       latitude: 52.6278,
       longitude: 1.2983,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "5",
-      bestRating: "5",
     },
     sameAs: [
       "https://www.instagram.com/norwichfreetour",
