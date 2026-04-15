@@ -158,7 +158,9 @@ Source files in `_templates/`.
 - [x] GTM `GTM-PTF5DB67` + GA4 `G-75NZL8LFG9` wired up with Consent Mode v2
 - [x] `subscribers` table created in Supabase with RLS INSERT policy
 - [x] GDPR marketing consent checkbox on homepage subscribe form (client + server validation)
-- [x] Zoho inbound MX records in Vercel DNS + clean root SPF for Zoho
+- [x] Zoho inbound MX records in Vercel DNS + clean root SPF for Zoho (region corrected to `.eu` on 2026-04-14)
+- [x] **GTM Consent Mode v2 — region-aware defaults + working gtag update** (fixed 2026-04-15). EEA/GB/CH default denied; rest of world analytics granted. `CookieConsent.tsx` now uses proper `gtag('consent', 'update', …)` with `arguments` object. GA4 receiving events; GTM Container Quality should clear within 48h.
+- [x] **Sitemap + robots confirmed healthy** (reviewed 2026-04-15). `app/sitemap.ts` covers all 7 pages with sensible priorities; `app/robots.ts` points to it. Still needs GSC submission (see pending below).
 
 **Still pending — near-term (pre / at launch):**
 
@@ -223,8 +225,10 @@ _Marketing — near-term:_
 ### Deployment pipeline — do not skip
 - Env var changes in Vercel **do not apply to existing deployments** — always redeploy (Deployments → latest → ⋯ → Redeploy) after editing env vars.
 - The Supabase anon key is a JWT (`header.payload.signature`) — paste all three dot-separated parts. Pasting only the signature returns **401** from PostgREST.
-- DNS (Vercel → Domains → DNS): root SPF is `v=spf1 include:zoho.com ~all` (Zoho outbound via `hello@`). Resend's SPF lives on the `send` subdomain and must not be added to the root. `~all` is terminal — nothing after it parses.
-- Zoho region is **`.com`** (not `.eu`). MX records: `mx.zoho.com` (10), `mx2.zoho.com` (20), `mx3.zoho.com` (50).
+- DNS (Vercel → Domains → DNS): root SPF is `v=spf1 include:zoho.eu ~all` (Zoho outbound via `hello@`, EU region). Resend's SPF lives on the `send` subdomain and must not be added to the root. `~all` is terminal — nothing after it parses.
+- Zoho region is **`.eu`** (corrected 2026-04-14 — earlier docs incorrectly said `.com`). Admin console: `mailadmin.zoho.eu`. MX records: `mx.zoho.eu` (10), `mx2.zoho.eu` (20), `mx3.zoho.eu` (50).
+- **Git CLI on Tom's Windows machine has no user identity configured globally** — he commits via GitHub Desktop / VS Code. Repo-local config was set 2026-04-15: `user.name="Tom Thornhill"`, `user.email="tomthornhill@hotmail.co.uk"` (lives in `.git/config`, scoped to this repo only).
+- **Always run `npm run build` locally before `git push`.** Vercel fails builds on TS/ESLint errors that `next dev` silently tolerates. Two failed production deploys this session caught by running local build afterwards.
 
 ### Pending architectural decision — Unified contacts table
 Tom asked whether to unify mailing-list signups + booking customers into a single `contacts` (email list) table rather than a standalone `subscribers` table.
