@@ -12,20 +12,22 @@ declare global {
 
 function pushConsent(granted: boolean) {
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: "consent_update",
+
+  // Mirror the gtag() helper defined in app/layout.tsx's inline consent
+  // script. Consent Mode v2 requires the `arguments` object (array-like,
+  // not a plain array) to be pushed onto the dataLayer, otherwise GTM's
+  // consent parser silently ignores the update.
+  function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
+  }
+
+  gtag("consent", "update", {
     analytics_storage: granted ? "granted" : "denied",
     ad_storage: "denied",         // we don't run ads — keep denied
     ad_user_data: "denied",
     ad_personalization: "denied",
   });
-  // Also send via gtag consent update for Consent Mode v2
-  window.dataLayer.push(["consent", "update", {
-    analytics_storage: granted ? "granted" : "denied",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-  }]);
 }
 
 export function CookieConsent() {

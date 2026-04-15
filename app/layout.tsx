@@ -188,12 +188,23 @@ export default function RootLayout({
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              // EEA + UK + Switzerland — consent required (GDPR / UK GDPR / nFADP).
+              // Everything denied until the cookie banner collects a choice.
               gtag('consent', 'default', {
+                'region': ['EEA', 'GB', 'CH'],
                 'ad_storage': 'denied',
                 'analytics_storage': 'denied',
                 'ad_user_data': 'denied',
                 'ad_personalization': 'denied',
                 'wait_for_update': 500
+              });
+              // Rest of world — consent not legally required for analytics.
+              // Analytics defaults to granted; ad signals stay denied (no ads on site).
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'analytics_storage': 'granted',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied'
               });
               gtag('js', new Date());
             `,
