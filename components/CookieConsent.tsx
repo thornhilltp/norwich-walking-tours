@@ -17,7 +17,11 @@ function pushConsent(granted: boolean) {
   // script. Consent Mode v2 requires the `arguments` object (array-like,
   // not a plain array) to be pushed onto the dataLayer, otherwise GTM's
   // consent parser silently ignores the update.
-  function gtag() {
+  // GTM expects the `arguments` object (array-like) on dataLayer. The
+  // rest-param signature is purely to satisfy TS at the call site;
+  // `arguments` is still populated at runtime.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function gtag(..._args: unknown[]) {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer.push(arguments);
   }
