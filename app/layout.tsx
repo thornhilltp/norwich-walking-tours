@@ -121,7 +121,7 @@ const jsonLd = [
     name: "Norwich Free Walking Tour",
     description: "Daily guided walking tours of Norwich. Pay what you want. English language. Meets at The Forum, Millennium Plain.",
     url: "https://www.norwichfreewalkingtours.co.uk",
-    telephone: "",
+    image: "https://www.norwichfreewalkingtours.co.uk/og-image.jpg",
     priceRange: "£0–£20",
     currenciesAccepted: "GBP",
     paymentAccepted: "Card, Apple Pay, Google Pay, Cash",
