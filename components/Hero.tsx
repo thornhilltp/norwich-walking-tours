@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -50,12 +51,20 @@ export function Hero({
   return (
     <section
       className={cn("relative w-full overflow-hidden", className)}
-      style={{
-        backgroundImage: "url('/images/pottergate-stock.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center 75%",
-      }}
     >
+      {/* Background image — next/image handles webp/avif conversion, lazy
+          sizing and priority preload. Positioned absolutely so the rest of
+          the section layout is unaffected. */}
+      <Image
+        src="/images/pottergate-stock.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover -z-10"
+        style={{ objectPosition: "center 75%" }}
+      />
+
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/65" />
 

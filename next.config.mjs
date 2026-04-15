@@ -24,13 +24,17 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js inline scripts + Google Analytics
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
+      // Next.js inline scripts + Google Tag Manager + Google Analytics.
+      // 'unsafe-eval' removed — production Next.js doesn't need it. Inline
+      // scripts still allowed via 'unsafe-inline' (GTM bootstrap requires
+      // this; migrating to nonces would be a larger refactor).
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
       // Google Fonts, self, data URIs for Leaflet markers
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
-      // Images: self, Unsplash, data URIs (Leaflet), blob
-      "img-src 'self' data: blob: https://images.unsplash.com https://tile.openstreetmap.org",
+      // Images: self, Unsplash, data URIs (Leaflet markers), blob, OSM
+      // tile subdomains (a/b/c.tile.openstreetmap.org) for the Leaflet map.
+      "img-src 'self' data: blob: https://images.unsplash.com https://*.tile.openstreetmap.org https://unpkg.com",
       // Leaflet map tiles + Google Analytics
       "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
       // Booking widget iframe
