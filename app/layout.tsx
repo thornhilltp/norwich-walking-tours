@@ -5,17 +5,23 @@ import { Nav } from "@/components/Nav";
 import { StickyBookCTA } from "@/components/StickyBookCTA";
 import { PageTransition } from "@/components/PageTransition";
 import { CookieConsent } from "@/components/CookieConsent";
+import { MotionProvider } from "@/components/MotionProvider";
 
 // !! REPLACE GTM-XXXXXXX with your real Google Tag Manager container ID !!
 // Get this from tagmanager.google.com → your container → Admin → Install GTM
 const GTM_ID = "GTM-PTF5DB67";
 
 // ── Google Fonts ─────────────────────────────────────────────────────────────
+// `next/font/google` handles preload, self-hosting, and FOIT/FOUT mitigation
+// automatically. `preload: true` (default) injects <link rel="preload"> for
+// each font file used on the current route — explicit here for clarity.
+// Caveat is the hero headline font, so preload matters for LCP.
 const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-caveat",
   display: "swap",
+  preload: true,
 });
 
 const lora = Lora({
@@ -24,6 +30,7 @@ const lora = Lora({
   style: ["normal", "italic"],
   variable: "--font-lora",
   display: "swap",
+  preload: true,
 });
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
@@ -139,7 +146,9 @@ const jsonLd = [
       longitude: 1.2983,
     },
     sameAs: [
-      "https://www.instagram.com/norwichfreetour",
+      "https://www.instagram.com/norwichfreewalkingtours",
+      "https://www.tiktok.com/@norwichfreewalkingtours",
+      "https://www.facebook.com/norwichfreewalkingtours",
     ],
   },
 ];
@@ -209,11 +218,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <Nav />
-        <PageTransition>{children}</PageTransition>
-        <StickyBookCTA />
-        {/* CookieConsent pushes consent signals to dataLayer — GTM reads them to control GA4 */}
-        <CookieConsent />
+        <MotionProvider>
+          <Nav />
+          <PageTransition>{children}</PageTransition>
+          <StickyBookCTA />
+          {/* CookieConsent pushes consent signals to dataLayer — GTM reads them to control GA4 */}
+          <CookieConsent />
+        </MotionProvider>
       </body>
     </html>
   );

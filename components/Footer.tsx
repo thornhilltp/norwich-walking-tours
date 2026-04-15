@@ -1,5 +1,52 @@
 import Image from "next/image";
-import { MapPin, AtSign } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+// Brand icons — lucide-react dropped Instagram/Facebook exports for trademark
+// reasons, so we inline them (and TikTok, which was never in lucide).
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z" />
+    </svg>
+  );
+}
+
+const socials = [
+  {
+    label: "Norwich Free Walking Tour on Instagram",
+    handle: "Instagram",
+    href: "https://instagram.com/norwichfreewalkingtours",
+    Icon: InstagramIcon,
+  },
+  {
+    label: "Norwich Free Walking Tour on TikTok",
+    handle: "TikTok",
+    href: "https://tiktok.com/@norwichfreewalkingtours",
+    Icon: TikTokIcon,
+  },
+  {
+    label: "Norwich Free Walking Tour on Facebook",
+    handle: "Facebook",
+    href: "https://facebook.com/norwichfreewalkingtours",
+    Icon: FacebookIcon,
+  },
+];
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -71,16 +118,24 @@ export function Footer() {
             <p className="font-lora text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">
               Follow along
             </p>
-            <a
-              href="https://instagram.com/norwichfreetour"
-              aria-label="Norwich Free Walking Tour on Instagram"
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-150"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <AtSign className="w-4 h-4" aria-hidden="true" />
-              <span className="font-lora text-sm">@norwichfreetour</span>
-            </a>
+            <ul className="flex items-center gap-4">
+              {socials.map(({ label, handle, href, Icon }) => (
+                <li key={handle}>
+                  <a
+                    href={href}
+                    aria-label={label}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-colors duration-150"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="font-lora text-xs text-white/50 mt-3">
+              @norwichfreewalkingtours
+            </p>
           </div>
         </div>
 
