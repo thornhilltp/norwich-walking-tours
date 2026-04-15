@@ -50,7 +50,7 @@ export function Hero({
 }: HeroProps) {
   return (
     <section
-      className={cn("relative w-full overflow-hidden", className)}
+      className={cn("relative isolate w-full overflow-hidden", className)}
     >
       {/* Background image — next/image handles webp/avif conversion, lazy
           sizing and priority preload. Positioned absolutely so the rest of
