@@ -181,12 +181,12 @@ _Launch admin:_
 
 _Technical (from April 2026 site review):_
 - [ ] **T1. Dynamic-import Leaflet** in `components/TourMap.tsx` via `next/dynamic({ ssr: false })`. Saves ~80 KB from initial JS bundle.
-- [ ] **T2. Hero background via `next/image`** instead of CSS `background-image`. `Hero.tsx` currently loads `pottergate-stock.png` raw — no webp/avif, no `sizes`, no priority hint. Apply same treatment to any other PNGs >50 KB in `/public/images/`.
-- [ ] **T3. Add `loading.tsx` + `error.tsx`** for `/book` and `/tour`. Booking iframe (`norwich-booking.vercel.app`) currently has no fallback on slow load or failure.
-- [ ] **T4. Tighten CSP** in `next.config.mjs` — remove `'unsafe-eval'` from `script-src`, narrow `connect-src` to required endpoints only.
-- [ ] **T5. Add `public/.well-known/security.txt`** with disclosure contact (likely `hello@norwichfreewalkingtours.co.uk`) and policy link.
-- [ ] **T6. Respect `prefers-reduced-motion`** in `Hero.tsx`, `PhotoShowcase.tsx` and any other Framer Motion components. `globals.css` has the media query but the JS components ignore it. WCAG AA requirement.
-- [ ] **T7. Preload Caveat font** in `app/layout.tsx` — used in hero headline, currently can FOIT on first paint.
+- [x] **T2. Hero via `next/image`** (shipped 2026-04-15). Priority LCP image, webp/avif, proper `sizes`.
+- [x] **T3. Loading + error boundaries for `/book` and `/tour`** (shipped 2026-04-15).
+- [x] **T4. CSP tightened** (shipped 2026-04-15). Removed `unsafe-eval`; added `*.tile.openstreetmap.org` + `unpkg.com` for Leaflet tiles.
+- [x] **T5. `public/.well-known/security.txt`** (shipped 2026-04-15). Disclosure contact set to `hello@norwichfreewalkingtours.co.uk`.
+- [x] **T6. `prefers-reduced-motion` respected globally** (shipped 2026-04-15). New `<MotionProvider>` wraps the app in `layout.tsx` and passes reduced-motion state to Framer Motion components.
+- [x] **T7. Caveat + Lora preload** (shipped 2026-04-15). Explicit `preload: true` on both in `app/layout.tsx`.
 - [ ] **T8. Error monitoring** — add Sentry (free tier) or enable Vercel's built-in observability so failed Resend / Supabase calls + client-side exceptions surface automatically.
 - [ ] **T9. Rate-limit `/api/subscribe` and `/api/contact`** — Vercel or Upstash rate limiter, e.g. 5 submissions per IP per minute. Honeypot helps but doesn't stop burst abuse.
 - [ ] **T10. Inline email validation on contact form** — `type="email"` + aria-describedby error state so bad emails fail client-side, not server-side.
