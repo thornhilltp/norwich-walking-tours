@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getZohoTransporter } from "@/lib/zohoMail";
 
 // ── Simple in-memory rate limiter ─────────────────────────────────────────────
 // Tracks submission timestamps per IP. Max 3 submissions per 10 minutes.
@@ -81,37 +81,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ── Send via Resend ──────────────────────────────────────────────────────
-    // Requires RESEND_API_KEY env var. Set this in Vercel → Settings → Environment Variables.
-    // Also requires norwichfreewalkingtours.co.uk to be verified as a sending domain in Resend.
-    if (process.env.RESEND_API_KEY) {
+    // ── Send via Zoho SMTP ──────────────────────────────────────────────────
+    // Requires ZOHO_EMAIL + ZOHO_APP_PASSWORD env vars. Set these in Vercel →
+    // Settings → Environment Variables. The app password is generated at
+    // accounts.zoho.eu under Application-Specific Passwords (not the main
+    // account password). Zoho-to-Zoho mail bypasses Zoho's inbound anti-spoof
+    // rule that was hard-bouncing our previous Resend sends.
+    const transporter = getZohoTransporter();
+    if (transporter) {
       const safeName = escapeHtml(name);
       const safeEmail = escapeHtml(email);
       const safeMessage = escapeHtml(message);
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const { data, error: resendError } = await resend.emails.send({
-        from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
-        to: "hello@norwichfreewalkingtours.co.uk",
-        replyTo: email,
-        subject: `Contact form: ${name}`,
-        text: `New contact form submission\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-        html: `
-          <h2>New contact form submission</h2>
-          <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-          <hr />
-          <p><strong>Message:</strong></p>
-          <p style="white-space:pre-wrap;">${safeMessage}</p>
-        `,
-      });
-      if (resendError) {
-        console.error("[Contact form] Resend API rejected:", resendError);
-      } else {
-        console.log("[Contact form] Resend accepted, id:", data?.id);
+      try {
+        const info = await transporter.sendMail({
+          from: `"Norwich Free Tour" <${process.env.ZOHO_EMAIL}>`,
+          to: "hello@norwichfreewalkingtours.co.uk",
+          replyTo: email,
+          subject: `Contact form: ${name}`,
+          text: `New contact form submission\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+          html: `
+            <h2>New contact form submission</h2>
+            <p><strong>Name:</strong> ${safeName}</p>
+            <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+            <hr />
+            <p><strong>Message:</strong></p>
+            <p style="white-space:pre-wrap;">${safeMessage}</p>
+          `,
+        });
+        console.log("[Contact form] Zoho SMTP accepted, id:", info.messageId);
+      } catch (emailErr) {
+        console.error("[Contact form] Zoho SMTP error:", emailErr);
       }
     } else {
-      // Fallback logging when RESEND_API_KEY is not set (dev / pre-launch)
-      console.log("[Contact form] RESEND_API_KEY not set — logging only:", { name, email, message });
+      // Fallback logging when ZOHO_* env vars are not set (dev / pre-launch)
+      console.log("[Contact form] ZOHO_* env vars not set — logging only:", { name, email, message });
     }
 
     return NextResponse.json({ success: true });

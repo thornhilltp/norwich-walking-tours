@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getZohoTransporter } from "@/lib/zohoMail";
 import { getSupabaseClient } from "@/lib/supabase";
 
 // ── Simple in-memory rate limiter ─────────────────────────────────────────────
@@ -105,38 +105,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ── 2. Fire Resend notification (only for genuinely new subscribers) ─────
-    if (!alreadySubscribed && process.env.RESEND_API_KEY) {
-      const safeEmail = escapeHtml(email);
-      const safeTimestamp = escapeHtml(timestamp);
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      try {
-        const { data, error: resendError } = await resend.emails.send({
-          from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
-          to: "hello@norwichfreewalkingtours.co.uk",
-          subject: `New subscriber: ${email}`,
-          text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
-          html: `
-            <h2>New email subscription</h2>
-            <p><strong>Email:</strong> ${safeEmail}</p>
-            <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
-          `,
-        });
-        if (resendError) {
-          console.error("[Subscribe] Resend API rejected:", resendError);
-        } else {
-          console.log("[Subscribe] Resend accepted, id:", data?.id);
+    // ── 2. Fire Zoho SMTP notification (only for genuinely new subscribers) ──
+    if (!alreadySubscribed) {
+      const transporter = getZohoTransporter();
+      if (transporter) {
+        const safeEmail = escapeHtml(email);
+        const safeTimestamp = escapeHtml(timestamp);
+        try {
+          const info = await transporter.sendMail({
+            from: `"Norwich Free Tour" <${process.env.ZOHO_EMAIL}>`,
+            to: "hello@norwichfreewalkingtours.co.uk",
+            subject: `New subscriber: ${email}`,
+            text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
+            html: `
+              <h2>New email subscription</h2>
+              <p><strong>Email:</strong> ${safeEmail}</p>
+              <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
+            `,
+          });
+          console.log("[Subscribe] Zoho SMTP accepted, id:", info.messageId);
+        } catch (emailErr) {
+          // Don't fail the request if the notification email breaks — the
+          // subscriber is already safely in Supabase.
+          console.error("[Subscribe] Zoho SMTP notification failed:", emailErr);
         }
-      } catch (emailErr) {
-        // Don't fail the request if the notification email breaks — the
-        // subscriber is already safely in Supabase.
-        console.error("[Subscribe] Resend notification failed:", emailErr);
+      } else {
+        console.log("[Subscribe] ZOHO_* env vars not set — DB insert only:", {
+          email,
+          timestamp,
+        });
       }
-    } else if (!alreadySubscribed && !process.env.RESEND_API_KEY) {
-      console.log("[Subscribe] RESEND_API_KEY not set — DB insert only:", {
-        email,
-        timestamp,
-      });
     }
 
     return NextResponse.json({ success: true });
