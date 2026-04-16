@@ -68,13 +68,12 @@ Sections in order (confirmed April 2026, do not reorder without instruction):
 2. **PhotoShowcase** — `components/PhotoShowcase.tsx`
 3. **WhatIsFreeTour** — explains free tour model with Norwich Lane photo. "Local guide" section.
 4. **StopsAndMap** — `TourStops` list + static route map image side-by-side. `id="tour-map"`.
-5. **HowItWorks** — 3 photo cards: Book → Meet at Forum → Pay what it was worth (tip £15–£20).
-6. **BookCTA** — standalone CTA button.
-7. **PracticalInfo** — logistics grid (meeting point, duration, schedule, language, pace, what to wear).
-8. **FAQ** — accordion, exact copy in `components/FAQ.tsx`. Do not rewrite without instruction.
-9. **WhyNorwich** — publication quotes (Country Living, The Times, Condé Nast, UNESCO). Data in `lib/whyNorwich.ts`.
-10. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
-11. **Footer**
+5. **HowItWorks** — 3 photo cards: Book → Meet at Forum → Pay what it was worth (tip £15–£20). Ends with its own "Book your spot" CTA.
+6. **PracticalInfo** — logistics grid (meeting point, duration, schedule, language, pace, what to wear).
+7. **FAQ** — accordion, exact copy in `components/FAQ.tsx`. Do not rewrite without instruction.
+8. **WhyNorwich** — publication quotes (Country Living, The Times, Condé Nast, UNESCO). Data in `lib/whyNorwich.ts`.
+9. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
+10. **Footer**
 
 ### `/tour` — The Tour
 10 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 1h 45m, daily, relaxed pace, what to wear.

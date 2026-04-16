@@ -43,20 +43,6 @@ const logistics = [
   },
 ];
 
-// ── CTA Banner ────────────────────────────────────────────────────────────────
-function BookCTA() {
-  return (
-    <div className="w-full bg-brand-bg py-10 flex justify-center">
-      <a
-        href="/book"
-        className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
-      >
-        Book your spot
-      </a>
-    </div>
-  );
-}
-
 // ── Tour Stops + Map (combined side-by-side) ─────────────────────────────────
 function StopsAndMap() {
   return (
@@ -213,7 +199,6 @@ export default function HomePage() {
       <WhatIsFreeTour />
       <StopsAndMap />
       <HowItWorks />
-      <BookCTA />
       <PracticalInfo />
       <FAQ />
       <WhyNorwich />
