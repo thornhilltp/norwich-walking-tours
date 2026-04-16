@@ -55,10 +55,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/Favicon.png", type: "image/png" },
     ],
-    apple: "/Favicon.png",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Norwich Free Walking Tour",

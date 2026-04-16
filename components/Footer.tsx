@@ -71,7 +71,7 @@ export function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Norwich Free Walking Tours"
               width={1376}
               height={768}

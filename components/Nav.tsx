@@ -44,7 +44,7 @@ export function Nav() {
           {/* Logo — enlarged */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Norwich Free Walking Tours"
               width={1376}
               height={768}
