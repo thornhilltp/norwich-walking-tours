@@ -73,8 +73,8 @@ export function Footer() {
             <Image
               src="/logo.png"
               alt="Norwich Free Walking Tours"
-              width={1376}
-              height={768}
+              width={510}
+              height={277}
               className="h-10 w-auto object-contain brightness-0 invert"
             />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>

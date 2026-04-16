@@ -46,8 +46,8 @@ export function Nav() {
             <Image
               src="/logo.png"
               alt="Norwich Free Walking Tours"
-              width={1376}
-              height={768}
+              width={510}
+              height={277}
               className={`w-auto object-contain transition-all duration-300 ${
                 scrolled ? "h-12 brightness-100" : "h-14 brightness-0 invert"
               }`}
