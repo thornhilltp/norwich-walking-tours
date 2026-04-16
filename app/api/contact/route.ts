@@ -89,8 +89,13 @@ export async function POST(request: NextRequest) {
       const safeEmail = escapeHtml(email);
       const safeMessage = escapeHtml(message);
       const resend = new Resend(process.env.RESEND_API_KEY);
+      // ── DIAGNOSTIC (2026-04-16) ──────────────────────────────────────────────
+      // Temporarily sending from Resend's shared sandbox address to isolate
+      // whether the Zoho 554 5.7.7 bounces are caused by our From header
+      // (domain self-spoof) vs. Resend IP reputation. Revert to
+      // noreply@norwichfreewalkingtours.co.uk once diagnosis is complete.
       const { data, error: resendError } = await resend.emails.send({
-        from: "Norwich Free Tour <noreply@norwichfreewalkingtours.co.uk>",
+        from: "Norwich Free Tour <onboarding@resend.dev>",
         to: "hello@norwichfreewalkingtours.co.uk",
         replyTo: email,
         subject: `Contact form: ${name}`,
