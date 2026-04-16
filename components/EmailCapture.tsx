@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Check } from "lucide-react";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "success" | "already" | "error";
 
 export function EmailCapture() {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export function EmailCapture() {
       if (!res.ok) {
         throw new Error(data.error ?? "Something went wrong.");
       }
-      setStatus("success");
+      setStatus(data.alreadySubscribed ? "already" : "success");
       setEmail("");
     } catch (err) {
       setStatus("error");
@@ -83,6 +83,16 @@ export function EmailCapture() {
             >
               <Check className="w-5 h-5" aria-hidden="true" />
               You&apos;re in. First email coming soon.
+            </div>
+          ) : status === "already" ? (
+            <div
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-accent/10 text-brand-accent font-semibold"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              role="status"
+              aria-live="polite"
+            >
+              <Check className="w-5 h-5" aria-hidden="true" />
+              Looks like you&apos;re already subscribed. See you on tour.
             </div>
           ) : (
             <form

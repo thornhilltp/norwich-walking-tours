@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, alreadySubscribed });
   } catch (err) {
     console.error("[Subscribe] Error:", err);
     return NextResponse.json(
