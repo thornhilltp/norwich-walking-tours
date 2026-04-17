@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Check } from "lucide-react";
+import { trackEvent } from "@/lib/tracking";
 
 type Status = "idle" | "submitting" | "success" | "already" | "error";
 
@@ -35,6 +36,7 @@ export function EmailCapture() {
         throw new Error(data.error ?? "Something went wrong.");
       }
       setStatus(data.alreadySubscribed ? "already" : "success");
+      trackEvent("subscribe_success", { is_new: !data.alreadySubscribed });
       setEmail("");
     } catch (err) {
       setStatus("error");

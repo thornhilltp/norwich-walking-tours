@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+import { BookingFrame } from "@/components/BookingFrame";
 
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tour",
@@ -30,15 +31,7 @@ export default function BookPage() {
         {/* Booking widget — full width */}
         <div className="brand-container pb-16">
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-brand-accent/15 bg-white">
-            <iframe
-              src="https://norwich-booking.vercel.app/"
-              title="Book your Norwich walking tour"
-              allow="payment"
-              loading="lazy"
-              referrerPolicy="origin"
-              className="w-full"
-              style={{ height: "700px", border: "none", display: "block" }}
-            />
+            <BookingFrame height={700} />
           </div>
 
           {/* Reassurance strip */}

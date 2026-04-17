@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { trackEvent } from "@/lib/tracking";
 
 /**
  * Fixed bottom bar visible on mobile while scrolling.
@@ -17,6 +18,7 @@ export function StickyBookCTA() {
     <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 safe-area-inset-bottom">
       <a
         href="/book"
+        onClick={() => trackEvent("book_cta_click", { location: "sticky_mobile" })}
         className="btn-cta flex items-center justify-center gap-2 w-full h-12 bg-brand-accent text-white rounded-xl text-base font-semibold hover:bg-brand-accent/90 transition-colors duration-150 focus-brand"
         style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
       >

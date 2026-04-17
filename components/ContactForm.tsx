@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
+import { trackEvent } from "@/lib/tracking";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -30,6 +31,7 @@ export function ContactForm() {
 
       if (!res.ok) throw new Error("Send failed");
       setSubmitted(true);
+      trackEvent("contact_success");
     } catch {
       setError("Something went wrong. Please try again or email us directly.");
     } finally {

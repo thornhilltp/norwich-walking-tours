@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { trackEvent } from "@/lib/tracking";
 
 const steps = [
   {
@@ -25,8 +26,8 @@ const steps = [
   {
     number: "03",
     title: "Pay what it was worth",
-    sub: "Our guides do this full time. Most guests tip £15–£20.",
-    detail: "Card, Apple Pay, Google Pay, cash",
+    sub: "Tip what it was worth. Our guides do this full time.",
+    detail: "Pay at the end",
     image: "/images/norwich-cathedral-stock.png",
     imageAlt: "Norwich Cathedral, end point of the walking tour",
   },
@@ -145,6 +146,7 @@ export function HowItWorks() {
         >
           <a
             href="/book"
+            onClick={() => trackEvent("book_cta_click", { location: "how_it_works" })}
             className="btn-cta inline-flex items-center justify-center px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg"
           >
             Book your spot

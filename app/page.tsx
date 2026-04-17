@@ -3,11 +3,14 @@ import { MapPin, Clock, Calendar, Footprints, Shirt, Globe } from "lucide-react"
 import { Hero } from "@/components/Hero";
 import { PhotoShowcase } from "@/components/PhotoShowcase";
 import { HowItWorks } from "@/components/HowItWorks";
+import { TipAnchor } from "@/components/TipAnchor";
 import { TourStops } from "@/components/TourStops";
 import { WhyNorwich } from "@/components/WhyNorwich";
 import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
+import { BookingFrame } from "@/components/BookingFrame";
 
 // ── Logistics data (shared with tour page) ────────────────────────────────────
 const logistics = [
@@ -159,12 +162,12 @@ function PracticalInfo() {
         </div>
 
         <div className="mt-10 text-center">
-          <a
-            href="/book"
+          <TrackedBookLink
+            location="practical_info"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
           >
             Book your spot
-          </a>
+          </TrackedBookLink>
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Near daily from The Forum
           </p>
@@ -182,23 +185,13 @@ export default function HomePage() {
         title={<>Norwich Free Walking Tours</>}
         buttonText="Book your spot"
         buttonHref="/book"
-        widget={
-          <iframe
-            src="https://norwich-booking.vercel.app/"
-            title="Book your Norwich walking tour"
-            allow="payment"
-            loading="lazy"
-            referrerPolicy="origin"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            className="w-full"
-            style={{ height: "520px", border: "none", display: "block" }}
-          />
-        }
+        widget={<BookingFrame height={520} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />}
       />
       <PhotoShowcase />
       <WhatIsFreeTour />
       <StopsAndMap />
       <HowItWorks />
+      <TipAnchor />
       <PracticalInfo />
       <FAQ />
       <WhyNorwich />

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/tracking";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface HeroProps {
@@ -119,6 +120,7 @@ export function Hero({
           <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href={buttonHref}
+              onClick={() => trackEvent("book_cta_click", { location: "hero" })}
               className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
               {buttonText}
@@ -155,11 +157,12 @@ export function Hero({
         </motion.div>
       </motion.div>
 
-      {/* Smooth wave divider */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: "56px", lineHeight: 0 }}>
-        <svg viewBox="0 0 1440 56" preserveAspectRatio="none" className="w-full h-full" aria-hidden="true">
+      {/* Smooth wave divider — bottom edge overdrawn 2px to prevent sub-pixel
+          gap where the dark overlay would otherwise show through at the seam. */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: "58px", lineHeight: 0 }}>
+        <svg viewBox="0 0 1440 58" preserveAspectRatio="none" className="w-full h-full" aria-hidden="true">
           <path
-            d="M0,56 L0,30 C240,56 480,8 720,28 C960,48 1200,12 1440,32 L1440,56 Z"
+            d="M0,58 L0,30 C240,56 480,8 720,28 C960,48 1200,12 1440,32 L1440,58 Z"
             fill="#FCFAF8"
           />
         </svg>
