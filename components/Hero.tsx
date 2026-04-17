@@ -157,8 +157,7 @@ export function Hero({
         </motion.div>
       </motion.div>
 
-      {/* Smooth wave divider — bottom edge overdrawn 2px to prevent sub-pixel
-          gap where the dark overlay would otherwise show through at the seam. */}
+      {/* Smooth wave divider */}
       <div className="absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: "58px", lineHeight: 0 }}>
         <svg viewBox="0 0 1440 58" preserveAspectRatio="none" className="w-full h-full" aria-hidden="true">
           <path
@@ -167,6 +166,18 @@ export function Hero({
           />
         </svg>
       </div>
+
+      {/* Solid cream backstop — layered on top of the wave's already-cream
+          bottom strip to guarantee the section's final pixel rows meet the
+          next section seamlessly at any fractional zoom / DPR. Solid-color
+          blocks don't have the sub-pixel rasterization artifacts that SVG
+          paths with preserveAspectRatio="none" can exhibit, so the dark
+          overlay can't bleed through. */}
+      <div
+        className="absolute bottom-0 left-0 right-0 bg-brand-bg pointer-events-none"
+        style={{ height: "3px" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
