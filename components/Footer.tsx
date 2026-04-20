@@ -75,7 +75,7 @@ export function Footer() {
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
-              className="h-10 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               See the real Norwich with a local. Near daily. Book your spot free.

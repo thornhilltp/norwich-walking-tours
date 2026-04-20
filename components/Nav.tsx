@@ -50,7 +50,7 @@ export function Nav() {
               height={500}
               className="w-auto object-contain transition-all duration-300"
               style={{
-                height: scrolled ? "64px" : "80px",
+                height: scrolled ? "72px" : "96px",
                 filter: scrolled
                   ? "brightness(0) invert(54%) sepia(30%) saturate(1200%) hue-rotate(108deg) brightness(93%)"
                   : "none",
