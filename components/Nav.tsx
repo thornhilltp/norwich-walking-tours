@@ -48,9 +48,13 @@ export function Nav() {
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
-              className={`w-auto object-contain transition-all duration-300 ${
-                scrolled ? "h-12 brightness-0" : "h-14 brightness-100"
-              }`}
+              className="w-auto object-contain transition-all duration-300"
+              style={{
+                height: scrolled ? "64px" : "80px",
+                filter: scrolled
+                  ? "brightness(0) invert(54%) sepia(30%) saturate(1200%) hue-rotate(108deg) brightness(93%)"
+                  : "none",
+              }}
               priority
             />
           </a>
