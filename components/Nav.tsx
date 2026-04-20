@@ -44,12 +44,12 @@ export function Nav() {
           {/* Logo — enlarged */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src="/logo.png"
+              src="/logo-white.png"
               alt="Norwich Free Walking Tours"
-              width={510}
-              height={277}
+              width={500}
+              height={500}
               className={`w-auto object-contain transition-all duration-300 ${
-                scrolled ? "h-12 brightness-100" : "h-14 brightness-0 invert"
+                scrolled ? "h-12 brightness-0" : "h-14 brightness-100"
               }`}
               priority
             />

@@ -71,11 +71,11 @@ export function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <Image
-              src="/logo.png"
+              src="/logo-white.png"
               alt="Norwich Free Walking Tours"
-              width={510}
-              height={277}
-              className="h-10 w-auto object-contain brightness-0 invert"
+              width={500}
+              height={500}
+              className="h-10 w-auto object-contain"
             />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               See the real Norwich with a local. Near daily. Book your spot free.
