@@ -44,17 +44,13 @@ export function Nav() {
           {/* Logo — enlarged */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src="/logo-white.png"
+              src={scrolled || mobileOpen ? "/Logo_1.svg" : "/Logo_2.svg"}
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
+              unoptimized
               className="w-auto object-contain transition-all duration-300"
-              style={{
-                height: scrolled ? "72px" : "96px",
-                filter: scrolled
-                  ? "brightness(0) invert(54%) sepia(30%) saturate(1200%) hue-rotate(108deg) brightness(93%)"
-                  : "none",
-              }}
+              style={{ height: scrolled ? "52px" : "64px" }}
               priority
             />
           </a>

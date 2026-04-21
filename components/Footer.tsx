@@ -71,10 +71,11 @@ export function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <Image
-              src="/logo-white.png"
+              src="/Logo_2.svg"
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
+              unoptimized
               className="h-20 w-auto object-contain"
             />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
