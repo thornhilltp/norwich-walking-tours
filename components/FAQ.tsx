@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "How much should I tip a free walking tour guide in the UK?",
-    a: "There's no fixed amount. Most guests on free walking tours in the UK pay between £15 and £20 per person depending on what they felt it was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
+    a: "There's no fixed amount. Most guests on free walking tours in the UK pay between £10 and £20 per person depending on what they felt it was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
   },
   {
     q: "Do I need to book in advance for the Norwich free walking tour?",
@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     q: "What's the best walking tour in Norwich?",
-    a: "Everyone has their pick. We're biased, but this is the only near-daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £15 to £20, you don't pay £15 to £20.",
+    a: "Everyone has their pick. We're biased, but this is the only near-daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
   },
 ];
 

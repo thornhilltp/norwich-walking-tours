@@ -26,7 +26,7 @@ const steps = [
   {
     number: "03",
     title: "Pay what it was worth",
-    sub: "Tip what it was worth. Our guides do this full time.",
+    sub: "Tip what it was worth. Usually between £10-£20. Our guides do this full time.",
     detail: "Pay at the end",
     image: "/images/norwich-cathedral-stock.png",
     imageAlt: "Norwich Cathedral, end point of the walking tour",

@@ -3,7 +3,6 @@ import { MapPin, Clock, Calendar, Footprints, Shirt, Globe } from "lucide-react"
 import { Hero } from "@/components/Hero";
 import { PhotoShowcase } from "@/components/PhotoShowcase";
 import { HowItWorks } from "@/components/HowItWorks";
-import { TipAnchor } from "@/components/TipAnchor";
 import { TourStops } from "@/components/TourStops";
 import { WhyNorwich } from "@/components/WhyNorwich";
 import { FAQ } from "@/components/FAQ";
@@ -191,7 +190,6 @@ export default function HomePage() {
       <WhatIsFreeTour />
       <StopsAndMap />
       <HowItWorks />
-      <TipAnchor />
       <PracticalInfo />
       <FAQ />
       <WhyNorwich />

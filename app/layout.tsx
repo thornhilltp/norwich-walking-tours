@@ -37,7 +37,7 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tour | See the real Norwich with a local",
   description:
-    "A near-daily pay what you want walking tour of Norwich. 1h 45m. English language. Meets at The Forum, rain or shine. Book your spot free. Most guests tip £15–£20.",
+    "A near-daily pay what you want walking tour of Norwich. 1h 45m. English language. Meets at The Forum, rain or shine. Book your spot free. Most guests tip £10–£20.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
@@ -117,7 +117,7 @@ const jsonLd = [
       price: "0",
       priceCurrency: "GBP",
       availability: "https://schema.org/InStock",
-      description: "Book free. Pay what it was worth at the end. Most guests tip £15–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
+      description: "Book free. Pay what it was worth at the end. Most guests tip £10–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
     },
   },
   {
