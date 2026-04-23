@@ -34,9 +34,10 @@ const securityHeaders = [
       "font-src 'self' https://fonts.gstatic.com",
       // Images: self, Unsplash, data URIs (Leaflet markers), blob, OSM
       // tile subdomains (a/b/c.tile.openstreetmap.org) for the Leaflet map.
-      "img-src 'self' data: blob: https://images.unsplash.com https://*.tile.openstreetmap.org https://unpkg.com",
-      // Leaflet map tiles + Google Analytics
-      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
+      // googletagmanager.com needed for GTM's image beacon pings (/td, /a).
+      "img-src 'self' data: blob: https://images.unsplash.com https://*.tile.openstreetmap.org https://unpkg.com https://www.googletagmanager.com",
+      // Leaflet map tiles + Google Analytics + GTM
+      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com",
       // Booking widget iframe
       "frame-src https://norwich-booking.vercel.app",
       // OpenStreetMap tiles for Leaflet
