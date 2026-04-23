@@ -16,10 +16,11 @@ export function BookingFrame({ className, height = 700, sandbox }: BookingFrameP
     function handleMessage(event: MessageEvent) {
       if (event.origin !== WIDGET_ORIGIN) return;
       const data = event.data;
-      if (data && typeof data === "object" && data.type === "booking_confirmed") {
-        const rest = { ...data };
-        delete rest.type;
-        trackEvent("booking_confirmed", rest);
+      // Forward any typed message from the widget to the dataLayer.
+      // type becomes the GA4 event name; remaining fields become parameters.
+      if (data && typeof data === "object" && typeof data.type === "string") {
+        const { type, ...rest } = data as { type: string; [key: string]: unknown };
+        trackEvent(type, rest);
       }
     }
 
