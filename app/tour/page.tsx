@@ -2,11 +2,12 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "The Tour | Norwich Free Walking Tour",
   description:
-    "11 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Near daily from The Forum. Book your spot free.",
+    "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Near daily from The Forum. Book your spot free.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/tour",
   },
@@ -19,12 +20,13 @@ const stopStories: Record<number, string> = {
   3: "A maze of independent shops and hidden alleys. Wander here to find the best local coffee and unique souvenirs. No chains, no franchise coffee. This is the Norwich locals actually use.",
   4: "Grab lunch in one of Britain's oldest and largest open-air markets with its iconic colourful roof. Nine hundred years of buying and selling in the same spot.",
   5: "Elegant Victorian and Edwardian shopping. Escape the high street for a genuinely refined experience. Most people walk past the entrance without realising what's inside.",
-  6: "The first pedestrianised street in the UK — and almost nobody in the city knows it. London Street carries centuries of commerce and quiet rebellion. The history here didn't make it onto any plaque.",
+  6: "The first pedestrianised street in the UK. London Street carries centuries of commerce and quiet rebellion. The history here didn't make it onto any plaque. Almost nobody in the city knows it.",
   7: "A massive Norman palace overlooking the city. The best place to visualise Norwich's medieval power and scale. Built on William the Conqueror's orders in 1067 and serving as a county gaol until 1887.",
-  8: "Explore the city's most famous cobbled street, often used as a film set. Stunning medieval buildings, largely unchanged since the 16th century. The locals have complicated feelings about it.",
-  9: "The Anglo-Saxon heart of the city. Learn Norwich's dark history and plague legends. Two medieval gates lead from here into the Cathedral Close: Erpingham Gate and Ethelbert Gate.",
-  10: "The city's oldest river crossing with iconic 'postcard' views of the Wensum and stories of medieval punishments. It's a quiet spot now, mostly popular with ducks and people eating lunch from the market.",
-  11: "Marvel at this 900-year-old icon, explore the church grounds and take a selfie with Paddington Bear. The spire is the second tallest in England. No queues. No entry fee. One of the great buildings of Europe and almost nobody knows it's here.",
+  8: "England's most complete medieval friary complex. This former 14th-century home of the Dominican 'Black Friars' now serves as the city's grandest venue for festivals and theatre.",
+  9: "Explore the city's most famous cobbled street, often used as a film set. Stunning medieval buildings, largely unchanged since the 16th century. The locals have complicated feelings about it.",
+  10: "The Anglo-Saxon heart of the city. Learn Norwich's dark history and plague legends. Two medieval gates lead from here into the Cathedral Close: Erpingham Gate and Ethelbert Gate.",
+  11: "The city's oldest river crossing with iconic 'postcard' views of the Wensum and stories of medieval punishments. It's a quiet spot now, mostly popular with ducks and people eating lunch from the market.",
+  12: "Marvel at this 900-year-old icon, explore the church grounds and take a selfie with Paddington Bear. The spire is the second tallest in England. No queues. No entry fee. One of the great buildings of Europe and almost nobody knows it's here.",
 };
 
 // Stop photos
@@ -33,14 +35,15 @@ const stopImages: Record<number, { src: string; alt: string }> = {
   4:  { src: "/images/norwich-market-sun-stock.png", alt: "Norwich Market — one of England's oldest and largest outdoor markets" },
   5:  { src: "/images/the-arcade-stock.png",         alt: "The Arcade Norwich — Victorian shopping arcade with ornate ironwork" },
   7:  { src: "/images/norwich-castle.png",           alt: "Norwich Castle, Norman fortress overlooking the city" },
-  8:  { src: "/images/elm-hill-stock.png",           alt: "Elm Hill, Norwich's famous cobbled medieval street" },
-  10: { src: "/images/vamous-view-norwich.png",      alt: "View of Norwich from Fye Bridge over the River Wensum" },
-  11: { src: "/images/norwich-cathedral-stock.png",  alt: "Norwich Cathedral — 900-year-old Norman cathedral with England's second-tallest spire" },
+  9:  { src: "/images/elm-hill-stock.png",           alt: "Elm Hill, Norwich's famous cobbled medieval street" },
+  11: { src: "/images/vamous-view-norwich.png",      alt: "View of Norwich from Fye Bridge over the River Wensum" },
+  12: { src: "/images/norwich-cathedral-stock.png",  alt: "Norwich Cathedral — 900-year-old Norman cathedral with England's second-tallest spire" },
 };
 
 export default function TourPage() {
   return (
     <main className="bg-brand-bg pt-16">
+      <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "The Tour", url: "/tour" }]} />
       {/* Hero */}
       <section className="section-padding bg-brand-bg border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto text-center">
@@ -48,7 +51,7 @@ export default function TourPage() {
             The tour
           </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold mb-5 leading-tight">
-            The real Norwich. 11 stops. 1h 45m.
+            The real Norwich. 12 stops. 1h 45m.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Here&apos;s exactly what you&apos;ll see. Every stop has a story. The kind that didn&apos;t make it onto any blue plaque.
@@ -76,9 +79,9 @@ export default function TourPage() {
           <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden max-w-xl mx-auto">
             <Image
               src="/images/route-map.png"
-              alt="Norwich Free Walking Tour route map showing all 11 stops"
-              width={1200}
-              height={900}
+              alt="Hand-drawn route map of the Norwich Free Walking Tour showing all 12 stops from The Forum to Norwich Cathedral."
+              width={1500}
+              height={1155}
               className="w-full h-auto"
               priority
             />

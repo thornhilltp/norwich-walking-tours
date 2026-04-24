@@ -10,7 +10,7 @@ const cityCards = [
     alt: "Norwich independent shops and local businesses in The Lanes",
     label: "Indie",
     caption:
-      "Discover Norwich's thriving independent scene. Grassroots music venues, alternative pubs, and shops you won't find anywhere else.",
+      "Discover Norwich's thriving independent scene. The best restaurants, grassroots music venues, alternative pubs, and shops you won't find anywhere else.",
     color: "from-black/80 via-black/40 to-transparent",
     position: "center 30%",
   },

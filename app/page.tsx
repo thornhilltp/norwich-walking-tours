@@ -55,7 +55,7 @@ function StopsAndMap() {
             The route
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-            11 stops. 1h 45m.
+            12 stops. 1h 45m.
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -70,9 +70,9 @@ function StopsAndMap() {
             </div>
             <Image
               src="/images/route-map.png"
-              alt="Norwich Free Walking Tour route map showing all 11 stops"
-              width={1200}
-              height={900}
+              alt="Hand-drawn route map of the Norwich Free Walking Tour showing all 12 stops from The Forum to Norwich Cathedral."
+              width={1500}
+              height={1155}
               className="w-full h-auto"
             />
             <p className="px-4 py-2 text-xs text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>

@@ -88,9 +88,9 @@ Simple form (name, email, message) + WhatsApp link + Instagram handle.
 
 ## 5. Tour Stops (in order)
 
-1. The Forum (meeting point) · 2. The Guildhall · 3. The Norwich Lanes · 4. Norwich Market · 5. The Arcade · 6. London Street (first pedestrianised street in the UK) · 7. Norwich Castle · 8. Elm Hill · 9. Tombland · 10. Fye Bridge · 11. Norwich Cathedral
+1. The Forum (meeting point) · 2. The Guildhall · 3. The Norwich Lanes · 4. Norwich Market · 5. The Arcade · 6. London Street (first pedestrianised street in the UK) · 7. Norwich Castle · 8. St Andrews Hall · 9. Elm Hill · 10. Tombland · 11. Fye Bridge · 12. Norwich Cathedral
 
-Map: centre `[52.6278, 1.2983]`, zoom 15, dashed green polyline, numbered markers in `#2DA96B`.
+Route map is a static image (`public/images/route-map.png`, 1500x1155). No Leaflet config needed.
 
 ---
 
@@ -109,6 +109,9 @@ FAQ headings target full natural-language queries:
 - "How much should I tip a free walking tour guide in the UK?"
 - "Do I need to book in advance for the Norwich free walking tour?"
 - "What's the best walking tour in Norwich?"
+- "Can I bring my dog on a walking tour in Norwich?"
+- "Is the Norwich walking tour accessible for wheelchairs or pushchairs?"
+- "Are there toilets on the Norwich walking tour?"
 
 Entity mentions in body copy (not stuffed): Elm Hill, The Norwich Lanes, Norwich Market, Tombland, Norwich Cathedral, The Forum, Norwich Castle.
 
@@ -168,6 +171,8 @@ Source files in `_templates/`.
 - [x] **Removed unused `resend` npm dep** (shipped 2026-04-16, commit `18a9815`). Confirmed absent from `package.json`; build passes. Booking widget in separate repo keeps its own Resend install.
 - [x] **M16. Conversion event tracking — main-site side shipped** (2026-04-17). New `lib/tracking.ts` helper wraps `window.dataLayer.push({event, ...data})`. Events firing: `subscribe_success` + `is_new` flag from `components/EmailCapture.tsx` (covers both `success` and `already` branches); `contact_success` from `components/ContactForm.tsx`; `book_cta_click` + `location` from the four named CTAs — `hero` (`components/Hero.tsx`), `how_it_works` (`components/HowItWorks.tsx`), `practical_info` (via new `components/TrackedBookLink.tsx` used from `app/page.tsx`), `sticky_mobile` (`components/StickyBookCTA.tsx`); `booking_confirmed` via new `components/BookingFrame.tsx` which replaces the raw iframe in `app/book/page.tsx` + homepage Hero widget and attaches a `window.addEventListener('message')` gated on `event.origin === "https://norwich-booking.vercel.app"`. **Still pending:** (a) widget-side `postMessage({type: 'booking_confirmed', booking_id, tour_date, party_size, amount_due})` targeting `https://www.norwichfreewalkingtours.co.uk` — lives in `thornhilltp/norwich-booking`; (b) GTM console work — create four GA4 event tags (`subscribe_success`, `contact_success`, `book_cta_click` with `location` param, `booking_confirmed` with booking params) and publish the container; (c) tagging the other 5 `/book` links (nav × 2, footer, PhotoShowcase, InvisibleCity) — cheap follow-up.
 - [x] **M17. Tip-guide anchor band** (shipped 2026-04-17). New `components/TipAnchor.tsx` renders as a standalone section between `HowItWorks` and `PracticalInfo` in `app/page.tsx`. White card on `bg-brand-bg` (doesn't clash with HowItWorks's `bg-brand-accent-light` above it). Headline in Caveat: *"On a good day, guests tip £15 to £20 per person."* followed by *"Pay less, pay more, or pay nothing. All of those are fine."* and a quieter explainer. Payment methods italicised footer. No CTA in this band (deliberate — the PracticalInfo Book CTA is one scroll below). De-duped `components/HowItWorks.tsx` third card at the same time: subtitle now *"Tip what it was worth. Our guides do this full time."* and pill now *"Pay at the end"* — £15–£20 anchor lives solely in the new band.
+
+- [x] **FAQ personality refresh + 3 new FAQs (dogs/accessibility/toilets) + St Andrews Hall added as stop #8 + route map updated to 12-stop version** (shipped 2026-04-24).
 
 **Still pending — near-term (pre / at launch):**
 

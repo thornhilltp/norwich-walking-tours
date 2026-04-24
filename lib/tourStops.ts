@@ -52,24 +52,30 @@ export const tourStops: TourStop[] = [
   },
   {
     id: 8,
+    name: "St Andrews Hall",
+    coords: [52.6299, 1.2990],
+    teaser: "England's most complete medieval friary complex. The former Dominican 'Black Friars' now host festivals and theatre.",
+  },
+  {
+    id: 9,
     name: "Elm Hill",
     coords: [52.6303, 1.3003],
     teaser: "The city's most famous cobbled street, often used as a film set. Stunning medieval buildings and shops.",
   },
   {
-    id: 9,
+    id: 10,
     name: "Tombland",
     coords: [52.6311, 1.2995],
     teaser: "The Anglo-Saxon heart of the city. Dark history, plague legends, and two gates into the Cathedral.",
   },
   {
-    id: 10,
+    id: 11,
     name: "Fye Bridge",
     coords: [52.6316, 1.2998],
     teaser: "The city's oldest river crossing. Iconic postcard views and stories of medieval punishments.",
   },
   {
-    id: 11,
+    id: 12,
     name: "Norwich Cathedral",
     coords: [52.6320, 1.3007],
     teaser: "Marvel at this 900-year-old icon, explore the grounds and take a selfie with Paddington Bear.",

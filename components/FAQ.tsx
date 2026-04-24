@@ -4,15 +4,15 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
-// Exact copy from CLAUDE.md Section 6 — do not rewrite without instruction
+// Exact copy from CLAUDE.md Section 6. Do not rewrite without instruction.
 const faqs = [
   {
     q: "Is it really free?",
-    a: "Yes. There is no upfront cost to join. At the end, you pay what you think the experience was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
+    a: "Yes. Nothing to pay upfront. At the end you pay what you think it was worth. Cards, Apple Pay, Google Pay and cash all work.",
   },
   {
     q: "What if it rains?",
-    a: "The tour runs every single day, rain or shine. Norwich's covered Lanes and the Cathedral Close offer natural shelter along the route. Bring appropriate clothing.",
+    a: "We run every day, rain or shine. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat, not an excuse.",
   },
   {
     q: "How fast do you walk?",
@@ -20,7 +20,19 @@ const faqs = [
   },
   {
     q: "Is this suitable for all ages?",
-    a: "Yes. The route is mostly flat and easy underfoot. Families, solo travellers, and people of all ages are all welcome.",
+    a: "Yes. Mostly flat, mostly paved, mostly easy. We've had 6-year-olds and 86-year-olds on the same tour and both had a good time. Families, solo travellers, groups, all welcome.",
+  },
+  {
+    q: "Can I bring my dog?",
+    a: "Yes, well-behaved dogs on a lead are welcome. The route is mostly pavement with a couple of cobbled stretches, so paws will be fine. Just flag it when you arrive so the guide knows.",
+  },
+  {
+    q: "Is the tour accessible for wheelchairs, pushchairs, or limited mobility?",
+    a: "Yes, with a little route-bending. A few of our stops are gloriously medieval, which is a polite way of saying cobbled (looking at you, Elm Hill). We can skip or go around the trickiest bits without missing the good stuff. Email ahead or grab your guide on arrival and we'll shape the walk around you. Pace is relaxed, stops are frequent, and nobody gets left behind.",
+  },
+  {
+    q: "Are there toilets on the tour?",
+    a: "Yes. We take a short comfort break roughly halfway, around St Andrews Hall and Elm Hill. Public toilets at St Andrews car park, plus cafes, pubs and restaurants right on the route.",
   },
   {
     q: "How is this different from other tours?",
@@ -28,11 +40,11 @@ const faqs = [
   },
   {
     q: "Where exactly do we meet?",
-    a: "Outside The Forum on Millennium Plain, Norwich city centre. Check your email for the exact description of your guide.",
+    a: "Outside The Forum on Millennium Plain, in the city centre. Your guide will be wearing a green t-shirt and carrying a suspicious amount of local knowledge. You'll get the full meeting description in your booking email.",
   },
   {
     q: "How do I book?",
-    a: "Booking is required. Use the booking form on this page or visit the booking page. It's free to book. You pay what you think the tour was worth at the end.",
+    a: "Booking form on this page, or head to the booking page. It's free to reserve. You pay at the end, only if you enjoyed it.",
   },
   {
     q: "Is Norwich worth visiting for a day?",
@@ -44,17 +56,30 @@ const faqs = [
   },
   {
     q: "How much should I tip a free walking tour guide in the UK?",
-    a: "There's no fixed amount. Most guests on free walking tours in the UK pay between £10 and £20 per person depending on what they felt it was worth. Cards, Apple Pay, Google Pay and cash all accepted.",
+    a: "No fixed amount. On a good day, guests tip £15 to £20 per person. Some pay less, some pay more, some pay nothing. All fine. Our guides do this full time, so tips are how they eat. Cards, Apple Pay, Google Pay and cash all accepted.",
   },
   {
     q: "Do I need to book in advance for the Norwich free walking tour?",
-    a: "Yes, booking is required. It's still free to reserve. Booking ahead lets us know how many to expect and means we can contact you if anything changes with weather or timing. Use the booking form on this page or head to the booking page.",
+    a: "Yes. Still free to reserve. Booking ahead means we know you're coming, and we can give you a heads-up if anything changes with the weather or the meeting point. Same form as above.",
   },
   {
     q: "What's the best walking tour in Norwich?",
-    a: "Everyone has their pick. We're biased, but this is the only near-daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
+    a: "Everyone has their pick. We're biased, but this is the only near-daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £15 to £20, you don't pay £15 to £20.",
   },
 ];
+
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
 
 function FAQItem({
   q,
@@ -120,6 +145,11 @@ export function FAQ() {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+    />
     <section ref={ref} id="faq" className="section-padding bg-brand-bg">
       <div className="brand-container">
         <div className="max-w-2xl mx-auto">
@@ -156,5 +186,6 @@ export function FAQ() {
         </div>
       </div>
     </section>
+    </>
   );
 }

@@ -94,7 +94,7 @@ const jsonLd = [
     description:
       "A near-daily pay what you want walking tour revealing the real Norwich. 1h 45m. English language. Meets at The Forum. Rain or shine.",
     url: "https://www.norwichfreewalkingtours.co.uk",
-    touristType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
+    audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",
     location: {
       "@type": "Place",
@@ -123,7 +123,7 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://www.norwichfreewalkingtours.co.uk/#business",
+    "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
     name: "Norwich Free Walking Tour",
     description: "Daily guided walking tours of Norwich. Pay what you want. English language. Meets at The Forum, Millennium Plain.",
     url: "https://www.norwichfreewalkingtours.co.uk",

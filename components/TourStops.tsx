@@ -22,7 +22,7 @@ export function TourStops({ hideHeader = false }: { hideHeader?: boolean }) {
             What you&apos;ll see
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
-            11 places. Most visitors miss half.
+            12 places. Most visitors miss half.
           </h2>
         </motion.div>
       )}

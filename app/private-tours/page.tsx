@@ -1,11 +1,31 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Users, Clock, MapPin, Star, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Private Tours | Norwich Free Walking Tours",
   description:
     "Book a private walking tour of Norwich for your group. Bespoke routes, flexible timings, and a dedicated guide. Perfect for corporate visits, families, and special occasions.",
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Private Walking Tours of Norwich",
+  serviceType: "Guided walking tour",
+  description:
+    "Book a private walking tour of Norwich for your group. Bespoke routes, flexible timings, and a dedicated guide. Perfect for corporate visits, families, and special occasions.",
+  provider: { "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness" },
+  areaServed: { "@type": "City", name: "Norwich" },
+  url: "https://www.norwichfreewalkingtours.co.uk/private-tours",
+  offers: {
+    "@type": "Offer",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      description: "Price on request - email for a quote",
+    },
+  },
 };
 
 const included = [
@@ -61,6 +81,12 @@ const options = [
 export default function PrivateToursPage() {
   return (
     <main className="bg-brand-bg pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "Private Tours", url: "/private-tours" }]} />
+
       {/* Hero */}
       <section
         className="relative section-padding"
@@ -91,14 +117,14 @@ export default function PrivateToursPage() {
       </section>
 
       {/* What's included */}
-      <section className="section-padding bg-brand-bg">
+      <section aria-labelledby="whats-included" className="section-padding bg-brand-bg">
         <div className="brand-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div>
               <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
                 What&apos;s included
               </p>
-              <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-6">
+              <h2 id="whats-included" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-6">
                 Everything handled. Nothing left to chance.
               </h2>
               <p className="font-lora text-muted-foreground text-lg leading-relaxed">
@@ -118,13 +144,13 @@ export default function PrivateToursPage() {
       </section>
 
       {/* Occasions */}
-      <section className="section-padding bg-brand-accent-light">
+      <section aria-labelledby="occasions" className="section-padding bg-brand-accent-light">
         <div className="brand-container">
           <div className="text-center mb-12">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
               Who it&apos;s for
             </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
+            <h2 id="occasions" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
               Any group. Any occasion.
             </h2>
           </div>
@@ -155,13 +181,13 @@ export default function PrivateToursPage() {
       </section>
 
       {/* Tour options */}
-      <section className="section-padding bg-brand-bg">
+      <section aria-labelledby="durations" className="section-padding bg-brand-bg">
         <div className="brand-container">
           <div className="text-center mb-12">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
               Tour options
             </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
+            <h2 id="durations" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
               Pick your duration.
             </h2>
           </div>
@@ -211,9 +237,9 @@ export default function PrivateToursPage() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-brand-text">
+      <section aria-labelledby="pricing" className="section-padding bg-brand-text">
         <div className="brand-container text-center max-w-2xl mx-auto">
-          <h2 className="font-caveat text-4xl md:text-5xl font-bold text-white mb-5">
+          <h2 id="pricing" className="font-caveat text-4xl md:text-5xl font-bold text-white mb-5">
             Ready to get in touch?
           </h2>
           <p className="font-lora text-white/70 text-lg leading-relaxed mb-8">

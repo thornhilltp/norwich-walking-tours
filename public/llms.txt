@@ -1,0 +1,30 @@
+# Norwich Free Walking Tour
+
+> Daily merit-based (pay-what-it-was-worth) walking tour of Norwich, UK. Led by a local guide. Runs near-daily, 1h 45m, starts at The Forum.
+
+The Real Norwich Essentials Tour is a free-to-book walking tour of Norwich city centre covering The Forum, Norwich Market, The Norwich Lanes, London Street (the first pedestrianised street in the UK), Norwich Castle, St Andrews Hall, Elm Hill, Tombland, Fye Bridge, and Norwich Cathedral. Book a free spot online, meet the guide at The Forum, pay what the tour was worth at the end by cash, card, Apple Pay, or Google Pay. Guests typically tip £15 to £20 per person.
+
+## Pages
+
+- [Home](https://www.norwichfreewalkingtours.co.uk/): overview of the tour, FAQ, booking widget
+- [The Tour](https://www.norwichfreewalkingtours.co.uk/tour): full 12-stop itinerary with photos and route map
+- [Book](https://www.norwichfreewalkingtours.co.uk/book): live booking widget, free to reserve a spot, pay at the end
+- [Private Tours](https://www.norwichfreewalkingtours.co.uk/private-tours): bespoke group and private tours, price on request
+- [Contact](https://www.norwichfreewalkingtours.co.uk/contact): email, form, social links
+
+## Key facts
+
+- Meeting point: The Forum, Norwich (central city, next to the library)
+- Duration: 1 hour 45 minutes
+- Schedule: near-daily, runs rain or shine
+- Group size: maximum 15 per tour
+- Language: English
+- Cost: free to book; pay what the tour was worth at the end (guests typically tip £15 to £20 per person)
+- Booking: https://www.norwichfreewalkingtours.co.uk/book
+- Contact: hello@norwichfreewalkingtours.co.uk
+
+## Optional
+
+- [Sitemap](https://www.norwichfreewalkingtours.co.uk/sitemap.xml)
+- [Privacy Policy](https://www.norwichfreewalkingtours.co.uk/privacy)
+- [Terms and Conditions](https://www.norwichfreewalkingtours.co.uk/terms)

@@ -61,7 +61,7 @@ Status key: `[x]` done · `[ ]` pending · `[!]` blocker found during this revie
 ## Per-page smoke check (run against the Vercel preview URL before DNS cutover)
 
 - [ ] `[MANUAL]` `/` — hero renders, booking iframe loads, CTAs navigate to `/book`, Why Norwich section shows 4 quotes, FAQ expands/collapses, email capture submits and shows success state.
-- [ ] `[MANUAL]` `/tour` — 11 stops render in order, map image loads.
+- [ ] `[MANUAL]` `/tour` — 12 stops render in order, map image loads.
 - [ ] `[MANUAL]` `/book` — booking widget iframe loads and is interactive.
 - [ ] `[MANUAL]` `/contact` — form submits, success state displays, email arrives (post-Resend).
 - [ ] `[MANUAL]` `/private-tours` — arcade hero image renders, copy displays.
