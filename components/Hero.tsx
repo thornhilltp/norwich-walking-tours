@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
-import { ArrowRight, Star, Clock, Users, CloudRain } from "lucide-react";
+import { ArrowRight, Star, Clock, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/tracking";
 import { googleReviewStats } from "@/lib/testimonials";
@@ -160,10 +160,6 @@ export function Hero({
             <span aria-hidden="true" className="text-white/40">·</span>
             <span className="inline-flex items-center gap-1">
               <Users className="h-4 w-4" aria-hidden="true" /> Max 15
-            </span>
-            <span aria-hidden="true" className="text-white/40">·</span>
-            <span className="inline-flex items-center gap-1">
-              <CloudRain className="h-4 w-4" aria-hidden="true" /> Rain or shine
             </span>
           </motion.div>
 
