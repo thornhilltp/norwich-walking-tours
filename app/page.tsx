@@ -191,13 +191,13 @@ export default function HomePage() {
       />
       <PhotoShowcase />
       <WhatIsFreeTour />
-      <StoriesTeaser />
       <Testimonials
         testimonials={googleReviews}
         rating={googleReviewStats.rating}
         count={googleReviewStats.count}
         profileUrl={googleReviewStats.profileUrl}
       />
+      <StoriesTeaser />
       <StopsAndMap />
       <HowItWorks />
       <PracticalInfo />
