@@ -36,9 +36,9 @@ const lora = Lora({
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Norwich Free Walking Tour | See the real Norwich with a local",
+  title: "Norwich Free Walking Tours | See the real Norwich with a local",
   description:
-    "A near-daily pay what you want walking tour of Norwich. 1h 45m. English language. Meets at The Forum, rain or shine. Book your spot free. Most guests tip £10–£20.",
+    "A near-daily pay what you want walking tour of Norwich. 2h. English language. Meets at The Forum, rain or shine. Book your spot free. Most guests tip £10–£20.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
@@ -61,11 +61,11 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Norwich Free Walking Tour",
+    title: "Norwich Free Walking Tours",
     description:
       "See the real Norwich with a local. Near daily. Book your spot free. Pay what it was worth at the end.",
     url: "https://www.norwichfreewalkingtours.co.uk",
-    siteName: "Norwich Free Walking Tour",
+    siteName: "Norwich Free Walking Tours",
     locale: "en_GB",
     type: "website",
     images: [
@@ -73,13 +73,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Norwich Free Walking Tour. See the real Norwich with a local.",
+        alt: "Norwich Free Walking Tours. See the real Norwich with a local.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Norwich Free Walking Tour",
+    title: "Norwich Free Walking Tours",
     description: "See the real Norwich with a local. Near daily. Book free.",
     images: ["/og-image.jpg"],
   },
@@ -120,9 +120,9 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "TouristAttraction",
-    name: "Norwich Free Walking Tour",
+    name: "Norwich Free Walking Tours",
     description:
-      "A near-daily pay what you want walking tour revealing the real Norwich. 1h 45m. English language. Meets at The Forum. Rain or shine.",
+      "A near-daily pay what you want walking tour revealing the real Norwich. 2h. English language. Meets at The Forum. Rain or shine.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",
@@ -156,7 +156,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
-    name: "Norwich Free Walking Tour",
+    name: "Norwich Free Walking Tours",
     description: "Daily guided walking tours of Norwich. Pay what you want. English language. Meets at The Forum, Millennium Plain.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     image: "https://www.norwichfreewalkingtours.co.uk/og-image.jpg",

@@ -153,7 +153,7 @@ export function EmailCapture() {
                   className="mt-1 h-4 w-4 flex-shrink-0 rounded border-brand-accent/40 text-brand-accent focus:ring-brand-accent cursor-pointer"
                 />
                 <span className="text-xs text-muted-foreground leading-relaxed">
-                  I&apos;d like to receive occasional marketing emails from Norwich Free Walking Tour. Unsubscribe any time. See our{" "}
+                  I&apos;d like to receive occasional marketing emails from Norwich Free Walking Tours. Unsubscribe any time. See our{" "}
                   <a href="/privacy" className="underline hover:text-brand-accent">
                     Privacy Policy
                   </a>

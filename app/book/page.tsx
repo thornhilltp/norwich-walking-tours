@@ -4,9 +4,9 @@ import { BookingFrame } from "@/components/BookingFrame";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Book | Norwich Free Walking Tour",
+  title: "Book | Norwich Free Walking Tours",
   description:
-    "Book your spot on the Norwich Free Walking Tour. Free to reserve. Near daily from The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.",
+    "Book your spot on the Norwich Free Walking Tours. Free to reserve. Near daily from The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/book",
   },

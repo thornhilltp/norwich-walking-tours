@@ -18,8 +18,8 @@ const steps = [
   {
     number: "02",
     title: "Meet your guide at The Forum",
-    sub: "1 hour 45 minutes, relaxed pace through Norwich's best bits.",
-    detail: "1h 45m, easy underfoot",
+    sub: "2 hours, relaxed pace through Norwich's best bits.",
+    detail: "2h, easy underfoot",
     image: "/images/st-georges-stock.png",
     imageAlt: "St George's Street, Norwich medieval cobbled street",
   },

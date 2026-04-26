@@ -24,7 +24,7 @@ const logistics = [
   {
     icon: Clock,
     label: "Duration",
-    value: "1 hour 45 minutes, finishing near the Cathedral.",
+    value: "2 hours, finishing near the Cathedral.",
   },
   {
     icon: Calendar,
@@ -58,7 +58,7 @@ function StopsAndMap() {
             The route
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-            12 stops. 1h 45m.
+            12 stops. 2h.
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -73,7 +73,7 @@ function StopsAndMap() {
             </div>
             <Image
               src="/images/route-map.png"
-              alt="Hand-drawn route map of the Norwich Free Walking Tour showing all 12 stops from The Forum to Norwich Cathedral."
+              alt="Hand-drawn route map of the Norwich Free Walking Tours showing all 12 stops from The Forum to Norwich Cathedral."
               width={1500}
               height={1155}
               className="w-full h-auto"
@@ -103,7 +103,7 @@ function WhatIsFreeTour() {
               What&apos;s a free tour?
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 1h 45m with a local guide who will show you the best spots and tell their favourite stories, and at the end you pay what you thought it was worth.
+              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 2h with a local guide who will show you the best spots and tell their favourite stories, and at the end you pay what you thought it was worth.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               No fixed price. No pressure. Just a fair exchange.

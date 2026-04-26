@@ -5,9 +5,9 @@ import { Mail, MapPin } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Contact | Norwich Free Walking Tour",
+  title: "Contact | Norwich Free Walking Tours",
   description:
-    "Get in touch with the Norwich Free Walking Tour. Questions, group bookings, or just want to say hello.",
+    "Get in touch with the Norwich Free Walking Tours. Questions, group bookings, or just want to say hello.",
 };
 
 export default function ContactPage() {

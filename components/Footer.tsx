@@ -29,19 +29,19 @@ function TikTokIcon({ className }: { className?: string }) {
 
 const socials = [
   {
-    label: "Norwich Free Walking Tour on Instagram",
+    label: "Norwich Free Walking Tours on Instagram",
     handle: "Instagram",
     href: "https://instagram.com/norwichfreewalkingtours",
     Icon: InstagramIcon,
   },
   {
-    label: "Norwich Free Walking Tour on TikTok",
+    label: "Norwich Free Walking Tours on TikTok",
     handle: "TikTok",
     href: "https://tiktok.com/@norwichfreewalkingtours",
     Icon: TikTokIcon,
   },
   {
-    label: "Norwich Free Walking Tour on Facebook",
+    label: "Norwich Free Walking Tours on Facebook",
     handle: "Facebook",
     href: "https://facebook.com/norwichfreewalkingtours",
     Icon: FacebookIcon,
@@ -143,7 +143,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-lora text-xs text-white/40">
-            &copy; {new Date().getFullYear()} Norwich Free Walking Tour. All rights reserved.
+            &copy; {new Date().getFullYear()} Norwich Free Walking Tours. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             {legalLinks.map((link) => (

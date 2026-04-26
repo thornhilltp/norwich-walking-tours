@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Norwich Free Walking Tour",
-  description: "How Norwich Free Walking Tour collects and uses your data.",
+  title: "Privacy Policy | Norwich Free Walking Tours",
+  description: "How Norwich Free Walking Tours collects and uses your data.",
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
 
           <Section title="Who we are">
             <p>
-              Norwich Free Walking Tour is operated by Thomas Thornhill, a sole trader based in
+              Norwich Free Walking Tours is operated by Thomas Thornhill, a sole trader based in
               Norwich, Norfolk, UK. Thomas Thornhill is the data controller for personal data
               collected through this website.
             </p>

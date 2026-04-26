@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Norwich Free Walking Tour",
-  description: "Terms and conditions for joining the Norwich Free Walking Tour.",
+  title: "Terms & Conditions | Norwich Free Walking Tours",
+  description: "Terms and conditions for joining the Norwich Free Walking Tours.",
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -31,9 +31,9 @@ export default function TermsPage() {
           </p>
 
           <Section title="The tour">
-            <p>Norwich Free Walking Tour is operated by Thomas Thornhill (sole trader), Norwich, Norfolk, UK. Contact: <a href="mailto:hello@norwichfreewalkingtours.co.uk" className="text-brand-accent hover:underline">hello@norwichfreewalkingtours.co.uk</a>.</p>
-            <p>Norwich Free Walking Tour is a pay what you want walking tour. Joining the tour is free. At the end, participants are invited to tip the guide based on their experience. There is no minimum or maximum tip amount.</p>
-            <p>The tour runs near daily, starting outside The Forum on Millennium Plain, Norwich city centre NR2 1TF. The tour lasts approximately 1 hour 45 minutes.</p>
+            <p>Norwich Free Walking Tours is operated by Thomas Thornhill (sole trader), Norwich, Norfolk, UK. Contact: <a href="mailto:hello@norwichfreewalkingtours.co.uk" className="text-brand-accent hover:underline">hello@norwichfreewalkingtours.co.uk</a>.</p>
+            <p>Norwich Free Walking Tours is a pay what you want walking tour. Joining the tour is free. At the end, participants are invited to tip the guide based on their experience. There is no minimum or maximum tip amount.</p>
+            <p>The tour runs near daily, starting outside The Forum on Millennium Plain, Norwich city centre NR2 1TF. The tour lasts approximately 2 hours.</p>
           </Section>
 
           <Section title="Booking">

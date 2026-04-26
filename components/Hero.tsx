@@ -161,7 +161,7 @@ export function Hero({
               </>
             )}
             <span className="inline-flex items-center gap-1">
-              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+              <Clock className="h-4 w-4" aria-hidden="true" /> 2h
             </span>
             <span aria-hidden="true" className="text-white/40">·</span>
             <span className="inline-flex items-center gap-1">
