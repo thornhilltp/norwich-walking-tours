@@ -23,6 +23,9 @@ export interface TestimonialsProps {
   testimonials?: Testimonial[];
   autoRotateInterval?: number;
   className?: string;
+  profileUrl?: string;
+  rating?: number;
+  count?: number;
 }
 
 /**
@@ -31,13 +34,21 @@ export interface TestimonialsProps {
  * Auto-rotating cards, dot navigation, scroll-triggered entrance.
  */
 export function Testimonials({
-  title = "What people say",
-  subtitle = "Real reviews from real visitors.",
-  badgeText = "5-star reviews",
+  title = "What guests are saying",
+  subtitle = "Real reviews from real people who took the tour.",
+  badgeText,
   testimonials = [],
   autoRotateInterval = 6000,
   className,
+  profileUrl,
+  rating,
+  count,
 }: TestimonialsProps) {
+  const computedBadge =
+    badgeText ??
+    (rating && rating > 0
+      ? `★ ${rating.toFixed(1)} on Google${count ? ` · ${count} review${count === 1 ? "" : "s"}` : ""}`
+      : "Reviews from Google");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -92,10 +103,10 @@ export function Testimonials({
           {/* Left: heading + dots */}
           <motion.div variants={itemVariants} className="flex flex-col justify-center">
             <div className="space-y-6">
-              {badgeText && (
+              {computedBadge && (
                 <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-brand-accent/10 text-brand-accent">
                   <Star className="mr-1 h-3.5 w-3.5 fill-brand-accent" aria-hidden="true" />
-                  <span>{badgeText}</span>
+                  <span>{computedBadge}</span>
                 </div>
               )}
 
@@ -123,6 +134,18 @@ export function Testimonials({
                   />
                 ))}
               </div>
+
+              {profileUrl && (
+                <a
+                  href={profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-brand-accent hover:underline"
+                >
+                  Read all reviews on Google
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
             </div>
           </motion.div>
 

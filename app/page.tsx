@@ -10,6 +10,8 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { BookingFrame } from "@/components/BookingFrame";
+import { Testimonials } from "@/components/Testimonials";
+import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 
 // ── Logistics data (shared with tour page) ────────────────────────────────────
 const logistics = [
@@ -188,6 +190,12 @@ export default function HomePage() {
       />
       <PhotoShowcase />
       <WhatIsFreeTour />
+      <Testimonials
+        testimonials={googleReviews}
+        rating={googleReviewStats.rating}
+        count={googleReviewStats.count}
+        profileUrl={googleReviewStats.profileUrl}
+      />
       <StopsAndMap />
       <HowItWorks />
       <PracticalInfo />

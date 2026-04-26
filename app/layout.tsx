@@ -6,6 +6,7 @@ import { StickyBookCTA } from "@/components/StickyBookCTA";
 import { PageTransition } from "@/components/PageTransition";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MotionProvider } from "@/components/MotionProvider";
+import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 
 // !! REPLACE GTM-XXXXXXX with your real Google Tag Manager container ID !!
 // Get this from tagmanager.google.com → your container → Admin → Install GTM
@@ -86,6 +87,35 @@ export const metadata: Metadata = {
 };
 
 // ── JSON-LD Schema ────────────────────────────────────────────────────────────
+// aggregateRating + review[] only emit when real reviews exist
+// (googleReviewStats.count > 0). Self-served ratings without real reviews
+// violate Google's structured-data policy — see CLAUDE.md §10.
+const aggregateRating =
+  googleReviewStats.count > 0
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: googleReviewStats.rating,
+        reviewCount: googleReviewStats.count,
+        bestRating: 5,
+        worstRating: 1,
+      }
+    : undefined;
+
+const reviewObjects =
+  googleReviewStats.count > 0
+    ? googleReviews.slice(0, 3).map((r) => ({
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.rating,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        author: { "@type": "Person", name: r.name },
+        reviewBody: r.content,
+      }))
+    : undefined;
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -119,6 +149,8 @@ const jsonLd = [
       availability: "https://schema.org/InStock",
       description: "Book free. Pay what it was worth at the end. Most guests tip £10–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
     },
+    ...(aggregateRating ? { aggregateRating } : {}),
+    ...(reviewObjects ? { review: reviewObjects } : {}),
   },
   {
     "@context": "https://schema.org",
@@ -149,6 +181,7 @@ const jsonLd = [
       "https://www.tiktok.com/@norwichfreewalkingtours",
       "https://www.facebook.com/norwichfreewalkingtours",
     ],
+    ...(aggregateRating ? { aggregateRating } : {}),
   },
 ];
 

@@ -3,9 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star, Clock, Users, CloudRain } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/tracking";
+import { googleReviewStats } from "@/lib/testimonials";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface HeroProps {
@@ -135,12 +136,49 @@ export function Hero({
             </a>
           </motion.div>
 
-          <motion.p
+          {/* Trust row — small credibility strip under the CTAs.
+              Star segment only renders once real Google reviews exist
+              (googleReviewStats.count > 0 in lib/testimonials.ts). */}
+          <motion.div
             variants={itemVariants}
-            className="mt-5 text-xs text-white/65 leading-relaxed"
+            className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm text-white/85"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            1h 45m &bull; £0 to book &bull; Pay at the end by card, Apple Pay or cash
+            {googleReviewStats.count > 0 && (
+              <>
+                <a
+                  href={googleReviewStats.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:underline"
+                  aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews`}
+                >
+                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                  <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
+                  <span className="text-white/75">({googleReviewStats.count} review{googleReviewStats.count === 1 ? "" : "s"})</span>
+                </a>
+                <span aria-hidden="true" className="text-white/40">·</span>
+              </>
+            )}
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+            </span>
+            <span aria-hidden="true" className="text-white/40">·</span>
+            <span className="inline-flex items-center gap-1">
+              <Users className="h-4 w-4" aria-hidden="true" /> Max 15
+            </span>
+            <span aria-hidden="true" className="text-white/40">·</span>
+            <span className="inline-flex items-center gap-1">
+              <CloudRain className="h-4 w-4" aria-hidden="true" /> Rain or shine
+            </span>
+          </motion.div>
+
+          <motion.p
+            variants={itemVariants}
+            className="mt-2 text-xs text-white/65 leading-relaxed"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            £0 to book &bull; Pay at the end by card, Apple Pay or cash
           </motion.p>
         </div>
 
