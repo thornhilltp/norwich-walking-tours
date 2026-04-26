@@ -17,7 +17,7 @@ import type { Testimonial } from "@/components/Testimonials";
 
 export const googleReviewStats = {
   rating: 5,
-  count: 3,
+  count: 4,
   profileUrl: "https://g.page/r/CWI7BtXPKyyZEAE/review",
 };
 
@@ -47,6 +47,14 @@ export const googleReviews: Testimonial[] = [
     avatar: "/images/reviews/julie.png",
     content:
       "Brilliant way to find out things about Norwich City. I've lived in Norwich for most of my life but still found this so interesting and learnt lots of things I didn't know. Tom is very knowledgeable and engaging. Would definitely recommend this City Walk.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    name: "Steve Thacker",
+    role: "Tour guest, April 2026",
+    content:
+      "Nice relaxed informative stroll. Plenty of information and some helpful tips to venues if you want to explore in more depth, very enjoyable 2 hours.",
     rating: 5,
   },
 ];
