@@ -19,7 +19,7 @@ const cityCards = [
     alt: "Norwich independent café and street life in the city centre",
     label: "Living",
     caption:
-      "Learn what's it like to live in Norwich and why it was ranked as the top place to live in the UK by the Sunday times in March 2026",
+      "Learn what it's like to live in Norwich and why it was ranked the top place to live in the UK by The Sunday Times in March 2026.",
     color: "from-black/80 via-black/40 to-transparent",
     position: "center center",
   },

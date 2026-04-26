@@ -43,7 +43,7 @@ export const googleReviews: Testimonial[] = [
     name: "Actual reviews coming soon",
     role: "Tours launching soon",
     content:
-      "Real 5-star reviews from real people are on their way. For now, just know that Norwich Cathedral alone is worth showing up for — and we haven't even got to Elm Hill yet.",
+      "Real 5-star reviews from real people are on their way. For now, just know that Norwich Cathedral alone is worth showing up for, and we haven't even got to Elm Hill yet.",
     rating: 5,
   },
 ];

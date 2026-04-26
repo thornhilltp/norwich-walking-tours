@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Norwich Free Walking Tour — See the real Norwich with a local",
+        alt: "Norwich Free Walking Tour. See the real Norwich with a local.",
       },
     ],
   },

@@ -42,7 +42,7 @@ export const tourStops: TourStop[] = [
     id: 6,
     name: "London Street",
     coords: [52.6282, 1.2968],
-    teaser: "The first pedestrianised street in the UK — and almost nobody knows it. Hidden history in plain sight.",
+    teaser: "The first pedestrianised street in the UK. Almost nobody knows it. Hidden history in plain sight.",
   },
   {
     id: 7,

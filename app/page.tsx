@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin, Clock, Calendar, Footprints, Shirt, Globe } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { PhotoShowcase } from "@/components/PhotoShowcase";
+import { StoriesTeaser } from "@/components/StoriesTeaser";
 import { HowItWorks } from "@/components/HowItWorks";
 import { TourStops } from "@/components/TourStops";
 import { WhyNorwich } from "@/components/WhyNorwich";
@@ -112,7 +113,7 @@ function WhatIsFreeTour() {
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
             <Image
               src="/images/norwich-lane-stock.png"
-              alt="The Norwich Lanes — independent shops, cafés and hidden courtyards in Norwich city centre"
+              alt="The Norwich Lanes. Independent shops, cafés and hidden courtyards in Norwich city centre."
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -190,6 +191,7 @@ export default function HomePage() {
       />
       <PhotoShowcase />
       <WhatIsFreeTour />
+      <StoriesTeaser />
       <Testimonials
         testimonials={googleReviews}
         rating={googleReviewStats.rating}

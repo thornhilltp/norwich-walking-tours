@@ -178,7 +178,7 @@ export function Hero({
             className="mt-2 text-xs text-white/65 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Pay at the end by card, Apple Pay or cash
+            £0 to book &bull; Pay at the end by card, Apple Pay, Google Pay or cash
           </motion.p>
         </div>
 

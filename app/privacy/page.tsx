@@ -152,20 +152,20 @@ export default function PrivacyPage() {
             <p>We share data with the following service providers only as necessary to operate:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>
-                <strong>Resend</strong> — receives your name and email address to deliver booking
+                <strong>Resend</strong>: receives your name and email address to deliver booking
                 confirmations, reminders, and contact form replies.
               </li>
               <li>
-                <strong>Supabase</strong> — hosts our booking database (AWS EU region). Stores
+                <strong>Supabase</strong>: hosts our booking database (AWS EU region). Stores
                 booking fields as described above.
               </li>
               <li>
-                <strong>Vercel</strong> — hosts this website. Receives your IP address and request
+                <strong>Vercel</strong>: hosts this website. Receives your IP address and request
                 metadata as part of normal web hosting. This is not stored beyond standard server
                 logs.
               </li>
               <li>
-                <strong>Google Analytics</strong> — receives anonymised usage data if you accept
+                <strong>Google Analytics</strong>: receives anonymised usage data if you accept
                 analytics cookies.
               </li>
             </ul>
