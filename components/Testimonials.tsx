@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Quote, Star } from "lucide-react";
 import { motion, useAnimation, useInView, type Variants, type Easing } from "framer-motion";
@@ -181,14 +180,18 @@ export function Testimonials({
                   <Separator className="my-4 bg-brand-accent/10" />
 
                   <div className="flex items-center gap-4">
-                    <Avatar className="h-12 w-12 border border-brand-accent/20">
-                      {testimonial.avatar && (
-                        <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                    <div className="h-12 w-12 rounded-full overflow-hidden border border-brand-accent/20 bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold shrink-0">
+                      {testimonial.avatar ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <span>{testimonial.name.charAt(0)}</span>
                       )}
-                      <AvatarFallback className="bg-brand-accent-light text-brand-accent font-semibold">
-                        {testimonial.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
+                    </div>
                     <div>
                       <p className="font-semibold font-lora text-brand-text">
                         {testimonial.name}
