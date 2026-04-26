@@ -17,7 +17,7 @@ import type { Testimonial } from "@/components/Testimonials";
 
 export const googleReviewStats = {
   rating: 5,
-  count: 1,
+  count: 2,
   profileUrl: "https://g.page/r/CWI7BtXPKyyZEAE/review",
 };
 
@@ -28,6 +28,14 @@ export const googleReviews: Testimonial[] = [
     role: "Tour guest, April 2026",
     content:
       "The tour was an excellent overview of the small but beautiful city of Norwich. We took in some of the key sites and were told all about their history, plus some fun facts! There was plenty to see and our guide Tom offered up lots of information on other places to go to not included on the tour, as well as some food and drink recommendations. The pacing was good, with opportunity to stop and take pictures and have comfort breaks. Overall, Norwich is a city rich with history and culture and this tour is the perfect introduction, I highly recommend it.",
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: "Matt",
+    role: "Tour guest, April 2026",
+    content:
+      "Tom is a really great guide, very informative and friendly and gave us a great insight into the city and its history. Went on a beautiful Sunday morning with around 15 other people and never once felt like we were moving too fast or slow during the tour. We stopped at key city landmarks and areas and Tom gave detailed information with wit and charm. A great way to spend a couple of hours around Norwich. Highly recommend 😊",
     rating: 5,
   },
 ];
