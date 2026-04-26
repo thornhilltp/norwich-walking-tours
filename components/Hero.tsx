@@ -104,12 +104,6 @@ export function Hero({
             {title}
           </motion.h1>
 
-          <motion.div variants={itemVariants} className="mt-3 mb-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-white/15 text-white/90 border border-white/25" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Coming May 2026
-            </span>
-          </motion.div>
-
           <motion.p
             className="mt-4 text-xl text-white/85 leading-snug"
             style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
