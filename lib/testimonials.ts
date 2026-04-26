@@ -16,34 +16,18 @@
 import type { Testimonial } from "@/components/Testimonials";
 
 export const googleReviewStats = {
-  rating: 0,
-  count: 0,
+  rating: 5,
+  count: 1,
   profileUrl: "https://g.page/r/CWI7BtXPKyyZEAE/review",
 };
 
 export const googleReviews: Testimonial[] = [
   {
     id: 1,
-    name: "Reviews incoming!",
-    role: "Watch this space",
+    name: "Claire",
+    role: "Tour guest, April 2026",
     content:
-      "We haven't started yet, but my mother in law says it's five stars!",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "Early verdict",
-    role: "From someone who should know",
-    content:
-      "I walked the route myself before launch and genuinely got lost in the history of Tombland for 20 minutes. If I can do that to myself, imagine what I'll do to you.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Actual reviews coming soon",
-    role: "Tours launching soon",
-    content:
-      "Real 5-star reviews from real people are on their way. For now, just know that Norwich Cathedral alone is worth showing up for, and we haven't even got to Elm Hill yet.",
+      "The tour was an excellent overview of the small but beautiful city of Norwich. We took in some of the key sites and were told all about their history, plus some fun facts! There was plenty to see and our guide Tom offered up lots of information on other places to go to not included on the tour, as well as some food and drink recommendations. The pacing was good, with opportunity to stop and take pictures and have comfort breaks. Overall, Norwich is a city rich with history and culture and this tour is the perfect introduction, I highly recommend it.",
     rating: 5,
   },
 ];
