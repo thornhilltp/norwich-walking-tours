@@ -173,9 +173,13 @@ export function Testimonials({
                 <div className="bg-white border border-brand-accent/20 shadow-lg rounded-xl p-8 h-full flex flex-col">
                   <div className="relative mb-6 flex-1">
                     <Quote className="absolute -top-2 -left-2 h-8 w-8 text-brand-accent/20 rotate-180" aria-hidden="true" />
-                    <p className="relative z-10 text-lg font-medium leading-relaxed font-lora text-brand-text">
-                      &ldquo;{testimonial.content}&rdquo;
-                    </p>
+                    <div className="relative z-10 font-lora text-brand-text space-y-2">
+                      {testimonial.content.split("\n").map((sentence, i, arr) => (
+                        <p key={i} className="text-base font-medium leading-relaxed">
+                          {i === 0 && "“"}{sentence}{i === arr.length - 1 && "”"}
+                        </p>
+                      ))}
+                    </div>
                   </div>
 
                   <Separator className="my-4 bg-brand-accent/10" />

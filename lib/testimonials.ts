@@ -28,7 +28,7 @@ export const googleReviews: Testimonial[] = [
     role: "Tour guest, April 2026",
     avatar: "/images/reviews/claire.png",
     content:
-      "The tour was an excellent overview of the small but beautiful city of Norwich. We took in some of the key sites and were told all about their history, plus some fun facts! There was plenty to see and our guide Tom offered up lots of information on other places to go to not included on the tour, as well as some food and drink recommendations. The pacing was good, with opportunity to stop and take pictures and have comfort breaks. Overall, Norwich is a city rich with history and culture and this tour is the perfect introduction, I highly recommend it.",
+      "The tour was an excellent overview of the small but beautiful city of Norwich.\nOur guide Tom offered up lots of information on other places to go, as well as food and drink recommendations.\nOverall, this tour is the perfect introduction to the city — I highly recommend it.",
     rating: 5,
   },
   {
@@ -37,7 +37,7 @@ export const googleReviews: Testimonial[] = [
     role: "Tour guest, April 2026",
     avatar: "/images/reviews/matt.png",
     content:
-      "Tom is a really great guide, very informative and friendly and gave us a great insight into the city and its history. Went on a beautiful Sunday morning with around 15 other people and never once felt like we were moving too fast or slow during the tour. We stopped at key city landmarks and areas and Tom gave detailed information with wit and charm. A great way to spend a couple of hours around Norwich. Highly recommend 😊",
+      "Tom is a really great guide — very informative and friendly, with a great insight into the city and its history.\nWe stopped at key city landmarks and Tom gave detailed information with wit and charm.\nA great way to spend a couple of hours around Norwich. Highly recommend 😊",
     rating: 5,
   },
   {
@@ -46,7 +46,7 @@ export const googleReviews: Testimonial[] = [
     role: "Tour guest, April 2026",
     avatar: "/images/reviews/julie.png",
     content:
-      "Brilliant way to find out things about Norwich City. I've lived in Norwich for most of my life but still found this so interesting and learnt lots of things I didn't know. Tom is very knowledgeable and engaging. Would definitely recommend this City Walk.",
+      "Brilliant way to find out things about Norwich City.\nI've lived in Norwich for most of my life but still learnt lots of things I didn't know.\nTom is very knowledgeable and engaging. Would definitely recommend this City Walk.",
     rating: 5,
   },
   {
@@ -54,7 +54,7 @@ export const googleReviews: Testimonial[] = [
     name: "Steve Thacker",
     role: "Tour guest, April 2026",
     content:
-      "Nice relaxed informative stroll. Plenty of information and some helpful tips to venues if you want to explore in more depth, very enjoyable 2 hours.",
+      "Nice relaxed informative stroll.\nPlenty of information and some helpful tips to venues if you want to explore in more depth.\nVery enjoyable two hours.",
     rating: 5,
   },
 ];
