@@ -12,8 +12,8 @@ const steps = [
     title: "Book your spot",
     sub: "Reserve your place online. It's free.",
     detail: "Free to book",
-    image: "/images/clock-tower-stock.png",
-    imageAlt: "The Forum and Norwich Market clock tower meeting point",
+    image: "/images/tour/dog-erpingham-gate.jpg",
+    imageAlt: "A dog at Erpingham Gate, Norwich — all well-behaved dogs welcome on the Norwich Free Walking Tour",
   },
   {
     number: "02",
