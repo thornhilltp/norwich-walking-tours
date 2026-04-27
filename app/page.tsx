@@ -5,7 +5,6 @@ import { PhotoShowcase } from "@/components/PhotoShowcase";
 import { StoriesTeaser } from "@/components/StoriesTeaser";
 import { HowItWorks } from "@/components/HowItWorks";
 import { TourStops } from "@/components/TourStops";
-import { WhyNorwich } from "@/components/WhyNorwich";
 import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
@@ -202,7 +201,6 @@ export default function HomePage() {
       <HowItWorks />
       <PracticalInfo />
       <FAQ />
-      <WhyNorwich />
       <EmailCapture />
       <Footer />
     </main>

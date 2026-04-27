@@ -71,9 +71,8 @@ Sections in order (confirmed April 2026, do not reorder without instruction):
 5. **HowItWorks** — 3 photo cards: Book → Meet at Forum → Pay what it was worth (tip £15–£20). Ends with its own "Book your spot" CTA.
 6. **PracticalInfo** — logistics grid (meeting point, duration, schedule, language, pace, what to wear).
 7. **FAQ** — accordion, exact copy in `components/FAQ.tsx`. Do not rewrite without instruction.
-8. **WhyNorwich** — publication quotes (Country Living, The Times, Condé Nast, UNESCO). Data in `lib/whyNorwich.ts`.
-9. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
-10. **Footer**
+8. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
+9. **Footer**
 
 ### `/tour` — The Tour
 10 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 1h 45m, daily, relaxed pace, what to wear.
@@ -207,7 +206,6 @@ _Technical (from April 2026 site review):_
 _Marketing — near-term:_
 - [ ] **M3. Replace stock photography with authentic tour photos** once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
 - [ ] **M4. FAQPage JSON-LD** in `components/FAQ.tsx` (separate from existing TouristAttraction schema in `app/layout.tsx`). Unlocks rich FAQ accordions in Google SERP — typically +10–20% CTR.
-- [ ] **M5. Verify "As seen in" publication quotes** in `lib/whyNorwich.ts` — confirm Country Living / Times / Condé Nast / UNESCO are tour-specific or Norwich-general. Adjust wording for accuracy (e.g. "Norwich featured in…") and add genuine tour press post-launch.
 - [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 1h 45m · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
 - [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
 - [ ] **M12. OG image upgrade** — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
