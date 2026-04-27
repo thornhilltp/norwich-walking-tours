@@ -20,16 +20,16 @@ const steps = [
     title: "Meet your guide at The Forum",
     sub: "2 hours, relaxed pace through Norwich's best bits.",
     detail: "2h, easy underfoot",
-    image: "/images/st-georges-stock.png",
-    imageAlt: "St George's Street, Norwich medieval cobbled street",
+    image: "/images/tour/guides-edith-cavell.jpg",
+    imageAlt: "Two Free Walking Tour Norwich guides at the Edith Cavell memorial outside Norwich Cathedral",
   },
   {
     number: "03",
     title: "Pay what it was worth",
     sub: "Tip what it was worth. Usually between £10-£20. Our guides do this full time.",
     detail: "Pay at the end",
-    image: "/images/norwich-cathedral-stock.png",
-    imageAlt: "Norwich Cathedral, end point of the walking tour",
+    image: "/images/tour/group-portrait-bridge.jpg",
+    imageAlt: "Walking tour guests posing for a group photo at the end of the tour",
   },
 ];
 

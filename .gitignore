@@ -39,6 +39,8 @@ next-env.d.ts
 /Skills/
 /_templates/
 /public/Stock photos of Norwich to use/
+/public/Photos New Tour/
 
 # claude code
 /.claude/plans/
+/.scratch/

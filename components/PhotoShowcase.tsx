@@ -6,8 +6,8 @@ import Image from "next/image";
 
 const cityCards = [
   {
-    src: "/images/norwich-independant-vibe.png",
-    alt: "Norwich independent shops and local businesses in The Lanes",
+    src: "/images/tour/guide-norwich-market.jpg",
+    alt: "Free Walking Tour Norwich guide explaining the city's independent market stalls",
     label: "Indie",
     caption:
       "Discover Norwich's thriving independent scene. The best restaurants, grassroots music venues, alternative pubs, and shops you won't find anywhere else.",
@@ -15,8 +15,8 @@ const cityCards = [
     position: "center 30%",
   },
   {
-    src: "/images/norwich-vibey-shop-stock.png",
-    alt: "Norwich independent café and street life in the city centre",
+    src: "/images/tour/group-britons-arms.jpg",
+    alt: "Walking tour group outside the Britons Arms, the thatched-roof Tudor coffee house on Elm Hill, Norwich",
     label: "Living",
     caption:
       "Learn what it's like to live in Norwich and why it was ranked the top place to live in the UK by The Sunday Times in March 2026.",
@@ -24,8 +24,8 @@ const cityCards = [
     position: "center center",
   },
   {
-    src: "/images/norwich-castle.png",
-    alt: "Norwich Castle, Norman fortress overlooking the city",
+    src: "/images/tour/group-cathedral-west-front.jpg",
+    alt: "Walking tour group in front of Norwich Cathedral's medieval west front",
     label: "Historical",
     caption:
       "Nine hundred years of history in a city that actually kept it. The stories behind the buildings you'll walk past.",

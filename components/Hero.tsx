@@ -58,13 +58,13 @@ export function Hero({
           sizing and priority preload. Positioned absolutely so the rest of
           the section layout is unaffected. */}
       <Image
-        src="/images/pottergate-stock.png"
+        src="/images/tour/group-cathedral-lawn.jpg"
         alt=""
         fill
         priority
         sizes="100vw"
         className="object-cover -z-10"
-        style={{ objectPosition: "center 75%" }}
+        style={{ objectPosition: "center 40%" }}
       />
 
       {/* Dark overlay */}
