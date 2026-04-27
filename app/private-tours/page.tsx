@@ -91,7 +91,7 @@ export default function PrivateToursPage() {
       <section
         className="relative section-padding"
         style={{
-          backgroundImage: "url('/images/guides-edith-cavell.jpg')",
+          backgroundImage: "url('/images/tour/guides-edith-cavell.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 70%",
         }}
