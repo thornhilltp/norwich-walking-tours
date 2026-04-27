@@ -59,7 +59,7 @@ export function Hero({
           the section layout is unaffected. */}
       <Image
         src="/images/tour/group-cathedral-lawn.jpg"
-        alt=""
+        alt="Tour group walking through Norwich city centre on the Norwich Free Walking Tour"
         fill
         priority
         sizes="100vw"

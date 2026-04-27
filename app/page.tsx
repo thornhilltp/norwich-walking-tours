@@ -112,8 +112,8 @@ function WhatIsFreeTour() {
           {/* Photo */}
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
             <Image
-              src="/images/norwich-lane-stock.png"
-              alt="The Norwich Lanes. Independent shops, cafés and hidden courtyards in Norwich city centre."
+              src="/images/tour/what-is-free-tour.jpg"
+              alt="Visitors joining the Norwich Free Walking Tour and exploring the city with a local guide."
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"

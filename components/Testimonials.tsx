@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Quote, Star } from "lucide-react";
 import { motion, useAnimation, useInView, type Variants, type Easing } from "framer-motion";
@@ -182,10 +183,11 @@ export function Testimonials({
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-full overflow-hidden border border-brand-accent/20 bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold shrink-0">
                       {testimonial.avatar ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+                        <Image
                           src={testimonial.avatar}
                           alt={testimonial.name}
+                          width={48}
+                          height={48}
                           className="h-full w-full object-cover"
                         />
                       ) : (

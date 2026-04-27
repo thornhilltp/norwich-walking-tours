@@ -20,8 +20,8 @@ const steps = [
     title: "Meet your guide at The Forum",
     sub: "2 hours, relaxed pace through Norwich's best bits.",
     detail: "2h, easy underfoot",
-    image: "/images/tour/guides-edith-cavell.jpg",
-    imageAlt: "Two Free Walking Tour Norwich guides at the Edith Cavell memorial outside Norwich Cathedral",
+    image: "/images/tour/meet-at-the-forum.jpg",
+    imageAlt: "Guests meeting their guide at The Forum, the start of the Norwich Free Walking Tour",
   },
   {
     number: "03",
