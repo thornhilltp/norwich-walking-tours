@@ -14,6 +14,7 @@ const steps = [
     detail: "Free to book",
     image: "/images/tour/dog-erpingham-gate.jpg",
     imageAlt: "A dog at Erpingham Gate, Norwich — all well-behaved dogs welcome on the Norwich Free Walking Tour",
+    imagePosition: "center 75%",
   },
   {
     number: "02",
@@ -73,6 +74,7 @@ export function HowItWorks() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    style={step.imagePosition ? { objectPosition: step.imagePosition } : undefined}
                   />
                   {/* Step number overlay */}
                   <div className="absolute top-3 left-3 w-10 h-10 rounded-full bg-brand-accent text-white font-bold text-sm flex items-center justify-center shadow-lg" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
