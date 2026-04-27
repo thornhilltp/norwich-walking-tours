@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Users, Clock, MapPin, Star, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -85,15 +84,13 @@ export default function PrivateToursPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-      <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "Private Tours", url: "/private-tours" }]} />
-
       {/* Hero */}
       <section
         className="relative section-padding"
         style={{
           backgroundImage: "url('/images/tour/guides-edith-cavell.jpg')",
           backgroundSize: "cover",
-          backgroundPosition: "center 70%",
+          backgroundPosition: "center 20%",
         }}
       >
         <div className="absolute inset-0 bg-black/60" />

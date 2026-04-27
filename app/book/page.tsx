@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tours",
@@ -16,7 +15,6 @@ export default function BookPage() {
   return (
     <>
       <main className="min-h-screen bg-brand-bg pt-16">
-        <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "Book", url: "/book" }]} />
         {/* Page header */}
         <div className="brand-container pt-8 pb-8 text-center">
           <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>

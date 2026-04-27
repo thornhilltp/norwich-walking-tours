@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { Mail, MapPin } from "lucide-react";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Contact | Norwich Free Walking Tours",
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="bg-brand-bg pt-16">
-      <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "Contact", url: "/contact" }]} />
       {/* Hero */}
       <section className="section-padding border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto text-center">

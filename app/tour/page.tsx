@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "The Tour | Norwich Free Walking Tours",
@@ -45,7 +44,6 @@ const stopImages: Record<number, { src: string; alt: string }> = {
 export default function TourPage() {
   return (
     <main className="bg-brand-bg pt-16">
-      <Breadcrumbs items={[{ name: "Home", url: "/" }, { name: "The Tour", url: "/tour" }]} />
       {/* Hero */}
       <section className="section-padding bg-brand-bg border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto text-center">
