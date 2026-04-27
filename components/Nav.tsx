@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
@@ -13,6 +14,8 @@ const navLinks = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isOpaque = scrolled || mobileOpen || pathname !== "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -31,7 +34,7 @@ export function Nav() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || mobileOpen
+        isOpaque
           ? "bg-brand-bg/95 backdrop-blur-sm shadow-sm border-b border-brand-accent/10"
           : "bg-black/20 backdrop-blur-sm"
       }`}
@@ -44,13 +47,13 @@ export function Nav() {
           {/* Logo — enlarged */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src={scrolled || mobileOpen ? "/Logo_1.svg" : "/Logo_2.svg"}
+              src={isOpaque ? "/Logo_1.svg" : "/Logo_2.svg"}
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
               unoptimized
               className="w-auto object-contain transition-all duration-300"
-              style={{ height: scrolled ? "52px" : "64px" }}
+              style={{ height: isOpaque ? "52px" : "64px" }}
               priority
             />
           </a>
@@ -62,7 +65,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-150 ${
-                  scrolled
+                  isOpaque
                     ? "text-brand-text/70 hover:text-brand-accent"
                     : "text-white/80 hover:text-white"
                 }`}
@@ -81,7 +84,7 @@ export function Nav() {
           {/* Mobile hamburger */}
           <button
             className={`md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors duration-150 focus-brand ${
-              scrolled || mobileOpen
+              isOpaque
                 ? "text-brand-text hover:bg-brand-accent/10"
                 : "text-white hover:bg-white/15"
             }`}
