@@ -17,7 +17,7 @@ import type { Testimonial } from "@/components/Testimonials";
 
 export const googleReviewStats = {
   rating: 5,
-  count: 6,
+  count: 10,
   profileUrl: "https://g.page/r/CWI7BtXPKyyZEAE/review",
 };
 
