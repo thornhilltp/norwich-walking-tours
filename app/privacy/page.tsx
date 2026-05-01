@@ -4,6 +4,9 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Privacy Policy | Norwich Free Walking Tours",
   description: "How Norwich Free Walking Tours collects and uses your data.",
+  alternates: {
+    canonical: "https://www.norwichfreewalkingtours.co.uk/privacy",
+  },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

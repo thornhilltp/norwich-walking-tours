@@ -1,4 +1,17 @@
 /** @type {import('next').NextConfig} */
+// Next.js dev mode (React Refresh / hot reload) uses eval(), so we have to
+// allow 'unsafe-eval' locally or hydration crashes and the page goes blank.
+// Production Next.js compiles real JS, doesn't need it, so we keep the
+// stricter CSP there (matches CLAUDE.md T4 decision).
+const isDev = process.env.NODE_ENV !== "production";
+const scriptSrc = [
+  "'self'",
+  "'unsafe-inline'",
+  ...(isDev ? ["'unsafe-eval'"] : []),
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+].join(" ");
+
 const securityHeaders = [
   {
     key: "X-Frame-Options",
@@ -25,10 +38,10 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Next.js inline scripts + Google Tag Manager + Google Analytics.
-      // 'unsafe-eval' removed — production Next.js doesn't need it. Inline
-      // scripts still allowed via 'unsafe-inline' (GTM bootstrap requires
-      // this; migrating to nonces would be a larger refactor).
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
+      // Production omits 'unsafe-eval'. Dev adds it so React Refresh can run.
+      // Inline scripts allowed via 'unsafe-inline' (GTM bootstrap needs it;
+      // migrating to nonces would be a larger refactor).
+      `script-src ${scriptSrc}`,
       // Google Fonts, self
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",

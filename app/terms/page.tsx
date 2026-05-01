@@ -4,6 +4,9 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Norwich Free Walking Tours",
   description: "Terms and conditions for joining the Norwich Free Walking Tours.",
+  alternates: {
+    canonical: "https://www.norwichfreewalkingtours.co.uk/terms",
+  },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

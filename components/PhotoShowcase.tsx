@@ -55,15 +55,13 @@ export function PhotoShowcase() {
             Your local guide
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold max-w-2xl">
-            Norwich through the eyes of someone who lives here.
+            The Norwich hidden behind the flint walls.
           </h2>
           <p
             className="mt-4 text-muted-foreground text-lg max-w-2xl"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            We&apos;ll show you what makes this city special: its medieval
-            streets, its independent spirit, and the stories locals take pride
-            in.
+            A Norwich walking tour with local storytellers who know the streets, the old churches, and the food spots most visitors never hear about. Visitors leave with a Norwich they couldn&apos;t find on a map. Locals leave reminded why they live here.
           </p>
         </motion.div>
 

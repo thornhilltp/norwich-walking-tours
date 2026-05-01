@@ -13,7 +13,7 @@ const steps = [
     sub: "Reserve your place online. It's free.",
     detail: "Free to book",
     image: "/images/tour/dog-erpingham-gate.jpg",
-    imageAlt: "A dog at Erpingham Gate, Norwich — all well-behaved dogs welcome on the Norwich Free Walking Tour",
+    imageAlt: "A dog at Erpingham Gate, Norwich. All well-behaved dogs welcome on the Norwich Free Walking Tour.",
     imagePosition: "center 75%",
   },
   {

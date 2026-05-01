@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Private Tours | Norwich Free Walking Tours",
   description:
     "Book a private walking tour of Norwich for your group. Bespoke routes, flexible timings, and a dedicated guide. Perfect for corporate visits, families, and special occasions.",
+  alternates: {
+    canonical: "https://www.norwichfreewalkingtours.co.uk/private-tours",
+  },
 };
 
 const serviceSchema = {

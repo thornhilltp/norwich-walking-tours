@@ -4,7 +4,7 @@ import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "The Tour | Norwich Free Walking Tours",
+  title: "Norwich Walking Tour | 12 Stops, 2 Hours",
   description:
     "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Near daily from The Forum. Book your spot free.",
   alternates: {
@@ -51,10 +51,10 @@ export default function TourPage() {
             The tour
           </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold mb-5 leading-tight">
-            The real Norwich. 12 stops. 2h.
+            The Norwich walking tour. 12 stops. 2h.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Here&apos;s exactly what you&apos;ll see. Every stop has a story. The kind that didn&apos;t make it onto any blue plaque.
+            The real Norwich, on foot. Here&apos;s exactly what you&apos;ll see. Every stop has a story. The kind that didn&apos;t make it onto any blue plaque.
           </p>
           <a
             href="/book"

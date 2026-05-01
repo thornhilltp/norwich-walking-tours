@@ -172,6 +172,12 @@ function PracticalInfo() {
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Near daily from The Forum
           </p>
+          <p className="text-sm text-muted-foreground mt-5" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Travelling as a group?{" "}
+            <a href="/private-tours" className="text-brand-accent hover:underline font-semibold">
+              See private tours &rarr;
+            </a>
+          </p>
         </div>
       </div>
     </section>

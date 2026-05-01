@@ -36,9 +36,9 @@ const lora = Lora({
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Norwich Free Walking Tours | See the real Norwich with a local",
+  title: "Norwich Free Walking Tours | Daily, Local-Led, Free to Book",
   description:
-    "A near-daily pay what you want walking tour of Norwich. 2h. English language. Meets at The Forum, rain or shine. Book your spot free. Most guests tip £10–£20.",
+    "Daily 2-hour walking tour of Norwich. Free to book, tip what it was worth. Meets at The Forum, rain or shine. Local guides. Max 15 per group.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
