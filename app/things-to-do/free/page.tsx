@@ -11,6 +11,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/things-to-do/free",
   },
+  openGraph: {
+    title: "Free Things to Do in Norwich | A Local's Guide",
+    description:
+      "Ten free things in Norwich a local would actually recommend.",
+    url: "https://www.norwichfreewalkingtours.co.uk/things-to-do/free",
+    type: "article",
+    images: [
+      {
+        url: "/images/pottergate-stock.png",
+        alt: "Pottergate, a quiet street in Norwich city centre.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Things to Do in Norwich | A Local's Guide",
+    description:
+      "Ten free things in Norwich a local would actually recommend.",
+    images: ["/images/pottergate-stock.png"],
+  },
 };
 
 const SITE_URL = "https://www.norwichfreewalkingtours.co.uk";

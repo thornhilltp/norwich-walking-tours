@@ -11,7 +11,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/explore",
   },
+  openGraph: {
+    title: "Explore Norwich | A Local's Guides",
+    description:
+      "Norwich guides written by a local who walks it for a living.",
+    url: "https://www.norwichfreewalkingtours.co.uk/explore",
+    type: "website",
+    images: [
+      {
+        url: "/images/vamous-view-norwich.png",
+        alt: "View of Norwich from Fye Bridge over the River Wensum.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Explore Norwich | A Local's Guides",
+    description:
+      "Norwich guides written by a local who walks it for a living.",
+    images: ["/images/vamous-view-norwich.png"],
+  },
 };
+
+const SITE_URL = "https://www.norwichfreewalkingtours.co.uk";
+const HUB_URL = `${SITE_URL}/explore`;
 
 interface ExplorePost {
   slug: string;
@@ -54,12 +77,43 @@ const posts: ExplorePost[] = [
   },
 ];
 
+// CollectionPage schema lists the live posts so Google understands /explore
+// is a hub of related articles authored by Tom (linked via /about#tom) and
+// published by the LocalBusiness.
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": HUB_URL,
+  url: HUB_URL,
+  name: "Explore Norwich | A Local's Guides",
+  description:
+    "Norwich guides written by a local who walks it for a living. Where to stay, what to skip, when to visit, where to drink.",
+  inLanguage: "en-GB",
+  isPartOf: { "@id": `${SITE_URL}/#localbusiness` },
+  about: { "@type": "Place", name: "Norwich" },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: posts
+      .filter((p) => !p.comingSoon)
+      .map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${SITE_URL}/explore/${p.slug}`,
+        name: p.title,
+      })),
+  },
+};
+
 export default function ExplorePage() {
   const live = posts.filter((p) => !p.comingSoon);
   const soon = posts.filter((p) => p.comingSoon);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <main className="bg-brand-bg pt-20 pb-16">
         {/* Header */}
         <section className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">

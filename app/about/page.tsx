@@ -11,6 +11,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/about",
   },
+  openGraph: {
+    title: "About Tom | Norwich Free Walking Tours",
+    description:
+      "Meet Tom, the Norwich local who runs the city's only daily free walking tour.",
+    url: "https://www.norwichfreewalkingtours.co.uk/about",
+    type: "profile",
+    images: [
+      {
+        url: "/images/tom-portrait.jpg",
+        alt: "Tom Thornhill, founder of Norwich Free Walking Tours.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Tom | Norwich Free Walking Tours",
+    description:
+      "Meet Tom, the Norwich local who runs the city's only daily free walking tour.",
+    images: ["/images/tom-portrait.jpg"],
+  },
 };
 
 const SITE_URL = "https://www.norwichfreewalkingtours.co.uk";

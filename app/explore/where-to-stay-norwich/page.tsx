@@ -11,6 +11,26 @@ export const metadata: Metadata = {
     canonical:
       "https://www.norwichfreewalkingtours.co.uk/explore/where-to-stay-norwich",
   },
+  openGraph: {
+    title: "Where to Stay in Norwich | A Local's Guide",
+    description:
+      "Five Norwich neighbourhoods, who they suit, and how close they are to the city centre.",
+    url: "https://www.norwichfreewalkingtours.co.uk/explore/where-to-stay-norwich",
+    type: "article",
+    images: [
+      {
+        url: "/images/pottergate-stock.png",
+        alt: "Pottergate, a quiet street in Norwich city centre.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Where to Stay in Norwich | A Local's Guide",
+    description:
+      "Five Norwich neighbourhoods, who they suit, and how close they are to the city centre.",
+    images: ["/images/pottergate-stock.png"],
+  },
 };
 
 const SITE_URL = "https://www.norwichfreewalkingtours.co.uk";
