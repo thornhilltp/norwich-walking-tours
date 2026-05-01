@@ -4,7 +4,7 @@ import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Norwich Walking Tour | 12 Stops, 2 Hours",
+  title: "Norwich Walking Tour | 12 Stops, 1h 45m",
   description:
     "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Near daily from The Forum. Book your spot free.",
   alternates: {
@@ -51,7 +51,7 @@ export default function TourPage() {
             The tour
           </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold mb-5 leading-tight">
-            The Norwich walking tour. 12 stops. 2h.
+            The Norwich walking tour. 12 stops. 1h 45m.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             The real Norwich, on foot. Here&apos;s exactly what you&apos;ll see. Every stop has a story. The kind that didn&apos;t make it onto any blue plaque.
@@ -60,7 +60,7 @@ export default function TourPage() {
             href="/book"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
           >
-            Book your free spot
+            Book your spot (free)
           </a>
           <p className="mt-3 text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Free to book &bull; English language &bull; Near daily
@@ -190,7 +190,7 @@ export default function TourPage() {
             href="/book"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
           >
-            Book your spot
+            Book your spot (free)
           </a>
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Near daily from The Forum

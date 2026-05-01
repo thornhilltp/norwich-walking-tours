@@ -166,7 +166,7 @@ export default function ContactPage() {
             Free to book. Pay what it was worth.
           </h2>
           <p className="font-lora text-base text-muted-foreground leading-relaxed mb-3">
-            We&apos;re the only near-daily free walking tour in Norwich. Mon to Sat from The Forum. 2 hours, mostly flat, group capped at 15. Local guides who actually live here.
+            We&apos;re the only near-daily free walking tour in Norwich. Mon to Sat from The Forum. 1 hour 45 minutes, mostly flat, group capped at 15. Local guides who actually live here.
           </p>
           <p className="font-lora text-base text-muted-foreground leading-relaxed">
             At the end you tip what you think the tour was worth. Most guests tip £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay. That&apos;s the deal.

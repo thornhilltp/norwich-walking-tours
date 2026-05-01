@@ -38,7 +38,7 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tours | Daily, Local-Led, Free to Book",
   description:
-    "Daily 2-hour walking tour of Norwich. Free to book, tip what it was worth. Meets at The Forum, rain or shine. Local guides. Max 15 per group.",
+    "Daily 1h 45m walking tour of Norwich. Free to book, tip what it was worth. Meets at The Forum, rain or shine. Local guides. Max 15 per group.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
@@ -122,7 +122,7 @@ const jsonLd = [
     "@type": "TouristAttraction",
     name: "Norwich Free Walking Tours",
     description:
-      "A near-daily pay what you want walking tour revealing the real Norwich. 2h. English language. Meets at The Forum. Rain or shine.",
+      "A near-daily pay what you want walking tour revealing the real Norwich. 1h 45m. English language. Meets at The Forum. Rain or shine.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",

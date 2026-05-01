@@ -22,7 +22,7 @@ export function StickyBookCTA() {
         className="btn-cta flex items-center justify-center gap-2 w-full h-12 bg-brand-accent text-white rounded-xl text-base font-semibold hover:bg-brand-accent/90 transition-colors duration-150 focus-brand"
         style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
       >
-        Book your free spot
+        Book your spot (free)
         <ArrowRight className="w-4 h-4" aria-hidden="true" />
       </a>
     </div>

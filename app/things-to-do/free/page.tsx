@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
 
@@ -19,7 +20,7 @@ const PUBLISHED = "2026-04-30";
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Free things to do in Norwich (that are actually worth doing)",
+  headline: "Free things to do in Norwich",
   description:
     "The free things in Norwich a local would actually recommend. Free walking tour, museums, gardens, and hidden corners. No price tag, no rubbish.",
   url: PAGE_URL,
@@ -39,21 +40,31 @@ const articleSchema = {
   about: { "@type": "Place", name: "Norwich" },
 };
 
-const items = [
+interface FreeThingItem {
+  n: string;
+  title: string;
+  image?: string;
+  imageAlt?: string;
+  body: React.ReactNode;
+}
+
+const items: FreeThingItem[] = [
   {
     n: "01",
     title: "Take the free walking tour",
+    image: "/images/tour/group-cathedral-lawn.jpg",
+    imageAlt: "Walking tour group on the Cathedral lawn, Norwich.",
     body: (
       <>
         <p>
-          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only near-daily free walking tour in Norwich. Two hours, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
+          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only near-daily free walking tour in Norwich. 1 hour 45 minutes, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
         </p>
         <p>
           We start at The Forum and finish near the Cathedral, taking in Elm Hill, the Lanes, the Market and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
         </p>
         <p>
           <Link href="/book" className="text-brand-accent hover:underline font-semibold">
-            Book your free spot &rarr;
+            Book your spot (free) &rarr;
           </Link>
         </p>
       </>
@@ -62,6 +73,8 @@ const items = [
   {
     n: "02",
     title: "Walk into Norwich Cathedral",
+    image: "/images/norwich-cathedral-stock.png",
+    imageAlt: "Norwich Cathedral, the 900-year-old Norman cathedral with England's second-tallest spire.",
     body: (
       <>
         <p>
@@ -84,6 +97,8 @@ const items = [
   {
     n: "03",
     title: "Wander Elm Hill",
+    image: "/images/elm-hill-stock.png",
+    imageAlt: "Elm Hill, Norwich's most photographed cobbled medieval street.",
     body: (
       <>
         <p>
@@ -98,6 +113,8 @@ const items = [
   {
     n: "04",
     title: "Browse Norwich Market",
+    image: "/images/norwich-market-sun-stock.png",
+    imageAlt: "Norwich Market in the sun, one of the oldest and largest open-air markets in Britain.",
     body: (
       <p>
         One of the oldest open-air markets in Britain. 900 years of trading on the same patch. Wander the stalls under the colourful roof. Talk to the people who&apos;ve been there for decades. You don&apos;t have to buy anything. Lunch from a stall is one of the best-value meals in the city if you do.
@@ -138,6 +155,8 @@ const items = [
   {
     n: "07",
     title: "Walk the riverside path along the Wensum",
+    image: "/images/vamous-view-norwich.png",
+    imageAlt: "View of Norwich from Fye Bridge over the River Wensum.",
     body: (
       <p>
         Pick up the path at Fye Bridge or Pulls Ferry and walk in either direction. Past Cow Tower, under Bishop Bridge, around the Cathedral. Half an hour gets you views you won&apos;t see from any street. The river bends through the city like it forgot it was a city. No entry fee, no queue, no rush.
@@ -147,6 +166,8 @@ const items = [
   {
     n: "08",
     title: "Norwich Castle grounds",
+    image: "/images/norwich-castle.png",
+    imageAlt: "Norwich Castle, the Norman fortress overlooking the city.",
     body: (
       <p>
         The museum costs money. The grounds and the view from the mound are free. Walk up, sit on a bench, look at the city. The castle has been standing on that mound since 1067 and was a county prison until 1887. From the top you can pick out the Cathedral, City Hall and the Forum in one glance.
@@ -156,6 +177,8 @@ const items = [
   {
     n: "09",
     title: "Get lost in the Norwich Lanes",
+    image: "/images/norwich-lane-stock.png",
+    imageAlt: "The Norwich Lanes, independent shops and cafes in Norwich city centre.",
     body: (
       <p>
         Independent shops, hidden coffee spots, courtyards behind courtyards. No chain coffee, no brand names you&apos;d recognise. Walking here is free and accidental window-shopping is the whole point. Pop into Jarrolds for the rooftop view, then disappear into the back streets behind it.
@@ -183,17 +206,32 @@ export default function FreeThingsToDoNorwichPage() {
       <main className="bg-brand-bg pt-20 pb-16">
         <article className="brand-container max-w-2xl mx-auto">
           {/* Header */}
-          <header className="mb-10 text-center">
+          <header className="mb-8 text-center">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
               A local&apos;s guide
             </p>
-            <h1 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text leading-tight mb-4">
-              Free things to do in Norwich (that are actually worth doing)
+            <h1 className="font-caveat text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight mb-3">
+              Free things to do in Norwich
             </h1>
+            <p className="font-caveat text-2xl md:text-3xl text-brand-accent mb-4 leading-tight">
+              Ten things a local would actually recommend.
+            </p>
             <p className="font-lora text-lg text-muted-foreground leading-relaxed">
-              No price tag, no rubbish. Ten free things in Norwich a local would tell their friend about. Most of them are within a 15-minute walk of each other.
+              No price tag, no rubbish. Most of them are within a 15-minute walk of each other.
             </p>
           </header>
+
+          {/* Hero image */}
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-md mb-10 border border-brand-accent/15">
+            <Image
+              src="/images/pottergate-stock.png"
+              alt="Pottergate, a quiet street in Norwich city centre, lined with independent shops and old buildings."
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+              priority
+            />
+          </div>
 
           {/* Intro */}
           <section className="mb-10">
@@ -210,18 +248,31 @@ export default function FreeThingsToDoNorwichPage() {
             {items.map((item) => (
               <div
                 key={item.n}
-                className="bg-white rounded-2xl p-6 md:p-7 border border-brand-accent/10 shadow-sm"
+                className="bg-white rounded-2xl border border-brand-accent/10 shadow-sm overflow-hidden"
               >
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-caveat text-3xl font-bold text-brand-accent">
-                    {item.n}
-                  </span>
-                  <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text leading-tight">
-                    {item.title}
-                  </h2>
-                </div>
-                <div className="font-lora text-base text-muted-foreground leading-relaxed space-y-3">
-                  {item.body}
+                {item.image && item.imageAlt && (
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 672px"
+                    />
+                  </div>
+                )}
+                <div className="p-6 md:p-7">
+                  <div className="flex items-baseline gap-3 mb-3">
+                    <span className="font-caveat text-3xl font-bold text-brand-accent">
+                      {item.n}
+                    </span>
+                    <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-tight">
+                      {item.title}
+                    </h2>
+                  </div>
+                  <div className="font-lora text-base text-muted-foreground leading-relaxed space-y-3">
+                    {item.body}
+                  </div>
                 </div>
               </div>
             ))}
@@ -233,13 +284,13 @@ export default function FreeThingsToDoNorwichPage() {
               Want a local to show you the rest?
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              The free walking tour covers the city in 2 hours with stories you won&apos;t find on a sign. Free to book, tip what it was worth at the end.
+              The free walking tour covers the city in 1h 45m with stories you won&apos;t find on a sign. Free to book, tip what it was worth at the end.
             </p>
             <Link
               href="/book"
               className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
             >
-              Book your free spot
+              Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
             </Link>
             <p className="font-lora text-sm text-muted-foreground mt-4">

@@ -8,7 +8,7 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
   {
     q: "Is it really free?",
-    a: "Yes. Nothing to pay upfront. At the end you pay what you think it was worth. Cards, Apple Pay, Google Pay and cash all work.",
+    a: "Risk-free, not just free. Nothing to pay upfront. At the end you pay what you think it was worth. £10 to £20 a person is the going rate. If it wasn't worth it, you don't pay. Cards, Apple Pay, Google Pay and cash all work.",
   },
   {
     q: "What if it rains?",
@@ -20,7 +20,11 @@ const faqs = [
   },
   {
     q: "Is this suitable for all ages?",
-    a: "Yes. Mostly flat, mostly paved, mostly easy. We've had 6-year-olds and 86-year-olds on the same tour and both had a good time. Families, solo travellers, groups, all welcome.",
+    a: "Yes. Mostly flat, mostly paved, mostly easy. We've had 6-year-olds and 86-year-olds on the same tour and both had a good time. Families, couples, friends, solo travellers, all welcome.",
+  },
+  {
+    q: "How big is the group? Can I book a private one?",
+    a: "Group is capped at 15 so the guide can actually talk to everyone. If you're a group of 10 or more, or you want a fully bespoke tour with your own start time and route, see the private tours page. Pricing on enquiry, suitable for corporates, families, hen and stag groups, school trips.",
   },
   {
     q: "Can I bring my dog?",
@@ -60,7 +64,7 @@ const faqs = [
   },
   {
     q: "Do I need to book in advance for the Norwich free walking tour?",
-    a: "Yes. Still free to reserve. Booking ahead means we know you're coming, and we can give you a heads-up if anything changes with the weather or the meeting point. Same form as above.",
+    a: "Yes. Still free to reserve. The group is capped at 15 so we need to know how many are coming. Booking ahead also lets us send you a heads-up if anything changes with the weather or the meeting point. Same form as above.",
   },
   {
     q: "What's the best walking tour in Norwich?",

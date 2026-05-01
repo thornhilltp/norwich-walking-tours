@@ -23,7 +23,7 @@ const logistics = [
   {
     icon: Clock,
     label: "Duration",
-    value: "2 hours, finishing near the Cathedral.",
+    value: "1 hour 45 minutes, finishing near the Cathedral.",
   },
   {
     icon: Calendar,
@@ -57,7 +57,7 @@ function StopsAndMap() {
             The route
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-            12 stops. 2h.
+            12 stops. 1h 45m.
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -102,7 +102,7 @@ function WhatIsFreeTour() {
               What&apos;s a free tour?
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 2h with a local guide who will show you the best spots and tell their favourite stories, and at the end you pay what you thought it was worth.
+              Free tours are a growing accessible way to get a great local introduction to a city. You join for free, spend 1 hour 45 minutes with a local guide who will show you the best spots and tell their favourite stories, and at the end you pay what you thought it was worth.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               No fixed price. No pressure. Just a fair exchange.
@@ -167,7 +167,7 @@ function PracticalInfo() {
             location="practical_info"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
           >
-            Book your spot
+            Book your spot (free)
           </TrackedBookLink>
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Near daily from The Forum
@@ -184,13 +184,70 @@ function PracticalInfo() {
   );
 }
 
+// ── Local guides teaser ───────────────────────────────────────────────────────
+// Surfaces the content hub (/explore + /things-to-do/free) so SEO content pages
+// have a discovery path from the homepage. Top nav stays conversion-focused.
+function LocalGuidesTeaser() {
+  const guides = [
+    {
+      href: "/things-to-do/free",
+      title: "Free things to do in Norwich",
+      blurb: "Ten things a local would actually recommend.",
+    },
+    {
+      href: "/explore/where-to-stay-norwich",
+      title: "Where to stay in Norwich",
+      blurb: "Five neighbourhoods, who each one suits, walking time to The Forum.",
+    },
+    {
+      href: "/explore",
+      title: "More Norwich guides",
+      blurb: "Walks, weekends, pubs, rainy days. The full hub.",
+    },
+  ];
+  return (
+    <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
+      <div className="brand-container max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Local guides
+          </p>
+          <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
+            Norwich, told by someone who walks it for a living.
+          </h2>
+        </div>
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {guides.map((g) => (
+            <li key={g.href}>
+              <a
+                href={g.href}
+                className="group block bg-white rounded-2xl p-6 border border-brand-accent/10 shadow-sm hover:border-brand-accent/30 hover:shadow-md transition-all duration-200 h-full"
+              >
+                <h3 className="font-caveat text-2xl font-bold text-brand-text mb-2 group-hover:text-brand-accent transition-colors duration-150">
+                  {g.title}
+                </h3>
+                <p className="font-lora text-sm text-muted-foreground leading-relaxed">
+                  {g.blurb}
+                </p>
+                <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-brand-accent">
+                  Read &rarr;
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 // ── Home Page ─────────────────────────────────────────────────────────────────
 export default function HomePage() {
   return (
     <main className="bg-brand-bg" style={{ paddingTop: 0 }}>
       <Hero
         title={<>Norwich Free Walking Tours</>}
-        buttonText="Book your spot"
+        buttonText="Book your spot (free)"
         buttonHref="/book"
         widget={<BookingFrame height={520} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />}
       />
@@ -206,6 +263,7 @@ export default function HomePage() {
       <StopsAndMap />
       <HowItWorks />
       <PracticalInfo />
+      <LocalGuidesTeaser />
       <FAQ />
       <EmailCapture />
       <Footer />

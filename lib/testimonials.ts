@@ -11,6 +11,17 @@
 // │                                                                         │
 // │  WHILE count === 0 the Hero star badge + JSON-LD aggregateRating stay   │
 // │  hidden, so the site never claims a rating it can't back up.            │
+// │                                                                         │
+// │  TRIP-TYPE SIGNAL: The `role` field on each review is the small line    │
+// │  beneath the reviewer name. Currently generic ("Tour guest, April       │
+// │  2026"). When you know the trip type, enrich it to one of:              │
+// │     - "Couple visiting from <city>"                                     │
+// │     - "Family of four"                                                  │
+// │     - "Friends weekend"                                                 │
+// │     - "Solo traveller"                                                  │
+// │     - "Norwich local"                                                   │
+// │  Aim for a mix across visible reviews — TripAdvisor data shows Friends  │
+// │  30% / Couples 30% / Family 25% / Solo 7%. Surfaces matter.             │
 // └─────────────────────────────────────────────────────────────────────────┘
 
 import type { Testimonial } from "@/components/Testimonials";

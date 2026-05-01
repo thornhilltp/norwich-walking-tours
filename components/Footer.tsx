@@ -51,8 +51,11 @@ const socials = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Tour", href: "/tour" },
+  { label: "About Tom", href: "/about" },
   { label: "Private Tours", href: "/private-tours" },
-  { label: "Book your spot", href: "/book" },
+  { label: "Book your spot (free)", href: "/book" },
+  { label: "Explore Norwich", href: "/explore" },
+  { label: "Free things to do", href: "/things-to-do/free" },
   { label: "Contact", href: "/contact" },
   { label: "FAQs", href: "/#faq" },
 ];

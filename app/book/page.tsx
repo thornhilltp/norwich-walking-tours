@@ -34,7 +34,7 @@ const afterSteps = [
 const bookFaqs = [
   {
     q: "Is it really free?",
-    a: "Yes. Nothing to pay upfront. At the end you pay what you think it was worth. Cards, Apple Pay, Google Pay and cash all work.",
+    a: "Risk-free, not just free. Nothing to pay upfront. At the end you pay what you think it was worth. £10 to £20 a person is the going rate. If it wasn't worth it, you don't pay. Cards, Apple Pay, Google Pay and cash all work.",
   },
   {
     q: "What if it rains?",

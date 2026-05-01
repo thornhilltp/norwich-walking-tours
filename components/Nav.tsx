@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "The Tour", href: "/tour" },
+  { label: "About Tom", href: "/about" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Contact", href: "/contact" },
 ];
@@ -77,7 +78,7 @@ export function Nav() {
               href="/book"
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
-              Book your spot
+              Book your spot (free)
             </a>
           </div>
 
@@ -125,7 +126,7 @@ export function Nav() {
               onClick={() => setMobileOpen(false)}
               className="btn-cta flex items-center justify-center w-full h-11 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-base"
             >
-              Book your spot
+              Book your spot (free)
             </a>
           </div>
         </div>

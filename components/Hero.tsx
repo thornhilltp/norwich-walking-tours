@@ -92,7 +92,7 @@ export function Hero({
           {/* Badge */}
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Book your free spot &bull; Near Daily &bull; English
+              Daily Mon-Sat &bull; Free to book &bull; 1h 45m
             </span>
           </motion.div>
 
@@ -110,6 +110,14 @@ export function Hero({
             variants={itemVariants}
           >
             See the real Norwich with a local.
+          </motion.p>
+
+          <motion.p
+            className="mt-3 text-base text-white/80 leading-relaxed max-w-md"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+            variants={itemVariants}
+          >
+            Risk-free, not just free. Pay what you think it was worth at the end.
           </motion.p>
 
           <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -155,7 +163,7 @@ export function Hero({
               </>
             )}
             <span className="inline-flex items-center gap-1">
-              <Clock className="h-4 w-4" aria-hidden="true" /> 2h
+              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
             </span>
             <span aria-hidden="true" className="text-white/40">·</span>
             <span className="inline-flex items-center gap-1">

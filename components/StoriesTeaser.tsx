@@ -87,7 +87,7 @@ export function StoriesTeaser() {
             className="mt-3 text-sm text-muted-foreground"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            All covered on the 2h walk.
+            All covered on the 1h 45m walk.
           </p>
         </motion.div>
       </div>

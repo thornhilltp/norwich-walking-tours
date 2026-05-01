@@ -19,8 +19,8 @@ const steps = [
   {
     number: "02",
     title: "Meet your guide at The Forum",
-    sub: "2 hours, relaxed pace through Norwich's best bits.",
-    detail: "2h, easy underfoot",
+    sub: "1 hour 45 minutes, relaxed pace through Norwich's best bits.",
+    detail: "1h 45m, easy underfoot",
     image: "/images/tour/meet-at-the-forum.jpg",
     imageAlt: "Guests meeting their guide at The Forum, the start of the Norwich Free Walking Tour",
   },
@@ -151,7 +151,7 @@ export function HowItWorks() {
             onClick={() => trackEvent("book_cta_click", { location: "how_it_works" })}
             className="btn-cta inline-flex items-center justify-center px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg"
           >
-            Book your spot
+            Book your spot (free)
           </a>
           <p className="mt-3 text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Pay at the end
