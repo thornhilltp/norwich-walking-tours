@@ -12,20 +12,68 @@ export const metadata: Metadata = {
   },
 };
 
-// Stop stories — humanized copy
+const faqItems = [
+  {
+    q: "Is it actually free?",
+    a: "Yes. You book free, walk the route, and at the end you tip what you think it was worth. If the tour was rubbish, pay nothing. Most guests tip £10 to £20.",
+  },
+  {
+    q: 'Why "merit-based" instead of "free"?',
+    a: "Because the guide has to earn it every time. No fixed fee, no captive audience. If we don't deliver, the tip reflects that.",
+  },
+  {
+    q: "Do I need to book?",
+    a: "Yes. Spots are limited to 15 per tour and they fill up, especially in summer.",
+  },
+  {
+    q: "What if it rains?",
+    a: "We walk anyway. Norwich looks better in the drizzle. Bring a coat.",
+  },
+  {
+    q: "Is it suitable for kids?",
+    a: "School-age and up tend to enjoy it. Under 5s might find 1h 45m a stretch.",
+  },
+  {
+    q: "Is the route accessible?",
+    a: "Mostly flat, mostly paved. A few cobbles around Elm Hill. Get in touch in advance if you want the full route map or have specific access needs.",
+  },
+  {
+    q: "Where do we meet?",
+    a: "Outside The Forum, Millennium Plain, NR2 1TF. Look for the green branding.",
+  },
+  {
+    q: "How long is the tour?",
+    a: "1 hour 45 minutes, give or take.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
+// Stop stories — one-line hook + story + fun fact
 const stopStories: Record<number, string> = {
-  1: "A striking glass hub where modern life meets medieval history. It's the perfect spot to get your bearings. Your guide will be waiting here with a green map-pin flag.",
-  2: "England's largest provincial medieval Guildhall, with the chequerboard flint walls that put Norwich on the postcards. Stand next to 600 years of law and order in the city's past. Below street level, the dungeon was still in use in the 19th century.",
-  3: "A maze of independent shops and hidden alleys. Wander here to find the best local coffee and unique souvenirs. No chains, no franchise coffee. This is the Norwich locals actually use. Tom will point out Jarrolds (the city's department store since 1770), Elm, and Grosvenor Fish & Chips on the way through.",
-  4: "Grab lunch in one of Britain's oldest and largest open-air markets, with its iconic colourful roof. Nine hundred years of buying and selling in the same spot. Colman's mustard was sold from a stall here for the best part of two centuries. Three industries that started in this city went global from streets like these: Colman's, Norwich Union (the start of UK insurance, founded 1797), and Gurneys Bank (which became Barclays).",
-  5: "Elegant Victorian and Edwardian shopping. Escape the high street for a genuinely refined experience. Most people walk past the entrance without realising what's inside.",
-  6: "The first pedestrianised street in the UK. London Street carries centuries of commerce and quiet rebellion. The history here didn't make it onto any plaque. Almost nobody in the city knows it.",
-  7: "A massive Norman palace overlooking the city. The best place to visualise Norwich's medieval power and scale. Built on William the Conqueror's orders in 1067 and serving as a county gaol until 1887. Long before the Normans, this was Iceni country: Boudicca and her warriors fought the Romans on land just outside the city. And in 1549 the rebel leader Robert Kett was hanged from these very walls after his peasants' revolt against the enclosures.",
-  8: "England's most complete medieval friary complex. This former 14th-century home of the Dominican 'Black Friars' now serves as the city's grandest venue for festivals and theatre. It's also where the Strangers worshipped: Dutch and Flemish Protestant weavers who arrived from 1565 fleeing religious persecution. They doubled the population of Norwich, brought their looms with them, and turned this into the second city of England for two centuries.",
-  9: "Explore the city's most famous cobbled street, used as the Netflix filming location for Jingle Jangle. Stunning medieval buildings, largely unchanged since the 16th century.",
-  10: "The Anglo-Saxon heart of the city. Learn Norwich's dark history and plague legends. Two medieval gates lead from here into the Cathedral Close: Erpingham Gate and Ethelbert Gate. A few minutes away, on Hay Hill, sits the statue of Sir Thomas Browne: 17th-century Norwich physician and author of Religio Medici, one of the first English-language books to make philosophy readable.",
-  11: "The city's oldest river crossing with iconic 'postcard' views of the Wensum and stories of medieval punishments. It's a quiet spot now, mostly popular with ducks and people eating lunch from the market.",
-  12: "Marvel at this 900-year-old icon, explore the church grounds and take a selfie with Paddington Bear. The spire is the second tallest in England. No queues. No entry fee. One of the great buildings of Europe and almost nobody knows it's here. The Cloisters are the largest medieval cloisters in England. Beside the Erpingham Gate stands the statue of Edith Cavell, the Norwich-trained nurse executed by the Germans in 1915 for helping Allied soldiers escape occupied Belgium. The Close itself was hit during the WW2 Baedeker raids of 1942, when the Luftwaffe targeted historic English cities. And a short walk south takes you to the cell of Julian of Norwich: medieval anchorite, mystic, and author of Revelations of Divine Love, the first book in English known to be written by a woman. Norwich is England's first UNESCO City of Literature for a reason.",
+  1: "We start where Norwich nearly didn't. The Forum was built in 2001 on the site of the old library, which burned down in 1994 and took half a million books with it. Look up at the curve of the building. It's deliberately shaped to mirror the cathedral spire across the city.",
+  2: "England's largest surviving medieval guildhall, built when Norwich was the country's second city. The witch trials happened here. So did most of the city's important business for nearly 500 years. The flint chequerboard pattern on the front wall is showing off, and we'll talk about why.",
+  3: "A maze of independent shops, hidden courtyards, and Tudor buildings the developers somehow never got hold of. This was the medieval shopping district. Walk slowly. Half the fun is what you spot in the side alleys you'd never find on your own.",
+  4: "Trading on the same patch of ground since the 11th century. One of the largest open-air markets in England and the most colourful from above. The stalls have been here longer than most countries have existed in their current form.",
+  5: "Norwich's small slice of Victorian shopping theatre. Built in 1899, decorated with art nouveau tiles, and one of the few places in the city that feels frozen in time. Walk through it slowly. The tiles tell their own story.",
+  6: "The first pedestrianised shopping street in the UK, going car-free in 1967. A small thing, but Norwich got there before everyone else. We'll talk about why this matters more than it sounds.",
+  7: "A Norman keep built to remind the locals who was in charge. It worked. For most of its life it was a prison, and the stories from that period are not for the squeamish. Recently reopened after a major restoration, and now arguably the most impressive medieval royal palace in England you've never heard of.",
+  8: "Originally a Dominican friary, then a town hall, then a synagogue, then a fire station, now a concert venue. One building, six lives. The roof beams are the original 14th-century timber.",
+  9: "The most photographed street in Norwich and the closest you'll come to walking through a Tudor film set. Nearly demolished in the 1920s for being \"slum housing.\" Saved by a single vote on the city council. We'll show you exactly where the vote was cast.",
+  10: "Doesn't mean what you think. The name is Saxon, predates Christianity, and has nothing to do with graves. The square in front of the cathedral was the original Norwich market before the current one was built. The story behind the name catches everyone out.",
+  11: "One of the oldest river crossings in the city, used as a ducking stool site in the medieval period. People accused of being witches, scolds, or generally awkward got dunked here. Quiet now. Not always.",
+  12: "Nearly a thousand years old, built from limestone shipped across from Caen in Normandy because the locals didn't think English stone was good enough. The cloisters are the largest in England. The spire is the second tallest. And the close around it is the only one in the country you can still walk through freely after dark.",
 };
 
 // Stop photos
@@ -44,6 +92,12 @@ const stopImages: Record<number, { src: string; alt: string }> = {
 export default function TourPage() {
   return (
     <main className="bg-brand-bg pt-16">
+      {/* FAQPage JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero */}
       <section className="section-padding bg-brand-bg border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto text-center">
@@ -53,8 +107,11 @@ export default function TourPage() {
           <h1 className="font-caveat text-5xl md:text-6xl font-bold mb-5 leading-tight">
             The Norwich walking tour. 12 stops. 1h 45m.
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            The real Norwich, on foot. Here&apos;s exactly what you&apos;ll see. Every stop has a story. The kind that didn&apos;t make it onto any blue plaque.
+          <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            The real Norwich, on foot, with someone who lives here. You&apos;ll cover a thousand years of history without realising it, hear the stories most guidebooks miss, and find out why the city has more medieval churches per square mile than anywhere else in Europe. No booking fee, no card needed. You only pay what the tour was worth at the end.
+          </p>
+          <p className="text-base text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            We meet at The Forum, walk twelve stops through the old city, and finish near the Cathedral 1 hour 45 minutes later. Group size is capped at 15 so you can actually hear what&apos;s being said. Mon to Sat, rain or shine.
           </p>
           <a
             href="/book"
@@ -156,7 +213,7 @@ export default function TourPage() {
               A few extras you&apos;ll hear about along the way.
             </h2>
             <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Your guide tells the story of these as you walk past, even though we don&apos;t stop at them. Here&apos;s what to look out for.
+              Bonus stops we&apos;ll mention if there&apos;s time, or point you towards for after the tour.
             </p>
           </div>
 
@@ -183,9 +240,60 @@ export default function TourPage() {
         </div>
       </section>
 
+      {/* Who's running it */}
+      <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
+        <div className="brand-container max-w-3xl mx-auto">
+          <div className="mb-6">
+            <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              Your guide
+            </p>
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-6">
+              Who&apos;s running it
+            </h2>
+          </div>
+          <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-sm p-6 md:p-8">
+            <p className="text-base text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              Tom. Local. Lives in Norwich, walks the city most days, and started this because the existing tours all seemed to skip the bits that make Norwich actually interesting. Not a costumed actor, not a script-reader. Just someone who likes telling people why this small city is worth their afternoon.
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              If you&apos;ve got questions about anything beyond the route: where to eat, what to skip, where to drink. Ask. That&apos;s the point.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Common questions / FAQ */}
+      <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
+        <div className="brand-container max-w-3xl mx-auto">
+          <div className="mb-8">
+            <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              FAQ
+            </p>
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold">
+              Common questions
+            </h2>
+          </div>
+          <dl className="flex flex-col gap-4">
+            {faqItems.map((item) => (
+              <div key={item.q} className="bg-white rounded-xl border border-brand-accent/15 shadow-sm p-5 md:p-6">
+                <dt className="font-semibold text-brand-text mb-2" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                  {item.q}
+                </dt>
+                <dd className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                  {item.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <div className="py-10 flex justify-center bg-brand-bg border-t border-brand-accent/10">
         <div className="text-center">
+          <p className="text-base text-muted-foreground mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Pick a date, lock in a spot, turn up. That&apos;s it.
+          </p>
           <a
             href="/book"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
