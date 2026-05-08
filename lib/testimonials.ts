@@ -29,7 +29,7 @@ import type { Testimonial } from "@/components/Testimonials";
 export const googleReviewStats = {
   rating: 5,
   count: 10,
-  profileUrl: "https://g.page/r/CWI7BtXPKyyZEAE/review",
+  profileUrl: "https://www.google.com/search?q=Norwich+Free+Walking+Tours#lrd=0x8bf78e00ceee4e5:0x992c2bcfd5063b62,1,,,,",
 };
 
 export const googleReviews: Testimonial[] = [
