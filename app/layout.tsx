@@ -119,6 +119,16 @@ const reviewObjects =
 const jsonLd = [
   {
     "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.norwichfreewalkingtours.co.uk/#website",
+    name: "Norwich Free Walking Tours",
+    alternateName: "The Real Norwich Tour",
+    url: "https://www.norwichfreewalkingtours.co.uk",
+    inLanguage: "en-GB",
+    publisher: { "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness" },
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "TouristAttraction",
     name: "Norwich Free Walking Tours",
     description:
