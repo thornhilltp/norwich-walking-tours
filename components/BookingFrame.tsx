@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/tracking";
 
 const WIDGET_ORIGIN = "https://norwich-booking.vercel.app";
+const RESIZE_EVENT = "norwich-widget-resize";
+const MIN_HEIGHT = 100;
+const MAX_HEIGHT = 2000;
 
 interface BookingFrameProps {
   className?: string;
@@ -12,16 +15,29 @@ interface BookingFrameProps {
 }
 
 export function BookingFrame({ className, height = 700, sandbox }: BookingFrameProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [currentHeight, setCurrentHeight] = useState(height);
+
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       if (event.origin !== WIDGET_ORIGIN) return;
+      if (event.source !== iframeRef.current?.contentWindow) return;
+
       const data = event.data;
-      // Forward any typed message from the widget to the dataLayer.
-      // type becomes the GA4 event name; remaining fields become parameters.
-      if (data && typeof data === "object" && typeof data.type === "string") {
-        const { type, ...rest } = data as { type: string; [key: string]: unknown };
-        trackEvent(type, rest);
+      if (!data || typeof data !== "object" || typeof data.type !== "string") return;
+
+      if (data.type === RESIZE_EVENT) {
+        const next = Number((data as { height?: unknown }).height);
+        if (Number.isFinite(next) && next >= MIN_HEIGHT && next <= MAX_HEIGHT) {
+          setCurrentHeight(next);
+        }
+        return;
       }
+
+      // Forward any other typed message from the widget to the dataLayer.
+      // type becomes the GA4 event name; remaining fields become parameters.
+      const { type, ...rest } = data as { type: string; [key: string]: unknown };
+      trackEvent(type, rest);
     }
 
     window.addEventListener("message", handleMessage);
@@ -30,6 +46,7 @@ export function BookingFrame({ className, height = 700, sandbox }: BookingFrameP
 
   return (
     <iframe
+      ref={iframeRef}
       src={`${WIDGET_ORIGIN}/`}
       title="Book your Norwich walking tour"
       allow="payment"
@@ -37,7 +54,12 @@ export function BookingFrame({ className, height = 700, sandbox }: BookingFrameP
       referrerPolicy="origin"
       sandbox={sandbox}
       className={className ?? "w-full"}
-      style={{ height: `${height}px`, border: "none", display: "block" }}
+      style={{
+        height: `${currentHeight}px`,
+        border: "none",
+        display: "block",
+        transition: "height 200ms ease-out",
+      }}
     />
   );
 }
