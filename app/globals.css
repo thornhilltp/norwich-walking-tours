@@ -27,6 +27,16 @@
   --font-lora:     var(--font-lora), Georgia, serif;
   --font-sans:     var(--font-lora), Georgia, serif;
 
+  /* ── Font weights — required for Tailwind v4 to generate the
+     font-normal / font-medium / font-semibold / font-bold utility
+     classes. Without these tokens, ~64 elements using `font-semibold`
+     across the site silently fall back to weight 400. ── */
+  --font-weight-light:     300;
+  --font-weight-normal:    400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+
   /* ── Card design tokens ── */
   --card-shadow:   0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
   --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);

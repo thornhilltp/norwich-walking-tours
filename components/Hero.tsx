@@ -117,7 +117,7 @@ export function Hero({
             style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
             variants={itemVariants}
           >
-            Risk-free, not just free. Pay what you think it was worth at the end.
+            Free to book. Pay what you think it was worth at the end.
           </motion.p>
 
           <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row gap-3">

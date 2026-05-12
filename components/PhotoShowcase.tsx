@@ -19,7 +19,7 @@ const cityCards = [
     alt: "Walking tour group outside the Britons Arms, the thatched-roof Tudor coffee house on Elm Hill, Norwich",
     label: "Living",
     caption:
-      "Learn what it's like to live in Norwich and why it was ranked the top place to live in the UK by The Sunday Times in March 2026.",
+      "Photo spots, favourite pubs, and the places locals come back to.",
     color: "from-black/80 via-black/40 to-transparent",
     position: "center center",
   },
@@ -52,16 +52,43 @@ export function PhotoShowcase() {
             className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            Your local guide
+            Norwich Walking Tour
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold max-w-2xl">
-            The Norwich hidden behind the flint walls.
+            Local recommendations to help you make the most of Norwich.
           </h2>
           <p
             className="mt-4 text-muted-foreground text-lg max-w-2xl"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            A Norwich walking tour with local storytellers who know the streets, the old churches, and the food spots most visitors never hear about. Visitors leave with a Norwich they couldn&apos;t find on a map. Locals leave reminded why they live here.
+            Every tour comes with local recommendations from people who live here:
+          </p>
+          <ul
+            className="mt-4 space-y-2 max-w-2xl text-muted-foreground text-lg"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            <li className="flex gap-3">
+              <span className="text-brand-accent font-bold mt-1" aria-hidden="true">&bull;</span>
+              <span>The best places to eat and drink</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-brand-accent font-bold mt-1" aria-hidden="true">&bull;</span>
+              <span>The photo spots</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-brand-accent font-bold mt-1" aria-hidden="true">&bull;</span>
+              <span>The stories and history that bring the city to life</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-brand-accent font-bold mt-1" aria-hidden="true">&bull;</span>
+              <span>The corners you&apos;d otherwise walk past</span>
+            </li>
+          </ul>
+          <p
+            className="mt-5 text-muted-foreground text-base max-w-2xl italic"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            Already a Norwich local? Many residents join too and still pick up something new.
           </p>
         </motion.div>
 

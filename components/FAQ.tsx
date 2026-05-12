@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     q: "Is Norwich worth visiting for a day?",
-    a: "Absolutely. A single day gets you Norwich Cathedral, Norwich Castle, the Lanes and Elm Hill, all within a 15-minute walk of each other. Add lunch at Norwich Market and you've seen one of the best-preserved medieval cities in England.",
+    a: "Absolutely. The Sunday Times ranked Norwich the best place to live in the UK in March 2026, and a single day gets you Norwich Cathedral, Norwich Castle, the Lanes and Elm Hill, all within a 15-minute walk of each other. Add lunch at Norwich Market and you've seen one of the best-preserved medieval cities in England.",
   },
   {
     q: "What's the best month to visit Norwich?",
