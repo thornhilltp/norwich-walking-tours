@@ -7,6 +7,7 @@ import { ArrowRight, Star, Clock, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/tracking";
 import { googleReviewStats } from "@/lib/testimonials";
+import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface HeroProps {
@@ -180,9 +181,9 @@ export function Hero({
           </motion.p>
         </div>
 
-        {/* Right: booking widget */}
+        {/* Right: booking widget + credentials check */}
         <motion.div
-          className="relative lg:w-1/2 w-full flex items-center justify-center"
+          className="relative lg:w-1/2 w-full flex flex-col items-center justify-center gap-5"
           variants={cardVariants}
         >
           {widget ? (
@@ -190,6 +191,10 @@ export function Hero({
               {widget}
             </div>
           ) : null}
+          {/* Credentials check — sits immediately below the booking widget so
+              visitors hesitating at the booking moment see the three official
+              listings without leaving the Hero. */}
+          <PartnerLogosInverted size="sm" label="Featured on" className="w-full" />
         </motion.div>
       </motion.div>
 

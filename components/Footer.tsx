@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 
 // Brand icons — lucide-react dropped Instagram/Facebook exports for trademark
 // reasons, so we inline them (and TikTok, which was never in lucide).
@@ -143,8 +144,14 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Featured-on row — sits above the legal bar. Logos inverted to
+            white, kept compact so the footer doesn't feel logo-heavy. */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <PartnerLogosInverted size="md" label="Featured on" />
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-lora text-xs text-white/40">
             &copy; {new Date().getFullYear()} Norwich Free Walking Tours. All rights reserved.
           </p>
