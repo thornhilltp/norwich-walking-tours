@@ -13,14 +13,15 @@
 
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import { PhotoShowcase } from "@/components/PhotoShowcase";
-import { TourStops } from "@/components/TourStops";
 import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { Testimonials } from "@/components/Testimonials";
 import { googleReviews, googleReviewStats } from "@/lib/testimonials";
+import { tourStops } from "@/lib/tourStops";
 import { HeroV2 } from "./_components/HeroV2";
 
 // Experimental — don't let Google index this as duplicate of /.
@@ -29,17 +30,53 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// Compact StopsAndMap — drops the centred eyebrow + "12 stops. 1h 45m." heading
-// (Hero badge already states 1h 45m and the booking widget says max-15).
-// Just the map + stops list. Visual content, no copy filler.
+// StopsAndMapCompact — Sandemans-style scannable list + map.
+// No per-stop descriptions on home (those live on /tour). Just numbers + names
+// + the map as the visual centrepiece. One quiet link to /tour at the bottom.
 function StopsAndMapCompact() {
   return (
     <section id="tour-map" className="section-padding bg-brand-bg">
       <div className="brand-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <div>
-            <TourStops hideHeader />
-          </div>
+        <div className="text-center mb-10">
+          <p
+            className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            The route
+          </p>
+          <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-3">
+            12 stops. The Forum to Norwich Cathedral.
+          </h2>
+          <p
+            className="text-base text-muted-foreground"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            1h 45m at a relaxed pace.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Numbered stops list — typographic, no card chrome */}
+          <ol className="space-y-3">
+            {tourStops.map((stop) => (
+              <li
+                key={stop.id}
+                className="flex items-baseline gap-4 border-b border-brand-accent/10 pb-3 last:border-b-0"
+              >
+                <span
+                  className="text-sm font-bold text-brand-accent w-8 shrink-0 tabular-nums"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {String(stop.id).padStart(2, "0")}
+                </span>
+                <span className="font-caveat text-2xl md:text-3xl text-brand-text leading-tight">
+                  {stop.name}
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          {/* Map — sticky on desktop so it stays visible as the list reads */}
           <div className="lg:sticky lg:top-24 bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden">
             <div className="px-4 pt-4 pb-2">
               <p className="font-caveat text-xl font-bold text-brand-text">
@@ -60,6 +97,18 @@ function StopsAndMapCompact() {
               Map of Norwich City Centre
             </p>
           </div>
+        </div>
+
+        {/* Quiet link to the dedicated tour page (where the per-stop stories live) */}
+        <div className="mt-10 text-center">
+          <a
+            href="/tour"
+            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:underline underline-offset-2"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            Read the story behind each stop
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
