@@ -18,6 +18,7 @@ import { googleReviewStats } from "@/lib/testimonials";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 
 interface HeroV2Props {
+  title: React.ReactNode;
   buttonText: string;
   buttonHref: string;
   widget?: React.ReactNode;
@@ -50,6 +51,7 @@ const cardVariants: Variants = {
 };
 
 export function HeroV2({
+  title,
   buttonText,
   buttonHref,
   widget,
@@ -100,11 +102,19 @@ export function HeroV2({
             variants={itemVariants}
             style={{ color: "#FFFFFF", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
           >
-            See Norwich with someone who walks it for a living.
+            {title}
           </motion.h1>
 
           <motion.p
-            className="mt-5 text-xl text-white/90 leading-snug max-w-md"
+            className="mt-4 text-xl text-white/85 leading-snug"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+            variants={itemVariants}
+          >
+            See the real Norwich with a local.
+          </motion.p>
+
+          <motion.p
+            className="mt-3 text-base text-white/80 leading-relaxed max-w-md"
             style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
             variants={itemVariants}
           >
@@ -157,7 +167,7 @@ export function HeroV2({
             className="mt-2 text-xs text-white/65 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Pay at the end by card, Apple Pay, Google Pay or cash
+            £0 to book &bull; Tip £10&ndash;£20 at the end if you enjoyed it
           </motion.p>
         </div>
 

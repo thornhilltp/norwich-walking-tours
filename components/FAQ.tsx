@@ -11,6 +11,10 @@ const faqs = [
     a: "Risk-free, not just free. Nothing to pay upfront. At the end you pay what you think it was worth. £10 to £20 a person is the going rate. If it wasn't worth it, you don't pay. Cards, Apple Pay, Google Pay and cash all work.",
   },
   {
+    q: "What happens on the day?",
+    a: "Three steps. Book your spot online (free, no card needed). Meet your guide outside The Forum at your booked time — they'll be in a green t-shirt with a suspicious amount of local knowledge. Walk for 1 hour 45 minutes, relaxed pace, finishing near the Cathedral. At the end you tip what you thought it was worth. Card, Apple Pay, Google Pay or cash.",
+  },
+  {
     q: "What if it rains?",
     a: "We run every day, rain or shine. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat, not an excuse.",
   },

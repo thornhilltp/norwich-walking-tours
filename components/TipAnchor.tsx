@@ -1,6 +1,6 @@
-// TipAnchor — sets price expectation between HowItWorks and PracticalInfo.
-// Standalone band on bg-brand-bg so it contrasts with HowItWorks's brand-accent-light above.
-// No CTA — the PracticalInfo CTA sits one scroll below; this band exists to anchor the £.
+// TipAnchor — price-expectation band for the £10-£20 tip.
+// Used on /what-is-a-free-tour. Self-contained, no CTA — designed to sit
+// between an explainer and a logistics block.
 
 export function TipAnchor() {
   return (
