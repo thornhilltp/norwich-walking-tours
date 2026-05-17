@@ -21,7 +21,12 @@ const chips = [
   "Grosvenor Fish & Chips",
 ];
 
-export function StoriesTeaser() {
+interface StoriesTeaserProps {
+  /** Hide the bottom "See the full route" CTA. Used when the component sits on /tour itself. */
+  hideCta?: boolean;
+}
+
+export function StoriesTeaser({ hideCta = false }: StoriesTeaserProps = {}) {
   return (
     <section className="section-padding bg-brand-bg">
       <div className="brand-container max-w-3xl mx-auto text-center">
@@ -67,29 +72,31 @@ export function StoriesTeaser() {
           ))}
         </motion.ul>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-        >
-          <a
-            href="/tour"
-            onClick={() =>
-              trackEvent("view_route_click", { location: "stories_teaser" })
-            }
-            className="btn-cta inline-flex items-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
+        {!hideCta && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
           >
-            See the full route
-            <ArrowRight className="h-5 w-5" aria-hidden="true" />
-          </a>
-          <p
-            className="mt-3 text-sm text-muted-foreground"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            All covered on the 1h 45m walk.
-          </p>
-        </motion.div>
+            <a
+              href="/tour"
+              onClick={() =>
+                trackEvent("view_route_click", { location: "stories_teaser" })
+              }
+              className="btn-cta inline-flex items-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
+            >
+              See the full route
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <p
+              className="mt-3 text-sm text-muted-foreground"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              All covered on the 1h 45m walk.
+            </p>
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -90,6 +90,34 @@ export default function HomeV2Page() {
       />
       <StopsAndMapCompact />
       <FAQ />
+      {/* Internal-link row — recovers the link equity LocalGuidesTeaser used to
+          carry to /explore, /things-to-do/free, etc. Plain text links, low
+          visual weight, but Google sees the anchors. */}
+      <section className="py-10 bg-brand-bg border-t border-brand-accent/10">
+        <div className="brand-container max-w-3xl mx-auto text-center">
+          <p
+            className="text-sm text-muted-foreground"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            More on Norwich:{" "}
+            <a href="/tour" className="text-brand-accent hover:underline font-semibold">
+              The full tour
+            </a>
+            {" · "}
+            <a href="/what-is-a-free-tour" className="text-brand-accent hover:underline font-semibold">
+              What is a free tour?
+            </a>
+            {" · "}
+            <a href="/things-to-do/free" className="text-brand-accent hover:underline font-semibold">
+              Free things to do
+            </a>
+            {" · "}
+            <a href="/explore" className="text-brand-accent hover:underline font-semibold">
+              More articles
+            </a>
+          </p>
+        </div>
+      </section>
       <EmailCapture />
       <Footer />
     </main>

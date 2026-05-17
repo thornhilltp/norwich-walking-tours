@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
+import { StoriesTeaser } from "@/components/StoriesTeaser";
 
 export const metadata: Metadata = {
   title: "Norwich Walking Tour | 12 Stops, 1h 45m",
@@ -111,7 +112,7 @@ export default function TourPage() {
             The real Norwich, on foot, with someone who lives here. You&apos;ll cover a thousand years of history without realising it, hear the stories most guidebooks miss, and find out why the city has more medieval churches per square mile than anywhere else in Europe. No booking fee, no card needed. You only pay what the tour was worth at the end.
           </p>
           <p className="text-base text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            We meet at The Forum, walk twelve stops through the old city, and finish near the Cathedral 1 hour 45 minutes later. Group size is capped at 15 so you can actually hear what&apos;s being said. Mon to Sat, rain or shine.
+            We meet at The Forum, walk twelve stops through the old city, and finish near the Cathedral 1 hour 45 minutes later. Group size is capped at 15 so you can actually hear what&apos;s being said. Daily, rain or shine.
           </p>
           <a
             href="/book"
@@ -201,6 +202,9 @@ export default function TourPage() {
           </div>
         </div>
       </section>
+
+      {/* Stories along the way — entity-rich topics woven through the walk */}
+      <StoriesTeaser hideCta />
 
       {/* Pointed out, not visited */}
       <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">

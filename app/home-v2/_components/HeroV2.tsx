@@ -11,7 +11,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
-import { ArrowRight, Star, Clock, Users } from "lucide-react";
+import { ArrowRight, Star, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/tracking";
 import { googleReviewStats } from "@/lib/testimonials";
@@ -93,7 +93,7 @@ export function HeroV2({
 
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Daily Mon-Sat &bull; Free to book &bull; 1h 45m
+              Tours run daily &bull; 1h 45m
             </span>
           </motion.div>
 
@@ -111,14 +111,6 @@ export function HeroV2({
             variants={itemVariants}
           >
             See the real Norwich with a local.
-          </motion.p>
-
-          <motion.p
-            className="mt-3 text-base text-white/80 leading-relaxed max-w-md"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
-            variants={itemVariants}
-          >
-            Free to book. Tip what it was worth at the end.
           </motion.p>
 
           <motion.div variants={itemVariants} className="mt-8">
@@ -154,10 +146,6 @@ export function HeroV2({
               </>
             )}
             <span className="inline-flex items-center gap-1">
-              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
-            </span>
-            <span aria-hidden="true" className="text-white/40">·</span>
-            <span className="inline-flex items-center gap-1">
               <Users className="h-4 w-4" aria-hidden="true" /> Max 15
             </span>
           </motion.div>
@@ -167,7 +155,7 @@ export function HeroV2({
             className="mt-2 text-xs text-white/65 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Tip £10&ndash;£20 at the end if you enjoyed it
+            £0 to book &bull; Pay at the end by card or cash &bull; usually £10&ndash;£20
           </motion.p>
         </div>
 
