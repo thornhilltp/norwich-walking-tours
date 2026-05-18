@@ -17,23 +17,29 @@ import { ArrowRight } from "lucide-react";
 
 export function AboutSectionV2() {
   return (
-    <section id="tom" className="section-padding">
+    // Tom feedback: needs visual break from the cream sections around
+    // it. Pure white bg gives the "fresh sheet of paper" feel that
+    // matches the polaroid + handwritten-note treatment without
+    // introducing a non-brand colour.
+    <section id="tom" className="section-padding bg-white">
       <div className="brand-container">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.15fr] gap-10 md:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 md:gap-14 items-start">
           {/* Left: polaroid portrait */}
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: -3 }}
             whileInView={{ opacity: 1, y: 0, rotate: -2 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="relative max-w-[440px] md:ml-auto"
+            className="relative max-w-[500px] md:mx-auto"
           >
-            {/* Polaroid frame */}
-            <div className="bg-white p-4 pb-16 shadow-xl border border-brand-accent/10">
+            {/* Polaroid frame — bg-brand-bg (cream) so it sits on
+                the white section bg with contrast, like a real
+                printed photo on a desk. */}
+            <div className="bg-brand-bg p-4 pb-14 shadow-xl border border-brand-accent/10">
               {/* "Sellotape" tab on top */}
               <span
                 aria-hidden="true"
-                className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-brand-text/5 backdrop-blur-sm rounded-sm"
+                className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-brand-text/8 backdrop-blur-sm rounded-sm"
               />
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
@@ -41,14 +47,19 @@ export function AboutSectionV2() {
                   alt="Tom Thornhill, founder and guide of Norwich Free Walking Tours"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 90vw, 440px"
+                  style={{ objectPosition: "center 30%" }}
+                  sizes="(max-width: 768px) 90vw, 500px"
                 />
               </div>
+              {/* Caption — tighter tracking + shorter text so it
+                  fits on one line. Was wrapping awkwardly across
+                  3 lines with tracking-[0.18em] + full name + dash
+                  + "self portrait". */}
               <p
-                className="absolute bottom-6 left-4 text-[10px] tracking-[0.18em] uppercase text-brand-text/50 font-semibold"
+                className="absolute bottom-5 left-4 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                Tom Thornhill &mdash; self portrait
+                Tom Thornhill, Norwich
               </p>
             </div>
             {/* Handwritten note below the polaroid */}
