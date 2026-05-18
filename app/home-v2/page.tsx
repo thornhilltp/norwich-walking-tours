@@ -20,6 +20,7 @@ import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { HeroV2 } from "./_components/HeroV2";
 import { ThemedRouteSection } from "./_components/ThemedRouteSection";
+import { AboutSectionV2 } from "./_components/AboutSectionV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
@@ -75,6 +76,7 @@ export default function HomeV2Page() {
       <PhotoShowcaseV2 />
       <TestimonialsV2 />
       <ThemedRouteSection />
+      <AboutSectionV2 />
       <BookingSectionV2 />
       <FAQ
         customHeading={

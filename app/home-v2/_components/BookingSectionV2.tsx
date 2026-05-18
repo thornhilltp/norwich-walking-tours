@@ -78,12 +78,10 @@ export function BookingSectionV2() {
                 Full explainer &rarr;
               </a>
             </p>
-            <p
-              className="text-base text-muted-foreground leading-relaxed mb-7"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              Tours leave The Forum daily. Fifteen people max. If a date is full, the next one is usually tomorrow.
-            </p>
+            {/* Tom feedback: the "Tours leave The Forum daily..." line was
+                redundant with the free-tour explainer above + the bullets
+                below + the Hero badge + the ScrollTrail. Dropped to avoid
+                repeating the same facts in adjacent paragraphs. */}
 
             <ul className="mb-8">
               {bullets.map((bullet, idx) => (

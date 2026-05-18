@@ -20,6 +20,7 @@ const sections: TrailSection[] = [
   { id: "stories", label: "Stories" },
   { id: "reviews", label: "Reviews" },
   { id: "tour-map", label: "The walk" },
+  { id: "tom", label: "Tom" },
   { id: "book-section", label: "Book" },
   { id: "faq", label: "FAQs" },
 ];
