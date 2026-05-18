@@ -26,24 +26,29 @@ interface Group {
   body: string;
 }
 
+// Restructured per Tom's review — back to the original three
+// PhotoShowcase categories (Indie / Living / Historical) reframed
+// as route threads. Each thread groups 4 of the 12 stops. The
+// previous Card 3 body had invented specifics (Witch trials /
+// Paddington / etc.) — rewritten with only documented facts.
 const groups: Group[] = [
   {
     eyebrow: "What you'll see",
     headline: "The medieval heart.",
     stops: "Cathedral · Castle · Guildhall · St Andrews Hall",
-    body: "Nearly a thousand years of stories, all within ten minutes of each other on foot.",
+    body: "Nearly a thousand years of stories, all within ten minutes of each other on foot. Norman fortress, England's largest provincial medieval guildhall, the cathedral that's been the city's compass since 1096.",
   },
   {
     eyebrow: "Where you'll go",
     headline: "The independent Norwich.",
     stops: "The Lanes · Norwich Market · The Arcade · London Street",
-    body: "Where locals actually shop, eat, and queue. The first pedestrianised street in the UK. The places people come back to.",
+    body: "Where locals actually queue. Independent shops you won't find on any high street, the oldest open-air market in the country, the first pedestrianised street in the UK.",
   },
   {
-    eyebrow: "What you'll hear",
-    headline: "The bits that aren't on the plaque.",
+    eyebrow: "Why people stay",
+    headline: "The city people don't leave.",
     stops: "The Forum · Elm Hill · Tombland · Fye Bridge",
-    body: "Witch trials at the Guildhall. The vote that saved Elm Hill. The story behind the name Tombland. The bit about Paddington.",
+    body: "Modern arts hub. Film-set cobbles. A river that runs through it all. The Sunday Times keeps calling Norwich the best place to live in the UK — walk it and you see why.",
   },
 ];
 
@@ -95,12 +100,8 @@ export function ThemedRouteSection() {
               the medieval city.
             </span>
           </h2>
-          <p
-            className="mt-4 text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Twelve stops, 1h 45m, relaxed pace, finishing near the Cathedral.
-          </p>
+          {/* Meta line dropped per Tom — length and end location both
+              vary by tour. Not safe to state as fact on the homepage. */}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-20 items-start">

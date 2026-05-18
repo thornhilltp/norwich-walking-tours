@@ -153,8 +153,10 @@ export function PhotoShowcaseV2() {
           ))}
         </motion.div>
 
-        {/* Three equal-weight cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+        {/* Three equal-weight cards. Each image is wrapped in a polaroid
+            frame (matches About section's portrait polaroid for visual
+            consistency) with a piece of masking tape at the top. */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-7 mt-4">
           {cards.map((card, idx) => (
             <motion.article
               key={card.label}
@@ -164,15 +166,40 @@ export function PhotoShowcaseV2() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="flex flex-col"
             >
-              {/* Image — clean, no floating chrome */}
-              <div className="relative rounded-md overflow-hidden aspect-square mb-5">
-                <Image
-                  src={card.src}
-                  alt={card.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+              {/* Polaroid frame — white card, image + small caption.
+                  Slight rotation per card for "stuck on a wall" feel. */}
+              <div
+                className="relative bg-white p-2.5 pb-10 shadow-lg border border-brand-text/5 mb-6 self-stretch"
+                style={{
+                  transform: `rotate(${idx === 0 ? "-1.2deg" : idx === 1 ? "0.8deg" : "-0.6deg"})`,
+                }}
+              >
+                {/* Masking tape on top — yellowy translucent */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rounded-sm shadow-sm"
+                  style={{
+                    backgroundColor: "rgba(241, 225, 161, 0.75)",
+                    borderTop: "1px solid rgba(241, 225, 161, 0.95)",
+                    borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+                  }}
                 />
+                <div className="relative aspect-square overflow-hidden">
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 90vw, 33vw"
+                  />
+                </div>
+                {/* Polaroid caption — short location/topic label */}
+                <p
+                  className="absolute bottom-3 left-3 text-[9px] tracking-[0.1em] uppercase text-brand-text/55 font-semibold"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {card.label}
+                </p>
               </div>
 
               {/* Labels dropped entirely. Title already conveys what the
