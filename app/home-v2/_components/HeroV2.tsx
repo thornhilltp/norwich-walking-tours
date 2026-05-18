@@ -17,8 +17,10 @@ import { trackEvent } from "@/lib/tracking";
 import { googleReviewStats } from "@/lib/testimonials";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 
+// HeroV2 props — `title` removed in iteration 4 (Tom's feedback +
+// confirmation of original 4-audit recommendation). Brand name lives
+// in the nav logo + page <title> + JSON-LD — H1 should sell the offer.
 interface HeroV2Props {
-  title: React.ReactNode;
   buttonText: string;
   buttonHref: string;
   widget?: React.ReactNode;
@@ -51,7 +53,6 @@ const cardVariants: Variants = {
 };
 
 export function HeroV2({
-  title,
   buttonText,
   buttonHref,
   widget,
@@ -91,33 +92,28 @@ export function HeroV2({
             </span>
           </motion.div>
 
+          {/* H1 — value prop, not brand name. Brand name is in nav logo
+              + page title + JSON-LD already; H1 should answer
+              "what is this?" not "who runs it?". Lora bold →
+              Caveat green inline pattern (signature on this site). */}
           <motion.h1
-            className="font-caveat text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-white"
-            variants={itemVariants}
-            style={{ color: "#FFFFFF", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
-          >
-            {title}
-          </motion.h1>
-
-          {/* Subhead — Lora bold → Caveat green inline pattern */}
-          <motion.p
-            className="mt-4 leading-tight"
-            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+            className="mt-2 leading-[0.95]"
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}
             variants={itemVariants}
           >
             <span
-              className="text-2xl md:text-3xl font-bold text-white"
+              className="block text-[clamp(34px,4.6vw,56px)] font-bold leading-[1.05] text-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               See Norwich with
-            </span>{" "}
+            </span>
             <span
-              className="text-4xl md:text-5xl font-bold"
+              className="block text-[clamp(54px,7.2vw,88px)] font-bold leading-[0.95]"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#5AE19E" }}
             >
               someone who lives here.
             </span>
-          </motion.p>
+          </motion.h1>
 
           <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a

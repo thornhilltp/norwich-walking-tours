@@ -58,7 +58,6 @@ export default function HomeV2Page() {
       {/* Sections sit above the WalkingPattern via z-index. */}
       <div className="relative z-10">
       <HeroV2
-        title={<>Norwich Free Walking Tours</>}
         buttonText="Book your spot (free)"
         // In-page anchor to the BookingSectionV2 below. Keeps users on
         // /home-v2 when they hit the hero CTA instead of context-switching
