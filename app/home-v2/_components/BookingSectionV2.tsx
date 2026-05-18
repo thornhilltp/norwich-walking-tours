@@ -63,6 +63,21 @@ export function BookingSectionV2() {
                 Tip what it was worth.
               </span>
             </h2>
+            {/* Inline "what is a free tour?" explainer — catches first-time
+                visitors who don't know the model. Links to the full
+                explainer at /what-is-a-free-tour for the longer read. */}
+            <p
+              className="text-base text-muted-foreground leading-relaxed mb-4"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              <strong className="text-brand-text font-semibold">Never done a free walking tour?</strong> Book free, walk 1h 45m with a local guide, tip what you thought it was worth at the end. No catch.{" "}
+              <a
+                href="/what-is-a-free-tour"
+                className="text-brand-accent-text font-semibold hover:underline underline-offset-2"
+              >
+                Full explainer &rarr;
+              </a>
+            </p>
             <p
               className="text-base text-muted-foreground leading-relaxed mb-7"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}

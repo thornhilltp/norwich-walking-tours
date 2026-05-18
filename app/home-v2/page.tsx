@@ -18,8 +18,8 @@ import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { tourStops } from "@/lib/tourStops";
 import { HeroV2 } from "./_components/HeroV2";
+import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
@@ -41,90 +41,11 @@ export const metadata: Metadata = {
 // opaque bg (BookingSection's light-green, Hero's image, the dark
 // footer) naturally cover the pattern and create rhythm.
 
-// StopsAndMapCompact — Sandemans-style scannable list + map.
-// No per-stop descriptions on home (those live on /tour). Just numbers + names
-// + the map as the visual centrepiece. One quiet link to /tour at the bottom.
-function StopsAndMapCompact() {
-  return (
-    <section id="tour-map" className="section-padding">
-      <div className="brand-container">
-        <div className="text-center mb-10">
-          <p
-            className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            The route
-          </p>
-          <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-3">
-            12 stops. The Forum to Norwich Cathedral.
-          </h2>
-          <p
-            className="text-base text-muted-foreground"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            1h 45m at a relaxed pace.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* Numbered stops list — typographic, no card chrome */}
-          <ol className="space-y-3">
-            {tourStops.map((stop) => (
-              <li
-                key={stop.id}
-                className="flex items-baseline gap-4 border-b border-brand-accent/10 pb-3 last:border-b-0"
-              >
-                <span
-                  className="text-sm font-bold text-brand-accent w-8 shrink-0 tabular-nums"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {String(stop.id).padStart(2, "0")}
-                </span>
-                <span className="font-caveat text-2xl md:text-3xl text-brand-text leading-tight">
-                  {stop.name}
-                </span>
-              </li>
-            ))}
-          </ol>
-
-          {/* Map — sticky on desktop so it stays visible as the list reads */}
-          <div className="lg:sticky lg:top-24 bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden">
-            <div className="px-4 pt-4 pb-2">
-              <p className="font-caveat text-xl font-bold text-brand-text">
-                Map of the Route
-              </p>
-            </div>
-            <Image
-              src="/images/route-map.png"
-              alt="Hand-drawn route map of the Norwich Free Walking Tours showing all 12 stops from The Forum to Norwich Cathedral."
-              width={1500}
-              height={1155}
-              className="w-full h-auto"
-            />
-            <p
-              className="px-4 py-2 text-xs text-muted-foreground"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              Map of Norwich City Centre
-            </p>
-          </div>
-        </div>
-
-        {/* Quiet link to the dedicated tour page (where the per-stop stories live) */}
-        <div className="mt-10 text-center">
-          <a
-            href="/tour"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:underline underline-offset-2"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Read the story behind each stop
-            <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
+// Note: StopsAndMapCompact replaced with ThemedRouteSection — Tom's
+// feedback was that a 12-name list means nothing to a first-time
+// visitor (he won't know what "Tombland" or "Fye Bridge" are).
+// Reframed as 3 thematic groupings with embedded stop names, animated
+// pin-drops on the group markers, wiggly-line motif connecting them.
 
 export default function HomeV2Page() {
   return (
@@ -153,7 +74,7 @@ export default function HomeV2Page() {
       />
       <PhotoShowcaseV2 />
       <TestimonialsV2 />
-      <StopsAndMapCompact />
+      <ThemedRouteSection />
       <BookingSectionV2 />
       <FAQ
         customHeading={
