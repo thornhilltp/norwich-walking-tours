@@ -109,20 +109,17 @@ export function AboutSectionV2() {
               </span>
             </h2>
 
-            <div
-              className="space-y-4 text-brand-text/85 text-[16px] leading-[1.65]"
+            {/* Single short paragraph (Tom's pick: Option A, 48 words).
+                Replaces the previous 3-paragraph life-story version
+                which felt long and partly drawn from /about. This is
+                the "why I do this" arc in under 50 words. Em-dash
+                replaced with full stop per brand rule. */}
+            <p
+              className="text-brand-text/85 text-[17px] leading-[1.65]"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              <p>
-                I&apos;ve lived in Norwich for over a decade. Before that, London &mdash; just long enough to know I&apos;d rather not.
-              </p>
-              <p>
-                I started running these walks because friends kept visiting and asking me the same thing: <em>where do you actually go?</em> So I drew the route, wrote down the stories I&apos;d end up telling them anyway, and started letting other people come along too.
-              </p>
-              <p>
-                It&apos;s daily now. One group, fifteen people, free to book. If you reckon it was worth a tenner, that&apos;s the rate. If you reckon it was worth twenty, that&apos;s also the rate. If you reckon it wasn&apos;t worth anything, walk off. No drama.
-              </p>
-            </div>
+              I&apos;m Tom. Came to Norwich for the history degree, never left. That was 13 years ago. Travelled in 2025 and took free walking tours in every city. A local meeting you, showing you their place, no upfront price. Norwich didn&apos;t have one. Now it does.
+            </p>
 
             {/* Dual CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-5">
