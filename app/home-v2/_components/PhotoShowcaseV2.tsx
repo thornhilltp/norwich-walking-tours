@@ -20,45 +20,29 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Fragment } from "react";
 
+// Card 2 ('A list to come back to / Places to come back to tomorrow')
+// dropped per Tom — it was the weakest card, partly duplicated the
+// 4-benefit row above, and didn't earn its column. Now 2 cards
+// centred. Polaroid paper tones varied per Tom (white + cream).
 const cards = [
   {
     label: "An overview",
-    // Swapped from group-cathedral-lawn → elm-hill-tour: more
-    // iconic Norwich shot, recognisable to visitors even before
-    // they've been (cobbled medieval street is the city's
-    // most-photographed view).
     src: "/images/tour/elm-hill-tour.jpg",
     alt: "Elm Hill, Norwich's most-photographed cobbled medieval street, on the Norwich Free Walking Tour",
     title: "The whole city in one walk.",
-    // Card 1 body is now the customer quote (moved from the heading
-    // area above per Tom). Rendered as italic Caveat with attribution.
     quote: "It's like a walking visitor centre with a local.",
     quoteAttribution: "what guests say",
     pin: "best thing first",
-  },
-  {
-    label: "A list to come back to",
-    // Swapped from guide-norwich-market → norwich-market-sun-stock:
-    // wider market shot without a tour group in it. Says "this is
-    // the kind of place you'd come back to" rather than "this is
-    // what the tour group looks like" (which is what the other
-    // cards' photos cover).
-    src: "/images/norwich-market-sun-stock.png",
-    alt: "Norwich Market, one of England's oldest open-air markets, with colourful stall awnings in afternoon sun",
-    title: "Places to come back to tomorrow.",
-    body: "Save the spots that catch your eye on the walk. Eat, drink, browse, return. Norwich rewards a second visit.",
-    pin: "save the spots",
+    polaroidBg: "#FFFFFF",
   },
   {
     label: "A local to ask",
-    // Swapped from group-britons-arms → guide-guildhall: tighter
-    // crop, guide explaining something to a small group. Reads as
-    // "personal access to a local" not "a tour crowd".
     src: "/images/tour/guide-guildhall.jpg",
     alt: "Tom explaining the chequerboard flintwork on Norwich Guildhall to a small tour group",
     title: "Someone you can actually ask.",
     body: "Got a question about Norwich? Tom's lived here years. Ask about food, kids' stuff, where to drink, what's worth your time.",
     pin: "ask anything",
+    polaroidBg: "#F5EBDA",
   },
 ] as const;
 
@@ -153,10 +137,9 @@ export function PhotoShowcaseV2() {
           ))}
         </motion.div>
 
-        {/* Three equal-weight cards. Each image is wrapped in a polaroid
-            frame (matches About section's portrait polaroid for visual
-            consistency) with a piece of masking tape at the top. */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-7 mt-4">
+        {/* Two cards now (was 3). Centred max-w-4xl grid keeps them
+            visually anchored rather than left-aligned with empty 3rd col. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mt-4 max-w-4xl mx-auto">
           {cards.map((card, idx) => (
             <motion.article
               key={card.label}
@@ -166,12 +149,13 @@ export function PhotoShowcaseV2() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="flex flex-col"
             >
-              {/* Polaroid frame — white card, image + small caption.
-                  Slight rotation per card for "stuck on a wall" feel. */}
+              {/* Polaroid frame — paper tone varies per card (Tom's
+                  pick). Slight rotation for "stuck on a wall" feel. */}
               <div
-                className="relative bg-white p-2.5 pb-10 shadow-lg border border-brand-text/5 mb-6 self-stretch"
+                className="relative p-2.5 pb-10 shadow-lg border border-brand-text/5 mb-6 self-stretch"
                 style={{
-                  transform: `rotate(${idx === 0 ? "-1.2deg" : idx === 1 ? "0.8deg" : "-0.6deg"})`,
+                  backgroundColor: card.polaroidBg,
+                  transform: `rotate(${idx === 0 ? "-1.2deg" : "0.8deg"})`,
                 }}
               >
                 {/* Masking tape on top — yellowy translucent */}

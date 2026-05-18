@@ -174,8 +174,12 @@ export function HeroV2({
           className="relative lg:w-1/2 w-full flex flex-col items-center justify-center gap-5"
           variants={cardVariants}
         >
+          {/* Booking widget hidden on mobile — adds 520px to a
+              page that's already long on phones, and the dedicated
+              BookingSection below has the same widget. Visitors on
+              mobile use the Hero CTA which anchors to #book-section. */}
           {widget ? (
-            <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white">
+            <div className="hidden md:block w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white">
               {widget}
             </div>
           ) : null}

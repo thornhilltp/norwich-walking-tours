@@ -50,7 +50,11 @@ function TripAdvisorLogo({ className }: { className?: string }) {
 
 export function TestimonialsV2() {
   return (
-    <section id="reviews" className="section-padding">
+    <section
+      id="reviews"
+      className="section-padding"
+      style={{ backgroundColor: "#FAF4E8" }}
+    >
       <div className="brand-container">
         {/* Header row — heading left, big rating right */}
         <motion.div

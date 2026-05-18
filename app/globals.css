@@ -119,6 +119,13 @@
     scroll-behavior: smooth;
   }
 
+  /* Account for the fixed nav (h-20 = 80px) when anchor-jumping
+     to a section. Without this, jumping to #faq / #reviews / etc
+     puts the section heading UNDER the nav bar. */
+  section[id] {
+    scroll-margin-top: 96px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
@@ -168,8 +175,11 @@
   }
 
   .section-padding {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    /* Mobile padding reduced from 4rem → 3rem so the page isn't
+       all gap on phones (9 sections × 8rem vertical padding adds
+       1100+px on mobile by itself). */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     @media (min-width: 768px) {
       padding-top: 5rem;
       padding-bottom: 5rem;
