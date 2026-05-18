@@ -23,8 +23,12 @@ import { Fragment } from "react";
 const cards = [
   {
     label: "An overview",
-    src: "/images/tour/group-cathedral-lawn.jpg",
-    alt: "Norwich Free Walking Tour group on the Cathedral lawn at the end of the tour",
+    // Swapped from group-cathedral-lawn → elm-hill-tour: more
+    // iconic Norwich shot, recognisable to visitors even before
+    // they've been (cobbled medieval street is the city's
+    // most-photographed view).
+    src: "/images/tour/elm-hill-tour.jpg",
+    alt: "Elm Hill, Norwich's most-photographed cobbled medieval street, on the Norwich Free Walking Tour",
     title: "The whole city in one walk.",
     // Card 1 body is now the customer quote (moved from the heading
     // area above per Tom). Rendered as italic Caveat with attribution.
@@ -34,16 +38,24 @@ const cards = [
   },
   {
     label: "A list to come back to",
-    src: "/images/tour/guide-norwich-market.jpg",
-    alt: "Guide at Norwich Market pointing out an independent food stall",
+    // Swapped from guide-norwich-market → norwich-market-sun-stock:
+    // wider market shot without a tour group in it. Says "this is
+    // the kind of place you'd come back to" rather than "this is
+    // what the tour group looks like" (which is what the other
+    // cards' photos cover).
+    src: "/images/norwich-market-sun-stock.png",
+    alt: "Norwich Market, one of England's oldest open-air markets, with colourful stall awnings in afternoon sun",
     title: "Places to come back to tomorrow.",
     body: "Save the spots that catch your eye on the walk. Eat, drink, browse, return. Norwich rewards a second visit.",
     pin: "save the spots",
   },
   {
     label: "A local to ask",
-    src: "/images/tour/group-britons-arms.jpg",
-    alt: "Tom guiding a tour group outside the Britons Arms on Elm Hill",
+    // Swapped from group-britons-arms → guide-guildhall: tighter
+    // crop, guide explaining something to a small group. Reads as
+    // "personal access to a local" not "a tour crowd".
+    src: "/images/tour/guide-guildhall.jpg",
+    alt: "Tom explaining the chequerboard flintwork on Norwich Guildhall to a small tour group",
     title: "Someone you can actually ask.",
     body: "Got a question about Norwich? Tom's lived here years. Ask about food, kids' stuff, where to drink, what's worth your time.",
     pin: "ask anything",
