@@ -166,6 +166,8 @@ export function PhotoShowcaseV2() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="flex flex-col"
             >
+              {/* Image — clean, no floating chrome (the white pill labels
+                  looked generic / floating-sticker per Tom's feedback) */}
               <div className="relative rounded-md overflow-hidden aspect-square mb-5">
                 <Image
                   src={card.src}
@@ -174,13 +176,17 @@ export function PhotoShowcaseV2() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div
-                  className="absolute top-3.5 left-3.5 bg-white px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.12em] uppercase text-brand-text"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {card.label}
-                </div>
               </div>
+
+              {/* Label is now a small green eyebrow above the title —
+                  same typography pattern as every section eyebrow on
+                  the page. Consistent + on-brand. */}
+              <p
+                className="text-brand-accent-text text-[11px] font-semibold tracking-[0.18em] uppercase mb-2"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                {card.label}
+              </p>
 
               <h3
                 className="font-bold text-[22px] leading-[1.2] text-brand-text mb-2.5"
