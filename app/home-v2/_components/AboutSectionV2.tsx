@@ -17,11 +17,15 @@ import { ArrowRight } from "lucide-react";
 
 export function AboutSectionV2() {
   return (
-    // Tom feedback: needs visual break from the cream sections around
-    // it. Pure white bg gives the "fresh sheet of paper" feel that
-    // matches the polaroid + handwritten-note treatment without
-    // introducing a non-brand colour.
-    <section id="tom" className="section-padding bg-white">
+    // Warm sandstone cream bg — Tom's reference. Lighter than the
+    // earlier #C9B083 attempt (that was too dark brown). Hardcoded
+    // inline (outside current 5-colour brand palette). If kept,
+    // promote to a brand token in globals.css and add to CLAUDE.md §3.
+    <section
+      id="tom"
+      className="section-padding"
+      style={{ backgroundColor: "#ECE0C8" }}
+    >
       <div className="brand-container">
         {/* Grid flipped — polaroid column now gets MORE space than
             text column (was 1fr / 1.2fr, polaroid felt visually
@@ -35,14 +39,21 @@ export function AboutSectionV2() {
             transition={{ duration: 0.6 }}
             className="relative w-full max-w-[580px] md:mx-auto"
           >
-            {/* Polaroid frame — bg-brand-bg (cream) so it sits on
-                the white section bg with contrast, like a real
-                printed photo on a desk. */}
-            <div className="bg-brand-bg p-4 pb-14 shadow-xl border border-brand-accent/10">
-              {/* "Sellotape" tab on top */}
+            {/* Polaroid frame — white bg, image fills MORE of the
+                frame (smaller side/top padding, longer bottom for
+                caption). Real-polaroid proportions. */}
+            <div className="bg-white p-3 pb-12 shadow-2xl border border-brand-text/5">
+              {/* Masking tape at top — yellowy translucent like real
+                  tape, more visible than the previous near-invisible
+                  brown/grey version. */}
               <span
                 aria-hidden="true"
-                className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-brand-text/8 backdrop-blur-sm rounded-sm"
+                className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-24 h-7 rounded-sm shadow-sm"
+                style={{
+                  backgroundColor: "rgba(241, 225, 161, 0.75)",
+                  borderTop: "1px solid rgba(241, 225, 161, 0.95)",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+                }}
               />
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
@@ -54,12 +65,8 @@ export function AboutSectionV2() {
                   sizes="(max-width: 768px) 90vw, 580px"
                 />
               </div>
-              {/* Caption — tighter tracking + shorter text so it
-                  fits on one line. Was wrapping awkwardly across
-                  3 lines with tracking-[0.18em] + full name + dash
-                  + "self portrait". */}
               <p
-                className="absolute bottom-5 left-4 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
+                className="absolute bottom-4 left-4 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 Tom Thornhill, Norwich
