@@ -14,15 +14,15 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
-import { PhotoShowcase } from "@/components/PhotoShowcase";
 import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { Testimonials } from "@/components/Testimonials";
-import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 import { tourStops } from "@/lib/tourStops";
 import { HeroV2 } from "./_components/HeroV2";
+import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
+import { BookingSectionV2 } from "./_components/BookingSectionV2";
+import { TestimonialsV2 } from "./_components/TestimonialsV2";
 
 // Experimental — don't let Google index this as duplicate of /.
 // Remove this export when /home-v2 is promoted to / and this folder deleted.
@@ -129,16 +129,28 @@ export default function HomeV2Page() {
           />
         }
       />
-      <PhotoShowcase />
-      <Testimonials
-        testimonials={googleReviews}
-        subtitle="What guests say about the Norwich walking tour and the local tips that come with it."
-        rating={googleReviewStats.rating}
-        count={googleReviewStats.count}
-        profileUrl={googleReviewStats.profileUrl}
-      />
+      <PhotoShowcaseV2 />
+      <TestimonialsV2 />
       <StopsAndMapCompact />
-      <FAQ />
+      <BookingSectionV2 />
+      <FAQ
+        customHeading={
+          <h2 className="leading-[1.0]">
+            <span
+              className="inline text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              Everything you
+            </span>{" "}
+            <span
+              className="inline text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              need to know.
+            </span>
+          </h2>
+        }
+      />
       {/* Internal-link row — recovers the link equity LocalGuidesTeaser used to
           carry to /explore, /things-to-do/free, etc. Plain text links, low
           visual weight, but Google sees the anchors. */}

@@ -147,7 +147,12 @@ function FAQItem({
   );
 }
 
-export function FAQ() {
+interface FAQProps {
+  /** Optional custom heading element (e.g. Lora→Caveat inline pattern for /home-v2). */
+  customHeading?: React.ReactNode;
+}
+
+export function FAQ({ customHeading }: FAQProps = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
@@ -171,9 +176,11 @@ export function FAQ() {
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
               FAQs
             </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
-              Everything you need to know
-            </h2>
+            {customHeading ?? (
+              <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
+                Everything you need to know
+              </h2>
+            )}
           </motion.div>
 
           {/* Accordion */}
