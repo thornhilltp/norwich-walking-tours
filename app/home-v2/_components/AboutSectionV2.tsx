@@ -96,13 +96,13 @@ export function AboutSectionV2() {
             </p>
             <h2 className="leading-[1.0] mb-7">
               <span
-                className="inline text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
+                className="inline text-[clamp(48px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 Tom,
               </span>{" "}
               <span
-                className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] text-brand-text"
+                className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 mostly.

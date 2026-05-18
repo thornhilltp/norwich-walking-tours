@@ -102,13 +102,13 @@ export function HeroV2({
             variants={itemVariants}
           >
             <span
-              className="block text-[clamp(34px,4.6vw,56px)] font-semibold leading-[1.05] text-white"
+              className="block text-[clamp(34px,4.6vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               See Norwich with
             </span>
             <span
-              className="block text-[clamp(54px,7.2vw,88px)] font-bold leading-[0.95]"
+              className="block text-[clamp(54px,7.2vw,88px)] font-semibold leading-[0.95]"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#5AE19E" }}
             >
               someone who lives here.

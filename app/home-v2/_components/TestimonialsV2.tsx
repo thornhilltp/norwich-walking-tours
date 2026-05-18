@@ -69,13 +69,13 @@ export function TestimonialsV2() {
             </p>
             <h2 className="leading-[1.0]">
               <span
-                className="inline text-[clamp(40px,4.4vw,60px)] font-semibold leading-[1.05] text-brand-text"
+                className="inline text-[clamp(40px,4.4vw,60px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 What people said
               </span>{" "}
               <span
-                className="inline text-[clamp(52px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
+                className="inline text-[clamp(52px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 after.
