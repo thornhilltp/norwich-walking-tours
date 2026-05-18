@@ -50,8 +50,6 @@ const cards = [
   },
 ] as const;
 
-type Card = (typeof cards)[number];
-
 const benefits = [
   "Best places to eat & drink",
   "Photo spots",
@@ -66,11 +64,8 @@ const MapPinIcon = () => (
   </svg>
 );
 
-const QuoteIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0 text-brand-accent" aria-hidden="true">
-    <path d="M7 6h4v8H7c-2 0-3-1-3-3v-1c0-2 1-4 3-4zm6 0h4v8h-4c-2 0-3-1-3-3v-1c0-2 1-4 3-4z"/>
-  </svg>
-);
+// QuoteIcon removed — was used in the heading-area quote block,
+// which moved into Card 1 with its own border-l accent (no icon).
 
 export function PhotoShowcaseV2() {
   return (
