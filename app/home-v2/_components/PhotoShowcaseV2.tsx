@@ -193,10 +193,12 @@ export function PhotoShowcaseV2() {
                     sizes="(max-width: 768px) 90vw, 33vw"
                   />
                 </div>
-                {/* Polaroid caption — short location/topic label */}
+                {/* Polaroid caption — Caveat handwritten (Tom's pick).
+                    Reads as a marker-pen note on a real photo, not a
+                    formal Lora label. */}
                 <p
-                  className="absolute bottom-3 left-3 text-[9px] tracking-[0.1em] uppercase text-brand-text/55 font-semibold"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                  className="absolute bottom-2 left-3 text-[18px] italic text-brand-text/70"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
                 >
                   {card.label}
                 </p>
@@ -226,7 +228,7 @@ export function PhotoShowcaseV2() {
                     className="text-[10px] tracking-[0.14em] uppercase text-muted-foreground mt-1"
                     style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                   >
-                    &mdash; {card.quoteAttribution}
+                    {card.quoteAttribution}
                   </p>
                 </div>
               ) : (

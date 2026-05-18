@@ -16,7 +16,10 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const isOpaque = scrolled || mobileOpen || pathname !== "/";
+  // Nav is transparent at top of pages with dark image heroes (/, /home-v2).
+  // Otherwise always opaque so nav text is legible against cream content bg.
+  const hasDarkHero = pathname === "/" || pathname === "/home-v2";
+  const isOpaque = scrolled || mobileOpen || !hasDarkHero;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);

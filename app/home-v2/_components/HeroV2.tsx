@@ -88,7 +88,7 @@ export function HeroV2({
 
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Tours run daily &bull; 1h 45m
+              Free walking tour &bull; Tours run daily &bull; 1h 45m
             </span>
           </motion.div>
 

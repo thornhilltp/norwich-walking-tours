@@ -144,7 +144,7 @@ export function AboutSectionV2() {
               className="mt-10 text-4xl text-brand-text/70"
               style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-2deg)", display: "inline-block" }}
             >
-              &mdash; Tom
+              Tom
             </p>
           </motion.div>
         </div>
