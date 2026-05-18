@@ -10,6 +10,44 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 
+// TripAdvisor data — hardcoded here (not added to shared lib/testimonials.ts
+// per Tom's "no main page changes" rule). Promote to lib when this V2
+// design ships and / can use it too.
+const tripAdvisorStats = {
+  rating: 5.0,
+  count: 9,
+  profileUrl:
+    "https://www.tripadvisor.com/Attraction_Review-g186342-d34359588-Reviews-Norwich_Free_Walking_Tours-Norwich_Norfolk_East_Anglia_England.html",
+};
+
+// Inline brand logos. Public attribution use for review aggregation.
+function GoogleLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 18 18" className={className} aria-hidden="true">
+      <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
+      <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+      <path fill="#FBBC05" d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"/>
+      <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.166 6.656 3.58 9 3.58z"/>
+    </svg>
+  );
+}
+
+function TripAdvisorLogo({ className }: { className?: string }) {
+  // Simplified owl mark — two eyes inside the TripAdvisor green circle.
+  // Full-fidelity TripAdvisor branding would require licensed assets;
+  // this is a recognisable abstraction (same brand green, same two-eye
+  // silhouette) for credibility use.
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="11" fill="#34E0A1" />
+      <circle cx="8" cy="12" r="3.2" fill="#000" />
+      <circle cx="9" cy="11" r="0.9" fill="#FFF" />
+      <circle cx="16" cy="12" r="3.2" fill="#000" />
+      <circle cx="17" cy="11" r="0.9" fill="#FFF" />
+    </svg>
+  );
+}
+
 export function TestimonialsV2() {
   return (
     <section id="reviews" className="section-padding">
@@ -53,38 +91,84 @@ export function TestimonialsV2() {
             </p>
           </div>
 
-          {/* Big rating anchor — with Google logo for visual brand
-              recognition. Makes the "4.9" claim instantly credible
-              against the platform that issued it. */}
-          <div className="flex flex-col items-start md:items-end shrink-0">
-            <div className="flex items-center gap-4 mb-1.5">
-              <span
-                className="text-[44px] font-bold leading-none text-brand-text"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                {googleReviewStats.rating.toFixed(1)}
-              </span>
-              <span className="flex items-center gap-0.5">
-                {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="w-5 h-5 fill-brand-accent text-brand-accent" aria-hidden="true" />
-                ))}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              {/* Google "G" multi-colour logo — public attribution use. */}
-              <svg viewBox="0 0 18 18" className="w-4 h-4 flex-shrink-0" aria-hidden="true">
-                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
-                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
-                <path fill="#FBBC05" d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"/>
-                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.166 6.656 3.58 9 3.58z"/>
-              </svg>
+          {/* Two-platform rating anchor — Google + TripAdvisor side-by-side.
+              Each is clickable, has its own logo, rating, stars + count.
+              Together they read as "verified across two independent
+              review platforms". */}
+          <div className="flex flex-col sm:flex-row items-start md:items-end gap-6 sm:gap-8 shrink-0">
+            <a
+              href={googleReviewStats.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-start md:items-end group"
+              aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews — opens Google reviews in new tab`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <GoogleLogo className="w-4 h-4 flex-shrink-0" />
+                <span
+                  className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  Google
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mb-1">
+                <span
+                  className="text-[34px] font-bold leading-none text-brand-text group-hover:text-brand-accent transition-colors"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {googleReviewStats.rating.toFixed(1)}
+                </span>
+                <span className="flex items-center gap-0.5">
+                  {[1,2,3,4,5].map(i => (
+                    <Star key={i} className="w-4 h-4 fill-brand-accent text-brand-accent" aria-hidden="true" />
+                  ))}
+                </span>
+              </div>
               <p
-                className="text-[11px] tracking-[0.12em] uppercase text-muted-foreground"
+                className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                {googleReviewStats.count} Google reviews &nbsp;·&nbsp; 100% 5-star
+                {googleReviewStats.count} reviews &nbsp;·&nbsp; 100% 5-star
               </p>
-            </div>
+            </a>
+
+            <a
+              href={tripAdvisorStats.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-start md:items-end group"
+              aria-label={`${tripAdvisorStats.rating.toFixed(1)} stars from ${tripAdvisorStats.count} TripAdvisor reviews — opens TripAdvisor in new tab`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <TripAdvisorLogo className="w-4 h-4 flex-shrink-0" />
+                <span
+                  className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  Tripadvisor
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mb-1">
+                <span
+                  className="text-[34px] font-bold leading-none text-brand-text group-hover:text-brand-accent transition-colors"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {tripAdvisorStats.rating.toFixed(1)}
+                </span>
+                <span className="flex items-center gap-0.5">
+                  {[1,2,3,4,5].map(i => (
+                    <Star key={i} className="w-4 h-4 fill-brand-accent text-brand-accent" aria-hidden="true" />
+                  ))}
+                </span>
+              </div>
+              <p
+                className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                {tripAdvisorStats.count} reviews &nbsp;·&nbsp; 100% 5-star
+              </p>
+            </a>
           </div>
         </motion.div>
 
@@ -145,16 +229,25 @@ export function TestimonialsV2() {
           ))}
         </div>
 
-        {/* Read all link */}
-        <div className="mt-10 text-center">
+        {/* Read all links — two platforms */}
+        <div className="mt-10 text-center flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
           <a
             href={googleReviewStats.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             Read all {googleReviewStats.count} on Google &rarr;
+          </a>
+          <a
+            href={tripAdvisorStats.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            Read all {tripAdvisorStats.count} on TripAdvisor &rarr;
           </a>
         </div>
       </div>
