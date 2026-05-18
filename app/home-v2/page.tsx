@@ -11,9 +11,7 @@
 // Surviving sections (7 total): Hero, PhotoShowcase, Testimonials,
 // StopsAndMap (compact), FAQ, EmailCapture, Footer.
 
-import Image from "next/image";
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";

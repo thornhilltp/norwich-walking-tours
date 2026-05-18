@@ -82,7 +82,7 @@ export function PhotoShowcaseV2() {
             className="text-lg text-muted-foreground leading-relaxed max-w-2xl"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            Every place on the route has the version you'd read on a plaque. Tom doesn't tell those. He tells you where his neighbour drinks, the photo spots before the cafes open, and the story behind the things you'd otherwise walk past.
+            Every place on the route has the version you&apos;d read on a plaque. Tom doesn&apos;t tell those. He tells you where his neighbour drinks, the photo spots before the cafes open, and the story behind the things you&apos;d otherwise walk past.
           </p>
         </motion.div>
 
