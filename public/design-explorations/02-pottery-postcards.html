@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Direction 2 — Pottery & Postcards</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Lora:wght@400;500;700&family=Anton&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Lora', Georgia, serif;
+    color: #2A1F12;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(232,248,241,0.7), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(214,179,109,0.18), transparent 50%),
+      #F5EDDF;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(rgba(42,31,18,0.04) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 56px; position: relative; z-index: 1; }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 56px;
+    position: relative; z-index: 2;
+  }
+  .topbar .brand {
+    font-family: 'Caveat', cursive;
+    font-size: 30px; font-weight: 700; color: #4A6B3A;
+  }
+  .topbar nav { display: flex; gap: 32px; font-size: 14px; }
+  .topbar nav a { color: #2A1F12; text-decoration: none; opacity: 0.8; }
+  .topbar .cta {
+    background: #4A6B3A; color: #F5EDDF;
+    padding: 11px 22px; border-radius: 999px;
+    font-family: 'Caveat', cursive; font-size: 20px;
+    text-decoration: none; font-weight: 500;
+  }
+
+  /* ── Hero ── */
+  .hero { padding: 60px 56px 100px; position: relative; }
+
+  .hero-title-block {
+    max-width: 720px; margin: 0 auto;
+    text-align: center;
+    position: relative; z-index: 3;
+  }
+  .hero-stamp {
+    display: inline-block;
+    border: 2px solid #4A6B3A; color: #4A6B3A;
+    padding: 6px 16px; border-radius: 999px;
+    font-family: 'Caveat', cursive; font-size: 19px;
+    transform: rotate(-3deg);
+    margin-bottom: 24px;
+  }
+  .hero-h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 110px; line-height: 0.9; font-weight: 700;
+    color: #2A1F12;
+    margin-bottom: 24px;
+  }
+  .hero-h1 .accent { color: #4A6B3A; }
+  .hero-sub {
+    font-family: 'Lora', serif; font-size: 19px;
+    color: #4A3D2A; max-width: 50ch; margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: #2A1F12; color: #F5EDDF;
+    padding: 18px 40px; border-radius: 999px;
+    font-family: 'Caveat', cursive; font-size: 26px;
+    text-decoration: none; font-weight: 500;
+    box-shadow: 4px 4px 0 #4A6B3A;
+  }
+  .hero-tip {
+    margin-top: 18px;
+    font-family: 'Caveat', cursive; font-size: 22px;
+    color: #6B5436;
+  }
+
+  /* ── Postcard scatter ── */
+  .postcards {
+    position: relative;
+    height: 580px;
+    margin-top: 64px;
+  }
+  .postcard {
+    position: absolute;
+    background: #FFFEF8;
+    padding: 14px 14px 60px;
+    box-shadow:
+      0 2px 6px rgba(42,31,18,0.10),
+      0 24px 48px -16px rgba(42,31,18,0.25);
+  }
+  .postcard img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .postcard .label {
+    position: absolute; bottom: 18px; left: 16px;
+    font-family: 'Caveat', cursive; font-size: 22px;
+    color: #2A1F12;
+  }
+  .pc-1 {
+    width: 320px; height: 380px;
+    top: 0; left: 6%;
+    transform: rotate(-6deg);
+  }
+  .pc-1 img { height: 290px; }
+  .pc-2 {
+    width: 380px; height: 440px;
+    top: 60px; left: 32%;
+    transform: rotate(3deg); z-index: 2;
+  }
+  .pc-2 img { height: 350px; }
+  .pc-3 {
+    width: 340px; height: 400px;
+    top: 30px; right: 18%;
+    transform: rotate(-4deg);
+  }
+  .pc-3 img { height: 310px; }
+  .pc-4 {
+    width: 280px; height: 340px;
+    top: 240px; right: 2%;
+    transform: rotate(8deg);
+  }
+  .pc-4 img { height: 250px; }
+  .pc-stamp {
+    position: absolute;
+    width: 56px; height: 64px;
+    background: #C7402C;
+    top: 12px; right: 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #F5EDDF;
+    font-family: 'Caveat', cursive;
+    font-size: 12px; line-height: 1.1;
+    transform: rotate(4deg);
+  }
+  .pc-stamp .num { font-size: 22px; font-weight: 700; }
+
+  /* ── Marquee ── */
+  .marquee {
+    background: #2A1F12; color: #F5EDDF;
+    padding: 22px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Caveat', cursive; font-size: 30px;
+    margin-top: 80px;
+    position: relative; z-index: 2;
+  }
+  .marquee span { padding: 0 32px; }
+  .marquee .dot { color: #D6B36D; font-size: 36px; vertical-align: middle; }
+
+  /* ── Route section ── */
+  .route { padding: 100px 56px; position: relative; z-index: 1; }
+  .route-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+  .route-eyebrow {
+    font-family: 'Anton', sans-serif;
+    font-size: 14px; letter-spacing: 0.2em;
+    color: #4A6B3A;
+    margin-bottom: 16px;
+  }
+  .route-h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 64px; font-weight: 700;
+    color: #2A1F12; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .route-h2 .num {
+    font-family: 'Anton', sans-serif;
+    color: #4A6B3A;
+    -webkit-text-stroke: 1px #4A6B3A;
+    color: transparent;
+    font-size: 110px; vertical-align: middle;
+  }
+  .route-meta {
+    font-family: 'Lora', serif; font-style: italic;
+    color: #6B5436; font-size: 17px;
+  }
+  .route-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .stop {
+    background: #FFFEF8;
+    padding: 18px;
+    border: 1px solid rgba(42,31,18,0.1);
+    transform-origin: center;
+    transition: transform 0.3s;
+  }
+  .stop:nth-child(odd) { transform: rotate(-1deg); }
+  .stop:nth-child(even) { transform: rotate(1deg); }
+  .stop-num {
+    font-family: 'Anton', sans-serif;
+    color: #4A6B3A; font-size: 32px;
+    line-height: 1; margin-bottom: 6px;
+  }
+  .stop-name {
+    font-family: 'Caveat', cursive;
+    font-size: 24px; color: #2A1F12;
+    line-height: 1.05;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">Norwich Free Walking Tours</div>
+  <nav>
+    <a href="#">The Tour</a>
+    <a href="#">About Tom</a>
+    <a href="#">Articles</a>
+    <a href="#">Contact</a>
+  </nav>
+  <a href="#" class="cta">Book a spot</a>
+</header>
+
+<section class="hero">
+  <div class="hero-title-block">
+    <div class="hero-stamp">— Made in Norwich since 2026 —</div>
+    <h1 class="hero-h1">Norwich,<br>by <span class="accent">a local</span><br>who walks it for a living.</h1>
+    <p class="hero-sub">Twelve stops. One hour forty-five. Free to book. Tip what it was worth at the end.</p>
+    <a href="#" class="hero-cta">Reserve a spot →</a>
+    <div class="hero-tip">~ Most guests tip £10 – £20 ~</div>
+  </div>
+
+  <div class="postcards">
+    <div class="postcard pc-1">
+      <img src="/images/tour/group-cathedral-west-front.jpg" alt="">
+      <div class="pc-stamp"><span class="num">01</span><span>FORUM</span></div>
+      <div class="label">— The Forum</div>
+    </div>
+    <div class="postcard pc-2">
+      <img src="/images/tour/elm-hill-tour.jpg" alt="">
+      <div class="pc-stamp"><span class="num">09</span><span>ELM HILL</span></div>
+      <div class="label">— Elm Hill</div>
+    </div>
+    <div class="postcard pc-3">
+      <img src="/images/tour/guide-norwich-market.jpg" alt="">
+      <div class="pc-stamp"><span class="num">04</span><span>MARKET</span></div>
+      <div class="label">— Norwich Market</div>
+    </div>
+    <div class="postcard pc-4">
+      <img src="/images/tour/group-britons-arms.jpg" alt="">
+      <div class="pc-stamp"><span class="num">10</span><span>TOMBLAND</span></div>
+      <div class="label">— Tombland</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <span>Eat where locals eat</span><span class="dot">·</span>
+  <span>Find the photo spots</span><span class="dot">·</span>
+  <span>Hear the stories</span><span class="dot">·</span>
+  <span>Walk slowly</span><span class="dot">·</span>
+  <span>Tip what it was worth</span><span class="dot">·</span>
+  <span>Eat where locals eat</span><span class="dot">·</span>
+  <span>Find the photo spots</span>
+</div>
+
+<section class="route">
+  <div class="route-head">
+    <div class="route-eyebrow">— THE ROUTE</div>
+    <h2 class="route-h2"><span class="num">12</span>stops.</h2>
+    <p class="route-meta">— From The Forum, ending near Norwich Cathedral, in 1h 45m at a relaxed pace —</p>
+  </div>
+  <div class="route-grid">
+    <div class="stop"><div class="stop-num">01</div><div class="stop-name">The Forum</div></div>
+    <div class="stop"><div class="stop-num">02</div><div class="stop-name">The Guildhall</div></div>
+    <div class="stop"><div class="stop-num">03</div><div class="stop-name">The Norwich Lanes</div></div>
+    <div class="stop"><div class="stop-num">04</div><div class="stop-name">Norwich Market</div></div>
+    <div class="stop"><div class="stop-num">05</div><div class="stop-name">The Arcade</div></div>
+    <div class="stop"><div class="stop-num">06</div><div class="stop-name">London Street</div></div>
+    <div class="stop"><div class="stop-num">07</div><div class="stop-name">Norwich Castle</div></div>
+    <div class="stop"><div class="stop-num">08</div><div class="stop-name">St Andrews Hall</div></div>
+    <div class="stop"><div class="stop-num">09</div><div class="stop-name">Elm Hill</div></div>
+    <div class="stop"><div class="stop-num">10</div><div class="stop-name">Tombland</div></div>
+    <div class="stop"><div class="stop-num">11</div><div class="stop-name">Fye Bridge</div></div>
+    <div class="stop"><div class="stop-num">12</div><div class="stop-name">Norwich Cathedral</div></div>
+  </div>
+</section>
+
+</body>
+</html>
