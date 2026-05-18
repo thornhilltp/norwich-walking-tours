@@ -23,14 +23,17 @@ export function AboutSectionV2() {
     // introducing a non-brand colour.
     <section id="tom" className="section-padding bg-white">
       <div className="brand-container">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 md:gap-14 items-start">
+        {/* Grid flipped — polaroid column now gets MORE space than
+            text column (was 1fr / 1.2fr, polaroid felt visually
+            weak against the dense text). */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-10 md:gap-14 items-start">
           {/* Left: polaroid portrait */}
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: -3 }}
             whileInView={{ opacity: 1, y: 0, rotate: -2 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="relative max-w-[500px] md:mx-auto"
+            className="relative w-full max-w-[580px] md:mx-auto"
           >
             {/* Polaroid frame — bg-brand-bg (cream) so it sits on
                 the white section bg with contrast, like a real
@@ -48,7 +51,7 @@ export function AboutSectionV2() {
                   fill
                   className="object-cover"
                   style={{ objectPosition: "center 30%" }}
-                  sizes="(max-width: 768px) 90vw, 500px"
+                  sizes="(max-width: 768px) 90vw, 580px"
                 />
               </div>
               {/* Caption — tighter tracking + shorter text so it
