@@ -101,7 +101,7 @@ const faqPageSchema = {
       name: "Who runs free walking tours?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Local guides who live in the city. The Norwich Free Walking Tour is run by Tom Thornhill, a Norwich resident who walks the route most days. The model lets visitors see a city through a local's eyes without committing to a fixed price up front.",
+        text: "Local guides who live in the city. The Norwich Free Walking Tour is run by Tom Thornhill, a Norwich resident who walks the route most days. The model lets visitors see a city the way someone who lives there sees it, without committing to a fixed price up front.",
       },
     },
   ],

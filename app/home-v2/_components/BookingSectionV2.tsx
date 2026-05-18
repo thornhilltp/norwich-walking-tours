@@ -16,7 +16,7 @@ const bullets = [
     body: "Booking holds your spot. Pay at the end if you liked it.",
   },
   {
-    title: "£10 to £20 a head",
+    title: "£10 to £20 per person",
     body: "That's what guests have tipped, on average. No pressure.",
   },
   {
@@ -29,7 +29,7 @@ export function BookingSectionV2() {
   return (
     <section
       id="book-section"
-      className="section-padding bg-brand-bg border-t border-brand-accent/10 border-b border-brand-accent/10"
+      className="section-padding bg-brand-accent-light/30 border-t border-brand-accent/10 border-b border-brand-accent/10"
     >
       <div className="brand-container">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-start">
@@ -41,21 +41,24 @@ export function BookingSectionV2() {
             transition={{ duration: 0.6 }}
           >
             <p
-              className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
+              className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               Pick a date
             </p>
+            {/* H2 order swapped — Lora→Caveat to match every other H2 on
+                the page. Green Caveat lands on the punchline ("Tip what it
+                was worth") rather than the prosaic "Free to book". */}
             <h2 className="leading-[1.0] mb-5">
               <span
-                className="block text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
-                style={{ fontFamily: "var(--font-caveat), cursive" }}
+                className="block text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 Free to book.
               </span>
               <span
-                className="block text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                className="block text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 Tip what it was worth.
               </span>
@@ -100,7 +103,7 @@ export function BookingSectionV2() {
               className="italic text-sm text-muted-foreground leading-relaxed max-w-md"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              &ldquo;Pay-what-you-want&rdquo; sounds awkward. Call it merit-based. If the tour earned it, you tip. If it didn&apos;t, you walk off. Honest deal.
+              Call it merit-based. If the tour earned it, you tip. If it didn&apos;t, you walk off. Honest deal.
             </p>
           </motion.div>
 

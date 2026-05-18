@@ -12,7 +12,7 @@ import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 
 export function TestimonialsV2() {
   return (
-    <section id="reviews" className="section-padding bg-brand-bg">
+    <section id="reviews" className="section-padding">
       <div className="brand-container">
         {/* Header row — heading left, big rating right */}
         <motion.div
@@ -24,7 +24,7 @@ export function TestimonialsV2() {
         >
           <div>
             <p
-              className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
+              className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               Reviews

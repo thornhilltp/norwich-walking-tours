@@ -24,6 +24,8 @@ import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
 import { PracticalInfoV2 } from "./_components/PracticalInfoV2";
+import { ScrollTrail } from "./_components/ScrollTrail";
+import { WalkingPattern } from "./_components/WalkingPattern";
 
 // Experimental — don't let Google index this as duplicate of /.
 // Remove this export when /home-v2 is promoted to / and this folder deleted.
@@ -31,12 +33,17 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Sections that should let the WalkingPattern body background show
+// through — set bg-transparent on these. Sections with their own
+// opaque bg (BookingSection's light-green, Hero's image, the dark
+// footer) naturally cover the pattern and create rhythm.
+
 // StopsAndMapCompact — Sandemans-style scannable list + map.
 // No per-stop descriptions on home (those live on /tour). Just numbers + names
 // + the map as the visual centrepiece. One quiet link to /tour at the bottom.
 function StopsAndMapCompact() {
   return (
-    <section id="tour-map" className="section-padding bg-brand-bg">
+    <section id="tour-map" className="section-padding">
       <div className="brand-container">
         <div className="text-center mb-10">
           <p
@@ -118,7 +125,15 @@ function StopsAndMapCompact() {
 
 export default function HomeV2Page() {
   return (
-    <main className="bg-brand-bg" style={{ paddingTop: 0 }}>
+    <main className="relative" style={{ paddingTop: 0 }}>
+      {/* Fixed body-wide walking pattern background — shows through any
+          section with a transparent bg. Sections with opaque bgs cover
+          it to create rhythm. */}
+      <WalkingPattern />
+      {/* Fixed right-edge in-page navigation (hidden below xl). */}
+      <ScrollTrail />
+      {/* Sections sit above the WalkingPattern via z-index. */}
+      <div className="relative z-10">
       <HeroV2
         title={<>Norwich Free Walking Tours</>}
         buttonText="Book your spot (free)"
@@ -186,6 +201,7 @@ export default function HomeV2Page() {
       </section>
       <EmailCapture />
       <Footer />
+      </div>
     </main>
   );
 }

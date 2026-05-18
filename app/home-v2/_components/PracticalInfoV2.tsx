@@ -45,7 +45,7 @@ const logistics = [
 
 export function PracticalInfoV2() {
   return (
-    <section className="section-padding bg-brand-accent-light/40 border-t border-brand-accent/10">
+    <section id="practical" className="section-padding bg-brand-accent-light/40 border-t border-brand-accent/10">
       <div className="brand-container">
         {/* Heading — Lora→Caveat pattern */}
         <motion.div
@@ -56,7 +56,7 @@ export function PracticalInfoV2() {
           className="text-center mb-10"
         >
           <p
-            className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
+            className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             Before you come

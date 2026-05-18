@@ -59,6 +59,7 @@ export function HeroV2({
 }: HeroV2Props) {
   return (
     <section
+      id="top"
       className={cn("relative isolate w-full overflow-hidden", className)}
     >
       <Image
@@ -71,16 +72,9 @@ export function HeroV2({
         style={{ objectPosition: "center 40%" }}
       />
 
-      <div className="absolute inset-0 bg-black/65" />
-
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(45,169,107,0.18) 1px, transparent 1px), linear-gradient(to right, rgba(45,169,107,0.18) 1px, transparent 1px)",
-          backgroundSize: "3rem 3rem",
-        }}
-      />
+      {/* Darkened overlay — bumped from /65 to /75 for AA contrast on
+          the green Caveat text + the white-opacity supporting lines. */}
+      <div className="absolute inset-0 bg-black/75" />
 
       <motion.div
         className="relative brand-container flex min-h-[90dvh] items-center justify-between py-24 flex-col lg:flex-row gap-12"
@@ -161,7 +155,7 @@ export function HeroV2({
                 >
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
                   <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
-                  <span className="text-white/75">({googleReviewStats.count} review{googleReviewStats.count === 1 ? "" : "s"})</span>
+                  <span className="text-white/90">({googleReviewStats.count} review{googleReviewStats.count === 1 ? "" : "s"})</span>
                 </a>
                 <span aria-hidden="true" className="text-white/40">·</span>
               </>
@@ -173,10 +167,10 @@ export function HeroV2({
 
           <motion.p
             variants={itemVariants}
-            className="mt-2 text-xs text-white/65 leading-relaxed"
+            className="mt-2 text-xs text-white/85 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Pay at the end by card or cash &bull; usually £10&ndash;£20
+            £0 to book &bull; Pay at the end by card or cash &bull; usually £10 to £20
           </motion.p>
         </div>
 
@@ -193,20 +187,9 @@ export function HeroV2({
         </motion.div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: "58px", lineHeight: 0 }}>
-        <svg viewBox="0 0 1440 58" preserveAspectRatio="none" className="w-full h-full" aria-hidden="true">
-          <path
-            d="M0,58 L0,30 C240,56 480,8 720,28 C960,48 1200,12 1440,32 L1440,58 Z"
-            fill="#FCFAF8"
-          />
-        </svg>
-      </div>
-
-      <div
-        className="absolute bottom-0 left-0 right-0 bg-brand-bg pointer-events-none"
-        style={{ height: "3px" }}
-        aria-hidden="true"
-      />
+      {/* Wave divider removed (anti-slop, per web-design-guidelines audit).
+          Hero now terminates with a clean horizontal edge into the next
+          section. */}
     </section>
   );
 }

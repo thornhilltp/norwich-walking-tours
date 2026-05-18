@@ -46,7 +46,7 @@ const MapPinIcon = () => (
 
 export function PhotoShowcaseV2() {
   return (
-    <section className="section-padding bg-brand-bg">
+    <section id="stories" className="section-padding">
       <div className="brand-container">
         {/* Heading — Lora→Caveat pattern */}
         <motion.div
@@ -59,7 +59,7 @@ export function PhotoShowcaseV2() {
           {/* SEO: 'Norwich walking tour' is an exact-match target phrase —
               kept in the most prominent typographic slot. */}
           <p
-            className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
+            className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             Norwich walking tour

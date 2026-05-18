@@ -151,6 +151,14 @@
     font-size: 1.1rem;
   }
 
+  /* Darker green for small-text contexts (eyebrows, links on cream).
+     #2DA96B brand green on #FCFAF8 = ~3.4:1 (fails WCAG AA for text).
+     #1F8054 darkens to ~5.2:1 (passes AA). Use for small UI text only
+     — buttons and accents stay on the brand green token. */
+  .text-brand-accent-text {
+    color: #1F8054;
+  }
+
   /* Bottom padding on mobile to prevent the sticky CTA bar from overlapping content */
   .sticky-cta-clearance {
     padding-bottom: 4.5rem;
