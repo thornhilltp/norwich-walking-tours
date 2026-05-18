@@ -56,11 +56,13 @@ export function PhotoShowcaseV2() {
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-3xl"
         >
+          {/* SEO: 'Norwich walking tour' is an exact-match target phrase —
+              kept in the most prominent typographic slot. */}
           <p
             className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            What you came for
+            Norwich walking tour
           </p>
           <h2 className="leading-[1.0] mb-5">
             <span

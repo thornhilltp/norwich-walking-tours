@@ -23,6 +23,7 @@ import { HeroV2 } from "./_components/HeroV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
+import { PracticalInfoV2 } from "./_components/PracticalInfoV2";
 
 // Experimental — don't let Google index this as duplicate of /.
 // Remove this export when /home-v2 is promoted to / and this folder deleted.
@@ -121,7 +122,10 @@ export default function HomeV2Page() {
       <HeroV2
         title={<>Norwich Free Walking Tours</>}
         buttonText="Book your spot (free)"
-        buttonHref="/book"
+        // In-page anchor to the BookingSectionV2 below. Keeps users on
+        // /home-v2 when they hit the hero CTA instead of context-switching
+        // to /book. Wayfinding fix.
+        buttonHref="#book-section"
         widget={
           <BookingFrame
             height={520}
@@ -132,6 +136,7 @@ export default function HomeV2Page() {
       <PhotoShowcaseV2 />
       <TestimonialsV2 />
       <StopsAndMapCompact />
+      <PracticalInfoV2 />
       <BookingSectionV2 />
       <FAQ
         customHeading={

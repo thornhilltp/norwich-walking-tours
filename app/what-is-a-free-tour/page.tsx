@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
 };
 
+const PUBLISHED = "2026-05-15";
+// Bump dateModified when the substantive content of this page changes.
+const MODIFIED = "2026-05-18";
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -37,6 +41,13 @@ const articleSchema = {
   description:
     "How free walking tours work, what guests usually tip, and what to expect on the Norwich Free Walking Tour.",
   mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  datePublished: PUBLISHED,
+  dateModified: MODIFIED,
+  author: {
+    "@type": "Person",
+    name: "Tom Thornhill",
+    url: "https://www.norwichfreewalkingtours.co.uk/about",
+  },
   publisher: {
     "@type": "Organization",
     name: "Norwich Free Walking Tours",
@@ -47,12 +58,65 @@ const articleSchema = {
   },
 };
 
+// FAQPage schema — gives Google rich-result eligibility for the
+// 'what is a free walking tour' informational query cluster.
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a free walking tour?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A free walking tour is a guided city walk you can book without paying upfront. The guide leads the route, tells the stories, and at the end you tip what you thought it was worth. There is no fixed price. If the tour wasn't worth it, you don't pay.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is a free walking tour really free?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. There is nothing to pay to reserve a spot and no card needed at booking. At the end of the tour you decide what to tip. Most guests on the Norwich Free Walking Tour tip £10 to £20 per person, but anywhere from £0 upwards is accepted.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much should I tip a free walking tour guide in the UK?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No fixed amount. On a good day, guests tip £10 to £20 per person. Some pay less, some pay more, some pay nothing. All are accepted. Guides who run free walking tours full time rely on tips as their income, so a fair tip if you enjoyed the walk goes a long way.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens on a free walking tour?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "On the Norwich Free Walking Tour: you book a spot online (free, no card needed), meet your guide outside The Forum at the booked time, walk for 1 hour 45 minutes at a relaxed pace through 12 stops finishing near Norwich Cathedral, and tip what you thought it was worth at the end. Card, Apple Pay, Google Pay or cash all work.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who runs free walking tours?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Local guides who live in the city. The Norwich Free Walking Tour is run by Tom Thornhill, a Norwich resident who walks the route most days. The model lets visitors see a city through a local's eyes without committing to a fixed price up front.",
+      },
+    },
+  ],
+};
+
 export default function WhatIsAFreeTourPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
       <main className="bg-brand-bg">
         {/* Page intro */}

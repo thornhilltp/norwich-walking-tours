@@ -43,6 +43,14 @@ export function TestimonialsV2() {
                 after.
               </span>
             </h2>
+            {/* SEO: weaves 'Norwich walking tour' exact phrase + the
+                local-tips differentiator. Same line that was on live /. */}
+            <p
+              className="mt-4 text-base text-muted-foreground leading-relaxed max-w-xl"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              What guests say about the Norwich walking tour and the local tips that come with it.
+            </p>
           </div>
 
           {/* Big rating anchor */}
