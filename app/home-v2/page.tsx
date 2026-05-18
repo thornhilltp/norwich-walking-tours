@@ -23,9 +23,12 @@ import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
 import { ScrollTrail } from "./_components/ScrollTrail";
-import { RouteDivider } from "./_components/RouteDivider";
-// WalkingPattern dropped — body-wide pattern competed with text
-// legibility. Replaced with RouteDivider between sections.
+// Both bg motifs dropped (Tom's feedback):
+//   - WalkingPattern (body-wide pattern) competed with text legibility
+//   - RouteDivider (thick lines between sections) looked clunky
+// Sections now transition naturally via their own bg colours (cream →
+// light-green for Booking → cream → dark for Footer). No decorative
+// chrome between them.
 // PracticalInfoV2 intentionally not imported — Tom's feedback was it
 // felt redundant. Hero badge has duration + daily, Booking lede has
 // meeting point, Footer has address, FAQ covers what-to-wear / pace /
@@ -67,15 +70,10 @@ export default function HomeV2Page() {
           />
         }
       />
-      <RouteDivider />
       <PhotoShowcaseV2 />
-      <RouteDivider />
       <TestimonialsV2 />
-      <RouteDivider />
       <ThemedRouteSection />
-      <RouteDivider />
       <AboutSectionV2 />
-      <RouteDivider />
       <BookingSectionV2 />
       <FAQ
         customHeading={

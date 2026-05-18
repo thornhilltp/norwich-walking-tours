@@ -1,11 +1,12 @@
 "use client";
 
 // ScrollTrail — fixed right-edge in-page navigation for /home-v2.
-// Iteration 2 per Tom's feedback:
-//   - wiggly Q-curve dashed line (was straight)
-//   - bigger, brighter dots
-//   - traveling map-pin that slides down as user scrolls
-//   - labels go muted by default, dark+brighter on active
+// Iteration 3 per Tom's feedback:
+//   - HIDDEN on Hero (fades in after user scrolls past Hero) — was
+//     unreadable against the dark hero image bg.
+//   - Pin SYNCED to active section (with smooth fractional movement
+//     within the current section) — was using raw scroll progress
+//     which desynced from where the user actually was.
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -31,23 +32,51 @@ const DOT_OFFSET = 12; // px from top of trail to first dot centre
 
 export function ScrollTrail() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  // Fractional position through the trail (e.g. 2.4 = 40% past dot 2,
+  // heading toward dot 3). Used for smooth pin animation that's
+  // always near the active dot, not raw scroll-percent through page.
+  const [pinFractional, setPinFractional] = useState(0);
+  // Hide until user has scrolled past the Hero (Hero has dark image
+  // bg, ScrollTrail labels are unreadable against it).
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     let raf = 0;
     const update = () => {
       raf = 0;
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docH > 0 ? Math.max(0, Math.min(1, window.scrollY / docH)) : 0;
-      setScrollProgress(progress);
 
+      // Threshold = 35% from top of viewport. The section whose
+      // offsetTop is most recently above this threshold is "active".
       const threshold = window.scrollY + window.innerHeight * 0.35;
+
       let active = 0;
       sections.forEach((sec, i) => {
         const el = document.getElementById(sec.id);
         if (el && el.offsetTop <= threshold) active = i;
       });
       setActiveIndex(active);
+
+      // Calculate fractional position within current section so the pin
+      // moves smoothly between dots instead of snapping.
+      const currentEl = document.getElementById(sections[active].id);
+      const nextSec = sections[active + 1];
+      const nextEl = nextSec ? document.getElementById(nextSec.id) : null;
+
+      let fractional = 0;
+      if (currentEl && nextEl) {
+        const sectionStart = currentEl.offsetTop;
+        const sectionEnd = nextEl.offsetTop;
+        const span = sectionEnd - sectionStart;
+        if (span > 0) {
+          fractional = (threshold - sectionStart) / span;
+          fractional = Math.max(0, Math.min(1, fractional));
+        }
+      }
+      setPinFractional(active + fractional);
+
+      // Show trail only after user scrolls 60% of the viewport
+      // (Hero is ~90vh, so this is roughly Hero leaving viewport).
+      setPastHero(window.scrollY > window.innerHeight * 0.6);
     };
     const onScroll = () => {
       if (raf) return;
@@ -64,31 +93,30 @@ export function ScrollTrail() {
   }, []);
 
   const lastDotY = (sections.length - 1) * ROW_GAP + DOT_OFFSET;
-  // Pin position interpolates smoothly with scroll progress, from
-  // first dot to last dot. Spring-eased via framer-motion `animate`.
-  const pinY = DOT_OFFSET + scrollProgress * (lastDotY - DOT_OFFSET);
+  const pinY = DOT_OFFSET + pinFractional * ROW_GAP;
 
   // Build the wiggly Q-curve path through the dot column.
-  // Centre of dot column is at x=10 (visually inside the 20px-wide track).
-  // Path wobbles ±6px around that line at each gap.
   const pathSegments: string[] = [`M 10 ${DOT_OFFSET}`];
   sections.forEach((_, i) => {
     if (i === 0) return;
     const prevY = (i - 1) * ROW_GAP + DOT_OFFSET;
     const currY = i * ROW_GAP + DOT_OFFSET;
     const midY = (prevY + currY) / 2;
-    const wobbleX = i % 2 === 0 ? -6 : 16; // alternate left / right
+    const wobbleX = i % 2 === 0 ? -6 : 16;
     pathSegments.push(`Q ${wobbleX} ${midY} 10 ${currY}`);
   });
   const wigglyPath = pathSegments.join(" ");
 
   return (
     <aside
-      className="fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+      className={`fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-opacity duration-500 ${
+        pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
       aria-label="Page navigation"
+      aria-hidden={!pastHero}
     >
       <div className="relative flex items-start gap-4">
-        {/* Labels column — right-aligned */}
+        {/* Labels column */}
         <ol className="flex flex-col text-right" style={{ gap: ROW_GAP - 20 }}>
           {sections.map((sec, i) => {
             const isActive = i === activeIndex;
@@ -161,13 +189,15 @@ export function ScrollTrail() {
             })}
           </ol>
 
-          {/* Traveling map-pin — slides down as user scrolls */}
+          {/* Travelling map-pin — slides to fractional position within
+              the currently-active section. Snaps cleanly between dots
+              via framer-motion spring instead of jumping. */}
           <motion.div
             className="absolute pointer-events-none"
             style={{ left: -2 }}
             initial={false}
             animate={{ top: pinY - 10 }}
-            transition={{ type: "spring", stiffness: 100, damping: 18 }}
+            transition={{ type: "spring", stiffness: 120, damping: 20 }}
             aria-hidden="true"
           >
             <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
