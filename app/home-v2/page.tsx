@@ -23,9 +23,12 @@ import { HeroV2 } from "./_components/HeroV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
-import { PracticalInfoV2 } from "./_components/PracticalInfoV2";
 import { ScrollTrail } from "./_components/ScrollTrail";
 import { WalkingPattern } from "./_components/WalkingPattern";
+// PracticalInfoV2 intentionally not imported — Tom's feedback was it
+// felt redundant. Hero badge has duration + daily, Booking lede has
+// meeting point, Footer has address, FAQ covers what-to-wear / pace /
+// language. The band added page weight without earning it.
 
 // Experimental — don't let Google index this as duplicate of /.
 // Remove this export when /home-v2 is promoted to / and this folder deleted.
@@ -151,7 +154,6 @@ export default function HomeV2Page() {
       <PhotoShowcaseV2 />
       <TestimonialsV2 />
       <StopsAndMapCompact />
-      <PracticalInfoV2 />
       <BookingSectionV2 />
       <FAQ
         customHeading={
