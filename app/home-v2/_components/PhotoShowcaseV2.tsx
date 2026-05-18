@@ -1,42 +1,35 @@
 "use client";
 
-// PhotoShowcaseV2 — iteration 4 (Tom feedback this round).
+// PhotoShowcaseV2 — iteration 5 (Tom's design review).
 //
-// Changes from iteration 3:
-// - Dropped the standalone 4-bullet list. The bullets are now woven
-//   into Card 01 ("The whole city in one walk") which becomes the
-//   featured card with embedded outcomes.
-// - Added a visual route motif across the 3 cards: numbered green
-//   pin markers (01, 02, 03) at the top of each card, connected by
-//   a horizontal dashed green thread on desktop. Extends the
-//   pin-drop language from ThemedRouteSection + ScrollTrail into
-//   PhotoShowcase — site-wide design system.
-// - "Already a Norwich local?" note now sits below the cards as a
-//   small italic aside.
+// Changes from iteration 4:
+// - Dropped the pin row + dashed thread connector above the cards
+//   (duplicated ThemedRouteSection's pin language — diluted both
+//   instances). Pin motif now lives only on ThemedRouteSection +
+//   ScrollTrail where it's earned by literal route content.
+// - Dropped the embedded bullet list from Card 01 (made it visually
+//   heavier than Cards 02/03 — asymmetric grid).
+// - NEW: 4-benefit horizontal row between the customer quote and
+//   the cards. Centred, small green dot separators, single line on
+//   desktop / wraps on mobile. Acts as a quick visual beat
+//   conveying the "you'll come away with" outcomes without
+//   competing with the cards for content weight.
+// - All 3 cards now equal weight: image + title + body + pin label.
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Fragment } from "react";
 
 const cards = [
   {
-    number: "01",
     label: "An overview",
     src: "/images/tour/group-cathedral-lawn.jpg",
     alt: "Norwich Free Walking Tour group on the Cathedral lawn at the end of the tour",
     title: "The whole city in one walk.",
     body: "1h 45m that makes sense of the medieval centre. Most guests say it's the best thing they did first.",
-    // Bullets embedded — the "what you'll come away with" list that
-    // used to sit standalone above the cards now belongs here.
-    bullets: [
-      "The best places to eat and drink",
-      "The photo spots",
-      "The stories and history",
-      "The corners tourists miss",
-    ],
     pin: "best thing first",
   },
   {
-    number: "02",
     label: "A list to come back to",
     src: "/images/tour/guide-norwich-market.jpg",
     alt: "Guide at Norwich Market pointing out an independent food stall",
@@ -45,7 +38,6 @@ const cards = [
     pin: "save the spots",
   },
   {
-    number: "03",
     label: "A local to ask",
     src: "/images/tour/group-britons-arms.jpg",
     alt: "Tom guiding a tour group outside the Britons Arms on Elm Hill",
@@ -53,6 +45,13 @@ const cards = [
     body: "Got a question about Norwich? Tom's lived here years. Ask about food, kids' stuff, where to drink, what's worth your time.",
     pin: "ask anything",
   },
+];
+
+const benefits = [
+  "Best places to eat & drink",
+  "Photo spots",
+  "Stories & history",
+  "Corners you'd otherwise miss",
 ];
 
 const MapPinIcon = () => (
@@ -68,41 +67,17 @@ const QuoteIcon = () => (
   </svg>
 );
 
-// Numbered green pin marker — same shape as ThemedRouteSection's,
-// site-wide pin-drop visual language.
-function NumberPin({ value }: { value: string }) {
-  return (
-    <span className="relative inline-flex items-center justify-center w-10 h-12">
-      <svg viewBox="0 0 32 40" className="w-10 h-12 drop-shadow-sm" aria-hidden="true">
-        <path
-          d="M 16 1 C 7.7 1 1 7.7 1 16 c 0 12 15 23 15 23 s 15 -11 15 -23 C 31 7.7 24.3 1 16 1 z"
-          fill="#2DA96B"
-          stroke="#FCFAF8"
-          strokeWidth="2"
-        />
-      </svg>
-      <span
-        className="absolute text-white font-bold text-sm"
-        style={{ fontFamily: "var(--font-lora), Georgia, serif", top: "8px" }}
-      >
-        {value}
-      </span>
-    </span>
-  );
-}
-
 export function PhotoShowcaseV2() {
   return (
     <section id="stories" className="section-padding">
       <div className="brand-container">
-        {/* Heading + customer quote — drives the "walking visitor centre"
-            framing. Bullets removed (now embedded in Card 01). */}
+        {/* Heading + customer quote */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="mb-14 max-w-3xl"
+          className="mb-10 max-w-3xl"
         >
           <p
             className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
@@ -144,50 +119,43 @@ export function PhotoShowcaseV2() {
           </div>
         </motion.div>
 
-        {/* Pin row + dashed connector — only visible on desktop where
-            the cards sit in a row. On mobile (stacked) we skip the
-            connector to avoid a meaningless vertical line. */}
-        <div className="relative hidden md:block mb-3">
-          {/* Horizontal dashed thread, sits behind the pins */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-[15%]" aria-hidden="true">
-            <svg width="100%" height="6" preserveAspectRatio="none" className="overflow-visible">
-              <line
-                x1="0"
-                y1="3"
-                x2="100%"
-                y2="3"
-                stroke="#2DA96B"
-                strokeWidth="2"
-                strokeDasharray="1 7"
-                strokeLinecap="round"
-                opacity="0.5"
-              />
-            </svg>
-          </div>
-          {/* The 3 pins, positioned where their cards will sit */}
-          <div className="relative grid grid-cols-3 gap-7">
-            {cards.map((card, idx) => (
-              <motion.div
-                key={card.number}
-                initial={{ opacity: 0, y: -22, scale: 0.85 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{
-                  duration: 0.4,
-                  delay: idx * 0.15,
-                  type: "spring",
-                  stiffness: 220,
-                  damping: 16,
-                }}
-                className="flex justify-center"
-              >
-                <NumberPin value={card.number} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        {/* 4-benefit horizontal row — replaces the standalone bullet list
+            AND the embedded bullets in Card 01. Sits between the customer
+            quote and the cards as a quick visual beat. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-12"
+        >
+          {benefits.map((b, i) => (
+            <Fragment key={b}>
+              {i > 0 && (
+                <span
+                  className="text-brand-accent/40 hidden sm:inline"
+                  aria-hidden="true"
+                >
+                  &bull;
+                </span>
+              )}
+              <span className="flex items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <span
+                  className="text-[15px] font-medium text-brand-text"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {b}
+                </span>
+              </span>
+            </Fragment>
+          ))}
+        </motion.div>
 
-        {/* Three cards */}
+        {/* Three equal-weight cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {cards.map((card, idx) => (
             <motion.article
@@ -198,11 +166,6 @@ export function PhotoShowcaseV2() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="flex flex-col"
             >
-              {/* Mobile-only pin (desktop has the pin row above) */}
-              <div className="md:hidden flex justify-center mb-3">
-                <NumberPin value={card.number} />
-              </div>
-
               <div className="relative rounded-md overflow-hidden aspect-square mb-5">
                 <Image
                   src={card.src}
@@ -231,24 +194,6 @@ export function PhotoShowcaseV2() {
               >
                 {card.body}
               </p>
-
-              {/* Embedded bullets — only on Card 01 (the "overview" card),
-                  carrying the outcome list that used to sit standalone
-                  above the cards. */}
-              {card.bullets && (
-                <ul
-                  className="space-y-1.5 mb-4 text-[14px] text-brand-text/85"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {card.bullets.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span className="text-brand-accent font-bold mt-0.5" aria-hidden="true">&bull;</span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
               <span
                 className="inline-flex items-center gap-1.5 italic text-brand-accent-text text-lg font-medium mt-auto"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
@@ -260,8 +205,7 @@ export function PhotoShowcaseV2() {
           ))}
         </div>
 
-        {/* "Already a Norwich local?" — moved below the cards as a
-            small italic aside. Validates locals, doesn't dominate. */}
+        {/* "Already a Norwich local?" — small aside below the cards. */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

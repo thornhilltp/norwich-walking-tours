@@ -1,3 +1,10 @@
+// WalkingPattern — NO LONGER IN USE as of 2026-05-18 commit.
+// Replaced by RouteDivider (between-section dashed lines) after the
+// body-wide pattern repeatedly competed with text legibility through
+// 4 opacity iterations. Kept on disk in case we want a different
+// background motif approach later.
+//
+// Original concept:
 // WalkingPattern — fixed-position background motif for /home-v2.
 // SVG tile of wandering dashed footpaths + scattered pace dots in
 // the brand green, low opacity. Tileable, fixed attachment so it

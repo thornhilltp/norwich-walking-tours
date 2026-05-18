@@ -23,7 +23,9 @@ import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
 import { ScrollTrail } from "./_components/ScrollTrail";
-import { WalkingPattern } from "./_components/WalkingPattern";
+import { RouteDivider } from "./_components/RouteDivider";
+// WalkingPattern dropped — body-wide pattern competed with text
+// legibility. Replaced with RouteDivider between sections.
 // PracticalInfoV2 intentionally not imported — Tom's feedback was it
 // felt redundant. Hero badge has duration + daily, Booking lede has
 // meeting point, Footer has address, FAQ covers what-to-wear / pace /
@@ -49,14 +51,9 @@ export const metadata: Metadata = {
 export default function HomeV2Page() {
   return (
     <main className="relative" style={{ paddingTop: 0 }}>
-      {/* Fixed body-wide walking pattern background — shows through any
-          section with a transparent bg. Sections with opaque bgs cover
-          it to create rhythm. */}
-      <WalkingPattern />
       {/* Fixed right-edge in-page navigation (hidden below xl). */}
       <ScrollTrail />
-      {/* Sections sit above the WalkingPattern via z-index. */}
-      <div className="relative z-10">
+      <div>
       <HeroV2
         buttonText="Book your spot (free)"
         // In-page anchor to the BookingSectionV2 below. Keeps users on
@@ -70,10 +67,15 @@ export default function HomeV2Page() {
           />
         }
       />
+      <RouteDivider />
       <PhotoShowcaseV2 />
+      <RouteDivider />
       <TestimonialsV2 />
+      <RouteDivider />
       <ThemedRouteSection />
+      <RouteDivider />
       <AboutSectionV2 />
+      <RouteDivider />
       <BookingSectionV2 />
       <FAQ
         customHeading={
