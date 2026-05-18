@@ -62,18 +62,15 @@ export function PhotoShowcaseV2() {
           >
             What you came for
           </p>
-          <h2
-            className="leading-[1.0] mb-5"
-            style={{ maxWidth: "20ch" }}
-          >
+          <h2 className="leading-[1.0] mb-5">
             <span
-              className="block text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
+              className="inline text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               Norwich, told by
-            </span>
+            </span>{" "}
             <span
-              className="block text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
+              className="inline text-[clamp(48px,5.6vw,76px)] font-bold leading-[0.95] text-brand-accent"
               style={{ fontFamily: "var(--font-caveat), cursive" }}
             >
               someone who walks it for a living.
