@@ -55,7 +55,7 @@ export function BookingSectionV2() {
                 was worth") rather than the prosaic "Free to book". */}
             <h2 className="leading-[1.0] mb-5">
               <span
-                className="block text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
+                className="block text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] text-brand-text"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 Free to book.

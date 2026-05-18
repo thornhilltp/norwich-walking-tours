@@ -83,7 +83,7 @@ export function ThemedRouteSection() {
           </p>
           <h2 className="leading-[1.0]">
             <span
-              className="inline text-[clamp(36px,4.4vw,56px)] font-bold leading-[1.05] tracking-tight text-brand-text"
+              className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] text-brand-text"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               Three threads through

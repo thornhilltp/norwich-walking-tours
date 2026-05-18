@@ -102,7 +102,7 @@ export function HeroV2({
             variants={itemVariants}
           >
             <span
-              className="block text-[clamp(34px,4.6vw,56px)] font-bold leading-[1.05] text-white"
+              className="block text-[clamp(34px,4.6vw,56px)] font-semibold leading-[1.05] text-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               See Norwich with
