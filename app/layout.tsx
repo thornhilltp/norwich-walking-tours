@@ -164,6 +164,19 @@ const jsonLd = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.norwichfreewalkingtours.co.uk/#tom",
+    name: "Tom Thornhill",
+    jobTitle: "Founder and Guide",
+    description:
+      "Founder and guide of Norwich Free Walking Tours. Norwich resident, lived in the city for over a decade. Runs the daily walking tour of the medieval city centre.",
+    url: "https://www.norwichfreewalkingtours.co.uk/about",
+    worksFor: {
+      "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
+    },
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
     name: "Norwich Free Walking Tours",
@@ -194,6 +207,8 @@ const jsonLd = [
       "https://www.guruwalk.com/walks/69964-norwich-free-walking-tour-the-real-norwich-with-a-local",
       "https://www.visitnorwich.co.uk/service/norwich-free-walking-tours/",
     ],
+    founder: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
+    employee: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
     ...(aggregateRating ? { aggregateRating } : {}),
   },
 ];

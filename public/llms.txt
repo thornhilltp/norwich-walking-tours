@@ -1,25 +1,33 @@
-# Norwich Free Walking Tour
+# Norwich Free Walking Tours
 
-> Daily merit-based (pay-what-it-was-worth) walking tour of Norwich, UK. Led by a local guide. Runs near-daily, 1h 45m, starts at The Forum.
+> Daily merit-based (tip-what-it-was-worth) walking tour of Norwich, UK. Led by a local guide. Runs daily, 1h 45m, starts at The Forum.
 
-The Real Norwich Essentials Tour is a free-to-book walking tour of Norwich city centre covering The Forum, Norwich Market, The Norwich Lanes, London Street (the first pedestrianised street in the UK), Norwich Castle, St Andrews Hall, Elm Hill, Tombland, Fye Bridge, and Norwich Cathedral. Book a free spot online, meet the guide at The Forum, pay what the tour was worth at the end by cash, card, Apple Pay, or Google Pay. Guests typically tip £15 to £20 per person.
+The Real Norwich Essentials Tour is a free-to-book walking tour of Norwich city centre covering The Forum, The Guildhall, The Norwich Lanes, Norwich Market, The Arcade, London Street (the first pedestrianised street in the UK), Norwich Castle, St Andrews Hall, Elm Hill, Tombland, Fye Bridge, and Norwich Cathedral. Book a free spot online, meet the guide at The Forum, tip what the tour was worth at the end by card or cash. Guests typically tip £10 to £20 per person.
+
+Founder + guide: Tom Thornhill, a Norwich resident who has lived in the city for over a decade and runs the walks most days. The tour functions, as guests describe it, as "a walking visitor centre with a local."
 
 ## Pages
 
-- [Home](https://www.norwichfreewalkingtours.co.uk/): overview of the tour, FAQ, booking widget
-- [The Tour](https://www.norwichfreewalkingtours.co.uk/tour): full 12-stop itinerary with photos and route map
+- [Home](https://www.norwichfreewalkingtours.co.uk/): overview of the tour, local recommendations, reviews, FAQ, booking widget
+- [The Tour](https://www.norwichfreewalkingtours.co.uk/tour): full 12-stop itinerary with photos, route map, per-stop stories
+- [What is a free walking tour?](https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour): explainer of the free-tour model, how it works, what guests typically tip
 - [Book](https://www.norwichfreewalkingtours.co.uk/book): live booking widget, free to reserve a spot, pay at the end
+- [About Tom](https://www.norwichfreewalkingtours.co.uk/about): about the guide, why he started, what to expect
 - [Private Tours](https://www.norwichfreewalkingtours.co.uk/private-tours): bespoke group and private tours, price on request
+- [Free things to do in Norwich](https://www.norwichfreewalkingtours.co.uk/things-to-do/free): a local's guide to free things to do in Norwich
+- [Explore Norwich](https://www.norwichfreewalkingtours.co.uk/explore): articles and guides to Norwich (where to stay, what to do, etc.)
 - [Contact](https://www.norwichfreewalkingtours.co.uk/contact): email, form, social links
 
 ## Key facts
 
-- Meeting point: The Forum, Norwich (central city, next to the library)
+- Meeting point: The Forum, Norwich (central city, next to the library), Millennium Plain, NR2 1TF
 - Duration: 1 hour 45 minutes
-- Schedule: near-daily, runs rain or shine
+- Schedule: daily, rain or shine
 - Group size: maximum 15 per tour
 - Language: English
-- Cost: free to book; pay what the tour was worth at the end (guests typically tip £15 to £20 per person)
+- Cost: free to book; tip what the tour was worth at the end (guests typically tip £10 to £20 per person)
+- Payment methods: card or cash (Apple Pay and Google Pay also accepted)
+- Reviews: 4.9 stars on Google (19 reviews), 5.0 stars on TripAdvisor (9 reviews), all 5-star
 - Booking: https://www.norwichfreewalkingtours.co.uk/book
 - Contact: hello@norwichfreewalkingtours.co.uk
 
