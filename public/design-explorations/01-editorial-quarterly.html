@@ -2,187 +2,183 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Direction 1 — Editorial Quarterly</title>
+<title>Direction A — Editorial Restraint (brand-strict)</title>
 <meta name="robots" content="noindex" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  /* Brand-strict palette: #FCFAF8 bg · #2DA96B green · #E8F8F1 light green · #FFFFFF · #1A1A1A
+     Brand-strict fonts: Caveat (display + accents) + Lora (body) */
+  :root {
+    --bg: #FCFAF8;
+    --green: #2DA96B;
+    --light-green: #E8F8F1;
+    --white: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #666666;
+    --rule: rgba(26,26,26,0.08);
+    --caveat: 'Caveat', cursive;
+    --lora: 'Lora', Georgia, serif;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { font-size: 16px; }
   body {
-    font-family: 'Lora', Georgia, serif;
-    color: #1A1A1A;
-    background: #FCFAF8;
-    line-height: 1.6;
+    font-family: var(--lora);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
 
   /* ── Top bar ── */
   .topbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 24px 48px;
-    border-bottom: 1px solid rgba(26,26,26,0.08);
+    padding: 22px 48px;
+    border-bottom: 1px solid var(--rule);
   }
-  .topbar .brand { font-family: 'Caveat', cursive; font-size: 28px; color: #2DA96B; font-weight: 700; }
-  .topbar nav { display: flex; gap: 36px; font-size: 14px; letter-spacing: 0.02em; }
-  .topbar nav a { color: #1A1A1A; text-decoration: none; }
+  .topbar .brand { font-family: var(--caveat); font-size: 26px; color: var(--green); font-weight: 700; }
+  .topbar nav { display: flex; gap: 32px; font-size: 14px; }
+  .topbar nav a { color: var(--text); text-decoration: none; opacity: 0.85; }
   .topbar .cta {
-    background: #1A1A1A; color: #FCFAF8;
-    padding: 10px 22px; border-radius: 4px;
-    font-size: 13px; letter-spacing: 0.04em; text-decoration: none;
-    font-weight: 500;
+    background: var(--green); color: var(--white);
+    padding: 10px 22px; border-radius: 10px;
+    font-family: var(--caveat); font-size: 18px;
+    text-decoration: none; font-weight: 600;
   }
 
-  /* ── Hero ── */
-  .hero { padding: 80px 48px 96px; }
+  /* ── Hero — asymmetric editorial split, very generous whitespace ── */
+  .hero { padding: 96px 48px 120px; }
   .hero-grid {
-    display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px;
-    align-items: end; min-height: 70vh;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+    align-items: end; min-height: 72vh;
+    max-width: 1320px; margin: 0 auto;
   }
-  .hero-text { padding-top: 32px; padding-bottom: 32px; }
+  .hero-text { padding-top: 24px; padding-bottom: 60px; }
   .hero-eyebrow {
-    font-family: 'Lora', serif; font-style: italic;
+    font-family: var(--lora); font-style: italic;
     font-size: 14px; letter-spacing: 0.04em;
-    color: #2DA96B; margin-bottom: 32px;
+    color: var(--green); margin-bottom: 36px;
   }
   .hero-h1 {
-    font-family: 'Caveat', cursive;
-    font-size: 96px; line-height: 0.92;
-    font-weight: 700; color: #1A1A1A;
+    font-family: var(--caveat);
+    font-size: 104px; line-height: 0.92;
+    font-weight: 700; color: var(--text);
     margin-bottom: 28px;
-    transform: rotate(-1.2deg);
   }
   .hero-sub {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--lora);
     font-size: 22px; font-weight: 400; line-height: 1.4;
-    color: #4A4A4A;
-    margin-bottom: 40px;
+    color: var(--muted);
+    margin-bottom: 44px;
     max-width: 28ch;
   }
-  .hero-cta-row { display: flex; flex-direction: column; gap: 18px; }
   .hero-cta {
-    align-self: flex-start;
-    background: #2DA96B; color: #FFF;
-    padding: 18px 36px; border-radius: 0;
-    font-family: 'Lora', serif; font-size: 16px;
-    font-weight: 500; letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--green); color: var(--white);
+    padding: 18px 36px; border-radius: 12px;
+    font-family: var(--caveat); font-size: 24px;
+    font-weight: 600;
     text-decoration: none;
-    border: none;
   }
   .hero-meta {
-    font-family: 'Lora', serif; font-style: italic;
-    font-size: 14px; color: #666;
+    margin-top: 18px;
+    font-family: var(--lora); font-size: 14px; color: var(--muted);
   }
-  .hero-meta span { color: #2DA96B; font-style: normal; font-weight: 700; }
+  .hero-meta strong { color: var(--text); font-weight: 700; }
 
-  /* Hero image — single tall image, layered crop */
+  /* Hero image — tall full-bleed photo with light-green offset frame behind */
   .hero-image-frame {
     position: relative; align-self: end;
-    height: 70vh; max-height: 720px;
+    height: 76vh; max-height: 760px;
   }
   .hero-image-frame::before {
     content: ''; position: absolute;
-    top: 24px; left: -24px; right: 24px; bottom: -24px;
-    background: #E8F8F1; z-index: 0;
+    top: 28px; left: -28px; right: 28px; bottom: -28px;
+    background: var(--light-green);
+    border-radius: 4px;
   }
   .hero-image-frame img {
-    position: relative; z-index: 1;
+    position: relative;
     width: 100%; height: 100%;
     object-fit: cover; object-position: center 40%;
+    border-radius: 4px;
   }
   .hero-caption {
-    position: absolute; bottom: -24px; left: 24px; right: -24px;
-    background: #FCFAF8; padding: 14px 20px;
-    z-index: 2;
-    font-family: 'Lora', serif; font-style: italic;
-    font-size: 12px; color: #666;
-    border-top: 2px solid #2DA96B;
+    position: absolute; bottom: -28px; left: 28px; right: -28px;
+    background: var(--bg); padding: 14px 22px;
+    border-top: 2px solid var(--green);
+    font-family: var(--lora); font-style: italic;
+    font-size: 13px; color: var(--muted);
   }
 
-  /* ── Booking strip (where widget would live) ── */
+  /* ── Booking strip ── */
   .booking-strip {
-    background: #1A1A1A; color: #FCFAF8;
-    padding: 28px 48px;
-    display: grid; grid-template-columns: auto 1fr auto; gap: 48px;
+    background: var(--white);
+    padding: 32px 48px;
+    margin: 0 48px;
+    border-radius: 16px;
+    box-shadow: 0 1px 0 var(--rule), 0 8px 24px rgba(26,26,26,0.04);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 40px;
     align-items: center;
   }
-  .bs-label {
-    font-family: 'Caveat', cursive; font-size: 28px;
-    color: #2DA96B;
-  }
-  .bs-text {
-    font-family: 'Lora', serif; font-size: 14px;
-    color: #FCFAF8; opacity: 0.85;
-  }
-  .bs-text strong { color: #FFF; font-weight: 700; }
+  .bs-label { font-family: var(--caveat); font-size: 28px; color: var(--green); font-weight: 700; }
+  .bs-text { font-family: var(--lora); font-size: 14px; color: var(--muted); }
+  .bs-text strong { color: var(--text); font-weight: 700; }
   .bs-cta {
-    background: #2DA96B; color: #FFF;
-    padding: 14px 28px;
-    font-family: 'Lora', serif; font-size: 14px;
-    letter-spacing: 0.04em; text-decoration: none;
-    font-weight: 500;
+    background: var(--green); color: var(--white);
+    padding: 14px 26px; border-radius: 10px;
+    font-family: var(--caveat); font-size: 20px; font-weight: 600;
+    text-decoration: none;
   }
 
-  /* ── Section: Local recommendations ── */
-  .recs { padding: 120px 48px 120px; }
-  .recs-head {
-    max-width: 720px; margin-bottom: 72px;
-  }
+  /* ── Section: Local recommendations — staggered editorial cards ── */
+  .recs { padding: 140px 48px 120px; max-width: 1320px; margin: 0 auto; }
+  .recs-head { max-width: 720px; margin-bottom: 72px; }
   .section-eyebrow {
-    font-family: 'Lora', serif; font-style: italic;
-    font-size: 13px; letter-spacing: 0.06em;
-    color: #2DA96B; margin-bottom: 16px;
+    font-family: var(--lora); font-style: italic;
+    font-size: 14px; color: var(--green);
+    margin-bottom: 16px;
   }
   .section-h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 56px; line-height: 1.05;
-    font-weight: 500;
+    font-family: var(--caveat);
+    font-size: 68px; line-height: 1.0;
+    font-weight: 700; color: var(--text);
     margin-bottom: 24px;
   }
   .section-lede {
-    font-family: 'Lora', serif; font-size: 19px;
-    line-height: 1.55; color: #444;
+    font-family: var(--lora); font-size: 19px;
+    line-height: 1.55; color: var(--muted);
     max-width: 56ch;
   }
 
-  /* Three editorial cards — staggered */
   .rec-grid {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
-    margin-top: 32px;
+    gap: 36px;
+    margin-top: 40px;
   }
-  .rec {
-    display: flex; flex-direction: column;
-  }
-  .rec:nth-child(2) { margin-top: 64px; }
-  .rec:nth-child(3) { margin-top: 32px; }
+  .rec { display: flex; flex-direction: column; }
+  .rec:nth-child(2) { margin-top: 72px; }
+  .rec:nth-child(3) { margin-top: 24px; }
   .rec-img {
     width: 100%; aspect-ratio: 3/4;
-    object-fit: cover; margin-bottom: 24px;
+    object-fit: cover; border-radius: 4px;
+    margin-bottom: 22px;
   }
   .rec-meta {
-    font-family: 'Lora', serif; font-style: italic;
-    font-size: 12px; color: #2DA96B;
-    letter-spacing: 0.06em;
-    margin-bottom: 12px;
-    text-transform: uppercase;
+    font-family: var(--lora); font-style: italic;
+    font-size: 13px; color: var(--green);
+    margin-bottom: 10px;
   }
   .rec-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 30px; font-weight: 500;
-    line-height: 1.15;
-    margin-bottom: 12px;
+    font-family: var(--caveat);
+    font-size: 36px; font-weight: 700;
+    line-height: 1.0;
+    margin-bottom: 14px;
+    color: var(--text);
   }
   .rec-body {
-    font-family: 'Lora', serif; font-size: 15px;
-    line-height: 1.55; color: #444;
-  }
-
-  .rule {
-    height: 1px; background: rgba(26,26,26,0.12);
-    margin: 0 48px;
+    font-family: var(--lora); font-size: 16px;
+    line-height: 1.55; color: var(--muted);
   }
 </style>
 </head>
@@ -202,50 +198,46 @@
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
-      <div class="hero-eyebrow">— Issue No. 12  ·  Spring/Summer 2026</div>
-      <h1 class="hero-h1">A walk through the<br>real Norwich.</h1>
-      <p class="hero-sub">One local. Twelve stops. Eight hundred years of stories. Free to join. Tip what you thought it was worth.</p>
-      <div class="hero-cta-row">
-        <a href="#" class="hero-cta">Reserve your spot →</a>
-        <div class="hero-meta"><span>4.9</span> on Google  ·  <span>1h 45m</span>  ·  Daily, rain or shine</div>
-      </div>
+      <div class="hero-eyebrow">Tours run daily &nbsp;·&nbsp; 1h 45m &nbsp;·&nbsp; Free to book</div>
+      <h1 class="hero-h1">A walk through the real Norwich.</h1>
+      <p class="hero-sub">One local. Twelve stops. Free to join. Tip what it was worth at the end.</p>
+      <a href="#" class="hero-cta">Reserve your spot &rarr;</a>
+      <div class="hero-meta"><strong>4.9</strong> on Google &nbsp;·&nbsp; Max 15 per group &nbsp;·&nbsp; Daily, rain or shine</div>
     </div>
     <div class="hero-image-frame">
-      <img src="/images/tour/group-cathedral-lawn.jpg" alt="Norwich tour group on the Cathedral lawn">
-      <div class="hero-caption">A small group on the Cathedral lawn — the final stop of the tour.</div>
+      <img src="/images/tour/group-cathedral-lawn.jpg" alt="">
+      <div class="hero-caption">A small group on the Cathedral lawn, near the end of the tour.</div>
     </div>
   </div>
 </section>
 
 <div class="booking-strip">
   <div class="bs-label">Pick a day &rarr;</div>
-  <div class="bs-text"><strong>Mon 18 · Tue 19 · Wed 20 · Thu 21 · Fri 22 · Sat 23 · Sun 24</strong>  ·  All free to book, no card needed</div>
-  <a href="#" class="bs-cta">See available times →</a>
+  <div class="bs-text"><strong>Mon · Tue · Wed · Thu · Fri · Sat · Sun</strong> &nbsp;·&nbsp; All free to book, no card needed</div>
+  <a href="#" class="bs-cta">See available times &rarr;</a>
 </div>
-
-<div class="rule"></div>
 
 <section class="recs">
   <div class="recs-head">
-    <div class="section-eyebrow">— What you get with the tour</div>
+    <div class="section-eyebrow">Norwich Walking Tour</div>
     <h2 class="section-h2">Norwich, by someone who walks it for a living.</h2>
-    <p class="section-lede">Tom has lived in Norwich for years. On the walk you'll get the stories Google doesn't surface, the food spots locals actually queue for, and the corners you'd otherwise walk past. Most visitors leave the tour with a list of places to come back to.</p>
+    <p class="section-lede">Tom has lived in Norwich for years. On the walk you'll get the stories Google doesn't surface, the food spots locals queue for, and the corners you'd otherwise walk past. Most guests leave with a list of places to come back to.</p>
   </div>
   <div class="rec-grid">
     <article class="rec">
-      <img class="rec-img" src="/images/tour/guide-norwich-market.jpg" alt="Guide at Norwich Market">
+      <img class="rec-img" src="/images/tour/guide-norwich-market.jpg" alt="">
       <div class="rec-meta">Where to eat</div>
       <h3 class="rec-title">The market stalls<br>locals queue for.</h3>
-      <p class="rec-body">Five independent food traders we visit (or point at) — and what to order from each one.</p>
+      <p class="rec-body">Five independent food traders we visit or point at, and what to order from each.</p>
     </article>
     <article class="rec">
-      <img class="rec-img" src="/images/tour/group-britons-arms.jpg" alt="The Britons Arms on Elm Hill">
+      <img class="rec-img" src="/images/tour/group-britons-arms.jpg" alt="">
       <div class="rec-meta">Where the locals drink</div>
       <h3 class="rec-title">The pubs the<br>tourists never find.</h3>
       <p class="rec-body">Tudor coffee houses, riverside pubs, and the back-alley bar most guidebooks haven't caught up with.</p>
     </article>
     <article class="rec">
-      <img class="rec-img" src="/images/tour/elm-hill-tour.jpg" alt="Elm Hill Norwich">
+      <img class="rec-img" src="/images/tour/elm-hill-tour.jpg" alt="">
       <div class="rec-meta">The stories that stick</div>
       <h3 class="rec-title">A thousand years<br>told in an hour.</h3>
       <p class="rec-body">Witch trials at the Guildhall. The vote that saved Elm Hill. The reason Norwich still has more medieval churches per square mile than anywhere in Europe.</p>

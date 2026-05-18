@@ -2,219 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Direction 2 — Pottery & Postcards</title>
+<title>Direction B — Image Magazine (brand-strict)</title>
 <meta name="robots" content="noindex" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Lora:wght@400;500;700&family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg: #FCFAF8;
+    --green: #2DA96B;
+    --light-green: #E8F8F1;
+    --white: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #666666;
+    --rule: rgba(26,26,26,0.08);
+    --caveat: 'Caveat', cursive;
+    --lora: 'Lora', Georgia, serif;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: 'Lora', Georgia, serif;
-    color: #2A1F12;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(232,248,241,0.7), transparent 40%),
-      radial-gradient(circle at 80% 60%, rgba(214,179,109,0.18), transparent 50%),
-      #F5EDDF;
-    line-height: 1.5;
+    font-family: var(--lora);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
   }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      radial-gradient(rgba(42,31,18,0.04) 1px, transparent 1px);
-    background-size: 4px 4px;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .container { max-width: 1240px; margin: 0 auto; padding: 0 56px; position: relative; z-index: 1; }
 
-  /* ── Top bar ── */
+  /* ── Top bar — sits over hero image ── */
   .topbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 28px 56px;
-    position: relative; z-index: 2;
+    padding: 22px 48px;
+    position: absolute; top: 0; left: 0; right: 0;
+    z-index: 10;
+    background: linear-gradient(180deg, rgba(252,250,248,0.95), rgba(252,250,248,0));
   }
-  .topbar .brand {
-    font-family: 'Caveat', cursive;
-    font-size: 30px; font-weight: 700; color: #4A6B3A;
-  }
+  .topbar .brand { font-family: var(--caveat); font-size: 26px; color: var(--green); font-weight: 700; }
   .topbar nav { display: flex; gap: 32px; font-size: 14px; }
-  .topbar nav a { color: #2A1F12; text-decoration: none; opacity: 0.8; }
+  .topbar nav a { color: var(--text); text-decoration: none; opacity: 0.85; }
   .topbar .cta {
-    background: #4A6B3A; color: #F5EDDF;
-    padding: 11px 22px; border-radius: 999px;
-    font-family: 'Caveat', cursive; font-size: 20px;
-    text-decoration: none; font-weight: 500;
+    background: var(--green); color: var(--white);
+    padding: 10px 22px; border-radius: 10px;
+    font-family: var(--caveat); font-size: 18px; font-weight: 600;
+    text-decoration: none;
   }
 
-  /* ── Hero ── */
-  .hero { padding: 60px 56px 100px; position: relative; }
-
-  .hero-title-block {
-    max-width: 720px; margin: 0 auto;
-    text-align: center;
-    position: relative; z-index: 3;
+  /* ── Hero — image dominant, full-bleed Norwich photo with cream overlay ── */
+  .hero {
+    position: relative;
+    height: 100vh; min-height: 720px;
+    overflow: hidden;
+    background: var(--bg);
   }
-  .hero-stamp {
-    display: inline-block;
-    border: 2px solid #4A6B3A; color: #4A6B3A;
-    padding: 6px 16px; border-radius: 999px;
-    font-family: 'Caveat', cursive; font-size: 19px;
-    transform: rotate(-3deg);
-    margin-bottom: 24px;
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('/images/tour/group-cathedral-lawn.jpg');
+    background-size: cover;
+    background-position: center 35%;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+      rgba(252,250,248,0.35) 0%,
+      rgba(252,250,248,0.15) 35%,
+      rgba(252,250,248,0.85) 95%,
+      var(--bg) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 64px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .hero-eyebrow-strip {
+    position: absolute; top: 96px; left: 48px;
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--white); padding: 10px 18px;
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--lora); font-style: italic;
+    font-size: 14px; color: var(--text);
   }
   .hero-h1 {
-    font-family: 'Caveat', cursive;
-    font-size: 110px; line-height: 0.9; font-weight: 700;
-    color: #2A1F12;
+    font-family: var(--caveat);
+    font-size: clamp(80px, 11vw, 144px); line-height: 0.92;
+    font-weight: 700; color: var(--text);
     margin-bottom: 24px;
+    max-width: 14ch;
   }
-  .hero-h1 .accent { color: #4A6B3A; }
   .hero-sub {
-    font-family: 'Lora', serif; font-size: 19px;
-    color: #4A3D2A; max-width: 50ch; margin: 0 auto 36px;
-    line-height: 1.55;
+    font-family: var(--lora);
+    font-size: 22px; line-height: 1.4;
+    color: var(--text); opacity: 0.85;
+    max-width: 40ch;
+    margin-bottom: 36px;
+  }
+  .hero-cta-row {
+    display: flex; align-items: center; gap: 28px;
+    flex-wrap: wrap;
   }
   .hero-cta {
-    display: inline-block;
-    background: #2A1F12; color: #F5EDDF;
-    padding: 18px 40px; border-radius: 999px;
-    font-family: 'Caveat', cursive; font-size: 26px;
-    text-decoration: none; font-weight: 500;
-    box-shadow: 4px 4px 0 #4A6B3A;
+    background: var(--green); color: var(--white);
+    padding: 18px 36px; border-radius: 12px;
+    font-family: var(--caveat); font-size: 26px; font-weight: 600;
+    text-decoration: none;
   }
-  .hero-tip {
-    margin-top: 18px;
-    font-family: 'Caveat', cursive; font-size: 22px;
-    color: #6B5436;
+  .hero-meta {
+    font-family: var(--lora); font-size: 14px; color: var(--text);
+  }
+  .hero-meta strong { font-weight: 700; color: var(--green); }
+
+  /* Stats card floating top-right of hero */
+  .hero-stats {
+    position: absolute; top: 120px; right: 48px;
+    background: var(--white);
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(26,26,26,0.08);
+    display: flex; flex-direction: column; gap: 18px;
+    min-width: 200px;
+  }
+  .hero-stat {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+  .hero-stat .num {
+    font-family: var(--caveat);
+    font-size: 40px; line-height: 1;
+    color: var(--green); font-weight: 700;
+  }
+  .hero-stat .label {
+    font-family: var(--lora);
+    font-size: 13px; color: var(--muted);
+    line-height: 1.3;
   }
 
-  /* ── Postcard scatter ── */
-  .postcards {
-    position: relative;
-    height: 580px;
-    margin-top: 64px;
-  }
-  .postcard {
-    position: absolute;
-    background: #FFFEF8;
-    padding: 14px 14px 60px;
-    box-shadow:
-      0 2px 6px rgba(42,31,18,0.10),
-      0 24px 48px -16px rgba(42,31,18,0.25);
-  }
-  .postcard img {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block;
-  }
-  .postcard .label {
-    position: absolute; bottom: 18px; left: 16px;
-    font-family: 'Caveat', cursive; font-size: 22px;
-    color: #2A1F12;
-  }
-  .pc-1 {
-    width: 320px; height: 380px;
-    top: 0; left: 6%;
-    transform: rotate(-6deg);
-  }
-  .pc-1 img { height: 290px; }
-  .pc-2 {
-    width: 380px; height: 440px;
-    top: 60px; left: 32%;
-    transform: rotate(3deg); z-index: 2;
-  }
-  .pc-2 img { height: 350px; }
-  .pc-3 {
-    width: 340px; height: 400px;
-    top: 30px; right: 18%;
-    transform: rotate(-4deg);
-  }
-  .pc-3 img { height: 310px; }
-  .pc-4 {
-    width: 280px; height: 340px;
-    top: 240px; right: 2%;
-    transform: rotate(8deg);
-  }
-  .pc-4 img { height: 250px; }
-  .pc-stamp {
-    position: absolute;
-    width: 56px; height: 64px;
-    background: #C7402C;
-    top: 12px; right: 12px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #F5EDDF;
-    font-family: 'Caveat', cursive;
-    font-size: 12px; line-height: 1.1;
-    transform: rotate(4deg);
-  }
-  .pc-stamp .num { font-size: 22px; font-weight: 700; }
-
-  /* ── Marquee ── */
-  .marquee {
-    background: #2A1F12; color: #F5EDDF;
-    padding: 22px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    font-family: 'Caveat', cursive; font-size: 30px;
-    margin-top: 80px;
-    position: relative; z-index: 2;
-  }
-  .marquee span { padding: 0 32px; }
-  .marquee .dot { color: #D6B36D; font-size: 36px; vertical-align: middle; }
-
-  /* ── Route section ── */
-  .route { padding: 100px 56px; position: relative; z-index: 1; }
-  .route-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
-  .route-eyebrow {
-    font-family: 'Anton', sans-serif;
-    font-size: 14px; letter-spacing: 0.2em;
-    color: #4A6B3A;
+  /* ── Section: Photo gallery — image-led storytelling ── */
+  .gallery { padding: 100px 48px 120px; max-width: 1320px; margin: 0 auto; }
+  .gallery-head { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+  .section-eyebrow {
+    font-family: var(--lora); font-style: italic;
+    font-size: 14px; color: var(--green);
     margin-bottom: 16px;
   }
-  .route-h2 {
-    font-family: 'Caveat', cursive;
-    font-size: 64px; font-weight: 700;
-    color: #2A1F12; line-height: 1;
-    margin-bottom: 12px;
+  .section-h2 {
+    font-family: var(--caveat);
+    font-size: 72px; line-height: 1.0;
+    font-weight: 700; color: var(--text);
+    margin-bottom: 16px;
   }
-  .route-h2 .num {
-    font-family: 'Anton', sans-serif;
-    color: #4A6B3A;
-    -webkit-text-stroke: 1px #4A6B3A;
-    color: transparent;
-    font-size: 110px; vertical-align: middle;
+  .section-lede {
+    font-family: var(--lora); font-size: 18px;
+    line-height: 1.55; color: var(--muted);
   }
-  .route-meta {
-    font-family: 'Lora', serif; font-style: italic;
-    color: #6B5436; font-size: 17px;
+
+  /* Masonry of Norwich photos */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 14px;
   }
-  .route-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 16px;
-    max-width: 1000px; margin: 0 auto;
+  .g-cell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
   }
-  .stop {
-    background: #FFFEF8;
-    padding: 18px;
-    border: 1px solid rgba(42,31,18,0.1);
-    transform-origin: center;
-    transition: transform 0.3s;
+  .g-cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s;
   }
-  .stop:nth-child(odd) { transform: rotate(-1deg); }
-  .stop:nth-child(even) { transform: rotate(1deg); }
-  .stop-num {
-    font-family: 'Anton', sans-serif;
-    color: #4A6B3A; font-size: 32px;
-    line-height: 1; margin-bottom: 6px;
+  .g-cell .caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px 18px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.55));
+    color: var(--white);
+    font-family: var(--caveat);
+    font-size: 22px; font-weight: 600;
   }
-  .stop-name {
-    font-family: 'Caveat', cursive;
-    font-size: 24px; color: #2A1F12;
-    line-height: 1.05;
-  }
+  .g-cell.c1 { grid-column: span 1; grid-row: span 2; }
+  .g-cell.c2 { grid-column: span 1; }
+  .g-cell.c3 { grid-column: span 1; grid-row: span 2; }
+  .g-cell.c4 { grid-column: span 1; }
 </style>
 </head>
 <body>
@@ -227,71 +198,63 @@
     <a href="#">Articles</a>
     <a href="#">Contact</a>
   </nav>
-  <a href="#" class="cta">Book a spot</a>
+  <a href="#" class="cta">Book your spot</a>
 </header>
 
 <section class="hero">
-  <div class="hero-title-block">
-    <div class="hero-stamp">— Made in Norwich since 2026 —</div>
-    <h1 class="hero-h1">Norwich,<br>by <span class="accent">a local</span><br>who walks it for a living.</h1>
-    <p class="hero-sub">Twelve stops. One hour forty-five. Free to book. Tip what it was worth at the end.</p>
-    <a href="#" class="hero-cta">Reserve a spot →</a>
-    <div class="hero-tip">~ Most guests tip £10 – £20 ~</div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-eyebrow-strip">Tours run daily &nbsp;·&nbsp; 1h 45m &nbsp;·&nbsp; Max 15 per group</div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">4.9</div>
+      <div class="label">on Google<br>16 reviews</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">12</div>
+      <div class="label">stops, on foot<br>1h 45m</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">£0</div>
+      <div class="label">to book.<br>Tip what it was worth.</div>
+    </div>
   </div>
 
-  <div class="postcards">
-    <div class="postcard pc-1">
-      <img src="/images/tour/group-cathedral-west-front.jpg" alt="">
-      <div class="pc-stamp"><span class="num">01</span><span>FORUM</span></div>
-      <div class="label">— The Forum</div>
-    </div>
-    <div class="postcard pc-2">
-      <img src="/images/tour/elm-hill-tour.jpg" alt="">
-      <div class="pc-stamp"><span class="num">09</span><span>ELM HILL</span></div>
-      <div class="label">— Elm Hill</div>
-    </div>
-    <div class="postcard pc-3">
-      <img src="/images/tour/guide-norwich-market.jpg" alt="">
-      <div class="pc-stamp"><span class="num">04</span><span>MARKET</span></div>
-      <div class="label">— Norwich Market</div>
-    </div>
-    <div class="postcard pc-4">
-      <img src="/images/tour/group-britons-arms.jpg" alt="">
-      <div class="pc-stamp"><span class="num">10</span><span>TOMBLAND</span></div>
-      <div class="label">— Tombland</div>
+  <div class="hero-content">
+    <h1 class="hero-h1">The real Norwich, with a local.</h1>
+    <p class="hero-sub">From The Forum to the Cathedral. The stories Google doesn't surface, the food spots locals queue for, the corners you'd otherwise walk past.</p>
+    <div class="hero-cta-row">
+      <a href="#" class="hero-cta">Reserve your spot &rarr;</a>
+      <div class="hero-meta"><strong>£0 to book</strong> &nbsp;·&nbsp; Pay at the end &nbsp;·&nbsp; Tip £10&ndash;£20</div>
     </div>
   </div>
 </section>
 
-<div class="marquee">
-  <span>Eat where locals eat</span><span class="dot">·</span>
-  <span>Find the photo spots</span><span class="dot">·</span>
-  <span>Hear the stories</span><span class="dot">·</span>
-  <span>Walk slowly</span><span class="dot">·</span>
-  <span>Tip what it was worth</span><span class="dot">·</span>
-  <span>Eat where locals eat</span><span class="dot">·</span>
-  <span>Find the photo spots</span>
-</div>
-
-<section class="route">
-  <div class="route-head">
-    <div class="route-eyebrow">— THE ROUTE</div>
-    <h2 class="route-h2"><span class="num">12</span>stops.</h2>
-    <p class="route-meta">— From The Forum, ending near Norwich Cathedral, in 1h 45m at a relaxed pace —</p>
+<section class="gallery">
+  <div class="gallery-head">
+    <div class="section-eyebrow">A walk through the medieval city</div>
+    <h2 class="section-h2">Twelve stops. One thousand years.</h2>
+    <p class="section-lede">From the Guildhall's witch-trial courtroom to the cobbles of Elm Hill, this is Norwich the way a local walks it.</p>
   </div>
-  <div class="route-grid">
-    <div class="stop"><div class="stop-num">01</div><div class="stop-name">The Forum</div></div>
-    <div class="stop"><div class="stop-num">02</div><div class="stop-name">The Guildhall</div></div>
-    <div class="stop"><div class="stop-num">03</div><div class="stop-name">The Norwich Lanes</div></div>
-    <div class="stop"><div class="stop-num">04</div><div class="stop-name">Norwich Market</div></div>
-    <div class="stop"><div class="stop-num">05</div><div class="stop-name">The Arcade</div></div>
-    <div class="stop"><div class="stop-num">06</div><div class="stop-name">London Street</div></div>
-    <div class="stop"><div class="stop-num">07</div><div class="stop-name">Norwich Castle</div></div>
-    <div class="stop"><div class="stop-num">08</div><div class="stop-name">St Andrews Hall</div></div>
-    <div class="stop"><div class="stop-num">09</div><div class="stop-name">Elm Hill</div></div>
-    <div class="stop"><div class="stop-num">10</div><div class="stop-name">Tombland</div></div>
-    <div class="stop"><div class="stop-num">11</div><div class="stop-name">Fye Bridge</div></div>
-    <div class="stop"><div class="stop-num">12</div><div class="stop-name">Norwich Cathedral</div></div>
+  <div class="gallery-grid">
+    <div class="g-cell c1">
+      <img src="/images/tour/elm-hill-tour.jpg" alt="">
+      <div class="caption">Elm Hill — Stop 09</div>
+    </div>
+    <div class="g-cell c2">
+      <img src="/images/tour/guide-norwich-market.jpg" alt="">
+      <div class="caption">Norwich Market — Stop 04</div>
+    </div>
+    <div class="g-cell c3">
+      <img src="/images/tour/group-cathedral-west-front.jpg" alt="">
+      <div class="caption">Norwich Cathedral — Stop 12</div>
+    </div>
+    <div class="g-cell c4">
+      <img src="/images/tour/group-britons-arms.jpg" alt="">
+      <div class="caption">Tombland — Stop 10</div>
+    </div>
   </div>
 </section>
 
