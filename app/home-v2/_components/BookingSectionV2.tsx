@@ -11,14 +11,13 @@ import { Check } from "lucide-react";
 import { BookingFrame } from "@/components/BookingFrame";
 
 const bullets = [
-  // Bullet 1 replaced — "No card needed / Booking holds your spot. Pay at
-  // the end if you liked it." was restating the model that's already in
-  // the H2 + Hero badge + foot quote. Useless. Replaced with something
-  // that actually reduces friction at the booking → arriving step:
-  // visitors often worry about tickets, barcodes, where to find the guide.
+  // Bullet 1 — Tom's pick. Addresses payment-method anxiety
+  // ("I only have a card" / "I only have cash"). Doesn't claim
+  // a specific guide-arrival time (which varies) and doesn't
+  // contradict the booking widget right next to it.
   {
-    title: "Just turn up",
-    body: "Your guide is at The Forum from 10.45, wearing a green t-shirt. No tickets to print, no barcode to scan.",
+    title: "Card or cash",
+    body: "Tip however you like at the end. We take both.",
   },
   {
     title: "£10 to £20 per person",
