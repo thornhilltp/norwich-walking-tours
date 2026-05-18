@@ -130,7 +130,7 @@ export function AboutSectionV2() {
                 href="#book-section"
                 className="btn-cta inline-flex items-center gap-2 px-7 py-3 bg-brand-accent text-white rounded-full hover:bg-brand-accent/90 transition-colors duration-150"
               >
-                Book a morning
+                Book your spot (free)
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
@@ -138,7 +138,7 @@ export function AboutSectionV2() {
                 className="italic text-brand-text/70 underline underline-offset-4 decoration-brand-accent/30 hover:decoration-brand-accent"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                or email me direct
+                or contact me direct
               </a>
             </div>
 

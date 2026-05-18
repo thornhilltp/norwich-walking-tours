@@ -26,7 +26,10 @@ const cards = [
     src: "/images/tour/group-cathedral-lawn.jpg",
     alt: "Norwich Free Walking Tour group on the Cathedral lawn at the end of the tour",
     title: "The whole city in one walk.",
-    body: "1h 45m that makes sense of the medieval centre. Most guests say it's the best thing they did first.",
+    // Card 1 body is now the customer quote (moved from the heading
+    // area above per Tom). Rendered as italic Caveat with attribution.
+    quote: "It's like a walking visitor centre with a local.",
+    quoteAttribution: "what guests say",
     pin: "best thing first",
   },
   {
@@ -45,7 +48,9 @@ const cards = [
     body: "Got a question about Norwich? Tom's lived here years. Ask about food, kids' stuff, where to drink, what's worth your time.",
     pin: "ask anything",
   },
-];
+] as const;
+
+type Card = (typeof cards)[number];
 
 const benefits = [
   "Best places to eat & drink",
@@ -100,23 +105,9 @@ export function PhotoShowcaseV2() {
             </span>
           </h2>
 
-          <div className="flex items-start gap-3 border-l-2 border-brand-accent/40 pl-4 py-1 max-w-xl">
-            <QuoteIcon />
-            <div>
-              <p
-                className="italic text-lg text-brand-text leading-snug"
-                style={{ fontFamily: "var(--font-caveat), cursive" }}
-              >
-                It&apos;s like a walking visitor centre with a local.
-              </p>
-              <p
-                className="text-[11px] tracking-[0.12em] uppercase text-muted-foreground mt-1"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                &mdash; what guests say
-              </p>
-            </div>
-          </div>
+          {/* Customer quote moved into Card 1 body per Tom's feedback —
+              gives the "overview" card its own anchor without needing
+              extra page chrome here. */}
         </motion.div>
 
         {/* 4-benefit horizontal row — replaces the standalone bullet list
@@ -187,12 +178,31 @@ export function PhotoShowcaseV2() {
               >
                 {card.title}
               </h3>
-              <p
-                className="text-[15px] text-muted-foreground leading-relaxed mb-4"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                {card.body}
-              </p>
+              {/* Card body — either prose paragraph OR a customer quote
+                  block (Card 1 uses the quote per Tom's reframe). */}
+              {"quote" in card && card.quote ? (
+                <div className="border-l-2 border-brand-accent/40 pl-3 mb-4">
+                  <p
+                    className="italic text-[20px] text-brand-text leading-snug"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    &ldquo;{card.quote}&rdquo;
+                  </p>
+                  <p
+                    className="text-[10px] tracking-[0.14em] uppercase text-muted-foreground mt-1"
+                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                  >
+                    &mdash; {card.quoteAttribution}
+                  </p>
+                </div>
+              ) : (
+                <p
+                  className="text-[15px] text-muted-foreground leading-relaxed mb-4"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {("body" in card ? card.body : "") as string}
+                </p>
+              )}
               <span
                 className="inline-flex items-center gap-1.5 italic text-brand-accent-text text-lg font-medium mt-auto"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
