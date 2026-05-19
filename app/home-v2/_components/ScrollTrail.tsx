@@ -109,7 +109,7 @@ export function ScrollTrail() {
 
   return (
     <aside
-      className={`fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-opacity duration-500 ${
+      className={`fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden 2xl:block transition-opacity duration-500 ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       aria-label="Page navigation"
