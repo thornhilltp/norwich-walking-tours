@@ -115,7 +115,7 @@ export function HeroV2({
             </span>
           </motion.h1>
 
-          <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             <a
               href={buttonHref}
               onClick={() => trackEvent("book_cta_click", { location: "hero_v2" })}
@@ -183,12 +183,12 @@ export function HeroV2({
           className="relative lg:w-1/2 w-full flex flex-col items-center justify-center gap-5"
           variants={cardVariants}
         >
-          {/* Booking widget hidden on mobile — adds 520px to a
-              page that's already long on phones, and the dedicated
-              BookingSection below has the same widget. Visitors on
-              mobile use the Hero CTA which anchors to #book-section. */}
+          {/* Booking widget visible on all viewports per Tom 2026-05-19.
+              Was previously hidden on mobile to save vertical space, but
+              Tom flagged it as missing — the iframe is the conversion
+              engine and should be visible immediately on phone too. */}
           {widget ? (
-            <div className="hidden md:block w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white">
+            <div className="block w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white">
               {widget}
             </div>
           ) : null}
