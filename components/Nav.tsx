@@ -89,10 +89,15 @@ export function Nav() {
                 }`}
               >
                 {link.label}
+                {/* Left-to-right wipe on hover, like a guide drawing the
+                    path as they walk it. Clip-path inset transitions
+                    from 'fully clipped from right' to 'no clip', which
+                    reveals the wavy dashed line in a left-to-right
+                    sweep over 500ms. */}
                 <svg
                   viewBox="0 0 60 6"
                   preserveAspectRatio="none"
-                  className="absolute bottom-0 left-0 w-full h-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                  className="absolute bottom-0 left-0 w-full h-[6px] pointer-events-none [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)] transition-[clip-path] duration-500 ease-out"
                   aria-hidden="true"
                 >
                   <path
