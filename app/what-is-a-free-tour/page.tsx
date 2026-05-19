@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { WhatIsFreeTour } from "@/components/WhatIsFreeTour";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Footer } from "@/components/Footer";
+import { ScrollTrail } from "@/components/ScrollTrail";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 
 const CANONICAL = "https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour";
@@ -118,9 +119,18 @@ export default function WhatIsAFreeTourPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
       <main className="bg-brand-bg pt-16">
+        <ScrollTrail
+          sections={[
+            { id: "top", label: "Top" },
+            { id: "model", label: "The model" },
+            { id: "how", label: "How" },
+            { id: "book", label: "Book" },
+          ]}
+        />
         {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
             image background + dark overlay + white text. */}
         <section
+          id="top"
           className="relative section-padding"
           style={{
             backgroundImage: "url('/images/tour/group-cathedral-west-front.jpg')",
@@ -151,13 +161,13 @@ export default function WhatIsAFreeTourPage() {
           </div>
         </section>
 
-        <WhatIsFreeTour />
-        <HowItWorks />
+        <div id="model"><WhatIsFreeTour /></div>
+        <div id="how"><HowItWorks /></div>
         {/* TipAnchor removed 2026-05-19 — duplicated tip-amount content
             already covered by the booking flow + FAQ. */}
 
         {/* CTA + FAQ link */}
-        <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
+        <section id="book" className="section-padding bg-brand-bg border-t border-brand-accent/10">
           <div className="brand-container max-w-2xl mx-auto text-center">
             <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-5">
               Ready to book?

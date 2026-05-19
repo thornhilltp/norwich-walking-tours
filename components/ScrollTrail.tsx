@@ -11,26 +11,23 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-interface TrailSection {
+export interface TrailSection {
+  /** Must match a DOM id attribute on the corresponding section element. */
   id: string;
+  /** Short label (8-10 chars max) shown next to the dot on 2xl+ viewports. */
   label: string;
 }
 
-const sections: TrailSection[] = [
-  { id: "top", label: "Hello" },
-  { id: "stories", label: "Stories" },
-  { id: "reviews", label: "Reviews" },
-  { id: "tour-map", label: "The walk" },
-  { id: "tom", label: "Tom" },
-  { id: "book-section", label: "Book" },
-  { id: "faq", label: "FAQs" },
-];
+interface ScrollTrailProps {
+  /** Ordered sections to render in the trail. */
+  sections: TrailSection[];
+}
 
 // Layout constants
 const ROW_GAP = 56; // px from one dot to the next
 const DOT_OFFSET = 12; // px from top of trail to first dot centre
 
-export function ScrollTrail() {
+export function ScrollTrail({ sections }: ScrollTrailProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   // Fractional position through the trail (e.g. 2.4 = 40% past dot 2,
   // heading toward dot 3). Used for smooth pin animation that's

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+import { ScrollTrail } from "@/components/ScrollTrail";
 import { Users, Clock, MapPin, Star, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -83,12 +84,22 @@ const options = [
 export default function PrivateToursPage() {
   return (
     <main className="bg-brand-bg pt-16">
+      <ScrollTrail
+        sections={[
+          { id: "top", label: "Top" },
+          { id: "included", label: "Included" },
+          { id: "occasions", label: "Occasions" },
+          { id: "durations", label: "Durations" },
+          { id: "enquire", label: "Enquire" },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       {/* Hero */}
       <section
+        id="top"
         className="relative section-padding"
         style={{
           backgroundImage: "url('/images/tour/guides-edith-cavell.jpg')",
@@ -117,7 +128,7 @@ export default function PrivateToursPage() {
       </section>
 
       {/* What's included */}
-      <section aria-labelledby="whats-included" className="section-padding bg-brand-bg">
+      <section id="included" aria-labelledby="whats-included" className="section-padding bg-brand-bg">
         <div className="brand-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div>
@@ -144,7 +155,7 @@ export default function PrivateToursPage() {
       </section>
 
       {/* Occasions */}
-      <section aria-labelledby="occasions" className="section-padding bg-brand-accent-light">
+      <section id="occasions" aria-labelledby="occasions" className="section-padding bg-brand-accent-light">
         <div className="brand-container">
           <div className="text-center mb-12">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
@@ -181,7 +192,7 @@ export default function PrivateToursPage() {
       </section>
 
       {/* Tour options */}
-      <section aria-labelledby="durations" className="section-padding bg-brand-bg">
+      <section id="durations" aria-labelledby="durations" className="section-padding bg-brand-bg">
         <div className="brand-container">
           <div className="text-center mb-12">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
@@ -237,7 +248,7 @@ export default function PrivateToursPage() {
       </section>
 
       {/* CTA */}
-      <section aria-labelledby="pricing" className="section-padding bg-brand-text">
+      <section id="enquire" aria-labelledby="pricing" className="section-padding bg-brand-text">
         <div className="brand-container text-center max-w-2xl mx-auto">
           <h2 id="pricing" className="font-caveat text-4xl md:text-5xl font-bold text-white mb-5">
             Ready to get in touch?

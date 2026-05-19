@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
 import { StoriesTeaser } from "@/components/StoriesTeaser";
+import { ScrollTrail } from "@/components/ScrollTrail";
 
 export const metadata: Metadata = {
   title: "Norwich Walking Tour | 12 Stops, 1h 45m",
@@ -93,6 +94,15 @@ const stopImages: Record<number, { src: string; alt: string }> = {
 export default function TourPage() {
   return (
     <main className="bg-brand-bg pt-16">
+      <ScrollTrail
+        sections={[
+          { id: "top", label: "Top" },
+          { id: "map", label: "Map" },
+          { id: "stops", label: "Stops" },
+          { id: "guide", label: "Guide" },
+          { id: "faq", label: "FAQ" },
+        ]}
+      />
       {/* FAQPage JSON-LD */}
       <script
         type="application/ld+json"
@@ -103,6 +113,7 @@ export default function TourPage() {
           image background + dark overlay + white text. Copy cut from
           ~140 words to ~25 (per Tom's design-principles brief). */}
       <section
+        id="top"
         className="relative section-padding"
         style={{
           backgroundImage: "url('/images/tour/group-cathedral-lawn.jpg')",
@@ -134,7 +145,7 @@ export default function TourPage() {
       </section>
 
       {/* Route Map */}
-      <section className="section-padding bg-brand-bg border-b border-brand-accent/10">
+      <section id="map" className="section-padding bg-brand-bg border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="font-caveat text-4xl md:text-5xl font-bold">
@@ -158,7 +169,7 @@ export default function TourPage() {
       </section>
 
       {/* Tour Stops */}
-      <section className="section-padding bg-brand-bg">
+      <section id="stops" className="section-padding bg-brand-bg">
         <div className="brand-container max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
@@ -252,7 +263,7 @@ export default function TourPage() {
       </section>
 
       {/* Who's running it */}
-      <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
+      <section id="guide" className="section-padding bg-brand-bg border-t border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto">
           <div className="mb-6">
             <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
@@ -274,7 +285,7 @@ export default function TourPage() {
       </section>
 
       {/* Common questions / FAQ */}
-      <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
+      <section id="faq" className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto">
           <div className="mb-8">
             <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>

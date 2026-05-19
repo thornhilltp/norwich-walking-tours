@@ -18,7 +18,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Fragment } from "react";
 
 // Card 2 ('A list to come back to / Places to come back to tomorrow')
 // dropped per Tom — it was the weakest card, partly duplicated the
@@ -113,29 +112,19 @@ export function PhotoShowcaseV2() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-12"
         >
-          {benefits.map((b, i) => (
-            <Fragment key={b}>
-              {i > 0 && (
-                <span
-                  className="text-brand-accent/40 hidden sm:inline"
-                  aria-hidden="true"
-                >
-                  &bull;
-                </span>
-              )}
-              <span className="flex items-center gap-2">
-                <span
-                  className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0"
-                  aria-hidden="true"
-                />
-                <span
-                  className="text-[15px] font-medium text-brand-text"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {b}
-                </span>
+          {benefits.map((b) => (
+            <span key={b} className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0"
+                aria-hidden="true"
+              />
+              <span
+                className="text-[15px] font-medium text-brand-text"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                {b}
               </span>
-            </Fragment>
+            </span>
           ))}
         </motion.div>
 

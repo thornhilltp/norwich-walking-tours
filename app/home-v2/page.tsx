@@ -22,7 +22,7 @@ import { AboutSectionV2 } from "./_components/AboutSectionV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
-import { ScrollTrail } from "./_components/ScrollTrail";
+import { ScrollTrail } from "@/components/ScrollTrail";
 // Both bg motifs dropped (Tom's feedback):
 //   - WalkingPattern (body-wide pattern) competed with text legibility
 //   - RouteDivider (thick lines between sections) looked clunky
@@ -54,8 +54,19 @@ export const metadata: Metadata = {
 export default function HomeV2Page() {
   return (
     <main className="relative" style={{ paddingTop: 0 }}>
-      {/* Fixed right-edge in-page navigation (hidden below xl). */}
-      <ScrollTrail />
+      {/* Fixed right-edge in-page navigation. Hidden on tablet, dots-only
+          on phone + laptop, labels on 2xl+. */}
+      <ScrollTrail
+        sections={[
+          { id: "top", label: "Hello" },
+          { id: "stories", label: "Stories" },
+          { id: "reviews", label: "Reviews" },
+          { id: "tour-map", label: "The walk" },
+          { id: "tom", label: "Tom" },
+          { id: "book-section", label: "Book" },
+          { id: "faq", label: "FAQs" },
+        ]}
+      />
       <div>
       <HeroV2
         buttonText="Book your spot (free)"
