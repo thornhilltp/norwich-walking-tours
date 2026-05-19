@@ -109,16 +109,16 @@ export function AboutSectionV2() {
               </span>
             </h2>
 
-            {/* Single short paragraph (Tom's pick: Option A, 48 words).
-                Replaces the previous 3-paragraph life-story version
-                which felt long and partly drawn from /about. This is
-                the "why I do this" arc in under 50 words. Em-dash
-                replaced with full stop per brand rule. */}
+            {/* Single short paragraph — warmer rewrite per Tom (2026-05-19).
+                Previous version was factually correct but flat. New version
+                keeps the "why I do this" arc but adds the love-meeting-people
+                energy + warmth of "properly fell for the place". No em-dashes
+                per brand rule. */}
             <p
               className="text-brand-text/85 text-[17px] leading-[1.65]"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              I&apos;m Tom. Came to Norwich for the history degree, never left. That was 13 years ago. Travelled in 2025 and took free walking tours in every city. A local meeting you, showing you their place, no upfront price. Norwich didn&apos;t have one. Now it does.
+              I&apos;m Tom. Came here for a history degree thirteen years ago. Never left. Properly fell for the place. Last year I travelled and took free walking tours wherever I went, and every guide was a local sharing the bits of their city they love most. I love meeting people, and Norwich didn&apos;t have one of these. So now it does.
             </p>
 
             {/* Dual CTAs */}

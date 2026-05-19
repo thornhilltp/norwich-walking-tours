@@ -46,9 +46,9 @@ const groups: Group[] = [
   },
   {
     eyebrow: "Why people stay",
-    headline: "The city people don't leave.",
+    headline: "The best city to live in the UK in 2026.",
     stops: "The Forum · Elm Hill · Tombland · Fye Bridge",
-    body: "Modern arts hub. Film-set cobbles. A river that runs through it all. The Sunday Times keeps calling Norwich the best place to live in the UK. Walk it and you see why.",
+    body: "That's the Sunday Times verdict. Modern arts hub. Film-set cobbles. A river that runs through it all. Walk it and you see why people stay.",
   },
 ];
 

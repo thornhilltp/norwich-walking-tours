@@ -33,7 +33,7 @@ const cards = [
     quote: "It's like a walking visitor centre with a local.",
     quoteAttribution: "what guests say",
     pin: "best thing first",
-    polaroidBg: "#FFFFFF",
+    polaroidBg: "#E8F0E4",
   },
   {
     label: "A local to ask",

@@ -88,7 +88,7 @@ export function HeroV2({
 
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Norwich Free Walking Tours &bull; Daily &bull; 1h 45m
+              Norwich Free Walking Tours
             </span>
           </motion.div>
 
@@ -166,7 +166,7 @@ export function HeroV2({
             className="mt-2 text-xs text-white/85 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Pay at the end by card or cash &bull; usually £10 to £20
+            £0 to book &bull; Daily 1h 45m tours &bull; Cash or Card at the end, usually £10 to £20
           </motion.p>
         </div>
 
