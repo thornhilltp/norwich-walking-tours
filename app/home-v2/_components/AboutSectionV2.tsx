@@ -65,20 +65,24 @@ export function AboutSectionV2() {
                   sizes="(max-width: 768px) 90vw, 580px"
                 />
               </div>
+              {/* Caption block — both lines now sit inside the polaroid
+                  bottom per Tom 2026-05-19. 'Tom Thornhill, Norwich' keeps
+                  Lora (gallery-label feel); 'that's me, hi' keeps Caveat
+                  italic (handwritten marker-pen feel). Stacked left-aligned
+                  in the polaroid's caption strip. */}
               <p
-                className="absolute bottom-4 left-4 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
+                className="absolute bottom-7 left-4 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
                 Tom Thornhill, Norwich
               </p>
+              <p
+                className="absolute bottom-1 left-4 italic text-brand-text/70 text-[18px] leading-none"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
+              >
+                that&apos;s me, hi
+              </p>
             </div>
-            {/* Handwritten note below the polaroid */}
-            <p
-              className="mt-5 ml-6 italic text-brand-text/70 text-lg"
-              style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-2deg)" }}
-            >
-              that&apos;s me, hi
-            </p>
           </motion.div>
 
           {/* Right: copy */}

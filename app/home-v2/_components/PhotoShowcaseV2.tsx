@@ -27,8 +27,8 @@ import { Fragment } from "react";
 const cards = [
   {
     label: "An overview",
-    src: "/images/tour/elm-hill-tour.jpg",
-    alt: "Elm Hill, Norwich's most-photographed cobbled medieval street, on the Norwich Free Walking Tour",
+    src: "/images/tour/what-is-free-tour.jpg",
+    alt: "Norwich Free Walking Tour group walking together with their guide, mid-tour",
     title: "The whole city in one walk.",
     quote: "It's like a walking visitor centre with a local.",
     quoteAttribution: "what guests say",
@@ -46,10 +46,12 @@ const cards = [
   },
 ] as const;
 
+// Reordered + combined per Tom 2026-05-19. Stories leads (the highest-
+// value differentiator), then a combined eat/drink/photo line, then the
+// 'hidden corners' line. Down from 4 to 3 items — tighter visual beat.
 const benefits = [
-  "Best places to eat & drink",
-  "Photo spots",
   "Stories & history",
+  "Best places to eat, drink & photograph",
   "Corners you'd otherwise miss",
 ];
 
@@ -181,7 +183,7 @@ export function PhotoShowcaseV2() {
                     Reads as a marker-pen note on a real photo, not a
                     formal Lora label. */}
                 <p
-                  className="absolute bottom-2 left-3 text-[18px] italic text-brand-text/70"
+                  className="absolute bottom-2 left-3 text-[20px] italic font-bold text-brand-text"
                   style={{ fontFamily: "var(--font-caveat), cursive" }}
                 >
                   {card.label}

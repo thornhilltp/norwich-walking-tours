@@ -118,24 +118,36 @@ export default function WhatIsAFreeTourPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
-      <main className="bg-brand-bg">
-        {/* Page intro */}
-        <section className="section-padding bg-brand-bg">
-          <div className="brand-container max-w-3xl mx-auto text-center">
-            <p
-              className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
+      <main className="bg-brand-bg pt-16">
+        {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
+            image background + dark overlay + white text. */}
+        <section
+          className="relative section-padding"
+          style={{
+            backgroundImage: "url('/images/tour/what-is-free-tour.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 40%",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative brand-container max-w-3xl mx-auto text-center">
+            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
               The free-tour model
             </p>
-            <h1 className="font-caveat text-5xl md:text-6xl font-bold text-brand-text mb-5 leading-tight">
+            <h1 className="font-caveat text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
               What is a free walking tour?
             </h1>
-            <p
-              className="text-lg text-muted-foreground leading-relaxed"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
+              You join for free. You walk for 1h 45m with a local guide. You tip what it was worth at the end.
+            </p>
+            <a
+              href="/book"
+              className="inline-flex items-center justify-center h-12 px-8 bg-brand-accent text-white font-lora font-semibold text-base rounded-xl hover:bg-brand-accent/90 transition-colors duration-150"
             >
-              You join for free. You walk for 1 hour 45 minutes with a local guide. At the end, you tip what you thought it was worth. That&apos;s the whole model.
+              Book your spot (free)
+            </a>
+            <p className="mt-4 text-sm text-white/70 font-lora">
+              £0 to reserve &bull; Most guests tip £10 to £20 &bull; Free to cancel
             </p>
           </div>
         </section>

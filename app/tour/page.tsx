@@ -99,29 +99,36 @@ export default function TourPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero */}
-      <section className="section-padding bg-brand-bg border-b border-brand-accent/10">
-        <div className="brand-container max-w-3xl mx-auto text-center">
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+      {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
+          image background + dark overlay + white text. Copy cut from
+          ~140 words to ~25 (per Tom's design-principles brief). */}
+      <section
+        className="relative section-padding"
+        style={{
+          backgroundImage: "url('/images/tour/group-cathedral-lawn.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative brand-container max-w-3xl mx-auto text-center">
+          <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
             The tour
           </p>
-          <h1 className="font-caveat text-5xl md:text-6xl font-bold mb-5 leading-tight">
+          <h1 className="font-caveat text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
             The Norwich walking tour. 12 stops. 1h 45m.
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            The real Norwich, on foot, with someone who lives here. You&apos;ll cover a thousand years of history without realising it, hear the stories most guidebooks miss, and find out why the city has more medieval churches per square mile than anywhere else in Europe. No booking fee, no card needed. You only pay what the tour was worth at the end.
-          </p>
-          <p className="text-base text-muted-foreground leading-relaxed mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            We meet at The Forum, walk twelve stops through the old city, and finish near the Cathedral 1 hour 45 minutes later. Group size is capped at 15 so you can actually hear what&apos;s being said. Daily, rain or shine.
+          <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
+            The real Norwich, on foot, with someone who lives here.
           </p>
           <a
             href="/book"
-            className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
+            className="inline-flex items-center justify-center h-12 px-8 bg-brand-accent text-white font-lora font-semibold text-base rounded-xl hover:bg-brand-accent/90 transition-colors duration-150"
           >
             Book your spot (free)
           </a>
-          <p className="mt-3 text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Free to book &bull; English language &bull; Near daily
+          <p className="mt-4 text-sm text-white/70 font-lora">
+            Free to book &bull; Daily &bull; Pay what it was worth at the end
           </p>
         </div>
       </section>
