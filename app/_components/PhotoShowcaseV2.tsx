@@ -138,7 +138,10 @@ export function PhotoShowcaseV2() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="flex flex-col"
+              // Card 2 ('A local to ask' polaroid + body) hidden on mobile
+              // per Tom 2026-05-19 to shorten the mobile page. Desktop
+              // keeps the 2-card grid because there's room.
+              className={`flex flex-col ${idx === 1 ? "hidden md:flex" : ""}`}
             >
               {/* Polaroid frame — paper tone varies per card (Tom's
                   pick). Slight rotation for "stuck on a wall" feel. */}

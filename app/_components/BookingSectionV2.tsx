@@ -124,13 +124,21 @@ export function BookingSectionV2() {
             </p>
           </motion.div>
 
-          {/* Right: real booking widget iframe */}
+          {/* Right: real booking widget iframe.
+              Mobile-only behaviour 2026-05-19: the iframe is hidden on
+              mobile because the Hero already renders the same widget
+              on phones (post the hero-widget-on-mobile fix). Two
+              identical iframes on the same page = ~520px of wasted
+              vertical real estate + double iframe load. On desktop
+              both are visible (Hero widget right column + this one)
+              which makes the page feel more conversion-focused at
+              wider widths. */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="w-full rounded-2xl overflow-hidden shadow-xl border border-brand-accent/15 bg-white"
+            className="hidden lg:block w-full rounded-2xl overflow-hidden shadow-xl border border-brand-accent/15 bg-white"
           >
             <BookingFrame
               height={560}

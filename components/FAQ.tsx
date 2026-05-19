@@ -152,8 +152,15 @@ interface FAQProps {
   customHeading?: React.ReactNode;
 }
 
+// Number of FAQs always visible on mobile. The rest stay in the DOM
+// (so FAQPage JSON-LD and Google's mobile-first index see them) but
+// are CSS-hidden behind a 'Show all questions' button. Desktop is
+// unaffected — always shows all FAQs.
+const MOBILE_VISIBLE_COUNT = 8;
+
 export function FAQ({ customHeading }: FAQProps = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showAllMobile, setShowAllMobile] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
@@ -185,19 +192,41 @@ export function FAQ({ customHeading }: FAQProps = {}) {
 
           {/* Accordion */}
           <div className="bg-white rounded-2xl px-6 md:px-8 border border-brand-accent/10 shadow-sm">
-            {faqs.map((faq, index) => (
-              <FAQItem
-                key={index}
-                q={faq.q}
-                a={faq.a}
-                index={index}
-                isOpen={openIndex === index}
-                onToggle={() =>
-                  setOpenIndex(openIndex === index ? null : index)
-                }
-              />
-            ))}
+            {faqs.map((faq, index) => {
+              // Hide the tail end on mobile until user expands. Always
+              // rendered in DOM for SEO (mobile-first index sees them).
+              const isHiddenOnMobile =
+                index >= MOBILE_VISIBLE_COUNT && !showAllMobile;
+              return (
+                <div
+                  key={index}
+                  className={isHiddenOnMobile ? "hidden md:block" : ""}
+                >
+                  <FAQItem
+                    q={faq.q}
+                    a={faq.a}
+                    index={index}
+                    isOpen={openIndex === index}
+                    onToggle={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
+                  />
+                </div>
+              );
+            })}
           </div>
+
+          {/* Mobile-only 'Show more' button — desktop already shows
+              every FAQ so it's hidden there. Disappears after expansion. */}
+          {!showAllMobile && faqs.length > MOBILE_VISIBLE_COUNT && (
+            <button
+              type="button"
+              onClick={() => setShowAllMobile(true)}
+              className="md:hidden mt-6 w-full py-3 rounded-xl border border-brand-accent/20 bg-white text-brand-accent-text font-lora font-semibold text-sm hover:bg-brand-accent-light/30 transition-colors duration-150"
+            >
+              Show all {faqs.length} questions &darr;
+            </button>
+          )}
         </div>
       </div>
     </section>

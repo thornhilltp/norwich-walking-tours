@@ -78,7 +78,7 @@ export function HeroV2({
       <div className="absolute inset-0 bg-black/75" />
 
       <motion.div
-        className="relative brand-container flex min-h-[90dvh] items-center justify-between pt-32 pb-24 lg:py-24 flex-col lg:flex-row gap-12"
+        className="relative brand-container flex min-h-[80dvh] lg:min-h-[90dvh] items-center justify-between pt-32 pb-24 lg:py-24 flex-col lg:flex-row gap-12"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
