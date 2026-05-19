@@ -63,16 +63,20 @@ Text:           #1A1A1A
 ## 4. Pages
 
 ### `/` — Home
-Sections in order (confirmed April 2026, do not reorder without instruction):
-1. **Hero** — split layout: text left, booking widget iframe right. Background: `pottergate-stock.png`. ("Coming May 2026" badge removed at launch — tours running.)
-2. **PhotoShowcase** — `components/PhotoShowcase.tsx`
-3. **WhatIsFreeTour** — explains free tour model with Norwich Lane photo. "Local guide" section.
-4. **StopsAndMap** — `TourStops` list + static route map image side-by-side. `id="tour-map"`.
-5. **HowItWorks** — 3 photo cards: Book → Meet at Forum → Pay what it was worth (tip £10–£20). Ends with its own "Book your spot" CTA.
-6. **PracticalInfo** — logistics grid (meeting point, duration, schedule, language, pace, what to wear).
-7. **FAQ** — accordion, exact copy in `components/FAQ.tsx`. Do not rewrite without instruction.
-8. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
-9. **Footer**
+Sections in order (rebuilt 2026-05-19 — promoted from `/home-v2` experiment after design review):
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (4.9★ · 1h 45m · Max 15), partner logos.
+2. **WhatHowWho** (`app/_components/WhatHowWho.tsx`) — 3-column SEO insurance block: What you'll see / How it works / Who runs it. Restores keyword density below the outcome-shaped H1.
+3. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — Lora→Caveat H2, 3-benefit row, 2-polaroid card grid (An overview / A local to ask). `id="stories"`.
+4. **TestimonialsV2** (`app/_components/TestimonialsV2.tsx`) — Lora→Caveat H2, dual Google + TripAdvisor rating blocks, 2×2 review grid, dual "Read all" links. `id="reviews"`.
+5. **ThemedRouteSection** (`app/_components/ThemedRouteSection.tsx`) — Lora→Caveat H2, 3 themed groups with animated pin markers + wiggly thread + PNG route map. `id="tour-map"`.
+6. **AboutSectionV2** (`app/_components/AboutSectionV2.tsx`) — warm-sandstone bg, polaroid portrait, "Tom, mostly." first-person story, dual CTAs, Caveat signature. `id="tom"`.
+7. **BookingSectionV2** (`app/_components/BookingSectionV2.tsx`) — light-green bg, Caveat→Lora H2, 3 bullets, booking iframe. `id="book-section"`.
+8. **FAQ** (`components/FAQ.tsx`) — accordion with custom Lora→Caveat heading. `id="faq"`.
+9. **Internal-link row** — plain text links to /tour, /what-is-a-free-tour, /things-to-do/free, /explore (SEO link equity).
+10. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
+11. **Footer**.
+
+Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
 ### `/tour` — The Tour
 10 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 1h 45m, daily, relaxed pace, what to wear.
