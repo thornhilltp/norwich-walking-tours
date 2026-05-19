@@ -144,6 +144,42 @@ export default function TourPage() {
         </div>
       </section>
 
+      {/* SEO insurance block — 3-column 'what you'll see / how it works /
+          who runs it' summary. Added 2026-05-19 to restore keyword
+          density that the hero copy-cut removed. Entity-rich (Cathedral,
+          Castle, Elm Hill, Market, Lanes, Guildhall, St Andrews, Tombland)
+          for non-branded 'Norwich walking tour' search queries. */}
+      <section className="py-12 md:py-16 bg-brand-bg border-b border-brand-accent/10">
+        <div className="brand-container max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            <div>
+              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
+                What you&apos;ll see
+              </h2>
+              <p className="font-lora text-base text-muted-foreground leading-relaxed">
+                Twelve stops covering nine hundred years of Norwich history. Norwich Cathedral, Norwich Castle, Elm Hill&apos;s Tudor cobbles, Norwich Market (open since the 11th century), the Norwich Lanes, the Guildhall, St Andrews Hall, Tombland. All within a fifteen-minute walk of each other.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
+                How it works
+              </h2>
+              <p className="font-lora text-base text-muted-foreground leading-relaxed">
+                Book free in thirty seconds. No card needed. Meet at The Forum at your booked time. Walk for one hour forty-five minutes, relaxed pace. At the end, tip what you thought it was worth. Card, Apple Pay, Google Pay or cash. Most guests tip £10 to £20.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
+                Who runs it
+              </h2>
+              <p className="font-lora text-base text-muted-foreground leading-relaxed">
+                Tom Thornhill, a Norwich local who studied at UEA and has lived in the city for thirteen years. Walks the route most days. Not a script-reader, not a costume-wearer. Someone who actually loves the place and wants to show you why.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Route Map */}
       <section id="map" className="section-padding bg-brand-bg border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto">
