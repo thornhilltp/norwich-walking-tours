@@ -80,8 +80,15 @@ export default function AboutPage() {
             className="relative mb-12 max-w-2xl mx-auto"
             style={{ transform: "rotate(-1.5deg)" }}
           >
-            <div className="bg-white p-3 pb-14 shadow-2xl border border-brand-text/5">
-              {/* Masking tape — yellowy translucent, same as home-v2 */}
+            {/* Warm-cream polaroid paper (#F5EBDA) — Tom 2026-05-19: white
+                polaroid disappears against the cream page background, so
+                using a more saturated paper tone for visible contrast.
+                Matches the cream paper used on PhotoShowcaseV2 Card 2. */}
+            <div
+              className="p-3 pb-12 shadow-2xl border border-brand-text/5"
+              style={{ backgroundColor: "#F5EBDA" }}
+            >
+              {/* Masking tape — yellowy translucent */}
               <span
                 aria-hidden="true"
                 className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 rounded-sm shadow-sm"
@@ -101,17 +108,11 @@ export default function AboutPage() {
                   priority
                 />
               </div>
-              {/* Caption strip — Lora 'gallery label' + Caveat handwritten
-                  note, both inside the polaroid bottom matching
-                  AboutSectionV2 on /home-v2. */}
+              {/* Caption — single Caveat handwritten note. The 'Tom Thornhill,
+                  Norwich' Lora label was removed per Tom — feels redundant
+                  with the H1 'Hi, I'm Tom' right above. */}
               <p
-                className="absolute bottom-8 left-5 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                Tom Thornhill, Norwich
-              </p>
-              <p
-                className="absolute bottom-2 left-5 italic text-brand-text/70 text-[20px] leading-none"
+                className="absolute bottom-2 left-5 italic text-brand-text/75 text-[22px] leading-none"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 that&apos;s me, hi
