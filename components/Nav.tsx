@@ -5,9 +5,15 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
+// 'About Tom' link swapped for 'What is a free tour?' per Tom 2026-05-19.
+// Reasoning: the free-tour model is the consideration-stage question first-
+// time visitors actually have ('how does this work / what's the catch'),
+// and that page directly addresses it. About Tom still exists at /about
+// and is reached via the AboutSectionV2 'or contact me direct' link plus
+// internal copy mentions. Not gone, just demoted from top nav.
 const navLinks = [
   { label: "The Tour", href: "/tour" },
-  { label: "About Tom", href: "/about" },
+  { label: "What is a free tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Contact", href: "/contact" },
 ];

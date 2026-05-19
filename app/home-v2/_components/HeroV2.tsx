@@ -11,7 +11,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
-import { ArrowRight, Star, Users } from "lucide-react";
+import { ArrowRight, Clock, Star, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/tracking";
 import { googleReviewStats } from "@/lib/testimonials";
@@ -158,6 +158,13 @@ export function HeroV2({
                 <span aria-hidden="true" className="text-white/40">·</span>
               </>
             )}
+            {/* Duration moved into the trust row (was in the badge / footer
+                line). Uses lucide Clock to match the other two icons (Star
+                + Users) for visual consistency. Tom 2026-05-19. */}
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+            </span>
+            <span aria-hidden="true" className="text-white/40">·</span>
             <span className="inline-flex items-center gap-1">
               <Users className="h-4 w-4" aria-hidden="true" /> Max 15
             </span>
@@ -168,7 +175,7 @@ export function HeroV2({
             className="mt-2 text-xs text-white/85 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Daily 1h 45m tours &bull; Cash or Card at the end, usually £10 to £20
+            £0 to book &bull; Cash or Card at the end, usually £10 to £20
           </motion.p>
         </div>
 
