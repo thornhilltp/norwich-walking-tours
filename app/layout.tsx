@@ -201,12 +201,14 @@ const jsonLd = [
     },
     // sameAs — cross-platform identity for entity resolution. AI models +
     // Google use these to confirm we're the same entity across the web.
-    // TODO: add Google Business Profile URL once Tom shares it (the public
-    // 'g.page' or maps.google.com short URL from the GBP dashboard).
+    // The share.google URL is Google's canonical share link for our
+    // Knowledge Graph entity (machine ID /g/11z4zrm5_q). Replace with a
+    // cleaner g.page short URL or maps.app.goo.gl link if Tom generates one.
     sameAs: [
       "https://www.instagram.com/norwichfreewalkingtours",
       "https://www.tiktok.com/@norwichfreewalkingtours",
       "https://www.facebook.com/norwichfreewalkingtours",
+      "https://share.google/N1peOKH6mk3qrHMRt",
       "https://www.tripadvisor.com/Attraction_Review-g186342-d34359588-Reviews-Norwich_Free_Walking_Tours-Norwich_Norfolk_East_Anglia_England.html",
       "https://www.freetour.com/norwich",
       "https://www.guruwalk.com/walks/69964-norwich-free-walking-tour-the-real-norwich-with-a-local",
