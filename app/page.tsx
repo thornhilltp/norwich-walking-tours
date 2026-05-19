@@ -19,7 +19,6 @@ import { BookingFrame } from "@/components/BookingFrame";
 import { ScrollTrail } from "@/components/ScrollTrail";
 import { HeroV2 } from "./_components/HeroV2";
 import { ThemedRouteSection } from "./_components/ThemedRouteSection";
-import { AboutSectionV2 } from "./_components/AboutSectionV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
@@ -33,7 +32,6 @@ export default function HomePage() {
           { id: "stories", label: "Stories" },
           { id: "reviews", label: "Reviews" },
           { id: "tour-map", label: "The walk" },
-          { id: "tom", label: "Tom" },
           { id: "book-section", label: "Book" },
           { id: "faq", label: "FAQs" },
         ]}
@@ -52,7 +50,6 @@ export default function HomePage() {
         <PhotoShowcaseV2 />
         <TestimonialsV2 />
         <ThemedRouteSection />
-        <AboutSectionV2 />
         <BookingSectionV2 />
         <FAQ
           customHeading={
