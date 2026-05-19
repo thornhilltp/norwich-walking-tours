@@ -106,9 +106,16 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
 
   return (
     <aside
-      className={`fixed right-3 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 hidden lg:block ${
+      className={`fixed right-0 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 transform origin-right scale-[0.55] lg:scale-100 ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
+      style={{
+        // Pin the visual right edge of the (scaled) aside to the viewport
+        // edge so the dots sit in the natural margin/gutter without
+        // overlapping container content. On lg+ this collapses to a
+        // no-op because scale is 100% and right-8 takes over.
+        transformOrigin: "100% 50%",
+      }}
       aria-label="Page navigation"
       aria-hidden={!pastHero}
     >
