@@ -126,7 +126,7 @@ export function InvisibleCity() {
               href="/book"
               className="btn-cta inline-flex items-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg"
             >
-              Book your free spot
+              Book your spot (free)
             </a>
           </motion.div>
         </div>

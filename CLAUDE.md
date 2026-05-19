@@ -9,7 +9,7 @@ Mobile-first marketing website for the **Norwich Free Walking Tour** ("The Real 
 
 **Repos:** Main site `thornhilltp/norwich-walking-tours` · Booking widget `thornhilltp/norwich-booking`
 **Hosting:** Vercel (both) · **Domain:** `norwichfreewalkingtours.co.uk` — live, DNS pointing to Vercel (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`)
-**Status:** Live as of April 2026. Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
+**Status:** Live as of April 2026. Tours running daily since May 2026 with strong review flow (19 Google + 9 TripAdvisor, all 5★ as of May 2026). Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
 
 ---
 
@@ -64,7 +64,7 @@ Text:           #1A1A1A
 
 ### `/` — Home
 Sections in order (confirmed April 2026, do not reorder without instruction):
-1. **Hero** — split layout: text left, booking widget iframe right. Background: `pottergate-stock.png`. Includes "Coming May 2026" badge (remove on launch day).
+1. **Hero** — split layout: text left, booking widget iframe right. Background: `pottergate-stock.png`. ("Coming May 2026" badge removed at launch — tours running.)
 2. **PhotoShowcase** — `components/PhotoShowcase.tsx`
 3. **WhatIsFreeTour** — explains free tour model with Norwich Lane photo. "Local guide" section.
 4. **StopsAndMap** — `TourStops` list + static route map image side-by-side. `id="tour-map"`.
@@ -176,8 +176,8 @@ Source files in `_templates/`.
 **Still pending — near-term (pre / at launch):**
 
 _Launch admin:_
-- [ ] **Launch badge:** remove "Coming May 2026" badge from Hero (`components/Hero.tsx` ~line 98) on launch day (tours start May 2026).
-- [ ] **Testimonials:** populate `components/Testimonials.tsx` with Google Reviews once tours are live, then add alongside or replace `<WhyNorwich />`. Also the moment to add `aggregateRating` + `review` objects back into JSON-LD (removed 2026-04-15 because self-serving without real reviews is against Google policy).
+- [x] **Launch badge:** removed from Hero (tours live since May 2026).
+- [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (19 reviews, 4.9 average, all 5★ as of May 2026). TripAdvisor at 5.0 from 9 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.
 - [ ] **Contacts table (Supabase):** architectural decision pending. See Section 11. Currently using `subscribers` table for homepage signups only.
 - [x] **Contact form email bounce: resolved 2026-04-16.** Root cause confirmed: Zoho's inbound anti-spoof rule (`554 5.7.7 Email policy violation`) hard-rejects any mail claiming to be `From: @norwichfreewalkingtours.co.uk` that arrives via non-Zoho infrastructure (Resend / Amazon SES). Fix: switched `/api/contact` and `/api/subscribe` to send via **Zoho SMTP** (`smtp.zoho.eu:465`, app-specific password). Zoho-to-Zoho mail is internal and bypasses the rule entirely. See `lib/zohoMail.ts`. Booking widget keeps Resend (its mail goes to external customer inboxes — no self-spoof issue). Required env vars: `ZOHO_EMAIL=hello@norwichfreewalkingtours.co.uk`, `ZOHO_APP_PASSWORD` (app password from accounts.zoho.eu — **rotate this password: it was inadvertently shared in a chat session on 2026-04-16**).
@@ -205,12 +205,12 @@ _Technical (from April 2026 site review):_
 
 _Marketing — near-term:_
 - [ ] **M3. Replace stock photography with authentic tour photos** once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
-- [ ] **M4. FAQPage JSON-LD** in `components/FAQ.tsx` (separate from existing TouristAttraction schema in `app/layout.tsx`). Unlocks rich FAQ accordions in Google SERP — typically +10–20% CTR.
+- [x] **M4. FAQPage JSON-LD** shipped in `components/FAQ.tsx:79-90` (built from the `faqs` array, emitted via `<script type="application/ld+json">` inside the component render). Unlocks rich FAQ accordions in Google SERP.
 - [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 1h 45m · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
 - [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
 - [ ] **M12. OG image upgrade** — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
 - [ ] **M18. `/book` page — add below-widget content** — `app/book/page.tsx` is currently the iframe plus minimal surrounding copy, but it's the highest-intent page on the site. Once testimonials exist (post-launch), add below the widget: (a) 2–3 real guest quotes, (b) a "What happens after you book" 3-step explainer (confirmation email → meet at The Forum → pay what it was worth), (c) a 4-question FAQ subset pulled from `components/FAQ.tsx`: "Is it really free?", "What if it rains?", "Do I have to pay?", "Can I cancel?". Reduces pre-booking anxiety which is the #1 drop-off on free-tour booking flows. Keep the iframe itself above the fold — the new content is for users who scrolled because they're hesitating.
-- [ ] **M19. End-of-tour QR review card** — print small (business-card size) handouts with a QR code pointing directly at the Google Business Profile review URL. Guide hands one out at the end of each tour. Empirically 3–5× the review rate vs. email follow-up (right moment, near-zero friction). Must ship before 2026-05-01 first tour. Once reviews start flowing, triggers: (1) populate `components/Testimonials.tsx`, (2) add `aggregateRating` + `review` back into JSON-LD in `app/layout.tsx`, (3) surface the star rating in the M8 Hero trust row.
+- [x] **M19. End-of-tour QR review card / review acquisition** — reviews are flowing (19 Google + 9 TripAdvisor as of May 2026, all 5★). Trigger items completed: (1) `lib/testimonials.ts` populated with real Google reviews, (2) `aggregateRating` + `review` re-added to JSON-LD in `app/layout.tsx`, (3) star rating surfaced in the Hero trust row on `/home-v2`.
 
 **Longer-term / post-launch iteration:**
 - [ ] **M1. Meet Your Guide page** (`/about-the-guide`) — headshot, 2–3 paragraph story, favourite stop, Q&A section. Biggest trust gap on the site today.

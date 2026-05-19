@@ -124,10 +124,12 @@ export function HeroV2({
               {buttonText}
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </a>
-            {/* Secondary navigation hint — anchors to the in-page route section.
-                Surfaces page structure without a separate nav strip. */}
+            {/* Secondary nav hint — links to the full /tour page (12 stops
+                with photos + per-stop stories), not the homepage anchor.
+                Tom 2026-05-19: anchored version was a teaser; /tour is
+                the proper destination for 'see where we go'. */}
             <a
-              href="#tour-map"
+              href="/tour"
               className="italic text-white/85 underline underline-offset-4 decoration-white/30 hover:decoration-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
             >
