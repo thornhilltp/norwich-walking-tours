@@ -109,15 +109,17 @@ export function ScrollTrail() {
 
   return (
     <aside
-      className={`fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden 2xl:block transition-opacity duration-500 ${
+      className={`fixed right-3 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 block md:hidden lg:block ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       aria-label="Page navigation"
       aria-hidden={!pastHero}
     >
       <div className="relative flex items-start gap-4">
-        {/* Labels column */}
-        <ol className="flex flex-col text-right" style={{ gap: ROW_GAP - 20 }}>
+        {/* Labels column — hidden below 2xl (1536px) because at 1280-1535px
+            viewports it overlaps the brand-container content. At 2xl+ the
+            right gutter opens up enough to show labels cleanly. */}
+        <ol className="hidden 2xl:flex flex-col text-right" style={{ gap: ROW_GAP - 20 }}>
           {sections.map((sec, i) => {
             const isActive = i === activeIndex;
             return (
