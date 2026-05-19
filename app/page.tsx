@@ -22,7 +22,6 @@ import { HeroV2 } from "./_components/HeroV2";
 import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { AboutSectionV2 } from "./_components/AboutSectionV2";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
-import { WhatHowWho } from "./_components/WhatHowWho";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { TestimonialsV2 } from "./_components/TestimonialsV2";
 
@@ -51,7 +50,6 @@ export default function HomePage() {
             />
           }
         />
-        <WhatHowWho />
         <PhotoShowcaseV2 />
         <TestimonialsV2 />
         {/* Entity-rich SEO content from the previous homepage. Restored
