@@ -105,6 +105,7 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
   const wigglyPath = pathSegments.join(" ");
 
   return (
+    <>
     <aside
       className={`fixed right-0 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 transform origin-right scale-[0.55] lg:scale-100 ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -119,20 +120,21 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
       aria-label="Page navigation"
       aria-hidden={!pastHero}
     >
-      <div className="relative flex items-start gap-4">
-        {/* Labels column — hidden below 2xl (1536px) because at 1280-1535px
-            viewports it overlaps the brand-container content. At 2xl+ the
-            right gutter opens up enough to show labels cleanly. */}
-        <ol className="hidden 2xl:flex flex-col text-right" style={{ gap: ROW_GAP - 20 }}>
+      <div className="relative flex items-start gap-3">
+        {/* Labels column — visible from lg (1024px+). At 8px font with
+            tighter letter-spacing, "THE WALK" fits ~50px wide — slots
+            into the laptop gutter without overlapping content. Hidden
+            on mobile + tablet (the mobile pill below covers that). */}
+        <ol className="hidden lg:flex flex-col text-right" style={{ gap: ROW_GAP - 20 }}>
           {sections.map((sec, i) => {
             const isActive = i === activeIndex;
             return (
               <li key={sec.id} className="h-5 flex items-center justify-end">
                 <a
                   href={`#${sec.id}`}
-                  className={`text-[10px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 ${
+                  className={`text-[8px] 2xl:text-[10px] font-semibold tracking-[0.12em] 2xl:tracking-[0.18em] uppercase transition-colors duration-200 whitespace-nowrap ${
                     isActive
-                      ? "text-brand-text"
+                      ? "text-brand-accent"
                       : "text-muted-foreground/55 hover:text-brand-text"
                   }`}
                   style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
@@ -219,5 +221,40 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
         </div>
       </div>
     </aside>
+
+    {/* Mobile + tablet only: floating active-section pill. Sits OUTSIDE
+        the scaled aside so the pill text stays readable. Vertical position
+        tracks the active dot via the same pinFractional math (scaled to
+        match the aside's 0.55 scale). Hidden on lg+ where inline labels
+        handle the same job. */}
+    <div
+      className={`fixed right-4 top-1/2 z-40 lg:hidden pointer-events-none transition-opacity duration-500 ${
+        pastHero ? "opacity-100" : "opacity-0"
+      }`}
+      style={{
+        // ASIDE_HEIGHT / 2 = scaled-aside vertical centre offset (~100px).
+        // Active dot's offset from centre = (activeIndex * ROW_GAP + DOT_OFFSET) - ASIDE_HEIGHT/2.
+        // Multiply by 0.55 to match aside scale. Subtract pill half-height
+        // (~12px) to vertically centre the pill on the dot.
+        transform: `translateY(${
+          (DOT_OFFSET + activeIndex * ROW_GAP - (lastDotY + DOT_OFFSET + 4) / 2) *
+            0.55 -
+          12
+        }px)`,
+      }}
+      aria-hidden="true"
+    >
+      <motion.span
+        key={sections[activeIndex]?.id}
+        initial={{ opacity: 0, x: 4 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.2 }}
+        className="inline-block bg-brand-accent text-white px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em] shadow-lg whitespace-nowrap"
+        style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+      >
+        {sections[activeIndex]?.label}
+      </motion.span>
+    </div>
+    </>
   );
 }
