@@ -71,19 +71,39 @@ export function Nav() {
             />
           </a>
 
-          {/* Desktop links */}
+          {/* Desktop links — wavy walking-path underline on hover, matching
+              the ScrollTrail dashed-thread aesthetic (Tom 2026-05-19).
+              SVG uses currentColor so the dashes inherit the link's
+              hover colour (green when opaque / white when over the dark
+              hero). preserveAspectRatio='none' lets the wave stretch
+              across the full link width. */}
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors duration-150 ${
+                className={`group relative text-sm font-medium pb-2 transition-colors duration-150 ${
                   isOpaque
                     ? "text-brand-text/70 hover:text-brand-accent"
                     : "text-white/80 hover:text-white"
                 }`}
               >
                 {link.label}
+                <svg
+                  viewBox="0 0 60 6"
+                  preserveAspectRatio="none"
+                  className="absolute bottom-0 left-0 w-full h-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M 1 3 Q 10 0 20 3 T 40 3 T 59 3"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeDasharray="1 4"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                </svg>
               </a>
             ))}
             <a
