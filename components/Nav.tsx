@@ -151,7 +151,7 @@ export function Nav() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden bg-brand-bg border-t border-brand-accent/10 transition-all duration-200 ${
-          mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
+          mobileOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!mobileOpen}
       >
