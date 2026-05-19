@@ -16,8 +16,9 @@
 // Tom asked for.
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Plus, Minus } from "lucide-react";
 
 interface Group {
   eyebrow: string;
@@ -75,6 +76,11 @@ function PinMarker({ index }: { index: number }) {
 }
 
 export function ThemedRouteSection() {
+  // Mobile-only: which group is expanded. Default = first group open.
+  // On lg+ all three groups stay open (existing behaviour) — the
+  // collapse logic only renders below the lg breakpoint via CSS.
+  const [expandedIndex, setExpandedIndex] = useState(0);
+
   return (
     <section id="tour-map" className="section-padding">
       <div className="brand-container">
@@ -128,60 +134,124 @@ export function ThemedRouteSection() {
             </svg>
 
             <ol className="flex flex-col gap-10 relative">
-              {groups.map((group, i) => (
-                <li key={i} className="flex gap-6 items-start">
-                  {/* Animated pin marker — drops in sequentially */}
-                  <motion.div
-                    initial={{ opacity: 0, y: -28, scale: 0.85 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{
-                      duration: 0.45,
-                      delay: i * 0.18,
-                      type: "spring",
-                      stiffness: 220,
-                      damping: 16,
-                    }}
-                    className="shrink-0 z-10"
-                  >
-                    <PinMarker index={i} />
-                  </motion.div>
+              {groups.map((group, i) => {
+                const isExpanded = expandedIndex === i;
+                return (
+                  <li key={i} className="flex gap-6 items-start">
+                    {/* Animated pin marker — drops in sequentially */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -28, scale: 0.85 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{
+                        duration: 0.45,
+                        delay: i * 0.18,
+                        type: "spring",
+                        stiffness: 220,
+                        damping: 16,
+                      }}
+                      className="shrink-0 z-10"
+                    >
+                      <PinMarker index={i} />
+                    </motion.div>
 
-                  {/* Content */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.4, delay: i * 0.18 + 0.15 }}
-                    className="flex-1 min-w-0"
-                  >
-                    <p
-                      className="text-brand-accent-text text-[11px] font-semibold tracking-[0.18em] uppercase mb-2"
-                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    {/* Content. On mobile (< lg) only the expanded group
+                        shows its stops + body; headers act as accordion
+                        triggers with a +/- chevron. On lg+ everything is
+                        always expanded. */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ duration: 0.4, delay: i * 0.18 + 0.15 }}
+                      className="flex-1 min-w-0"
                     >
-                      {group.eyebrow}
-                    </p>
-                    <h3
-                      className="text-2xl md:text-[28px] font-bold text-brand-text leading-tight mb-2"
-                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                    >
-                      {group.headline}
-                    </h3>
-                    <p
-                      className="text-sm text-brand-accent-text font-semibold tracking-wide mb-3"
-                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                    >
-                      {group.stops}
-                    </p>
-                    <p
-                      className="text-[15px] text-muted-foreground leading-relaxed"
-                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                    >
-                      {group.body}
-                    </p>
-                  </motion.div>
-                </li>
-              ))}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedIndex(isExpanded ? -1 : i)
+                        }
+                        aria-expanded={isExpanded}
+                        className="w-full text-left lg:cursor-default lg:pointer-events-none group"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <p
+                              className="text-brand-accent-text text-[11px] font-semibold tracking-[0.18em] uppercase mb-2"
+                              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                            >
+                              {group.eyebrow}
+                            </p>
+                            <h3
+                              className="text-2xl md:text-[28px] font-bold text-brand-text leading-tight mb-2"
+                              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                            >
+                              {group.headline}
+                            </h3>
+                          </div>
+                          {/* Chevron — mobile only, hidden on lg+ */}
+                          <span
+                            aria-hidden="true"
+                            className="lg:hidden flex-shrink-0 mt-1 w-7 h-7 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors duration-150"
+                          >
+                            {isExpanded ? (
+                              <Minus className="w-3.5 h-3.5" />
+                            ) : (
+                              <Plus className="w-3.5 h-3.5" />
+                            )}
+                          </span>
+                        </div>
+                      </button>
+
+                      {/* Stops + body — animated collapse on mobile,
+                          always shown on lg+. */}
+                      <AnimatePresence initial={false}>
+                        {isExpanded && (
+                          <motion.div
+                            key="content"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden lg:!h-auto lg:!opacity-100"
+                          >
+                            <p
+                              className="text-sm text-brand-accent-text font-semibold tracking-wide mb-3"
+                              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                            >
+                              {group.stops}
+                            </p>
+                            <p
+                              className="text-[15px] text-muted-foreground leading-relaxed"
+                              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                            >
+                              {group.body}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      {/* On lg+ always render the content even when
+                          collapsed-on-mobile state would have hidden it. */}
+                      {!isExpanded && (
+                        <div className="hidden lg:block">
+                          <p
+                            className="text-sm text-brand-accent-text font-semibold tracking-wide mb-3"
+                            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                          >
+                            {group.stops}
+                          </p>
+                          <p
+                            className="text-[15px] text-muted-foreground leading-relaxed"
+                            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                          >
+                            {group.body}
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  </li>
+                );
+              })}
             </ol>
           </div>
 
