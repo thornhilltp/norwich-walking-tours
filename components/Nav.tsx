@@ -73,44 +73,48 @@ export function Nav() {
 
           {/* Desktop links — wavy walking-path underline on hover, matching
               the ScrollTrail dashed-thread aesthetic (Tom 2026-05-19).
-              SVG uses currentColor so the dashes inherit the link's
-              hover colour (green when opaque / white when over the dark
-              hero). preserveAspectRatio='none' lets the wave stretch
-              across the full link width. */}
+              Active link (matches current pathname) gets the underline
+              permanently revealed + brand-accent / white text. SVG uses
+              currentColor so dashes inherit the link's colour. */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`group relative text-sm font-medium pb-2 transition-colors duration-150 ${
-                  isOpaque
-                    ? "text-brand-text/70 hover:text-brand-accent"
-                    : "text-white/80 hover:text-white"
-                }`}
-              >
-                {link.label}
-                {/* Left-to-right wipe on hover, like a guide drawing the
-                    path as they walk it. Clip-path inset transitions
-                    from 'fully clipped from right' to 'no clip', which
-                    reveals the wavy dashed line in a left-to-right
-                    sweep over 500ms. */}
-                <svg
-                  viewBox="0 0 60 6"
-                  preserveAspectRatio="none"
-                  className="absolute bottom-0 left-0 w-full h-[6px] pointer-events-none [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)] transition-[clip-path] duration-500 ease-out"
-                  aria-hidden="true"
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              const textClass = isOpaque
+                ? isActive
+                  ? "text-brand-accent"
+                  : "text-brand-text/70 hover:text-brand-accent"
+                : isActive
+                  ? "text-white"
+                  : "text-white/80 hover:text-white";
+              const clipClass = isActive
+                ? "[clip-path:inset(0_0_0_0)]"
+                : "[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]";
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`group relative text-sm font-medium pb-2 transition-colors duration-150 ${textClass}`}
                 >
-                  <path
-                    d="M 1 3 Q 10 0 20 3 T 40 3 T 59 3"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeDasharray="1 4"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                </svg>
-              </a>
-            ))}
+                  {link.label}
+                  <svg
+                    viewBox="0 0 60 6"
+                    preserveAspectRatio="none"
+                    className={`absolute bottom-0 left-0 w-full h-[6px] pointer-events-none transition-[clip-path] duration-500 ease-out ${clipClass}`}
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M 1 3 Q 10 0 20 3 T 40 3 T 59 3"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeDasharray="1 4"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                  </svg>
+                </a>
+              );
+            })}
             <a
               href="/book"
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
@@ -147,16 +151,24 @@ export function Nav() {
         aria-hidden={!mobileOpen}
       >
         <div className="brand-container py-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-base font-medium text-brand-text/80 hover:text-brand-accent hover:bg-brand-accent/5 transition-colors duration-150 px-3 py-2.5 rounded-lg"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                aria-current={isActive ? "page" : undefined}
+                className={`text-base font-medium transition-colors duration-150 px-3 py-2.5 rounded-lg ${
+                  isActive
+                    ? "text-brand-accent bg-brand-accent/5 font-semibold"
+                    : "text-brand-text/80 hover:text-brand-accent hover:bg-brand-accent/5"
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
           <div className="mt-2 pt-2 border-t border-brand-accent/10">
             <a
               href="/book"
