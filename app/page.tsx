@@ -17,7 +17,6 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { ScrollTrail } from "@/components/ScrollTrail";
-import { StoriesTeaser } from "@/components/StoriesTeaser";
 import { HeroV2 } from "./_components/HeroV2";
 import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { AboutSectionV2 } from "./_components/AboutSectionV2";
@@ -52,13 +51,6 @@ export default function HomePage() {
         />
         <PhotoShowcaseV2 />
         <TestimonialsV2 />
-        {/* Entity-rich SEO content from the previous homepage. Restored
-            here 2026-05-19 (Tom's catch) — keeps the 'Stories on the
-            route' chip section (Julian of Norwich, The Strangers,
-            Boudicca, etc.) that helps Google understand the tour's
-            entity coverage. CTA hidden because the next section
-            already has the route reveal. */}
-        <StoriesTeaser hideCta />
         <ThemedRouteSection />
         <AboutSectionV2 />
         <BookingSectionV2 />
