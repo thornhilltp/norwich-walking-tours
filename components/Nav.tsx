@@ -48,7 +48,9 @@ export function Nav() {
           className="flex items-center justify-between h-20"
           aria-label="Main navigation"
         >
-          {/* Logo — enlarged */}
+          {/* Logo — sized larger on desktop for brand presence.
+              Mobile stays moderate so the wordmark doesn't crowd the
+              hamburger at 375px viewports. */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
               src={isOpaque ? "/Logo_1.svg" : "/Logo_2.svg"}
@@ -56,8 +58,9 @@ export function Nav() {
               width={500}
               height={500}
               unoptimized
-              className="w-auto object-contain transition-all duration-300"
-              style={{ height: isOpaque ? "52px" : "64px" }}
+              className={`w-auto object-contain transition-all duration-300 ${
+                isOpaque ? "h-[52px] md:h-[60px]" : "h-[60px] md:h-[72px]"
+              }`}
               priority
             />
           </a>
