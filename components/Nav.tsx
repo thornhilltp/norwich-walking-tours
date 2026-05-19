@@ -11,8 +11,12 @@ import { Menu, X } from "lucide-react";
 // and that page directly addresses it. About Tom still exists at /about
 // and is reached via the AboutSectionV2 'or contact me direct' link plus
 // internal copy mentions. Not gone, just demoted from top nav.
+// Nav order (Tom 2026-05-19, final):
+//   The Tour > About > What is a free tour? > Private Tours > Contact
+// 'About' was briefly removed earlier today then added back per Tom.
 const navLinks = [
   { label: "The Tour", href: "/tour" },
+  { label: "About", href: "/about" },
   { label: "What is a free tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Contact", href: "/contact" },

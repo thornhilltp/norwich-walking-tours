@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { WhatIsFreeTour } from "@/components/WhatIsFreeTour";
 import { HowItWorks } from "@/components/HowItWorks";
-import { TipAnchor } from "@/components/TipAnchor";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 
@@ -124,9 +123,9 @@ export default function WhatIsAFreeTourPage() {
         <section
           className="relative section-padding"
           style={{
-            backgroundImage: "url('/images/tour/what-is-free-tour.jpg')",
+            backgroundImage: "url('/images/tour/group-cathedral-west-front.jpg')",
             backgroundSize: "cover",
-            backgroundPosition: "center 40%",
+            backgroundPosition: "center 50%",
           }}
         >
           <div className="absolute inset-0 bg-black/60" />
@@ -138,7 +137,7 @@ export default function WhatIsAFreeTourPage() {
               What is a free walking tour?
             </h1>
             <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
-              You join for free. You walk for 1h 45m with a local guide. You tip what it was worth at the end.
+              You join for free. You tip what it was worth at the end.
             </p>
             <a
               href="/book"
@@ -154,7 +153,8 @@ export default function WhatIsAFreeTourPage() {
 
         <WhatIsFreeTour />
         <HowItWorks />
-        <TipAnchor />
+        {/* TipAnchor removed 2026-05-19 — duplicated tip-amount content
+            already covered by the booking flow + FAQ. */}
 
         {/* CTA + FAQ link */}
         <section className="section-padding bg-brand-bg border-t border-brand-accent/10">

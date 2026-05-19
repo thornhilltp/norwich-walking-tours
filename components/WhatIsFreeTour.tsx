@@ -33,14 +33,45 @@ export function WhatIsFreeTour() {
               <p className="text-base text-muted-foreground leading-relaxed">Just a fair exchange.</p>
             </div>
           </div>
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
-            <Image
-              src="/images/tour/what-is-free-tour.jpg"
-              alt="Visitors joining the Norwich Free Walking Tour and exploring the city with a local guide."
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+          {/* Polaroid wrap — Tom 2026-05-19. Source image is portrait, so
+              the frame uses aspect-[4/5] (portrait) + object-position
+              center top to keep guests' heads in frame. Warm-cream paper
+              tone (#F5EBDA) to match the polaroid aesthetic on /home-v2
+              and /about. */}
+          <div
+            className="relative max-w-sm w-full mx-auto"
+            style={{ transform: "rotate(-1.5deg)" }}
+          >
+            <div
+              className="p-3 pb-12 shadow-2xl border border-brand-text/5"
+              style={{ backgroundColor: "#F5EBDA" }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rounded-sm shadow-sm"
+                style={{
+                  backgroundColor: "rgba(241, 225, 161, 0.75)",
+                  borderTop: "1px solid rgba(241, 225, 161, 0.95)",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+                }}
+              />
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image
+                  src="/images/tour/what-is-free-tour.jpg"
+                  alt="Visitors joining the Norwich Free Walking Tour and exploring the city with a local guide."
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "center top" }}
+                  sizes="(max-width: 768px) 90vw, 400px"
+                />
+              </div>
+              <p
+                className="absolute bottom-2 left-4 italic text-brand-text/75 text-[20px] leading-none"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
+              >
+                a typical group
+              </p>
+            </div>
           </div>
         </div>
       </div>
