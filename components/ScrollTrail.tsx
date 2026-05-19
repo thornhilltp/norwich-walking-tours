@@ -106,7 +106,7 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
 
   return (
     <aside
-      className={`fixed right-3 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 block md:hidden lg:block ${
+      className={`fixed right-3 lg:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-500 hidden lg:block ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       aria-label="Page navigation"
