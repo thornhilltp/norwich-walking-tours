@@ -72,15 +72,51 @@ export default function AboutPage() {
             Hi, I&apos;m Tom. I run the tour.
           </h1>
 
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md mb-10 max-w-xl mx-auto border border-brand-accent/15">
-            <Image
-              src="/images/tom-portrait.jpg"
-              alt="Tom Thornhill, founder of Norwich Free Walking Tours."
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 600px"
-              priority
-            />
+          {/* Landscape polaroid — matches the polaroid aesthetic used on
+              /home-v2 (PhotoShowcase + About). White paper frame, p-3
+              with extended pb-12 for the caption strip, masking tape
+              at top, subtle rotation, caption in Caveat at the bottom. */}
+          <div
+            className="relative mb-12 max-w-2xl mx-auto"
+            style={{ transform: "rotate(-1.5deg)" }}
+          >
+            <div className="bg-white p-3 pb-14 shadow-2xl border border-brand-text/5">
+              {/* Masking tape — yellowy translucent, same as home-v2 */}
+              <span
+                aria-hidden="true"
+                className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 rounded-sm shadow-sm"
+                style={{
+                  backgroundColor: "rgba(241, 225, 161, 0.75)",
+                  borderTop: "1px solid rgba(241, 225, 161, 0.95)",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+                }}
+              />
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/tom-portrait.jpg"
+                  alt="Tom Thornhill, founder of Norwich Free Walking Tours."
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  priority
+                />
+              </div>
+              {/* Caption strip — Lora 'gallery label' + Caveat handwritten
+                  note, both inside the polaroid bottom matching
+                  AboutSectionV2 on /home-v2. */}
+              <p
+                className="absolute bottom-8 left-5 text-[10px] tracking-[0.08em] uppercase text-brand-text/55 font-semibold"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                Tom Thornhill, Norwich
+              </p>
+              <p
+                className="absolute bottom-2 left-5 italic text-brand-text/70 text-[20px] leading-none"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
+              >
+                that&apos;s me, hi
+              </p>
+            </div>
           </div>
         </section>
 
