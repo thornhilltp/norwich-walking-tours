@@ -64,7 +64,7 @@ Text:           #1A1A1A
 
 ### `/` — Home
 Sections in order (rebuilt 2026-05-19 — promoted from `/home-v2` experiment after design review):
-1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (4.9★ · 1h 45m · Max 15), partner logos.
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (5.0★ · 1h 45m · Max 15), partner logos.
 2. **WhatHowWho** (`app/_components/WhatHowWho.tsx`) — 3-column SEO insurance block: What you'll see / How it works / Who runs it. Restores keyword density below the outcome-shaped H1.
 3. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — Lora→Caveat H2, 3-benefit row, 2-polaroid card grid (An overview / A local to ask). `id="stories"`.
 4. **TestimonialsV2** (`app/_components/TestimonialsV2.tsx`) — Lora→Caveat H2, dual Google + TripAdvisor rating blocks, 2×2 review grid, dual "Read all" links. `id="reviews"`.
@@ -181,7 +181,7 @@ Source files in `_templates/`.
 
 _Launch admin:_
 - [x] **Launch badge:** removed from Hero (tours live since May 2026).
-- [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (19 reviews, 4.9 average, all 5★ as of May 2026). TripAdvisor at 5.0 from 9 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
+- [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (19 reviews, 5.0 average, all 5★ as of May 2026). TripAdvisor at 5.0 from 9 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.
 - [ ] **Contacts table (Supabase):** architectural decision pending. See Section 11. Currently using `subscribers` table for homepage signups only.
 - [x] **Contact form email bounce: resolved 2026-04-16.** Root cause confirmed: Zoho's inbound anti-spoof rule (`554 5.7.7 Email policy violation`) hard-rejects any mail claiming to be `From: @norwichfreewalkingtours.co.uk` that arrives via non-Zoho infrastructure (Resend / Amazon SES). Fix: switched `/api/contact` and `/api/subscribe` to send via **Zoho SMTP** (`smtp.zoho.eu:465`, app-specific password). Zoho-to-Zoho mail is internal and bypasses the rule entirely. See `lib/zohoMail.ts`. Booking widget keeps Resend (its mail goes to external customer inboxes — no self-spoof issue). Required env vars: `ZOHO_EMAIL=hello@norwichfreewalkingtours.co.uk`, `ZOHO_APP_PASSWORD` (app password from accounts.zoho.eu — **rotate this password: it was inadvertently shared in a chat session on 2026-04-16**).
