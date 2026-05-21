@@ -16,7 +16,7 @@ import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 // design ships and / can use it too.
 const tripAdvisorStats = {
   rating: 5.0,
-  count: 9,
+  count: 10,
   profileUrl:
     "https://www.tripadvisor.com/Attraction_Review-g186342-d34359588-Reviews-Norwich_Free_Walking_Tours-Norwich_Norfolk_East_Anglia_England.html",
 };
