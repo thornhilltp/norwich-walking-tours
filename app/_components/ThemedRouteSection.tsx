@@ -76,10 +76,10 @@ function PinMarker({ index }: { index: number }) {
 }
 
 export function ThemedRouteSection() {
-  // Mobile-only: which group is expanded. Default = first group open.
+  // Mobile-only: which group is expanded. -1 = all collapsed by default.
   // On lg+ all three groups stay open (existing behaviour) — the
   // collapse logic only renders below the lg breakpoint via CSS.
-  const [expandedIndex, setExpandedIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState(-1);
 
   return (
     <section id="tour-map" className="section-padding">

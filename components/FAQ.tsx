@@ -159,7 +159,7 @@ interface FAQProps {
 const MOBILE_VISIBLE_COUNT = 8;
 
 export function FAQ({ customHeading }: FAQProps = {}) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllMobile, setShowAllMobile] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
