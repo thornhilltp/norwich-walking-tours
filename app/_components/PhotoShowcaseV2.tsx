@@ -48,10 +48,39 @@ const cards = [
 // Reordered + combined per Tom 2026-05-19. Stories leads (the highest-
 // value differentiator), then a combined eat/drink/photo line, then the
 // 'hidden corners' line. Down from 4 to 3 items — tighter visual beat.
+// Each item has a small green icon (replaced flat dots 2026-05-21) that
+// hints at the thing itself — open book for stories, fork/knife for
+// best places, compass for corners.
 const benefits = [
-  "Stories & history",
-  "Best places to eat, drink & photograph",
-  "Corners you'd otherwise miss",
+  {
+    label: "Stories & history",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0 text-brand-accent" aria-hidden="true">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Best places to eat, drink & photograph",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0 text-brand-accent" aria-hidden="true">
+        <path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2" />
+        <path d="M5 11v11" />
+        <path d="M17 2v20" />
+        <path d="M17 8c0-3.3 2-6 4-6v20" />
+      </svg>
+    ),
+  },
+  {
+    label: "Corners you'd otherwise miss",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0 text-brand-accent" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
+    ),
+  },
 ];
 
 const MapPinIcon = () => (
@@ -113,16 +142,13 @@ export function PhotoShowcaseV2() {
           className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-12"
         >
           {benefits.map((b) => (
-            <span key={b} className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0"
-                aria-hidden="true"
-              />
+            <span key={b.label} className="flex items-center gap-2">
+              {b.icon}
               <span
                 className="text-[15px] font-medium text-brand-text"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                {b}
+                {b.label}
               </span>
             </span>
           ))}
