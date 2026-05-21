@@ -151,7 +151,7 @@ export function TestimonialsV2() {
               Each is clickable, has its own logo, rating, stars + count.
               Together they read as "verified across two independent
               review platforms". */}
-          <div className="flex flex-col sm:flex-row items-start md:items-end gap-6 sm:gap-8 shrink-0">
+          <div className="flex flex-row items-start md:items-end gap-6 sm:gap-8 shrink-0">
             <a
               href={googleReviewStats.profileUrl}
               target="_blank"
