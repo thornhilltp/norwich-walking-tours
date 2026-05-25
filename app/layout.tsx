@@ -159,8 +159,6 @@ const jsonLd = [
       availability: "https://schema.org/InStock",
       description: "Book free. Pay what it was worth at the end. Most guests tip £10–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
     },
-    ...(aggregateRating ? { aggregateRating } : {}),
-    ...(reviewObjects ? { review: reviewObjects } : {}),
   },
   {
     "@context": "https://schema.org",
@@ -217,6 +215,7 @@ const jsonLd = [
     founder: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
     employee: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
     ...(aggregateRating ? { aggregateRating } : {}),
+    ...(reviewObjects ? { review: reviewObjects } : {}),
   },
 ];
 
