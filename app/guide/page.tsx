@@ -22,6 +22,7 @@ import {
   ArrowUpRight,
   Beer,
   Calendar,
+  ChevronDown,
   Coffee,
   Footprints,
   Globe,
@@ -426,160 +427,196 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
               </Link>
             </div>
           )}
-          {filteredSections.map((section, sIdx) => (
-            <section
-              key={section.id}
-              id={section.id}
-              className={`guide-section ${sIdx === 0 ? "pb-16" : "py-16 border-t border-brand-accent/10"}`}
-            >
-              {/* Section header */}
-              <div className="max-w-2xl mb-10">
-                <div className="flex items-center gap-2 mb-3">
-                  <SectionIcon icon={section.icon} />
-                  <p
-                    className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    {section.eyebrow}
-                  </p>
-                </div>
-                <h2 className="leading-[1.0] mb-3">
-                  <span
-                    className="block text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.01em] text-brand-text text-balance"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    {section.headingLora}
-                  </span>
-                  <span
-                    className="block text-[clamp(36px,4.6vw,60px)] font-semibold leading-[0.95] text-brand-accent mt-0.5 text-balance"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    {section.headingCaveat}
-                  </span>
-                </h2>
-                {section.intro && (
-                  <p
-                    className="text-base text-muted-foreground leading-relaxed"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    {section.intro}
-                  </p>
-                )}
-              </div>
-
-              {/* Picks grid — 2 col on desktop, 1 col on mobile */}
-              <ol className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {section.picks.map((pick, pIdx) => {
-                  const num = String(pIdx + 1).padStart(2, "0");
-                  return (
-                    <li
-                      key={`${section.id}-${pIdx}`}
-                      className={`relative bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col ${
-                        pick.favourite
-                          ? "border-2 border-amber-400 shadow-[0_4px_16px_rgba(245,158,11,0.18)]"
-                          : "border border-brand-accent/10"
-                      }`}
-                    >
-                      {/* Image slot — real image if pick.image, otherwise a
-                          tinted block with a faded section icon. Lets cards
-                          look intentional before all photos exist. */}
-                      <div className="relative aspect-[16/9] bg-brand-accent-light/50 overflow-hidden">
-                        {pick.image ? (
-                          <Image
-                            src={pick.image}
-                            alt={pick.imageAlt ?? pick.name}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
-                        ) : (
-                          <div className="flex items-center justify-center h-full">
-                            <SectionIcon
-                              icon={section.icon}
-                              className="w-14 h-14 text-brand-accent/25"
-                            />
-                          </div>
-                        )}
-                        {pick.favourite && (
-                          <span
-                            className="absolute top-3 right-3 inline-flex items-center gap-1 bg-amber-400 text-brand-text text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md tracking-wide border border-amber-500/40"
-                            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                          >
-                            <Star className="w-3 h-3 fill-current" aria-hidden="true" />
-                            Tom’s pick
-                          </span>
-                        )}
+          {filteredSections.map((section, sIdx) => {
+            // Card renderer — defined per section so it captures `section`
+            // for the SectionIcon fallback + the key. Used twice when a
+            // section has >3 picks: once for visible picks, once inside
+            // the <details> expander.
+            const renderCard = (pick: GuidePick, pIdx: number) => {
+              const num = String(pIdx + 1).padStart(2, "0");
+              return (
+                <li
+                  key={`${section.id}-${pIdx}`}
+                  className={`relative bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col ${
+                    pick.favourite
+                      ? "border-2 border-amber-400 shadow-[0_4px_16px_rgba(245,158,11,0.18)]"
+                      : "border border-brand-accent/10"
+                  }`}
+                >
+                  {/* Image slot — banner 5:2 on mobile, photo 16:9 on
+                      desktop. Density pass 2026-05-26 — saves ~60px per
+                      card on mobile. */}
+                  <div className="relative aspect-[5/2] md:aspect-[16/9] bg-brand-accent-light/50 overflow-hidden">
+                    {pick.image ? (
+                      <Image
+                        src={pick.image}
+                        alt={pick.imageAlt ?? pick.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full">
+                        <SectionIcon
+                          icon={section.icon}
+                          className="w-12 h-12 md:w-14 md:h-14 text-brand-accent/25"
+                        />
                       </div>
-                      <div className="p-5 md:p-6 flex flex-col flex-grow">
-                        <div className="flex items-baseline gap-3 mb-1">
+                    )}
+                    {pick.favourite && (
+                      <span
+                        className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 bg-amber-400 text-brand-text text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md tracking-wide border border-amber-500/40"
+                        style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                      >
+                        <Star className="w-3 h-3 fill-current" aria-hidden="true" />
+                        Tom’s pick
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-4 md:p-6 flex flex-col flex-grow">
+                    <div className="flex items-baseline gap-3 mb-1">
+                      <span
+                        className="text-2xl font-bold text-brand-accent leading-none flex-shrink-0"
+                        style={{ fontFamily: "var(--font-caveat), cursive" }}
+                      >
+                        {num}
+                      </span>
+                      <h3
+                        className="text-[18px] md:text-[20px] font-bold text-brand-text leading-tight"
+                        style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                      >
+                        {pick.name}
+                      </h3>
+                    </div>
+                    {pick.nickname && (
+                      <p
+                        className="text-[17px] md:text-[18px] italic text-brand-accent-text leading-tight mb-2.5 ml-9"
+                        style={{ fontFamily: "var(--font-caveat), cursive" }}
+                      >
+                        {pick.nickname}
+                      </p>
+                    )}
+                    <p
+                      className="text-[14px] md:text-[15px] text-muted-foreground leading-relaxed mb-4 ml-9"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {pick.body}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-auto ml-9">
+                      <a
+                        href={pick.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent-text hover:underline focus-brand touch-manipulation"
+                        style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                      >
+                        <MapPin className="w-4 h-4" aria-hidden="true" />
+                        Open in Maps
+                        <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                      </a>
+                      {pick.website && (
+                        <>
                           <span
-                            className="text-2xl font-bold text-brand-accent leading-none flex-shrink-0"
-                            style={{ fontFamily: "var(--font-caveat), cursive" }}
+                            aria-hidden="true"
+                            className="text-brand-accent/35 text-sm"
                           >
-                            {num}
+                            ·
                           </span>
-                          <h3
-                            className="text-[19px] md:text-[20px] font-bold text-brand-text leading-tight"
-                            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                          >
-                            {pick.name}
-                          </h3>
-                        </div>
-                        {pick.nickname && (
-                          <p
-                            className="text-[18px] italic text-brand-accent-text leading-tight mb-3 ml-9"
-                            style={{ fontFamily: "var(--font-caveat), cursive" }}
-                          >
-                            {pick.nickname}
-                          </p>
-                        )}
-                        <p
-                          className="text-[15px] text-muted-foreground leading-relaxed mb-5 ml-9"
-                          style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                        >
-                          {pick.body}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-auto ml-9">
                           <a
-                            href={pick.mapsUrl}
+                            href={withUtm(pick.website)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent-text hover:underline focus-brand touch-manipulation"
                             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                           >
-                            <MapPin className="w-4 h-4" aria-hidden="true" />
-                            Open in Maps
+                            <Globe className="w-4 h-4" aria-hidden="true" />
+                            Visit website
                             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                           </a>
-                          {pick.website && (
-                            <>
-                              <span
-                                aria-hidden="true"
-                                className="text-brand-accent/35 text-sm"
-                              >
-                                ·
-                              </span>
-                              <a
-                                href={withUtm(pick.website)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent-text hover:underline focus-brand touch-manipulation"
-                                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                              >
-                                <Globe className="w-4 h-4" aria-hidden="true" />
-                                Visit website
-                                <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-                              </a>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </section>
-          ))}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              );
+            };
+
+            const visiblePicks = section.picks.slice(0, 3);
+            const collapsedPicks = section.picks.slice(3);
+
+            return (
+              <section
+                key={section.id}
+                id={section.id}
+                className={`guide-section ${sIdx === 0 ? "pb-16" : "py-16 border-t border-brand-accent/10"}`}
+              >
+                {/* Section header */}
+                <div className="max-w-2xl mb-10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <SectionIcon icon={section.icon} />
+                    <p
+                      className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {section.eyebrow}
+                    </p>
+                  </div>
+                  <h2 className="leading-[1.0] mb-3">
+                    <span
+                      className="block text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.01em] text-brand-text text-balance"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {section.headingLora}
+                    </span>
+                    <span
+                      className="block text-[clamp(36px,4.6vw,60px)] font-semibold leading-[0.95] text-brand-accent mt-0.5 text-balance"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      {section.headingCaveat}
+                    </span>
+                  </h2>
+                  {section.intro && (
+                    <p
+                      className="text-base text-muted-foreground leading-relaxed"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {section.intro}
+                    </p>
+                  )}
+                </div>
+
+                {/* Picks grid — first 3 always visible. If more exist, the
+                    remainder live inside a <details>/<summary> expander.
+                    Native HTML disclosure, no JS required, accessible by
+                    default. Density pass 2026-05-26. */}
+                <ol className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {visiblePicks.map(renderCard)}
+                </ol>
+                {collapsedPicks.length > 0 && (
+                  <details className="mt-5 group">
+                    <summary
+                      className="cursor-pointer list-none inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent-text hover:underline focus-brand touch-manipulation select-none"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      <span className="group-open:hidden">
+                        Show {collapsedPicks.length} more
+                      </span>
+                      <span className="hidden group-open:inline">
+                        Show fewer
+                      </span>
+                      <ChevronDown
+                        className="w-4 h-4 transition-transform group-open:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <ol className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                      {collapsedPicks.map((p, i) => renderCard(p, i + 3))}
+                    </ol>
+                  </details>
+                )}
+              </section>
+            );
+          })}
         </div>
 
         {/* ── Review CTA block ─────────────────────────────────────────────
