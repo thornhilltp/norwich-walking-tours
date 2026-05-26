@@ -7,6 +7,41 @@ const WIDGET_ORIGIN = "https://norwich-booking.vercel.app";
 const RESIZE_EVENT = "norwich-widget-resize";
 const MIN_HEIGHT = 100;
 const MAX_HEIGHT = 2000;
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+
+// Build the iframe src with UTMs forwarded from this page's URL + referrer.
+// The iframe sets referrerPolicy="origin", so inside the booking widget,
+// document.referrer is always this marketing site — useless for attribution.
+// We synthesise utm_source/utm_medium from this page's own document.referrer
+// and pass it through as a URL param so the widget gets real attribution.
+function buildWidgetSrc(): string {
+  if (typeof window === "undefined") return `${WIDGET_ORIGIN}/`;
+
+  const params = new URLSearchParams();
+  const urlParams = new URLSearchParams(window.location.search);
+
+  for (const key of UTM_KEYS) {
+    const v = urlParams.get(key);
+    if (v) params.set(key, v);
+  }
+
+  // Fallback: synthesise utm_source from referrer when no explicit UTM tag.
+  // Skip self-referrers (intra-site navigation on the marketing host).
+  if (!params.has("utm_source") && document.referrer) {
+    try {
+      const refHost = new URL(document.referrer).hostname.toLowerCase();
+      if (!refHost.endsWith("norwichfreewalkingtours.co.uk")) {
+        params.set("utm_source", refHost);
+        params.set("utm_medium", "referral");
+      }
+    } catch {
+      /* malformed referrer — ignore */
+    }
+  }
+
+  const qs = params.toString();
+  return qs ? `${WIDGET_ORIGIN}/?${qs}` : `${WIDGET_ORIGIN}/`;
+}
 
 interface BookingFrameProps {
   className?: string;
@@ -17,6 +52,13 @@ interface BookingFrameProps {
 export function BookingFrame({ className, height = 700, sandbox }: BookingFrameProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [currentHeight, setCurrentHeight] = useState(height);
+  // Defer iframe mount until we can read window.location + document.referrer.
+  // Avoids a hydration mismatch + a wasted load of the bare URL.
+  const [iframeSrc, setIframeSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIframeSrc(buildWidgetSrc());
+  }, []);
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
@@ -44,10 +86,22 @@ export function BookingFrame({ className, height = 700, sandbox }: BookingFrameP
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
+  // Placeholder until iframe src is computed on the client (one tick after mount).
+  // Keeps layout stable while we read window.location + document.referrer.
+  if (!iframeSrc) {
+    return (
+      <div
+        className={className ?? "w-full"}
+        style={{ height: `${currentHeight}px`, display: "block" }}
+        aria-hidden
+      />
+    );
+  }
+
   return (
     <iframe
       ref={iframeRef}
-      src={`${WIDGET_ORIGIN}/`}
+      src={iframeSrc}
       title="Book your Norwich walking tour"
       allow="payment"
       loading="lazy"
