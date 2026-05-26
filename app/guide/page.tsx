@@ -46,10 +46,29 @@ import {
 } from "@/lib/guide-picks";
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
+// /guide is intentionally UNLISTED — Tom 2026-05-26. It's distributed via the
+// post-tour QR card + booking-confirmation email, not via search. Three
+// layers of opt-out:
+//   1. robots meta tag below (noindex, nofollow)
+//   2. /guide is disallowed in app/robots.ts
+//   3. /guide is NOT in app/sitemap.ts
+// Means well-behaved crawlers (Google, Bing, GPTBot, ClaudeBot, etc.) will
+// not index this URL or follow links from it. Bad-behaved scrapers ignore
+// these signals but the canonical signal is clear.
 export const metadata: Metadata = {
   title: "Tom's Norwich | A Local's Guide for Tour Guests",
   description:
     "Restaurants, pubs, walks, day trips, festivals — the places a local would actually send you in Norwich. Pulled together for guests of the Norwich Free Walking Tour.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/guide",
   },
