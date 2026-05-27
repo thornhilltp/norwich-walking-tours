@@ -395,12 +395,8 @@ export const guideSections: GuideSection[] = [
         name: "Riverside walk via Cow Tower",
         body: "Pick up the path at Fye Bridge and walk past Cow Tower toward the Cathedral. Half an hour, no traffic, river views you can’t see from the streets.",
         mapsUrl: mapsSearch("Cow Tower Norwich"),
-        // Tom 2026-05-27: dropped a new riverside photo for this pick
-        // but the file didn't make it to disk. Path wired here, file
-        // pending — keeps old tour photo as fallback for now via the
-        // public folder if not overwritten.
-        image: "/images/guide/riverside-walk.webp",
-        imageAlt: "The Wensum riverside path lined with willow trees, on the walk past Cow Tower.",
+        image: "/images/guide/riverside-walk.jpg",
+        imageAlt: "The Wensum riverside path lined with willow trees, looking toward a bridge in the distance.",
         tags: ["free", "outdoors"],
       },
     ],
