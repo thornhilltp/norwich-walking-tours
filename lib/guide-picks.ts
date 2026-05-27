@@ -43,12 +43,14 @@ export type GuideTag =
   | "lunch"
   | "market-lunch"
   | "dinner"
+  | "snacks"
   | "drink"
   | "coffee"
   | "free"
   | "outdoors"
   | "rainy-day"
-  | "day-trip";
+  | "day-trip"
+  | "on-the-tour";
 
 export interface GuidePick {
   /** Official name — used as the card heading. Tag with [TBD] if uncertain. */
@@ -85,10 +87,12 @@ export interface GuidePick {
  *  "favourites" is special-cased to read the `favourite` boolean on picks. */
 export const TAG_FILTERS: { id: GuideTag | "favourites"; label: string }[] = [
   { id: "favourites", label: "Tom's picks" },
+  { id: "on-the-tour", label: "On the tour" },
   { id: "brunch", label: "Brunch" },
   { id: "lunch", label: "Lunch" },
   { id: "market-lunch", label: "Market lunch" },
   { id: "dinner", label: "Dinner" },
+  { id: "snacks", label: "Snacks & sweets" },
   { id: "drink", label: "Drinks" },
   { id: "coffee", label: "Coffee" },
   { id: "free", label: "Free" },
@@ -172,7 +176,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.yardnorwich.com/",
         image: "/images/pottergate-stock.png",
         imageAlt: "Pottergate, the Norwich Lanes street where Yard sits.",
-        tags: ["dinner", "drink"],
+        tags: ["dinner", "drink", "on-the-tour"],
       },
       {
         name: "Big Deal's Bodega",
@@ -181,7 +185,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: "https://share.google/t1xaXH0ueUUXLMPdD",
         image: "/images/tour/guide-norwich-market.jpg",
         imageAlt: "Norwich Market stalls under the colourful striped roof.",
-        tags: ["lunch", "market-lunch"],
+        tags: ["lunch", "market-lunch", "on-the-tour"],
       },
       {
         name: "Stoke Mill",
@@ -216,17 +220,14 @@ export const guideSections: GuideSection[] = [
         website: "https://amarettodeli.co.uk/",
         image: "/images/st-georges-stock.png",
         imageAlt: "St George's Street, Norwich — where Amaretto Delicatessen sits opposite St Andrew's Hall.",
-        tags: ["brunch", "lunch", "coffee"],
+        tags: ["brunch", "lunch", "coffee", "on-the-tour"],
       },
       {
         name: "Café Gelato",
         nickname: "Norwich's first gelato parlour",
         body: "Italian gelato, churned daily with Norfolk milk and Sicilian pistachios. The queue out the door is the local endorsement. Cannoli and a coffee if you want to sit.",
         mapsUrl: mapsSearch("Cafe Gelato Opie Street Norwich"),
-        // FLAG: gelato isn't really a meal. Tagged 'lunch' as closest fit
-        // (people grab on the way through). Consider a 'sweet treat' tag
-        // if you'd rather it filter separately.
-        tags: ["lunch", "coffee"],
+        tags: ["snacks", "coffee"],
       },
       // Tom confirmed 2026-05-24 via @andeatit on Instagram.
       {
@@ -237,9 +238,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.instagram.com/andeatit/",
         image: "/images/norwich-market-sun-stock.png",
         imageAlt: "Norwich Market in the sun, one of the oldest open-air markets in Britain.",
-        // FLAG: brownies, not lunch. Tagged lunch + market-lunch as closest
-        // fit. Move to a 'sweet treat' tag if you add one.
-        tags: ["lunch", "market-lunch"],
+        tags: ["snacks", "market-lunch", "on-the-tour"],
       },
       {
         name: "Haggle",
@@ -247,6 +246,17 @@ export const guideSections: GuideSection[] = [
         body: "Middle Eastern small plates on St Benedicts. Order more than you think you need, share everything, take your time.",
         mapsUrl: mapsSearch("Haggle Restaurant St Benedicts Norwich"),
         website: "http://hagglerestaurant.com/",
+        tags: ["dinner"],
+      },
+      // CONFIRM: Tom mentioned "Yum" on the call but didn't specify which
+      // — multiple "Yum" venues in Norwich (Yum Yum Asian, etc). Placeholder
+      // with the generic name + search URL. Tom to swap with the actual
+      // venue's name + website + correct tags.
+      {
+        name: "[CONFIRM] Yum",
+        nickname: "Tom to specify which Yum",
+        body: "[Replace with 1–2 lines on why you send people here.]",
+        mapsUrl: mapsSearch("Yum restaurant Norwich"),
         tags: ["dinner"],
       },
     ],
@@ -267,7 +277,7 @@ export const guideSections: GuideSection[] = [
         body: "Pottergate cafe roasting their own beans round the corner on Dove Street. Take the back room, grab a sausage roll, stay an hour. Best place in the city to write a postcard.",
         mapsUrl: "https://maps.app.goo.gl/raF7htSnMyaeyv7y6",
         website: "https://strangerscoffee.com/",
-        tags: ["coffee", "rainy-day"],
+        tags: ["coffee", "rainy-day", "on-the-tour"],
       },
       {
         name: "Bread Source",
@@ -309,6 +319,14 @@ export const guideSections: GuideSection[] = [
         website: "https://fatcattap.co.uk/",
         tags: ["drink"],
       },
+      {
+        name: "The Belgian Monk",
+        nickname: "Belgian beer on Pottergate",
+        body: "[Replace with 1–2 lines on why you send people here.] Belgian-beer specialist on Pottergate. 100+ Belgian beers on the menu, moules and frites if you’re hungry.",
+        mapsUrl: mapsSearch("Belgian Monk Pottergate Norwich"),
+        website: "https://thebelgianmonk.com/",
+        tags: ["drink"],
+      },
     ],
   },
 
@@ -330,7 +348,7 @@ export const guideSections: GuideSection[] = [
         website: "https://cathedral.org.uk/visit/cathedral-tours/",
         image: "/images/tour/group-cathedral-west-front.jpg",
         imageAlt: "Norwich Cathedral's west front, the start of the free guided tour.",
-        tags: ["free", "rainy-day"],
+        tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
         name: "Evensong at Norwich Cathedral",
@@ -340,7 +358,7 @@ export const guideSections: GuideSection[] = [
         website: "https://cathedral.org.uk/worship/worship-with-us/evensong/",
         image: "/images/norwich-cathedral-stock.png",
         imageAlt: "Norwich Cathedral, the 900-year-old Norman cathedral with the second-tallest spire in England.",
-        tags: ["free", "rainy-day"],
+        tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
         name: "Plantation Garden",
@@ -382,7 +400,7 @@ export const guideSections: GuideSection[] = [
         body: "Skip the upper floors and head to the basement. Food hall with a walk-in cheese room, deli counter, wine bar, charcuterie bar. The department store has been in the family since 1770.",
         mapsUrl: mapsSearch("Jarrold Department Store London Street Norwich"),
         website: "https://www.jarrolds.co.uk/",
-        tags: ["rainy-day", "lunch"],
+        tags: ["rainy-day", "lunch", "on-the-tour"],
       },
       // Tom dropped Adnams 2026-05-24 — Tombland branch closed, current
       // Unthank Road site is too far out of centre for a post-tour rec.
@@ -392,7 +410,7 @@ export const guideSections: GuideSection[] = [
         body: "Independent DIY shop trading since 1835. If your B&B’s hairdryer breaks at 9am, this is where to go. Three generations behind the counter, eight departments, none of them on a screen.",
         mapsUrl: mapsSearch("Thorns DIY Exchange Street Norwich"),
         website: "https://thornsdiy.com/",
-        tags: ["rainy-day"],
+        tags: ["rainy-day", "on-the-tour"],
       },
       {
         name: "Looses Emporium",
@@ -408,7 +426,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("St Gregorys Antiques Norwich"),
         image: "/images/tour/pottergate-st-gregorys.jpg",
         imageAlt: "St Gregory's Church on Pottergate, now the antiques centre.",
-        tags: ["rainy-day", "free"],
+        tags: ["rainy-day", "free", "on-the-tour"],
       },
       {
         name: "[CONFIRM] Elm Hill Craft Shop",
@@ -417,7 +435,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Elm Hill Craft Shop Norwich"),
         image: "/images/tour/elm-hill-tour.jpg",
         imageAlt: "Elm Hill, the cobbled medieval street where the craft shop sits.",
-        tags: ["rainy-day"],
+        tags: ["rainy-day", "on-the-tour"],
       },
     ],
   },
@@ -522,6 +540,24 @@ export const guideSections: GuideSection[] = [
         website: "https://www.picturehouses.com/cinema/cinema-city",
         tags: ["rainy-day"],
       },
+      {
+        name: "Norwich Castle Museum",
+        nickname: "Norman keep, just reopened",
+        body: "[Replace with 1–2 lines on why you send people here.] The Norman keep on the hill in the middle of town, reopened 2025 after a £15m redevelopment. The new Medieval Gallery is a British Museum partnership.",
+        mapsUrl: mapsSearch("Norwich Castle Museum"),
+        website: "https://www.norwichcastle.norfolk.gov.uk/",
+        image: "/images/norwich-castle.png",
+        imageAlt: "Norwich Castle, the Norman fortress overlooking the city.",
+        tags: ["rainy-day", "on-the-tour"],
+      },
+      {
+        name: "Strangers' Hall",
+        nickname: "merchant's house turned museum",
+        body: "[Replace with 1–2 lines on why you send people here.] A 14th-century merchant's house with rooms decorated as they were across the centuries. Tudor, Georgian, Victorian, all under one roof. A short walk from the tour finish.",
+        mapsUrl: mapsSearch("Strangers Hall Norwich"),
+        website: "https://www.museums.norfolk.gov.uk/strangers-hall",
+        tags: ["rainy-day"],
+      },
     ],
   },
 
@@ -564,7 +600,7 @@ export const guideSections: GuideSection[] = [
         nickname: "the other one (not No.1)",
         body: "Better than No.1, in my opinion, though half of Cromer would fight me on it. Fried in beef dripping. Sit-in or takeaway, both work.",
         mapsUrl: mapsSearch("Mary Janes Fish Chips Cromer"),
-        tags: ["day-trip", "lunch", "dinner"],
+        tags: ["day-trip"],
       },
       {
         name: "Winbirri Vineyard",
