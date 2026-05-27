@@ -149,8 +149,8 @@ export const guideSections: GuideSection[] = [
         favourite: true,
         // Closest existing image (panorama from Fye Bridge). Swap for an
         // actual Mousehold shot when you take one.
-        image: "/images/vamous-view-norwich.png",
-        imageAlt: "Panoramic view across Norwich rooftops and spires from the high ground above the city.",
+        image: "/images/guide/mousehold.png",
+        imageAlt: "View from Mousehold Heath looking back across Norwich, the city's spires and rooftops spread below.",
         tags: ["free", "outdoors"],
       },
     ],
@@ -236,7 +236,7 @@ export const guideSections: GuideSection[] = [
         body: "Italian deli where Fabrizio cooks upstairs every morning. Pizza by the slice, pastries, sausage rolls, hot lunch counter. The lunchtime queue is the giveaway.",
         mapsUrl: mapsSearch("Amaretto Delicatessen St George Street Norwich"),
         website: "https://amarettodeli.co.uk/",
-        image: "/images/guide/amaretto.webp",
+        image: "/images/guide/amaretto.png",
         imageAlt: "Inside Amaretto Delicatessen — bowls of olives on the counter, Italian deli shelves stacked behind, Fabrizio working at the back.",
         tags: ["brunch", "lunch", "coffee", "on-the-tour"],
       },
@@ -395,8 +395,12 @@ export const guideSections: GuideSection[] = [
         name: "Riverside walk via Cow Tower",
         body: "Pick up the path at Fye Bridge and walk past Cow Tower toward the Cathedral. Half an hour, no traffic, river views you can’t see from the streets.",
         mapsUrl: mapsSearch("Cow Tower Norwich"),
-        image: "/images/tour/group-fye-bridge.jpg",
-        imageAlt: "Fye Bridge over the River Wensum — the easiest entry point to the Cow Tower riverside walk.",
+        // Tom 2026-05-27: dropped a new riverside photo for this pick
+        // but the file didn't make it to disk. Path wired here, file
+        // pending — keeps old tour photo as fallback for now via the
+        // public folder if not overwritten.
+        image: "/images/guide/riverside-walk.webp",
+        imageAlt: "The Wensum riverside path lined with willow trees, on the walk past Cow Tower.",
         tags: ["free", "outdoors"],
       },
     ],
