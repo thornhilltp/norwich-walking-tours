@@ -327,14 +327,16 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                         }`}
                       >
                         <div className="flex items-stretch gap-3">
-                          {/* Thumbnail */}
-                          <div className="flex-shrink-0 relative w-24 h-24 bg-brand-accent-light/50">
+                          {/* Thumbnail — 4:3 landscape (128×96) so wide
+                              source photos don't get aggressively centre-
+                              cropped to a square. Tom 2026-05-27. */}
+                          <div className="flex-shrink-0 relative w-32 h-24 bg-brand-accent-light/50">
                             {pick.image ? (
                               <Image
                                 src={pick.image}
                                 alt={pick.imageAlt ?? pick.name}
                                 fill
-                                sizes="96px"
+                                sizes="128px"
                                 className="object-cover"
                               />
                             ) : (
