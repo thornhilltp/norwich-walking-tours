@@ -21,7 +21,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowUpRight,
   Beer,
   CloudRain,
@@ -122,12 +121,15 @@ interface Question {
 }
 
 const QUESTIONS: Question[] = [
+  // "Tom's favourites" sits with the others as a regular tile, just amber
+  // instead of green. When highlighted as the active question it goes
+  // solid amber. Favourite picks WITHIN any other question's results
+  // already get the gold border + badge per the pick card render below.
   {
     id: "fav",
     label: "Tom’s favourites",
     icon: Star,
     favourite: true,
-    feature: true,
   },
   { id: "brunch", label: "Where for brunch?", icon: Croissant, tags: ["brunch"] },
   { id: "lunch", label: "Lunch, properly", icon: UtensilsCrossed, tags: ["lunch"] },
@@ -228,91 +230,86 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
             </div>
           </header>
 
-          {/* When a question is active, show a "change question" mini-row. */}
-          {active && (
-            <div className="mb-6 flex items-center justify-between">
+          {/* Question grid — always visible. Tapping a question switches the
+              selection (URL ?q=...); tapping the active question again
+              clears it back to the landing state. Tom 2026-05-26 feedback. */}
+          <ol className="grid grid-cols-2 gap-3 mb-6">
+            {QUESTIONS.map((q) => {
+              const Icon = q.icon;
+              const isActive = active?.id === q.id;
+              const isFav = q.favourite;
+              // Selected state takes priority over the favourite-amber resting state
+              const classes = isActive
+                ? isFav
+                  ? "bg-amber-400 text-brand-text border-amber-500 shadow-md"
+                  : "bg-brand-accent text-white border-brand-accent shadow-md"
+                : isFav
+                  ? "bg-amber-50 border-amber-300 text-amber-900 hover:bg-amber-100"
+                  : "bg-white border-brand-accent/15 text-brand-text hover:border-brand-accent/40 hover:bg-brand-accent-light";
+              return (
+                <li key={q.id}>
+                  <Link
+                    href={isActive ? "/guide" : `/guide?q=${q.id}`}
+                    scroll={false}
+                    className={`flex items-center gap-3 rounded-2xl border p-4 transition-colors duration-150 focus-brand touch-manipulation min-h-[72px] ${classes}`}
+                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    aria-pressed={isActive}
+                  >
+                    <Icon
+                      className={`w-5 h-5 flex-shrink-0 ${isFav ? "fill-current" : ""}`}
+                      aria-hidden="true"
+                    />
+                    <span className="text-[15px] font-semibold leading-tight">
+                      {q.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* Escape hatch for power users who want to scroll the full list.
+              Hidden when "all" is the active question (it'd be a redundant link). */}
+          {active?.id !== "all" && (
+            <div className="text-center mb-10">
               <Link
-                href="/guide"
+                href="/guide?q=all"
                 scroll={false}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent-text hover:underline touch-manipulation"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-brand-accent touch-manipulation"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-                Change question
+                <List className="w-4 h-4" aria-hidden="true" />
+                Or browse the full list
               </Link>
-              <span
-                className="text-xs text-muted-foreground"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                {matchingPicks.length} pick{matchingPicks.length === 1 ? "" : "s"}
-              </span>
             </div>
           )}
 
-          {/* Question grid — hidden when a question is active to focus on picks */}
-          {!active && (
-            <>
-              <ol className="grid grid-cols-2 gap-3 mb-6">
-                {QUESTIONS.map((q) => {
-                  const Icon = q.icon;
-                  const isFeature = q.feature;
-                  const classes = isFeature
-                    ? "col-span-2 bg-amber-50 border-amber-300 text-amber-900 hover:bg-amber-100"
-                    : "bg-white border-brand-accent/15 text-brand-text hover:border-brand-accent/40 hover:bg-brand-accent-light";
-                  return (
-                    <li key={q.id} className={isFeature ? "col-span-2" : undefined}>
-                      <Link
-                        href={`/guide?q=${q.id}`}
-                        scroll={false}
-                        className={`flex items-center gap-3 rounded-2xl border p-4 transition-colors duration-150 focus-brand touch-manipulation min-h-[72px] ${classes}`}
-                        style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                      >
-                        <Icon
-                          className={`w-5 h-5 flex-shrink-0 ${isFeature ? "fill-current" : ""}`}
-                          aria-hidden="true"
-                        />
-                        <span className="text-[15px] font-semibold leading-tight">
-                          {q.label}
-                        </span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ol>
-
-              {/* Escape hatch for power users who want to scroll the full list */}
-              <div className="text-center mb-10">
-                <Link
-                  href="/guide?q=all"
-                  scroll={false}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-brand-accent touch-manipulation"
+          {/* Matching picks for the active question — render BELOW the grid
+              so users can switch question without scrolling back up. */}
+          {active && (
+            <section aria-label={`Picks for ${active.label}`} className="mb-10">
+              <div className="flex items-baseline justify-between mb-3">
+                <h2
+                  className="text-[18px] font-semibold text-brand-text"
                   style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                 >
-                  <List className="w-4 h-4" aria-hidden="true" />
-                  Or browse the full list
-                </Link>
+                  {active.label}
+                </h2>
+                <span
+                  className="text-xs text-muted-foreground"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {matchingPicks.length} pick{matchingPicks.length === 1 ? "" : "s"}
+                </span>
               </div>
-            </>
-          )}
-
-          {/* Matching picks for the active question */}
-          {active && (
-            <section aria-label={`Picks for ${active.label}`}>
               {matchingPicks.length === 0 ? (
-                <div className="text-center py-12">
+                <div className="text-center py-8 bg-white rounded-2xl border border-brand-accent/10">
                   <p
-                    className="text-base text-muted-foreground mb-3"
+                    className="text-base text-muted-foreground"
                     style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                   >
                     Nothing here yet for that question.
                   </p>
-                  <Link
-                    href="/guide"
-                    className="text-sm font-semibold text-brand-accent-text hover:underline"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    Pick a different question
-                  </Link>
                 </div>
               ) : (
                 <ol className="flex flex-col gap-3">
@@ -420,9 +417,8 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
             </section>
           )}
 
-          {/* Review CTA — shown on landing only, not when a question is active */}
-          {!active && (
-            <div className="bg-brand-accent-light rounded-2xl p-6 text-center">
+          {/* Review CTA — always shown at the bottom, below any active picks. */}
+          <div className="bg-brand-accent-light rounded-2xl p-6 text-center">
               <h2
                 className="text-[22px] font-semibold text-brand-text mb-1 leading-tight"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
@@ -456,7 +452,6 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                 </a>
               </div>
             </div>
-          )}
 
           {/* Cross-link nav */}
           <nav aria-label="Related" className="text-center mt-10">
