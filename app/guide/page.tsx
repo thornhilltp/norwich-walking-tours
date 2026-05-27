@@ -367,6 +367,15 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                               >
                                 · {sectionName}
                               </span>
+                              {pick.favourite && (
+                                <span
+                                  className="inline-flex items-center gap-1 bg-amber-400 text-brand-text text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-amber-500/40"
+                                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                                >
+                                  <Star className="w-2.5 h-2.5 fill-current" aria-hidden="true" />
+                                  Tom’s pick
+                                </span>
+                              )}
                             </div>
                             {pick.nickname && (
                               <p
