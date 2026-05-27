@@ -137,7 +137,7 @@ const QUESTIONS: Question[] = [
   { id: "brunch", label: "Where for brunch?", icon: Croissant, tags: ["brunch"] },
   { id: "lunch", label: "Lunch, properly", icon: UtensilsCrossed, tags: ["lunch"] },
   { id: "dinner", label: "Where for dinner?", icon: UtensilsCrossed, tags: ["dinner"] },
-  { id: "snacks", label: "Snacks & sweets", icon: IceCream, tags: ["snacks"] },
+  { id: "snacks", label: "Sweet treats", icon: IceCream, tags: ["snacks"] },
   { id: "pub", label: "Pub after the tour", icon: Beer, tags: ["drink"] },
   { id: "coffee", label: "Coffee and cake", icon: Coffee, tags: ["coffee"] },
   { id: "free", label: "Free things to do", icon: Sparkles, tags: ["free"] },
