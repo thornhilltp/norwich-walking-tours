@@ -218,7 +218,7 @@ export const guideSections: GuideSection[] = [
         body: "Italian deli where Fabrizio cooks upstairs every morning. Pizza by the slice, pastries, sausage rolls, hot lunch counter. The lunchtime queue is the giveaway.",
         mapsUrl: mapsSearch("Amaretto Delicatessen St George Street Norwich"),
         website: "https://amarettodeli.co.uk/",
-        image: "/images/guide/amaretto.jpg",
+        image: "/images/guide/amaretto.webp",
         imageAlt: "Inside Amaretto Delicatessen — bowls of olives on the counter, Italian deli shelves stacked behind, Fabrizio working at the back.",
         tags: ["brunch", "lunch", "coffee", "on-the-tour"],
       },
