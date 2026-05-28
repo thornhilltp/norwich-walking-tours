@@ -219,6 +219,8 @@ export const guideSections: GuideSection[] = [
         body: "Fine dining in the building where Colman’s first ground their mustard, a few miles outside town. Needs a taxi. Worth it for the special occasion.",
         mapsUrl: mapsSearch("Stoke Mill Restaurant Stoke Holy Cross"),
         website: "https://stokemill.co.uk/",
+        image: "/images/guide/stoke-mill.jpg",
+        imageAlt: "A fine-dining plate at Stoke Mill: fish, greens and a rich sauce, plated small.",
         tags: ["dinner"],
       },
       {
@@ -291,6 +293,8 @@ export const guideSections: GuideSection[] = [
         body: "Food hall tucked in the Royal Arcade, the art nouveau one you walked through today. A handful of independent kitchens, one bar, shared tables. Where to go when nobody can agree on dinner.",
         mapsUrl: mapsSearch("Yalm Royal Arcade Norwich"),
         // CONFIRM website with Tom — yalm.co.uk likely but unverified.
+        image: "/images/guide/yalm.webp",
+        imageAlt: "A chef carrying a tray of fresh sushi from one of the kitchens at Yalm food hall.",
         tags: ["lunch", "dinner", "drink", "on-the-tour"],
       },
       {
@@ -472,6 +476,8 @@ export const guideSections: GuideSection[] = [
         body: "Independent DIY shop trading since 1835. If your B&B’s hairdryer breaks at 9am, this is where to go. Three generations behind the counter, eight departments, none of them on a screen.",
         mapsUrl: mapsSearch("Thorns DIY Exchange Street Norwich"),
         website: "https://thornsdiy.com/",
+        image: "/images/guide/thorns.jpg",
+        imageAlt: "The bright red Thorns storefront on Exchange Street, the independent ironmongers and tool merchants.",
         tags: ["rainy-day", "on-the-tour"],
       },
       {
