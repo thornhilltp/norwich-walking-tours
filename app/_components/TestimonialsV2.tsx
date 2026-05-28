@@ -2,7 +2,8 @@
 
 // TestimonialsV2 — restructured per Tom's reference image #3.
 // Layout: H2 (Lora→Caveat pattern) on left + big rating anchor on right
-// (big "4.9 ★★★★★" + "16 GOOGLE REVIEWS · 100% 5-STAR" caption).
+// (big rating number + star row + "<count> reviews · rated <avg> of 5" caption,
+// all driven from googleReviewStats in lib/testimonials.ts).
 // Below: 2×2 grid of all 4 real Google reviews. Centered "Read all" link.
 
 import Image from "next/image";
@@ -185,7 +186,7 @@ export function TestimonialsV2() {
                 className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                {googleReviewStats.count} reviews &nbsp;·&nbsp; 100% 5-star
+                {googleReviewStats.count} reviews &nbsp;·&nbsp; rated {googleReviewStats.rating.toFixed(1)} of 5
               </p>
             </a>
 
