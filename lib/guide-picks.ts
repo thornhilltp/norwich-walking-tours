@@ -61,10 +61,14 @@ export interface GuidePick {
   body: string;
   /** Google Maps link. Real share.google link OR a search URL. */
   mapsUrl: string;
-  /** Marks the card with a "Tom's pick" gold badge. Reserve for your real
-   *  top picks — if everything's a favourite, nothing is. Also drives the
-   *  "Tom's picks" filter pill. */
-  favourite?: boolean;
+  /** Recommendation tier — drives the visual emphasis on the card.
+   *    "gold"   = "Tom's pick", the absolute best. Amber star + border.
+   *               Also what the "Tom's favourites" question filters to.
+   *               Keep scarce: 4-6 across the whole guide.
+   *    "silver" = "Strong rec", really good. Green star + label, no border.
+   *    undefined = on the list (still recommended), no special treatment.
+   *  Replaced the old `favourite: boolean` 2026-05-27. */
+  tier?: "gold" | "silver";
   /** Path to an image in /public, e.g. "/images/guide/yard.jpg". Optional.
    *  When absent, the card shows a tinted icon block fallback. Do NOT use
    *  stock photography or venue/Google Maps images (copyright + brand rules
@@ -144,9 +148,10 @@ export const guideSections: GuideSection[] = [
         nickname: "the spires lookout",
         body: "Twenty minutes up the hill from the Cathedral. The whole city laid out below you, every spire you’ve just walked past. Free, always open, and most visitors miss it.",
         mapsUrl: "https://share.google/rz2NeEnzUBUPfgZsr",
-        // Example "Tom's pick" — Tom: flip favourite to true on YOUR
-        // absolute favourites only. Probably 4–6 across the whole page.
-        favourite: true,
+        // Example gold "Tom's pick" — Tom: set tier: "gold" on YOUR
+        // absolute best (4-6 across the page), tier: "silver" on the
+        // strong-but-not-top recommendations.
+        tier: "gold",
         // Closest existing image (panorama from Fye Bridge). Swap for an
         // actual Mousehold shot when you take one.
         image: "/images/guide/mousehold.png",

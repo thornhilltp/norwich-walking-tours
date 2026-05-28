@@ -154,7 +154,7 @@ function findQuestion(id: string | undefined): Question | undefined {
 
 function pickMatchesQuestion(pick: GuidePick, q: Question): boolean {
   if (q.all) return true;
-  if (q.favourite) return pick.favourite === true;
+  if (q.favourite) return pick.tier === "gold";
   if (!q.tags || q.tags.length === 0) return true;
   return q.tags.some((tag) => pick.tags?.includes(tag) ?? false);
 }
@@ -320,10 +320,12 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                   {matchingPicks.map(({ sectionName, pick }, idx) => (
                     <li key={`${pick.name}-${idx}`}>
                       <article
-                        className={`bg-white rounded-2xl shadow-sm overflow-hidden border ${
-                          pick.favourite
+                        className={`bg-white rounded-2xl shadow-sm overflow-hidden ${
+                          pick.tier === "gold"
                             ? "border-2 border-amber-400 shadow-[0_4px_16px_rgba(245,158,11,0.18)]"
-                            : "border-brand-accent/10"
+                            : pick.tier === "silver"
+                              ? "border-2 border-brand-accent/40"
+                              : "border border-brand-accent/10"
                         }`}
                       >
                         <div className="flex items-stretch gap-3">
@@ -349,10 +351,18 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                                   .join("")}
                               </div>
                             )}
-                            {pick.favourite && (
+                            {pick.tier === "gold" && (
                               <span className="absolute top-1.5 left-1.5 inline-flex items-center justify-center w-5 h-5 bg-amber-400 rounded-full shadow">
                                 <Star
                                   className="w-3 h-3 fill-current text-brand-text"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            )}
+                            {pick.tier === "silver" && (
+                              <span className="absolute top-1.5 left-1.5 inline-flex items-center justify-center w-5 h-5 bg-brand-accent rounded-full shadow">
+                                <Star
+                                  className="w-3 h-3 fill-current text-white"
                                   aria-hidden="true"
                                 />
                               </span>
@@ -373,13 +383,22 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                               >
                                 · {sectionName}
                               </span>
-                              {pick.favourite && (
+                              {pick.tier === "gold" && (
                                 <span
                                   className="inline-flex items-center gap-1 bg-amber-400 text-brand-text text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-amber-500/40"
                                   style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                                 >
                                   <Star className="w-2.5 h-2.5 fill-current" aria-hidden="true" />
                                   Tom’s pick
+                                </span>
+                              )}
+                              {pick.tier === "silver" && (
+                                <span
+                                  className="inline-flex items-center gap-1 bg-brand-accent-light text-brand-accent-text text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-brand-accent/30"
+                                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                                >
+                                  <Star className="w-2.5 h-2.5 fill-current" aria-hidden="true" />
+                                  Strong rec
                                 </span>
                               )}
                             </div>
