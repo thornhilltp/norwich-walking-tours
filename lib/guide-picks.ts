@@ -175,6 +175,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Yard",
+        tier: "silver",
         nickname: "fresh pasta on Pottergate",
         body: "Fresh pasta made on the premises, walk-ins only. Grab a table in the cellar bar if the main room’s full, or the churchyard opposite if it’s warm.",
         mapsUrl: "https://share.google/DJJh99gaNiiuf8B2O",
@@ -185,6 +186,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Big Deal's Bodega",
+        tier: "gold",
         nickname: "best sandwich on the market",
         body: "Best sandwich in the city, no contest. Open Tuesday to Saturday lunchtime only, so plan around it. Ask for the Parmageddon if you’re hungry.",
         mapsUrl: "https://share.google/t1xaXH0ueUUXLMPdD",
@@ -212,6 +214,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Stoke Mill",
+        tier: "silver",
         nickname: "the old Colman's mustard mill",
         body: "Fine dining in the building where Colman’s first ground their mustard, a few miles outside town. Needs a taxi. Worth it for the special occasion.",
         mapsUrl: mapsSearch("Stoke Mill Restaurant Stoke Holy Cross"),
@@ -220,6 +223,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Benoli",
+        tier: "silver",
         nickname: "Italian on Timber Hill",
         body: "Italian, run by a chef who finished MasterChef Pro. Small room so book ahead. The pasta is the headline.",
         mapsUrl: mapsSearch("Benoli Restaurant Timber Hill Norwich"),
@@ -237,6 +241,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Amaretto Delicatessen",
+        tier: "silver",
         nickname: "Italian deli on St George's",
         body: "Italian deli where Fabrizio cooks upstairs every morning. Pizza by the slice, pastries, sausage rolls, hot lunch counter. The lunchtime queue is the giveaway.",
         mapsUrl: mapsSearch("Amaretto Delicatessen St George Street Norwich"),
@@ -247,6 +252,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Café Gelato",
+        tier: "silver",
         nickname: "Norwich's first gelato parlour",
         body: "Italian gelato, churned daily with Norfolk milk and Sicilian pistachios. The queue out the door is the local endorsement. Cannoli and a coffee if you want to sit.",
         mapsUrl: mapsSearch("Cafe Gelato Opie Street Norwich"),
@@ -308,6 +314,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Strangers Coffee House",
+        tier: "gold",
         nickname: "best place to sit in",
         body: "Pottergate cafe roasting their own beans round the corner on Dove Street. Take the back room, grab a sausage roll, stay an hour. Best place in the city to write a postcard.",
         mapsUrl: "https://maps.app.goo.gl/raF7htSnMyaeyv7y6",
@@ -318,6 +325,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Bread Source",
+        tier: "silver",
         nickname: "sourdough + viennoiserie",
         body: "Sourdough loaves, almond croissants, sandwiches that disappear by 2pm. The Upper St Giles branch is the easiest hit. The market stalls if you’re already there.",
         mapsUrl: mapsSearch("Bread Source Upper St Giles Norwich"),
@@ -344,6 +352,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "The Fat Cat",
+        tier: "gold",
         nickname: "the original on West End St",
         body: "Two-time CAMRA National Pub of the Year, twenty-plus cask ales any day of the week. A Norwich institution: no telly, no music, just beer and people who know it.",
         mapsUrl: mapsSearch("Fat Cat Pub West End Street Norwich"),
@@ -381,6 +390,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Free Cathedral guided walking tour",
+        tier: "silver",
         nickname: "Mon–Sat, hourly 10am–3pm",
         body: "Volunteers run a free hour-long tour of the Cathedral, hourly Monday to Saturday. Meet at the font, no booking. The guides know things the signs don’t say.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
@@ -401,6 +411,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Plantation Garden",
+        tier: "silver",
         body: "A Victorian sunken garden hidden behind a hotel on Earlham Road. Most locals don’t even know it’s there. Bring a book and lose an hour by the gothic fountain.",
         mapsUrl: mapsSearch("Plantation Garden Norwich"),
         website: "https://plantationgarden.co.uk/",
@@ -447,6 +458,7 @@ export const guideSections: GuideSection[] = [
       // Unthank Road site is too far out of centre for a post-tour rec.
       {
         name: "Thorns",
+        tier: "silver",
         nickname: "independent DIY since 1835",
         body: "Independent DIY shop trading since 1835. If your B&B’s hairdryer breaks at 9am, this is where to go. Three generations behind the counter, eight departments, none of them on a screen.",
         mapsUrl: mapsSearch("Thorns DIY Exchange Street Norwich"),
@@ -499,6 +511,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "The Shoebox — Hidden Street Tour",
+        tier: "silver",
         nickname: "underneath the Castle",
         body: "Only underground tour in the city. They take you down two flights of stairs into a 15th-century street that’s been buried under the modern road for centuries. Booking essential.",
         mapsUrl: mapsSearch("Shoebox Experiences Norwich Castle Meadow"),
@@ -509,6 +522,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Cheryl Cade Tours",
+        tier: "gold",
         nickname: "beer, sausage rolls + a pastry",
         body: "Cheryl runs a beer-and-sausage-roll tour that I genuinely think is the best food tour in the city. £53, four hours, five pubs, more sausage rolls than is sensible.",
         mapsUrl: mapsSearch("Cheryl Cade Tours Norwich"),
@@ -537,6 +551,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Pub and Paddle",
+        tier: "silver",
         nickname: "canoe a pub crawl on the Wensum",
         body: "Hire a canoe behind the Ribs of Beef and paddle to a riverside pub for a pint. Four routes from the same launch point. Worth it if it’s actually warm.",
         mapsUrl: mapsSearch("Pub and Paddle Elm Hill Quay Norwich"),
@@ -553,6 +568,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "The Lions' Den",
+        tier: "silver",
         nickname: "river sauna + rooftop sauna",
         body: "Sauna on the river or a rooftop in town, depending which Lions’ Den you book. Ice baths, paddleboarding lessons, and an alcohol-free bar by the saunas. Feels like Helsinki dropped into Norwich.",
         mapsUrl: mapsSearch("Lions Den Norwich"),
@@ -583,6 +599,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Norwich Castle Museum",
+        tier: "silver",
         nickname: "Norman keep, just reopened",
         body: "[Replace with 1–2 lines on why you send people here.] The Norman keep on the hill in the middle of town, reopened 2025 after a £15m redevelopment. The new Medieval Gallery is a British Museum partnership.",
         mapsUrl: mapsSearch("Norwich Castle Museum"),
@@ -645,6 +662,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Winbirri Vineyard",
+        tier: "silver",
         nickname: "Bacchus that won the world",
         body: "An English vineyard in Surlingham whose Bacchus once won Best in the World at the Decanter awards. Tours run by the head winemaker. Half an hour out of town.",
         mapsUrl: mapsSearch("Winbirri Vineyard Surlingham"),
@@ -655,6 +673,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Flint Vineyard",
+        tier: "silver",
         nickname: "Charmat sparkling + cellar door",
         body: "Hour south of the city, vineyard with a kitchen attached. Lunch Wednesday to Sunday, small plates and a glass of their sparkling. Dog-friendly, garden out the back.",
         mapsUrl: mapsSearch("Flint Vineyard Earsham"),
