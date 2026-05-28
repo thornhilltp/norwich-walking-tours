@@ -279,6 +279,16 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Yum restaurant Norwich"),
         tags: ["dinner"],
       },
+      // CONFIRM: Tom asked for "the kimchi" — Korean spot in Norwich.
+      // Placeholder name + Korean tags. Tom to confirm exact venue name,
+      // website, and whether it's lunch, dinner, or both.
+      {
+        name: "[CONFIRM] Kimchi",
+        nickname: "Korean in Norwich",
+        body: "[Replace with 1–2 lines on why you send people here.]",
+        mapsUrl: mapsSearch("Kimchi Korean Norwich"),
+        tags: ["lunch", "dinner"],
+      },
     ],
   },
 
