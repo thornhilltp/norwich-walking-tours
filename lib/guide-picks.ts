@@ -196,20 +196,20 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Olives",
-        nickname: "brunch with the fruit on top",
-        body: "[Replace with 1–2 lines on why you send people here.] Brunch spot Tom sends people to — pancake bowls piled with strawberries, banana, blueberries.",
+        nickname: "the full English to beat",
+        body: "Brunch done properly. A full English that turns up loaded, proper coffee, and a room that's all regulars by ten. Go hungry.",
         mapsUrl: mapsSearch("Olives Norwich brunch"),
-        image: "/images/guide/olives.jpg",
-        imageAlt: "A stack of pancakes at Olives topped with strawberries, banana and blueberries, dusted with sugar.",
+        image: "/images/guide/olives.webp",
+        imageAlt: "A full English breakfast on a red plate at Olives: sausage, scrambled egg, beans, mushrooms, grilled tomato, peppers, hash browns and toast, with a coffee alongside.",
         tags: ["brunch", "lunch"],
       },
       {
         name: "Café Thirty-Three",
-        nickname: "33 Exchange Street",
-        body: "[Replace with 1–2 lines on why you send people here.] Independent café on Exchange Street doing proper brunches and a full English worth showing up hungry for.",
+        nickname: "pancakes on Exchange Street",
+        body: "Independent spot on Exchange Street. The stack of pancakes piled with strawberries, banana and blueberries is the order. Get there before the late-morning rush.",
         mapsUrl: mapsSearch("Cafe 33 Exchange Street Norwich"),
-        image: "/images/guide/cafe-33.webp",
-        imageAlt: "A full English breakfast on a red plate at Café Thirty-Three — sausage, beans, mushrooms, peppers, hash browns, toast.",
+        image: "/images/guide/cafe-33.jpg",
+        imageAlt: "A stack of pancakes at Café Thirty-Three topped with strawberries, banana and blueberries, dusted with icing sugar.",
         tags: ["brunch", "lunch", "on-the-tour"],
       },
       {
@@ -228,6 +228,8 @@ export const guideSections: GuideSection[] = [
         body: "Italian, run by a chef who finished MasterChef Pro. Small room so book ahead. The pasta is the headline.",
         mapsUrl: mapsSearch("Benoli Restaurant Timber Hill Norwich"),
         website: "https://benolirestaurant.com/",
+        image: "/images/guide/benoli.jpg",
+        imageAlt: "Benoli, the Italian restaurant on Timber Hill.",
         tags: ["dinner"],
       },
       // Tom dropped the "steak near Benoli" pick 2026-05-24 — wasn't
@@ -237,6 +239,8 @@ export const guideSections: GuideSection[] = [
         nickname: "Turkish charcoal grill, Magdalen St",
         body: "Turkish charcoal grill on Magdalen Street, the real thing. Kebabs and mezze, no frills. The regulars know.",
         mapsUrl: mapsSearch("The Mediterranean Restaurant Magdalen Street Norwich"),
+        image: "/images/guide/mediterranean.jpg",
+        imageAlt: "The Mediterranean Restaurant and Bar, the Turkish charcoal grill on Magdalen Street.",
         tags: ["dinner"],
       },
       {
@@ -247,7 +251,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Amaretto Delicatessen St George Street Norwich"),
         website: "https://amarettodeli.co.uk/",
         image: "/images/guide/amaretto.png",
-        imageAlt: "Inside Amaretto Delicatessen — bowls of olives on the counter, Italian deli shelves stacked behind, Fabrizio working at the back.",
+        imageAlt: "Inside Amaretto Delicatessen: bowls of olives on the counter, Italian deli shelves stacked behind, Fabrizio working at the back.",
         tags: ["brunch", "lunch", "coffee", "on-the-tour"],
       },
       {
@@ -268,7 +272,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("And Eat It Norwich Market"),
         website: "https://www.instagram.com/andeatit/",
         image: "/images/guide/and-eat-it.webp",
-        imageAlt: "Stuffed brookies on the And Eat It stall — Choccy, Terry's Orange, Raspberry & Pistachio.",
+        imageAlt: "Stuffed brookies on the And Eat It stall: Choccy, Terry's Orange, Raspberry and Pistachio.",
         tags: ["snacks", "market-lunch", "on-the-tour"],
       },
       {
@@ -277,27 +281,26 @@ export const guideSections: GuideSection[] = [
         body: "Middle Eastern small plates on St Benedicts. Order more than you think you need, share everything, take your time.",
         mapsUrl: mapsSearch("Haggle Restaurant St Benedicts Norwich"),
         website: "http://hagglerestaurant.com/",
+        image: "/images/guide/haggle.png",
+        imageAlt: "Haggle, the Middle Eastern small-plates restaurant on St Benedicts Street.",
         tags: ["dinner"],
       },
-      // CONFIRM: Tom mentioned "Yum" on the call but didn't specify which
-      // — multiple "Yum" venues in Norwich (Yum Yum Asian, etc). Placeholder
-      // with the generic name + search URL. Tom to swap with the actual
-      // venue's name + website + correct tags.
       {
-        name: "[CONFIRM] Yum",
-        nickname: "Tom to specify which Yum",
-        body: "[Replace with 1–2 lines on why you send people here.]",
-        mapsUrl: mapsSearch("Yum restaurant Norwich"),
-        tags: ["dinner"],
+        name: "Yalm",
+        nickname: "food hall in the Royal Arcade",
+        body: "Food hall tucked in the Royal Arcade, the art nouveau one you walked through today. A handful of independent kitchens, one bar, shared tables. Where to go when nobody can agree on dinner.",
+        mapsUrl: mapsSearch("Yalm Royal Arcade Norwich"),
+        // CONFIRM website with Tom — yalm.co.uk likely but unverified.
+        tags: ["lunch", "dinner", "drink", "on-the-tour"],
       },
-      // CONFIRM: Tom asked for "the kimchi" — Korean spot in Norwich.
-      // Placeholder name + Korean tags. Tom to confirm exact venue name,
-      // website, and whether it's lunch, dinner, or both.
       {
-        name: "[CONFIRM] Kimchi",
-        nickname: "Korean in Norwich",
-        body: "[Replace with 1–2 lines on why you send people here.]",
+        name: "Kimchi",
+        nickname: "Korean comfort food",
+        body: "Korean comfort food, the kind you order too much of. Fried chicken, tteokbokki, dumplings, bibimbap. Go with people and share the lot.",
         mapsUrl: mapsSearch("Kimchi Korean Norwich"),
+        // CONFIRM exact venue name + website with Tom.
+        image: "/images/guide/kimchi.jpg",
+        imageAlt: "A spread of Korean dishes on a wooden table: fried chicken, dumplings, tteokbokki, bibimbap bowls, kimchi and rice.",
         tags: ["lunch", "dinner"],
       },
     ],
@@ -357,6 +360,8 @@ export const guideSections: GuideSection[] = [
         body: "Two-time CAMRA National Pub of the Year, twenty-plus cask ales any day of the week. A Norwich institution: no telly, no music, just beer and people who know it.",
         mapsUrl: mapsSearch("Fat Cat Pub West End Street Norwich"),
         website: "https://www.fatcatpub.co.uk/",
+        image: "/images/guide/fat-cat.jpg",
+        imageAlt: "The Fat Cat, the multi-award-winning real-ale pub on West End Street.",
         tags: ["drink", "rainy-day"],
       },
       {
@@ -365,14 +370,18 @@ export const guideSections: GuideSection[] = [
         body: "Same family as The Fat Cat, mile up the road in the building where they make the beer. Smaller and quieter, more of a local crowd than tourists.",
         mapsUrl: mapsSearch("Fat Cat Brewery Tap Lawson Road Norwich"),
         website: "https://fatcattap.co.uk/",
+        image: "/images/guide/fat-cat-brewery-tap.jpg",
+        imageAlt: "The Fat Cat Brewery Tap, the taproom on Lawson Road.",
         tags: ["drink"],
       },
       {
         name: "The Belgian Monk",
         nickname: "Belgian beer on Pottergate",
-        body: "[Replace with 1–2 lines on why you send people here.] Belgian-beer specialist on Pottergate. 100+ Belgian beers on the menu, moules and frites if you’re hungry.",
+        body: "Belgian-beer specialist on Pottergate. A hundred-plus Belgian beers on the menu, moules and frites if you're hungry.",
         mapsUrl: mapsSearch("Belgian Monk Pottergate Norwich"),
         website: "https://thebelgianmonk.com/",
+        image: "/images/guide/belgian-monk.jpg",
+        imageAlt: "The Belgian Monk, the Belgian beer and moules-frites bar on Pottergate.",
         tags: ["drink"],
       },
     ],
@@ -415,6 +424,8 @@ export const guideSections: GuideSection[] = [
         body: "A Victorian sunken garden hidden behind a hotel on Earlham Road. Most locals don’t even know it’s there. Bring a book and lose an hour by the gothic fountain.",
         mapsUrl: mapsSearch("Plantation Garden Norwich"),
         website: "https://plantationgarden.co.uk/",
+        image: "/images/guide/plantation-garden.jpg",
+        imageAlt: "The Plantation Garden, the restored Victorian sunken garden off Earlham Road.",
         tags: ["free", "outdoors"],
       },
       {
@@ -434,8 +445,6 @@ export const guideSections: GuideSection[] = [
   //     closed Sept 2024). Tom to confirm whether he still recommends it given
   //     the move (Unthank is a 15-min walk from city centre, not a stroll).
   //   - Haggle: moved to Eat section (it's a restaurant).
-  //   - Elm Hill Shop: best guess is Elm Hill Craft Shop (1936, Morris family).
-  //     There's also a separate "Elm" store in the Lanes despite the name.
   {
     id: "shops",
     shortLabel: "Shops",
@@ -451,7 +460,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Jarrold Department Store London Street Norwich"),
         website: "https://www.jarrolds.co.uk/",
         image: "/images/guide/jarrolds-food-hall.webp",
-        imageAlt: "Jarrolds Food Hall — sawhorse tables piled with Italian dried pasta in baskets, Italian deli shelves behind.",
+        imageAlt: "Jarrolds Food Hall: sawhorse tables piled with Italian dried pasta in baskets, Italian deli shelves behind.",
         tags: ["rainy-day", "lunch", "on-the-tour"],
       },
       // Tom dropped Adnams 2026-05-24 — Tombland branch closed, current
@@ -470,6 +479,8 @@ export const guideSections: GuideSection[] = [
         nickname: "60 dealers, two floors of stuff",
         body: "Sixty antique and vintage dealers under one roof, two floors of stuff you didn’t know you wanted. Cafe in the middle for when your feet give up.",
         mapsUrl: mapsSearch("Looses Emporium Magdalen Street Norwich"),
+        image: "/images/guide/looses.jpg",
+        imageAlt: "Looses Emporium, the antiques and vintage centre on Magdalen Street.",
         tags: ["rainy-day"],
       },
       {
@@ -477,18 +488,9 @@ export const guideSections: GuideSection[] = [
         nickname: "inside a 14th-century church",
         body: "Antiques shop inside a 14th-century deconsecrated church. The St George and the Dragon wall painting at the back is worth the visit on its own. Walk in free even if you’re not buying.",
         mapsUrl: mapsSearch("St Gregorys Antiques Norwich"),
-        image: "/images/tour/pottergate-st-gregorys.jpg",
-        imageAlt: "St Gregory's Church on Pottergate, now the antiques centre.",
+        image: "/images/guide/st-gregorys.jpg",
+        imageAlt: "The entrance to St Gregory's Antiques & Collectables, set in the arched doorway of the old church with bunting and signboards outside.",
         tags: ["rainy-day", "free", "on-the-tour"],
-      },
-      {
-        name: "[CONFIRM] Elm Hill Craft Shop",
-        nickname: "1936, on the cobbled hill",
-        body: "On the cobbled bit, opened in 1936, run by the same family for 35 years. Stationery you actually want to use and kids’ stuff that isn’t plastic. The kind of shop you wish your hometown had.",
-        mapsUrl: mapsSearch("Elm Hill Craft Shop Norwich"),
-        image: "/images/tour/elm-hill-tour.jpg",
-        imageAlt: "Elm Hill, the cobbled medieval street where the craft shop sits.",
-        tags: ["rainy-day", "on-the-tour"],
       },
     ],
   },
@@ -510,14 +512,14 @@ export const guideSections: GuideSection[] = [
     icon: "walk",
     picks: [
       {
-        name: "The Shoebox — Hidden Street Tour",
+        name: "The Shoebox Hidden Street Tour",
         tier: "silver",
         nickname: "underneath the Castle",
         body: "Only underground tour in the city. They take you down two flights of stairs into a 15th-century street that’s been buried under the modern road for centuries. Booking essential.",
         mapsUrl: mapsSearch("Shoebox Experiences Norwich Castle Meadow"),
         website: "https://www.theshoebox.org.uk/the-shoebox-experiences/experience/norwichs-hidden-street-tour/",
-        image: "/images/norwich-castle.png",
-        imageAlt: "Norwich Castle on its mound — the tour starts opposite, on Castle Meadow.",
+        image: "/images/guide/shoebox.jpg",
+        imageAlt: "The Hidden Street Tour run by The Shoebox Experiences, which descends to a buried medieval street near Norwich Castle.",
         tags: ["rainy-day"],
       },
       {
@@ -527,14 +529,18 @@ export const guideSections: GuideSection[] = [
         body: "Cheryl runs a beer-and-sausage-roll tour that I genuinely think is the best food tour in the city. £53, four hours, five pubs, more sausage rolls than is sensible.",
         mapsUrl: mapsSearch("Cheryl Cade Tours Norwich"),
         website: "https://cherylcade.com/",
+        image: "/images/guide/cheryl-cade.jpg",
+        imageAlt: "Cheryl Cade's beer and sausage-roll walking tour of Norwich.",
         tags: ["drink"],
       },
       {
-        name: "Norwich Ghost Walks",
-        nickname: "meets at the Adam & Eve",
-        body: "Two hours of stories after dark, told well. Meets at the Adam & Eve at half seven. Pick the Elm Hill route if it’s your first one.",
-        mapsUrl: mapsSearch("Adam and Eve Pub Bishopgate Norwich"),
-        website: "https://www.ghostwalksnorwich.co.uk/",
+        name: "Norwich Story Walks",
+        nickname: "stories after dark",
+        body: "Two hours of Norwich stories after dark, told properly. The kind of local history you won't get off a plaque. Check the meeting point when you book.",
+        mapsUrl: mapsSearch("Norwich Story Walks"),
+        // CONFIRM website + meeting point with Tom (renamed from Norwich Ghost Walks).
+        image: "/images/guide/norwich-story-walks.jpg",
+        imageAlt: "A Norwich Story Walks evening walking tour through the old city.",
         tags: ["outdoors"],
       },
     ],
@@ -556,6 +562,8 @@ export const guideSections: GuideSection[] = [
         body: "Hire a canoe behind the Ribs of Beef and paddle to a riverside pub for a pint. Four routes from the same launch point. Worth it if it’s actually warm.",
         mapsUrl: mapsSearch("Pub and Paddle Elm Hill Quay Norwich"),
         website: "https://www.pubandpaddle.com/",
+        image: "/images/guide/pub-and-paddle.jpg",
+        imageAlt: "Pub and Paddle canoe hire on the River Wensum in Norwich.",
         tags: ["outdoors", "drink"],
       },
       {
@@ -564,6 +572,8 @@ export const guideSections: GuideSection[] = [
         body: "Bright red electric day boats painted to look like ladybirds (a bishy barnabee is Norfolk for ladybird). The only boat hire that goes right into the city centre and up to New Mills. £20 an hour, holds five, book ahead.",
         mapsUrl: mapsSearch("Bishy Barney Boats Norwich"),
         website: "https://bishybarneyboats.co.uk/",
+        image: "/images/guide/bishy-barney.jpg",
+        imageAlt: "A Bishy Barney ladybird day boat on the River Wensum.",
         tags: ["outdoors"],
       },
       {
@@ -573,6 +583,8 @@ export const guideSections: GuideSection[] = [
         body: "Sauna on the river or a rooftop in town, depending which Lions’ Den you book. Ice baths, paddleboarding lessons, and an alcohol-free bar by the saunas. Feels like Helsinki dropped into Norwich.",
         mapsUrl: mapsSearch("Lions Den Norwich"),
         website: "https://www.thelionsdennorwich.com/",
+        image: "/images/guide/lions-den.png",
+        imageAlt: "The Lions' Den riverside sauna in Norwich.",
         tags: ["outdoors"],
       },
     ],
@@ -595,25 +607,29 @@ export const guideSections: GuideSection[] = [
         body: "Independent cinema housed inside a 14th-century merchant's house on St Andrews. Picturehouse-run, so the programming is good. Restaurant and bar attached for a full evening out.",
         mapsUrl: mapsSearch("Cinema City St Andrews Norwich"),
         website: "https://www.picturehouses.com/cinema/cinema-city",
+        image: "/images/guide/cinema-city.jpg",
+        imageAlt: "Cinema City, the independent cinema in a medieval merchant's house on St Andrews.",
         tags: ["rainy-day"],
       },
       {
         name: "Norwich Castle Museum",
         tier: "silver",
         nickname: "Norman keep, just reopened",
-        body: "[Replace with 1–2 lines on why you send people here.] The Norman keep on the hill in the middle of town, reopened 2025 after a £15m redevelopment. The new Medieval Gallery is a British Museum partnership.",
+        body: "The Norman keep on the hill in the middle of town, reopened 2025 after a £15m redevelopment. The new Medieval Gallery is a British Museum partnership. Climb up for the views.",
         mapsUrl: mapsSearch("Norwich Castle Museum"),
         website: "https://www.norwichcastle.norfolk.gov.uk/",
-        image: "/images/norwich-castle.png",
-        imageAlt: "Norwich Castle, the Norman fortress overlooking the city.",
+        image: "/images/guide/castle-museum.jpg",
+        imageAlt: "Norwich Castle Museum, the Norman keep on the hill in the centre of the city.",
         tags: ["rainy-day", "on-the-tour"],
       },
       {
         name: "Strangers' Hall",
         nickname: "merchant's house turned museum",
-        body: "[Replace with 1–2 lines on why you send people here.] A 14th-century merchant's house with rooms decorated as they were across the centuries. Tudor, Georgian, Victorian, all under one roof. A short walk from the tour finish.",
+        body: "A 14th-century merchant's house with rooms decorated as they were across the centuries. Tudor, Georgian, Victorian, all under one roof. A short walk from the tour finish.",
         mapsUrl: mapsSearch("Strangers Hall Norwich"),
         website: "https://www.museums.norfolk.gov.uk/strangers-hall",
+        image: "/images/guide/strangers-hall.jpg",
+        imageAlt: "Strangers' Hall, the medieval merchant's house museum in Norwich.",
         tags: ["rainy-day"],
       },
     ],
@@ -637,6 +653,8 @@ export const guideSections: GuideSection[] = [
         nickname: "2 miles on the Norfolk Coast Path",
         body: "Two miles on the cliffs between Overstrand and Cromer, train back to Norwich if you can’t be bothered to walk both ways. Don’t get too close to the edge, the cliffs actually fall.",
         mapsUrl: mapsSearch("Overstrand cliff path Cromer Norfolk"),
+        image: "/images/guide/overstrand-cromer.jpg",
+        imageAlt: "The clifftop Norfolk Coast Path between Overstrand and Cromer.",
         tags: ["day-trip", "outdoors", "free"],
       },
       {
@@ -644,6 +662,8 @@ export const guideSections: GuideSection[] = [
         nickname: "4.5 miles, train back from either end",
         body: "Train out to Cromer, walk four and a half miles along the cliffs to Sheringham, train back. Climb Beeston Bump halfway. Stop for a Mary Jane's chip dinner in Cromer at the end.",
         mapsUrl: mapsSearch("Cromer to Sheringham Norfolk Coast Path"),
+        image: "/images/guide/cromer-sheringham.jpg",
+        imageAlt: "The clifftop coastal walk from Cromer to Sheringham, past Beeston Bump.",
         tags: ["day-trip", "outdoors", "free"],
       },
       {
@@ -651,13 +671,17 @@ export const guideSections: GuideSection[] = [
         nickname: "Norfolk's defining waterway",
         body: "Half an hour out of Norwich and you're in the Broads proper. Hire a day boat in Wroxham, picnic on deck, watch the herons. Plenty of pubs to moor at along the way.",
         mapsUrl: mapsSearch("Wroxham Norfolk Broads day boat hire"),
+        image: "/images/guide/wroxham-broads.jpg",
+        imageAlt: "Day boats on the water at Wroxham on the Norfolk Broads.",
         tags: ["day-trip", "outdoors"],
       },
       {
-        name: "[CONFIRM] Mary Jane's Fish & Chips, Cromer",
+        name: "Mary Jane's Fish & Chips, Cromer",
         nickname: "the other one (not No.1)",
         body: "Better than No.1, in my opinion, though half of Cromer would fight me on it. Fried in beef dripping. Sit-in or takeaway, both work.",
         mapsUrl: mapsSearch("Mary Janes Fish Chips Cromer"),
+        image: "/images/guide/mary-janes.jpg",
+        imageAlt: "Mary Jane's Fish & Chips in Cromer.",
         tags: ["day-trip"],
       },
       {
@@ -686,10 +710,9 @@ export const guideSections: GuideSection[] = [
   },
 
   // ── 10. Festivals ──────────────────────────────────────────────────────────
-  // CONFIRM: There's "Norwich Wine Week" (10-day citywide event, 19–28 June
-  // 2026, organised by Norwich BID) AND "Norwich Wine Fest" (3-day headline
-  // event in Chapelfield Gardens, 14–16 June 2026). Listed the Week below —
-  // swap to Fest if Tom wants the specific weekend.
+  // NOTE: "Norwich Wine Week" (10-day citywide, every June, organised by
+  // Norwich BID). There's also a separate 3-day "Norwich Wine Fest" in
+  // Chapelfield Gardens. Listed the Week; swap to Fest if you meant that.
   {
     id: "festivals",
     shortLabel: "Festivals",
@@ -704,14 +727,18 @@ export const guideSections: GuideSection[] = [
         body: "Three hundred-plus cask ales in a medieval friary, late October, run by the local CAMRA crew. If you can time your visit, do.",
         mapsUrl: mapsSearch("Norwich Beer Festival The Halls"),
         website: "https://norwich.camra.org.uk/festival/",
+        image: "/images/guide/beer-festival.jpg",
+        imageAlt: "The Norwich Beer Festival, held in the medieval St Andrew's and Blackfriars Halls.",
         tags: ["drink"],
       },
       {
-        name: "[CONFIRM] Norwich Wine Week",
+        name: "Norwich Wine Week",
         nickname: "10 days citywide, every June",
         body: "Ten days every June where every wine bar and restaurant in the city does something. The headline event is in Chapelfield Gardens. The fringe stuff in the wine bars is where the value is.",
         mapsUrl: mapsSearch("Norwich Wine Week"),
         website: "https://www.norwichwineweek.co.uk/",
+        image: "/images/guide/wine-week.png",
+        imageAlt: "Norwich Wine Week, the 10-day citywide wine festival held every June.",
         tags: ["drink"],
       },
     ],
