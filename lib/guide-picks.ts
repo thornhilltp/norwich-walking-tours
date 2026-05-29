@@ -579,8 +579,8 @@ export const guideSections: GuideSection[] = [
         body: "Volunteers run a free hour-long tour of the Cathedral, hourly Monday to Saturday. Meet at the font, no booking. The guides know things the signs don’t say.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
         website: "https://cathedral.org.uk/visit/cathedral-tours/",
-        image: "/images/guide/cathedral-tour.jpg",
-        imageAlt: "A walking-tour group on the Cathedral Close lawn, Norwich Cathedral and its spire behind them.",
+        image: "/images/guide/cathedral.png",
+        imageAlt: "Norwich Cathedral's west front framed by the stone arch of the Erpingham Gate.",
         tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
