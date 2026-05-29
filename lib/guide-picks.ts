@@ -915,7 +915,8 @@ export const guideSections: GuideSection[] = [
         nickname: "bike trails and big pines",
         body: "England's largest lowland pine forest, about 40 minutes south. Hire a bike, climb at Go Ape, or just walk the trails from High Lodge. A good day out with kids.",
         mapsUrl: mapsSearch("Thetford Forest High Lodge"),
-        // Image pending — Tom's shot is a watermarked Alamy stock image, can't publish it.
+        image: "/images/guide/thetford-forest.jpg",
+        imageAlt: "A sunlit path through the pines at Thetford Forest, the High Lodge centre beyond.",
         tags: ["day-trip", "outdoors"],
       },
       {
@@ -923,7 +924,8 @@ export const guideSections: GuideSection[] = [
         nickname: "Jacobean pile, Boleyn country",
         body: "A grand Jacobean mansion with gardens and parkland, said to be where Anne Boleyn was born. National Trust, about 40 minutes north. Worth a slow afternoon.",
         mapsUrl: mapsSearch("Blickling Hall Norfolk"),
-        // Image pending — Tom's shot carries a photographer's watermark, can't publish it.
+        image: "/images/guide/blickling-hall.jpg",
+        imageAlt: "The red-brick Jacobean facade of Blickling Hall, its clock tower and chimneys against the sky.",
         tags: ["day-trip", "outdoors"],
       },
     ],
