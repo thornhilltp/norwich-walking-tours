@@ -568,6 +568,15 @@ export const guideSections: GuideSection[] = [
         imageAlt: "The Adam & Eve, Norwich's oldest pub, a flint and brick building with picnic tables and umbrellas outside.",
         tags: ["drink", "rainy-day"],
       },
+      {
+        name: "Sir Toby's Beers",
+        nickname: "craft beer stall on the market",
+        body: "Bottle shop and craft beer bar right on Norwich Market. Hundreds of beers to take away, a few on tap to drink in the open air. The stallholders know their stuff.",
+        mapsUrl: mapsSearch("Sir Tobys Beers Norwich Market"),
+        image: "/images/guide/sir-tobys.jpg",
+        imageAlt: "The Sir Toby's Beers stall on Norwich Market, a striped-awning kiosk with customers outside.",
+        tags: ["drink", "on-the-tour"],
+      },
     ],
   },
 
@@ -770,7 +779,8 @@ export const guideSections: GuideSection[] = [
         nickname: "Mystery of the Stolen Canary",
         body: "A self-guided treasure hunt that walks you round the city solving clues. Good with kids or a group who fancy seeing Norwich without a guide. Play at your own pace.",
         mapsUrl: mapsSearch("Norwich scavenger hunt mystery stolen canary"),
-        // Image pending — supplied file is a TripAdvisor award badge, not a shot of the game.
+        image: "/images/guide/scavenger-hunt.webp",
+        imageAlt: "The Norwich Mystery Adventure scavenger hunt cover, an illustrated market scene titled The Mystery of the Stolen Canary.",
         tags: ["outdoors"],
       },
     ],
