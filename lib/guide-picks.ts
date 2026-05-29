@@ -579,8 +579,8 @@ export const guideSections: GuideSection[] = [
         body: "Volunteers run a free hour-long tour of the Cathedral, hourly Monday to Saturday. Meet at the font, no booking. The guides know things the signs don’t say.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
         website: "https://cathedral.org.uk/visit/cathedral-tours/",
-        image: "/images/guide/cathedral.png",
-        imageAlt: "Norwich Cathedral's west front framed by the stone arch of the Erpingham Gate.",
+        image: "/images/guide/cathedral.avif",
+        imageAlt: "Norwich Cathedral, the city's 900-year-old Norman cathedral.",
         tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
@@ -589,8 +589,8 @@ export const guideSections: GuideSection[] = [
         body: "Sung service most evenings, 45 minutes, no entry fee, no booking. The choir is genuinely excellent. Even non-religious visitors come for the acoustics.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
         website: "https://cathedral.org.uk/worship/worship-with-us/evensong/",
-        image: "/images/guide/evensong.png",
-        imageAlt: "The vaulted interior of Norwich Cathedral looking up at a tall stained-glass window.",
+        image: "/images/guide/evensong.avif",
+        imageAlt: "An evensong service inside Norwich Cathedral, the congregation seated by candlelight.",
         tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
