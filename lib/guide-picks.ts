@@ -559,6 +559,15 @@ export const guideSections: GuideSection[] = [
         imageAlt: "The riverside terrace of The Compleat Angler overlooking the River Wensum.",
         tags: ["drink", "outdoors"],
       },
+      {
+        name: "The Adam & Eve",
+        nickname: "Norwich's oldest pub",
+        body: "The oldest pub in the city, parts of it going back to 1249. Flint and brick, flowers everywhere, picnic benches out front. A pint here is half a history lesson.",
+        mapsUrl: mapsSearch("Adam and Eve pub Norwich"),
+        image: "/images/guide/adam-and-eve.webp",
+        imageAlt: "The Adam & Eve, Norwich's oldest pub, a flint and brick building with picnic tables and umbrellas outside.",
+        tags: ["drink", "rainy-day"],
+      },
     ],
   },
 
@@ -754,6 +763,14 @@ export const guideSections: GuideSection[] = [
         website: "https://norwichstorywalks.co.uk/",
         image: "/images/guide/norwich-story-walks.jpg",
         imageAlt: "A Norwich Story Walks guided walking tour through the old city of Norwich.",
+        tags: ["outdoors"],
+      },
+      {
+        name: "Norwich Scavenger Hunt",
+        nickname: "Mystery of the Stolen Canary",
+        body: "A self-guided treasure hunt that walks you round the city solving clues. Good with kids or a group who fancy seeing Norwich without a guide. Play at your own pace.",
+        mapsUrl: mapsSearch("Norwich scavenger hunt mystery stolen canary"),
+        // Image pending — supplied file is a TripAdvisor award badge, not a shot of the game.
         tags: ["outdoors"],
       },
     ],
