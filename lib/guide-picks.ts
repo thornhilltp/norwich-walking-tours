@@ -292,7 +292,7 @@ export const guideSections: GuideSection[] = [
         nickname: "food hall in the Royal Arcade",
         body: "Food hall tucked in the Royal Arcade, the art nouveau one you walked through today. A handful of independent kitchens, one bar, shared tables. Where to go when nobody can agree on dinner.",
         mapsUrl: mapsSearch("Yalm Royal Arcade Norwich"),
-        // CONFIRM website with Tom — yalm.co.uk likely but unverified.
+        website: "https://www.yalm.co.uk/",
         image: "/images/guide/yalm.webp",
         imageAlt: "A chef carrying a tray of fresh sushi from one of the kitchens at Yalm food hall.",
         tags: ["lunch", "dinner", "drink", "on-the-tour"],
@@ -300,9 +300,9 @@ export const guideSections: GuideSection[] = [
       {
         name: "Kimchi",
         nickname: "Korean comfort food",
-        body: "Korean comfort food, the kind you order too much of. Fried chicken, tteokbokki, dumplings, bibimbap. Go with people and share the lot.",
+        body: "Korean comfort food, the kind you order too much of. Fried chicken, tteokbokki, dumplings, bibimbap. Go with people and share the lot. Small place, so book ahead.",
         mapsUrl: mapsSearch("Kimchi Korean Norwich"),
-        // CONFIRM exact venue name + website with Tom.
+        website: "https://www.thekimchi.co.uk/",
         image: "/images/guide/kimchi.jpg",
         imageAlt: "A spread of Korean dishes on a wooden table: fried chicken, dumplings, tteokbokki, bibimbap bowls, kimchi and rice.",
         tags: ["lunch", "dinner"],
