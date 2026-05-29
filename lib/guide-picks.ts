@@ -541,12 +541,12 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Norwich Story Walks",
-        nickname: "stories after dark",
-        body: "Two hours of Norwich stories after dark, told properly. The kind of local history you won't get off a plaque. Check the meeting point when you book.",
+        nickname: "history with a quirky streak",
+        body: "Norwich's hidden histories with an eccentric streak, told by a local. About 90 minutes, a tenner a head. Book ahead, the line-up changes with the season.",
         mapsUrl: mapsSearch("Norwich Story Walks"),
-        // CONFIRM website + meeting point with Tom (renamed from Norwich Ghost Walks).
+        website: "https://norwichstorywalks.co.uk/",
         image: "/images/guide/norwich-story-walks.jpg",
-        imageAlt: "A Norwich Story Walks evening walking tour through the old city.",
+        imageAlt: "A Norwich Story Walks guided walking tour through the old city of Norwich.",
         tags: ["outdoors"],
       },
     ],
