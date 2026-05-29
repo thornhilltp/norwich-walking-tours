@@ -180,8 +180,8 @@ export const guideSections: GuideSection[] = [
         body: "Fresh pasta made on the premises, walk-ins only. Grab a table in the cellar bar if the main room’s full, or the churchyard opposite if it’s warm.",
         mapsUrl: "https://share.google/DJJh99gaNiiuf8B2O",
         website: "https://www.yardnorwich.com/",
-        image: "/images/pottergate-stock.png",
-        imageAlt: "Pottergate, the Norwich Lanes street where Yard sits.",
+        image: "/images/guide/yard.webp",
+        imageAlt: "A fig, prosciutto and walnut toast on sourdough at Yard, drizzled with honey.",
         tags: ["dinner", "drink", "on-the-tour"],
       },
       {
@@ -408,8 +408,8 @@ export const guideSections: GuideSection[] = [
         body: "Volunteers run a free hour-long tour of the Cathedral, hourly Monday to Saturday. Meet at the font, no booking. The guides know things the signs don’t say.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
         website: "https://cathedral.org.uk/visit/cathedral-tours/",
-        image: "/images/tour/group-cathedral-west-front.jpg",
-        imageAlt: "Norwich Cathedral's west front, the start of the free guided tour.",
+        image: "/images/guide/cathedral-tour.jpg",
+        imageAlt: "A walking-tour group on the Cathedral Close lawn, Norwich Cathedral and its spire behind them.",
         tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
@@ -418,8 +418,8 @@ export const guideSections: GuideSection[] = [
         body: "Sung service most evenings, 45 minutes, no entry fee, no booking. The choir is genuinely excellent. Even non-religious visitors come for the acoustics.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
         website: "https://cathedral.org.uk/worship/worship-with-us/evensong/",
-        image: "/images/norwich-cathedral-stock.png",
-        imageAlt: "Norwich Cathedral, the 900-year-old Norman cathedral with the second-tallest spire in England.",
+        image: "/images/guide/evensong.png",
+        imageAlt: "The vaulted interior of Norwich Cathedral looking up at a tall stained-glass window.",
         tags: ["free", "rainy-day", "on-the-tour"],
       },
       {
