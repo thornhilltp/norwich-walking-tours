@@ -41,6 +41,22 @@ export default function QuestionFilter() {
     // it can be cropped off the right edge on smaller screens.
     const chip = stripRef.current?.querySelector<HTMLElement>('[data-active="true"]');
     if (chip) chip.scrollIntoView({ inline: "center", block: "nearest" });
+
+    // Translate a vertical mouse-wheel gesture into horizontal scroll on the
+    // strip — otherwise desktop mouse users can't scroll it (the default
+    // wheel only moves vertical containers). Only convert when vertical
+    // delta dominates, so trackpad horizontal swipes still pass through
+    // natively. Mobile touch swipe is unaffected.
+    const strip = stripRef.current;
+    if (!strip) return;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        strip.scrollLeft += e.deltaY;
+      }
+    };
+    strip.addEventListener("wheel", onWheel, { passive: false });
+    return () => strip.removeEventListener("wheel", onWheel);
   }, [activeId]);
 
   // ── Landing: full grid of tiles ─────────────────────────────────────────
@@ -96,11 +112,22 @@ export default function QuestionFilter() {
   // sticky site nav). Edge-to-edge with the brand-bg behind a soft blur so
   // picks scrolling underneath don't bleed through.
   return (
-    <div className="sticky top-20 md:top-24 z-20 -mx-4 sm:mx-0 px-4 sm:px-0 sm:rounded-2xl bg-brand-bg/95 backdrop-blur-sm border-y sm:border border-brand-accent/15 py-2 mb-6 shadow-sm">
+    <div className="sticky top-20 md:top-24 z-20 -mx-4 sm:mx-0 px-4 sm:px-0 sm:rounded-2xl bg-brand-bg/95 backdrop-blur-sm border-y sm:border border-brand-accent/15 py-2 mb-6 shadow-sm relative">
+      {/* Edge fade gradients — visual cue that the strip continues
+          off-screen. pointer-events-none so taps still land on the chips
+          underneath. */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-brand-bg via-brand-bg/80 to-transparent z-10 sm:rounded-l-2xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-brand-bg via-brand-bg/80 to-transparent z-10 sm:rounded-r-2xl"
+        aria-hidden="true"
+      />
       <ol
         ref={stripRef}
-        className="flex gap-2 overflow-x-auto"
-        style={{ scrollbarWidth: "none" }}
+        className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-brand-accent/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-brand-accent/70"
+        style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(45,169,107,0.4) transparent" }}
         aria-label="Question filter"
       >
         {QUESTIONS.map((q) => {
