@@ -182,7 +182,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.yardnorwich.com/",
         image: "/images/guide/yard.webp",
         imageAlt: "A fig, prosciutto and walnut toast on sourdough at Yard, drizzled with honey.",
-        tags: ["dinner", "drink", "on-the-tour"],
+        tags: ["dinner", "on-the-tour"],
       },
       {
         name: "Big Deal's Bodega",
@@ -292,7 +292,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.yalm.co.uk/",
         image: "/images/guide/yalm.webp",
         imageAlt: "A chef carrying a tray of fresh sushi from one of the kitchens at Yalm food hall.",
-        tags: ["lunch", "dinner", "drink", "on-the-tour"],
+        tags: ["lunch", "dinner", "on-the-tour"],
       },
       {
         name: "Kimchi",
@@ -349,7 +349,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Grosvenor Fish Bar Norwich"),
         image: "/images/guide/grosvenor-fish-bar.jpg",
         imageAlt: "Beer-battered fish and chips with mushy peas in a basket at Grosvenor Fish Bar.",
-        tags: ["lunch"],
+        tags: ["lunch", "dinner"],
       },
       {
         name: "Lucy's Chips",
@@ -475,7 +475,7 @@ export const guideSections: GuideSection[] = [
         website: "https://thebelgianmonk.com/",
         image: "/images/guide/belgian-monk.jpg",
         imageAlt: "The Belgian Monk, the Belgian beer and moules-frites bar on Pottergate.",
-        tags: ["drink"],
+        tags: ["drink", "dinner"],
       },
       {
         name: "Redwell Brewery",
@@ -520,7 +520,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("The Artichoke Magdalen Road Norwich"),
         image: "/images/guide/artichoke.jpg",
         imageAlt: "The Artichoke pub logo, a green artichoke on a purple background.",
-        tags: ["drink"],
+        tags: ["drink", "outdoors"],
       },
       {
         name: "The Playhouse",
@@ -565,7 +565,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Adam and Eve pub Norwich"),
         image: "/images/guide/adam-and-eve.webp",
         imageAlt: "The Adam & Eve, Norwich's oldest pub, a flint and brick building with picnic tables and umbrellas outside.",
-        tags: ["drink", "rainy-day"],
+        tags: ["drink", "rainy-day", "outdoors"],
       },
       {
         name: "Sir Toby's Beers",
@@ -762,7 +762,7 @@ export const guideSections: GuideSection[] = [
         website: "https://cherylcade.com/",
         image: "/images/guide/cheryl-cade.jpg",
         imageAlt: "Cheryl Cade's beer and sausage-roll walking tour of Norwich.",
-        tags: ["drink"],
+        tags: ["outdoors"],
       },
       {
         name: "Norwich Story Walks",
