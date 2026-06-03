@@ -175,7 +175,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Yard",
-        tier: "silver",
+        tier: "gold",
         nickname: "fresh pasta on Pottergate",
         body: "Fresh pasta made on the premises, walk-ins only. Grab a table in the cellar bar if the main room’s full, or the churchyard opposite if it’s warm.",
         mapsUrl: "https://share.google/DJJh99gaNiiuf8B2O",
@@ -214,7 +214,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Stoke Mill",
-        tier: "silver",
         nickname: "the old Colman's mustard mill",
         body: "Fine dining in the building where Colman’s first ground their mustard, a few miles outside town. Needs a taxi. Worth it for the special occasion.",
         mapsUrl: mapsSearch("Stoke Mill Restaurant Stoke Holy Cross"),
@@ -225,7 +224,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Benoli",
-        tier: "silver",
         nickname: "Italian on Timber Hill",
         body: "Italian, run by a chef who finished MasterChef Pro. Small room so book ahead. The pasta is the headline.",
         mapsUrl: mapsSearch("Benoli Restaurant Timber Hill Norwich"),
@@ -247,7 +245,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Amaretto Delicatessen",
-        tier: "silver",
         nickname: "Italian deli on St George's",
         body: "Italian deli where Fabrizio cooks upstairs every morning. Pizza by the slice, pastries, sausage rolls, hot lunch counter. The lunchtime queue is the giveaway.",
         mapsUrl: mapsSearch("Amaretto Delicatessen St George Street Norwich"),
@@ -258,7 +255,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Café Gelato",
-        tier: "silver",
+        tier: "gold",
         nickname: "Norwich's first gelato parlour",
         body: "Italian gelato, churned daily with Norfolk milk and Sicilian pistachios. The queue out the door is the local endorsement. Cannoli and a coffee if you want to sit.",
         mapsUrl: mapsSearch("Cafe Gelato Opie Street Norwich"),
@@ -299,6 +296,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Kimchi",
+        tier: "silver",
         nickname: "Korean comfort food",
         body: "Korean comfort food, the kind you order too much of. Fried chicken, tteokbokki, dumplings, bibimbap. Go with people and share the lot. Small place, so book ahead.",
         mapsUrl: mapsSearch("Kimchi Korean Norwich"),
@@ -327,6 +325,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Donnelli's",
+        tier: "silver",
         nickname: "proper pizza, Italian run",
         body: "Italian-run pizzeria doing proper wood-fired pizza and meatballs. Nothing fancy, just the real thing done well. Go hungry and order the sides.",
         mapsUrl: mapsSearch("Donnellis pizza Norwich"),
@@ -449,7 +448,6 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "The Fat Cat",
-        tier: "gold",
         nickname: "the original on West End St",
         body: "Two-time CAMRA National Pub of the Year, twenty-plus cask ales any day of the week. A Norwich institution: no telly, no music, just beer and people who know it.",
         mapsUrl: mapsSearch("Fat Cat Pub West End Street Norwich"),
@@ -460,6 +458,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Fat Cat Brewery Tap",
+        tier: "gold",
         nickname: "the taproom on Lawson Rd",
         body: "Same family as The Fat Cat, mile up the road in the building where they make the beer. Smaller and quieter, more of a local crowd than tourists.",
         mapsUrl: mapsSearch("Fat Cat Brewery Tap Lawson Road Norwich"),
@@ -570,6 +569,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Sir Toby's Beers",
+        tier: "silver",
         nickname: "craft beer stall on the market",
         body: "Bottle shop and craft beer bar right on Norwich Market. Hundreds of beers to take away, a few on tap to drink in the open air. The stallholders know their stuff.",
         mapsUrl: mapsSearch("Sir Tobys Beers Norwich Market"),
@@ -592,7 +592,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Free Cathedral guided walking tour",
-        tier: "silver",
+        tier: "gold",
         nickname: "Mon–Sat, hourly 10am–3pm",
         body: "Volunteers run a free hour-long tour of the Cathedral, hourly Monday to Saturday. Meet at the font, no booking. The guides know things the signs don’t say.",
         mapsUrl: mapsSearch("Norwich Cathedral"),
@@ -623,6 +623,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Riverside walk via Cow Tower",
+        tier: "silver",
         body: "Pick up the path at Fye Bridge and walk past Cow Tower toward the Cathedral. Half an hour, no traffic, river views you can’t see from the streets.",
         mapsUrl: mapsSearch("Cow Tower Norwich"),
         image: "/images/guide/riverside-walk.jpg",
@@ -675,6 +676,7 @@ export const guideSections: GuideSection[] = [
     picks: [
       {
         name: "Jarrolds Food Hall",
+        tier: "silver",
         nickname: "lower ground floor",
         body: "Skip the upper floors and head to the basement. Food hall with a walk-in cheese room, deli counter, wine bar, charcuterie bar. The department store has been in the family since 1770.",
         mapsUrl: mapsSearch("Jarrold Department Store London Street Norwich"),
@@ -687,7 +689,6 @@ export const guideSections: GuideSection[] = [
       // Unthank Road site is too far out of centre for a post-tour rec.
       {
         name: "Thorns",
-        tier: "silver",
         nickname: "independent DIY since 1835",
         body: "Independent DIY shop trading since 1835. If your B&B’s hairdryer breaks at 9am, this is where to go. Three generations behind the counter, eight departments, none of them on a screen.",
         mapsUrl: mapsSearch("Thorns DIY Exchange Street Norwich"),
@@ -755,7 +756,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Cheryl Cade Tours",
-        tier: "gold",
         nickname: "beer, sausage rolls + a pastry",
         body: "Cheryl runs a beer-and-sausage-roll tour that I genuinely think is the best food tour in the city. £53, four hours, five pubs, more sausage rolls than is sensible.",
         mapsUrl: mapsSearch("Cheryl Cade Tours Norwich"),
@@ -818,7 +818,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "The Lions' Den",
-        tier: "silver",
         nickname: "river sauna + rooftop sauna",
         body: "Sauna on the river or a rooftop in town, depending which Lions’ Den you book. Ice baths, paddleboarding lessons, and an alcohol-free bar by the saunas. Feels like Helsinki dropped into Norwich.",
         mapsUrl: mapsSearch("Lions Den Norwich"),
@@ -864,6 +863,7 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Strangers' Hall",
+        tier: "silver",
         nickname: "merchant's house turned museum",
         body: "A 14th-century merchant's house with rooms decorated as they were across the centuries. Tudor, Georgian, Victorian, all under one roof. A short walk from the tour finish.",
         mapsUrl: mapsSearch("Strangers Hall Norwich"),
@@ -937,7 +937,6 @@ export const guideSections: GuideSection[] = [
       },
       {
         name: "Flint Vineyard",
-        tier: "silver",
         nickname: "Charmat sparkling + cellar door",
         body: "Hour south of the city, vineyard with a kitchen attached. Lunch Wednesday to Sunday, small plates and a glass of their sparkling. Dog-friendly, garden out the back.",
         mapsUrl: mapsSearch("Flint Vineyard Earsham"),
