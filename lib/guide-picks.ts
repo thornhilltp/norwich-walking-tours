@@ -390,7 +390,7 @@ export const guideSections: GuideSection[] = [
         website: "https://strangerscoffee.com/",
         image: "/images/guide/strangers-coffee.webp",
         imageAlt: "A latte at Strangers Coffee House in their branded black cup.",
-        tags: ["coffee", "rainy-day", "on-the-tour"],
+        tags: ["coffee", "on-the-tour"],
       },
       {
         name: "Bread Source",
@@ -454,7 +454,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.fatcatpub.co.uk/",
         image: "/images/guide/fat-cat.jpg",
         imageAlt: "The Fat Cat, the multi-award-winning real-ale pub on West End Street.",
-        tags: ["drink", "rainy-day"],
+        tags: ["drink"],
       },
       {
         name: "Fat Cat Brewery Tap",
@@ -520,7 +520,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("The Artichoke Magdalen Road Norwich"),
         image: "/images/guide/artichoke.jpg",
         imageAlt: "The Artichoke pub logo, a green artichoke on a purple background.",
-        tags: ["drink", "outdoors"],
+        tags: ["drink"],
       },
       {
         name: "The Playhouse",
@@ -529,7 +529,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Norwich Playhouse Theatre"),
         image: "/images/guide/playhouse.jpg",
         imageAlt: "The covered courtyard bar at Norwich Playhouse, a red-framed canopy with people at tables among plants.",
-        tags: ["drink", "rainy-day"],
+        tags: ["drink"],
       },
       {
         name: "Hawthorn",
@@ -556,7 +556,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Compleat Angler pub Norwich"),
         image: "/images/guide/compleat-angler.jpg",
         imageAlt: "The riverside terrace of The Compleat Angler overlooking the River Wensum.",
-        tags: ["drink", "outdoors"],
+        tags: ["drink"],
       },
       {
         name: "The Adam & Eve",
@@ -565,7 +565,7 @@ export const guideSections: GuideSection[] = [
         mapsUrl: mapsSearch("Adam and Eve pub Norwich"),
         image: "/images/guide/adam-and-eve.webp",
         imageAlt: "The Adam & Eve, Norwich's oldest pub, a flint and brick building with picnic tables and umbrellas outside.",
-        tags: ["drink", "rainy-day", "outdoors"],
+        tags: ["drink"],
       },
       {
         name: "Sir Toby's Beers",
@@ -804,7 +804,7 @@ export const guideSections: GuideSection[] = [
         website: "https://www.pubandpaddle.com/",
         image: "/images/guide/pub-and-paddle.jpg",
         imageAlt: "Pub and Paddle canoe hire on the River Wensum in Norwich.",
-        tags: ["outdoors", "drink"],
+        tags: ["outdoors"],
       },
       {
         name: "Bishy Barney Boats",
