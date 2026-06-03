@@ -20,31 +20,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Beer,
-  CloudRain,
-  Coffee,
-  Croissant,
-  Footprints,
-  Globe,
-  IceCream,
-  List,
-  MapPin,
-  Route,
-  Sparkles,
-  Star,
-  TreePine,
-  UtensilsCrossed,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, Globe, MapPin, Star } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { guideSections, reviewLinks, type GuidePick } from "@/lib/guide-picks";
+import QuestionFilter from "./_components/QuestionFilter";
 import {
-  guideSections,
-  reviewLinks,
-  type GuidePick,
-  type GuideTag,
-} from "@/lib/guide-picks";
+  findQuestion,
+  pickMatchesQuestion,
+  PICKS_HEADER_ID,
+} from "./_lib/questions";
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -104,60 +88,9 @@ const articleSchema = {
   about: { "@type": "Place", name: "Norwich" },
 };
 
-// ── Question vocabulary ──────────────────────────────────────────────────────
-// Each question maps to either a set of tags or the `favourite` boolean.
-// Wording is deliberately conversational — these are the questions guests
-// actually ask Tom on tour ("Where should I eat tonight?") not category
-// labels ("Dinner"). Order = priority on the grid.
-
-interface Question {
-  id: string;
-  label: string;
-  icon: LucideIcon;
-  tags?: GuideTag[];
-  favourite?: boolean;
-  /** "feature" question gets the gold full-width treatment at top. */
-  feature?: boolean;
-  /** "all" is the escape hatch — matches every pick. */
-  all?: boolean;
-}
-
-const QUESTIONS: Question[] = [
-  // "Tom's favourites" sits with the others as a regular tile, just amber
-  // instead of green. When highlighted as the active question it goes
-  // solid amber. Favourite picks WITHIN any other question's results
-  // already get the gold border + badge per the pick card render below.
-  {
-    id: "fav",
-    label: "Tom’s favourites",
-    icon: Star,
-    favourite: true,
-  },
-  { id: "tour", label: "Places on the tour", icon: Footprints, tags: ["on-the-tour"] },
-  { id: "brunch", label: "Where for brunch?", icon: Croissant, tags: ["brunch"] },
-  { id: "lunch", label: "Lunch, properly", icon: UtensilsCrossed, tags: ["lunch"] },
-  { id: "dinner", label: "Where for dinner?", icon: UtensilsCrossed, tags: ["dinner"] },
-  { id: "snacks", label: "Sweet treats", icon: IceCream, tags: ["snacks"] },
-  { id: "pub", label: "Pub after the tour", icon: Beer, tags: ["drink"] },
-  { id: "coffee", label: "Coffee and cake", icon: Coffee, tags: ["coffee"] },
-  { id: "free", label: "Free things to do", icon: Sparkles, tags: ["free"] },
-  { id: "rainy", label: "When it rains", icon: CloudRain, tags: ["rainy-day"] },
-  { id: "outdoors", label: "Outdoors today", icon: TreePine, tags: ["outdoors"] },
-  { id: "daytrip", label: "Day trip out of town", icon: Route, tags: ["day-trip"] },
-];
-
-function findQuestion(id: string | undefined): Question | undefined {
-  if (!id) return undefined;
-  if (id === "all") return { id: "all", label: "All picks", icon: List, all: true };
-  return QUESTIONS.find((q) => q.id === id);
-}
-
-function pickMatchesQuestion(pick: GuidePick, q: Question): boolean {
-  if (q.all) return true;
-  if (q.favourite) return pick.tier === "gold";
-  if (!q.tags || q.tags.length === 0) return true;
-  return q.tags.some((tag) => pick.tags?.includes(tag) ?? false);
-}
+// Question vocabulary, findQuestion, pickMatchesQuestion: moved to
+// ./_lib/questions so the same definitions back both this server page
+// and the client-side QuestionFilter component.
 
 function withUtm(rawUrl: string): string {
   try {
@@ -234,64 +167,21 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
             </div>
           </header>
 
-          {/* Question grid — always visible. Tapping a question switches the
-              selection (URL ?q=...); tapping the active question again
-              clears it back to the landing state. Tom 2026-05-26 feedback. */}
-          <ol className="grid grid-cols-2 gap-3 mb-6">
-            {QUESTIONS.map((q) => {
-              const Icon = q.icon;
-              const isActive = active?.id === q.id;
-              const isFav = q.favourite;
-              // Selected state takes priority over the favourite-amber resting state
-              const classes = isActive
-                ? isFav
-                  ? "bg-amber-400 text-brand-text border-amber-500 shadow-md"
-                  : "bg-brand-accent text-white border-brand-accent shadow-md"
-                : isFav
-                  ? "bg-amber-50 border-amber-300 text-amber-900 hover:bg-amber-100"
-                  : "bg-white border-brand-accent/15 text-brand-text hover:border-brand-accent/40 hover:bg-brand-accent-light";
-              return (
-                <li key={q.id}>
-                  <Link
-                    href={isActive ? "/guide" : `/guide?q=${q.id}`}
-                    scroll={false}
-                    className={`flex items-center gap-3 rounded-2xl border p-4 transition-colors duration-150 focus-brand touch-manipulation min-h-[72px] ${classes}`}
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                    aria-pressed={isActive}
-                  >
-                    <Icon
-                      className={`w-5 h-5 flex-shrink-0 ${isFav ? "fill-current" : ""}`}
-                      aria-hidden="true"
-                    />
-                    <span className="text-[15px] font-semibold leading-tight">
-                      {q.label}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
-
-          {/* Escape hatch for power users who want to scroll the full list.
-              Hidden when "all" is the active question (it'd be a redundant link). */}
-          {active?.id !== "all" && (
-            <div className="text-center mb-10">
-              <Link
-                href="/guide?q=all"
-                scroll={false}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-brand-accent touch-manipulation"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                <List className="w-4 h-4" aria-hidden="true" />
-                Or browse the full list
-              </Link>
-            </div>
-          )}
+          {/* Question filter — landing renders a 2-col grid of question
+              tiles. On selection the grid collapses into a sticky
+              horizontal chip strip just under the site nav, with a
+              scroll-pin so users always land at the top of picks. See
+              app/guide/_components/QuestionFilter.tsx. */}
+          <QuestionFilter />
 
           {/* Matching picks for the active question — render BELOW the grid
               so users can switch question without scrolling back up. */}
           {active && (
-            <section aria-label={`Picks for ${active.label}`} className="mb-10">
+            <section
+              id={PICKS_HEADER_ID}
+              aria-label={`Picks for ${active.label}`}
+              className="mb-10 scroll-mt-32 md:scroll-mt-40"
+            >
               <div className="flex items-baseline justify-between mb-3">
                 <h2
                   className="text-[18px] font-semibold text-brand-text"
