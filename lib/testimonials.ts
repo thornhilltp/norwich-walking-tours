@@ -28,7 +28,7 @@ import type { Testimonial } from "@/components/Testimonials";
 
 export const googleReviewStats = {
   rating: 4.9,
-  count: 33,
+  count: 38,
   profileUrl: "https://www.google.com/search?q=Norwich+Free+Walking+Tours#lrd=0x8bf78e00ceee4e5:0x992c2bcfd5063b62,1,,,,",
 };
 
