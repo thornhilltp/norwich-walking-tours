@@ -28,9 +28,9 @@ function pushConsent(granted: boolean) {
 
   gtag("consent", "update", {
     analytics_storage: granted ? "granted" : "denied",
-    ad_storage: "denied",         // we don't run ads — keep denied
-    ad_user_data: "denied",
-    ad_personalization: "denied",
+    ad_storage: granted ? "granted" : "denied",
+    ad_user_data: granted ? "granted" : "denied",
+    ad_personalization: granted ? "granted" : "denied",
   });
 }
 
@@ -74,8 +74,8 @@ export function CookieConsent() {
           className="text-sm text-brand-text/80 leading-relaxed max-w-prose"
           style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
         >
-          We use Google Analytics to understand how visitors use this site. No
-          personal data is sold or shared.{" "}
+          We use Google Analytics and Google Ads cookies to understand how
+          visitors reach this site. No personal data is sold or shared.{" "}
           <a
             href="/privacy"
             className="underline underline-offset-2 hover:text-brand-accent transition-colors duration-150"

@@ -251,13 +251,14 @@ export default function RootLayout({
                 'ad_personalization': 'denied',
                 'wait_for_update': 500
               });
-              // Rest of world — consent not legally required for analytics.
-              // Analytics defaults to granted; ad signals stay denied (no ads on site).
+              // Rest of world — consent not legally required for analytics or ads.
+              // Granted so Google Ads Conversion Linker can write _gcl_aw and
+              // GA4 → Ads conversion ingestion has the user-level signal it needs.
               gtag('consent', 'default', {
-                'ad_storage': 'denied',
+                'ad_storage': 'granted',
                 'analytics_storage': 'granted',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied'
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted'
               });
               gtag('js', new Date());
             `,
