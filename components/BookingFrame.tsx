@@ -7,7 +7,19 @@ const WIDGET_ORIGIN = "https://norwich-booking.vercel.app";
 const RESIZE_EVENT = "norwich-widget-resize";
 const MIN_HEIGHT = 100;
 const MAX_HEIGHT = 2000;
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+// Attribution params forwarded from this page's URL into the iframe src.
+// utm_* are standard. matchtype + network are Google Ads ValueTrack outputs
+// (set on the campaign's Final URL suffix) — the widget persists them as
+// booking-row columns for keyword-leak diagnostics and channel verification.
+const FORWARD_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "matchtype",
+  "network",
+] as const;
 
 // Build the iframe src with UTMs forwarded from this page's URL + referrer.
 // The iframe sets referrerPolicy="origin", so inside the booking widget,
@@ -20,7 +32,7 @@ function buildWidgetSrc(): string {
   const params = new URLSearchParams();
   const urlParams = new URLSearchParams(window.location.search);
 
-  for (const key of UTM_KEYS) {
+  for (const key of FORWARD_KEYS) {
     const v = urlParams.get(key);
     if (v) params.set(key, v);
   }
