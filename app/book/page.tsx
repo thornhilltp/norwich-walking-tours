@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { CheckCircle, Mail, MapPin, CreditCard } from "lucide-react";
-import { googleReviews, googleReviewStats } from "@/lib/testimonials";
+import { CheckCircle, Mail, MapPin, CreditCard, Star, Clock, Users, CloudRain } from "lucide-react";
+import { googleReviewStats } from "@/lib/testimonials";
+import { TestimonialsV2 } from "@/app/_components/TestimonialsV2";
 
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tours",
@@ -41,8 +42,8 @@ const bookFaqs = [
     a: "We run every day, rain or shine. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat.",
   },
   {
-    q: "Do I have to pay?",
-    a: "No. If the tour wasn't worth it, you don't pay. No awkward sales pitch at the end. Our guides do this full time, so most guests tip £10 to £20 per person, but the choice is genuinely yours.",
+    q: "Is this suitable for kids?",
+    a: "Yes. Mostly flat, mostly paved, easy pace. We've had 6-year-olds and 86-year-olds on the same tour and both had a good time. Families very welcome.",
   },
   {
     q: "Can I cancel?",
@@ -55,16 +56,52 @@ export default function BookPage() {
     <>
       <main className="min-h-screen bg-brand-bg pt-16">
         {/* Page header */}
-        <div className="brand-container pt-8 pb-8 text-center">
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+        <div className="brand-container pt-14 pb-4 text-center">
+          <p className="text-brand-accent text-xs font-semibold tracking-widest uppercase mb-2" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Reserve your spot
           </p>
-          <h1 className="font-caveat text-4xl md:text-5xl font-bold mb-4">
-            Book your free Norwich walking tour spot
+          <h1 className="font-caveat text-4xl md:text-5xl font-bold mb-2">
+            Book your free Norwich walking tour
           </h1>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Free to book. Meet outside The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.
+          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-snug" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Free to book. Pay what it was worth at the end.
           </p>
+        </div>
+
+        {/* Trust row — social proof + key practicals above the widget */}
+        <div className="brand-container pb-5">
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-brand-text/80"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            {googleReviewStats.count > 0 && (
+              <>
+                <a
+                  href={googleReviewStats.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:underline"
+                  aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews`}
+                >
+                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                  <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
+                  <span>({googleReviewStats.count} Google reviews)</span>
+                </a>
+                <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
+              </>
+            )}
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-4 w-4 text-brand-accent" aria-hidden="true" /> 1h 45m
+            </span>
+            <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
+            <span className="inline-flex items-center gap-1">
+              <Users className="h-4 w-4 text-brand-accent" aria-hidden="true" /> Max 15
+            </span>
+            <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
+            <span className="inline-flex items-center gap-1">
+              <CloudRain className="h-4 w-4 text-brand-accent" aria-hidden="true" /> Near daily, rain or shine
+            </span>
+          </div>
         </div>
 
         {/* Booking widget — full width */}
@@ -72,19 +109,14 @@ export default function BookPage() {
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-brand-accent/15 bg-white">
             <BookingFrame height={700} />
           </div>
-
-          {/* Reassurance strip */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            <span>Free to book</span>
-            <span className="hidden sm:block text-brand-accent/40">&bull;</span>
-            <span>Mon to Sat &bull; English language</span>
-            <span className="hidden sm:block text-brand-accent/40">&bull;</span>
-            <span>Pay at the end by card, Apple Pay, Google Pay or cash</span>
-          </div>
         </div>
 
+        {/* Reviews — same component as homepage (TestimonialsV2). Two-platform
+            rating anchor + scroll-snap carousel of all real reviews. */}
+        <TestimonialsV2 />
+
         {/* What happens after you book */}
-        <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
+        <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
           <div className="brand-container max-w-4xl mx-auto">
             <div className="text-center mb-10">
               <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
@@ -122,45 +154,6 @@ export default function BookPage() {
             </div>
           </div>
         </section>
-
-        {/* Real reviews */}
-        {googleReviews.length > 0 && googleReviewStats.count > 0 && (
-          <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
-            <div className="brand-container max-w-4xl mx-auto">
-              <div className="text-center mb-10">
-                <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                  Recent guests
-                </p>
-                <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-2">
-                  What people are saying
-                </h2>
-                <p className="text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                  {googleReviewStats.rating.toFixed(1)} stars from {googleReviewStats.count} Google reviews
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {googleReviews.slice(0, 3).map((r) => (
-                  <blockquote
-                    key={r.id}
-                    className="bg-white rounded-2xl p-6 border border-brand-accent/10 shadow-sm flex flex-col"
-                  >
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                      &ldquo;{r.content.split("\n")[0]}&rdquo;
-                    </p>
-                    <footer className="mt-4 pt-4 border-t border-brand-accent/10">
-                      <p className="text-sm font-semibold text-brand-text" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                        {r.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                        {r.role}
-                      </p>
-                    </footer>
-                  </blockquote>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Mini FAQ */}
         <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
