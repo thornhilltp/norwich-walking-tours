@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { CheckCircle, Mail, MapPin, CreditCard, Star, Clock, Users, CloudRain } from "lucide-react";
+import { CheckCircle, Star, Clock, Users, CloudRain } from "lucide-react";
 import { googleReviewStats } from "@/lib/testimonials";
 import { TestimonialsV2 } from "@/app/_components/TestimonialsV2";
+
+const MapPinIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </svg>
+);
 
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tours",
@@ -16,19 +24,24 @@ export const metadata: Metadata = {
 
 const afterSteps = [
   {
-    icon: Mail,
-    title: "Confirmation in your inbox",
-    body: "You'll get an email straight away with the meeting point details and your guide's name.",
-  },
-  {
-    icon: MapPin,
+    src: "/images/tour/meet-at-the-forum.jpg",
+    alt: "Tour group gathering at The Forum on Millennium Plain at the start of the Norwich Free Walking Tour",
+    caption: "meet here",
+    polaroidBg: "#E8F0E4",
+    tilt: "-1.2deg",
     title: "Meet at The Forum",
     body: "We start outside The Forum on Millennium Plain. Your guide will be in a green t-shirt with a green map-pin flag. Hard to miss.",
+    pin: "10 mins early",
   },
   {
-    icon: CreditCard,
+    src: "/images/tour/group-portrait-bridge.jpg",
+    alt: "Norwich Free Walking Tour group together at the end of the tour by the river",
+    caption: "the happy bit",
+    polaroidBg: "#F5EBDA",
+    tilt: "0.8deg",
     title: "Pay what it was worth",
     body: "At the end you tip what you think the tour was worth. Card, Apple Pay, Google Pay and cash all work. On a good day guests tip £10 to £20 per person.",
+    pin: "no awkward pitch",
   },
 ];
 
@@ -115,43 +128,87 @@ export default function BookPage() {
             rating anchor + scroll-snap carousel of all real reviews. */}
         <TestimonialsV2 />
 
-        {/* What happens after you book */}
+        {/* What happens on the day — PhotoShowcaseV2-style polaroid duo */}
         <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
           <div className="brand-container max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                What happens next
+            <div className="text-center mb-12 md:mb-14">
+              <p className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                On the day
               </p>
-              <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-                After you book
+              <h2 className="leading-[1.0]">
+                <span className="inline text-[clamp(32px,4.4vw,52px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                  Here&apos;s
+                </span>{" "}
+                <span className="inline text-[clamp(44px,5.6vw,72px)] font-semibold leading-[0.95] text-brand-accent" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+                  what happens.
+                </span>
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {afterSteps.map((step, i) => {
-                const Icon = step.icon;
-                return (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-14 max-w-3xl mx-auto">
+              {afterSteps.map((step, idx) => (
+                <article key={step.title} className="flex flex-col">
+                  {/* Polaroid frame — paper tone + slight tilt, masking tape on top */}
                   <div
-                    key={step.title}
-                    className="bg-white rounded-2xl p-6 border border-brand-accent/10 shadow-sm"
+                    className="relative p-2.5 pb-10 shadow-lg border border-brand-text/5 mb-6 self-stretch"
+                    style={{ backgroundColor: step.polaroidBg, transform: `rotate(${step.tilt})` }}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-xl bg-brand-accent/10 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-brand-accent" aria-hidden="true" />
-                      </div>
-                      <span className="font-caveat text-2xl font-bold text-brand-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rounded-sm shadow-sm"
+                      style={{
+                        backgroundColor: "rgba(241, 225, 161, 0.75)",
+                        borderTop: "1px solid rgba(241, 225, 161, 0.95)",
+                        borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+                      }}
+                    />
+                    <div className="relative aspect-square overflow-hidden">
+                      <Image
+                        src={step.src}
+                        alt={step.alt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 85vw, 40vw"
+                      />
                     </div>
-                    <h3 className="font-caveat text-2xl font-bold text-brand-text mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                      {step.body}
+                    <p
+                      className="absolute bottom-2 left-3 text-[20px] italic font-bold text-brand-text"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      {step.caption}
                     </p>
                   </div>
-                );
-              })}
+                  {/* Step number + title + body */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-caveat text-2xl font-bold text-brand-accent leading-none">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="h-px w-6 bg-brand-accent/40" aria-hidden="true" />
+                  </div>
+                  <h3
+                    className="font-bold text-[22px] leading-[1.2] text-brand-text mb-2.5"
+                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    className="text-[15px] text-muted-foreground leading-relaxed mb-4"
+                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                  >
+                    {step.body}
+                  </p>
+                  <span
+                    className="inline-flex items-center gap-1.5 italic text-brand-accent-text text-lg font-medium mt-auto"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    <MapPinIcon />
+                    {step.pin}
+                  </span>
+                </article>
+              ))}
             </div>
+            <p className="text-center mt-12 text-sm text-muted-foreground italic" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              Confirmation lands in your inbox the moment you book. Bring a coat if it&apos;s grey.
+            </p>
           </div>
         </section>
 
