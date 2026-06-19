@@ -67,74 +67,87 @@ const bookFaqs = [
 export default function BookPage() {
   return (
     <>
-      <main className="min-h-screen bg-brand-bg pt-16">
-        {/* Page header — Hero-mirror typography (Lora to Caveat split).
-            Value-led headline so direct landers (e.g. visitnorwich.co.uk)
-            get the same emotional anchor as visitors who saw the homepage Hero. */}
-        <div className="brand-container pt-14 pb-4 text-center">
-          <p
-            className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-3"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Reserve your spot
-          </p>
-          <h1 className="leading-[1.0] mb-4">
-            <span
-              className="block text-[clamp(28px,4.4vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
+      <main className="min-h-screen bg-brand-bg" style={{ paddingTop: 0 }}>
+        {/* Hero — full-bleed image with overlay, mirrors HeroV2 on /.
+            Gives the cold lander (visitnorwich.co.uk, Google) the same
+            emotional anchor + brand promise the homepage Hero would. */}
+        <section className="relative isolate w-full overflow-hidden">
+          <Image
+            src="/images/tour/group-cathedral-lawn.jpg"
+            alt="Norwich Free Walking Tour group with their guide in front of Norwich Cathedral"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover -z-10"
+            style={{ objectPosition: "center 40%" }}
+          />
+          <div className="absolute inset-0 bg-black/75" />
+          <div className="relative brand-container pt-28 pb-12 md:pt-32 md:pb-14 text-center">
+            <p
+              className="text-white/85 text-xs font-semibold tracking-[0.18em] uppercase mb-4"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              1h 45m of Norwich,
-            </span>
-            <span
-              className="block text-[clamp(40px,5.6vw,68px)] font-semibold leading-[0.95] text-brand-accent"
-              style={{ fontFamily: "var(--font-caveat), cursive" }}
+              Reserve your spot
+            </p>
+            <h1 className="leading-[1.0] mb-4" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}>
+              <span
+                className="block text-[clamp(28px,4.4vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                1h 45m of Norwich,
+              </span>
+              <span
+                className="block text-[clamp(40px,5.6vw,68px)] font-semibold leading-[0.95]"
+                style={{ fontFamily: "var(--font-caveat), cursive", color: "#5AE19E" }}
+              >
+                with someone who lives here.
+              </span>
+            </h1>
+            <p
+              className="text-white/85 text-base md:text-lg max-w-xl mx-auto leading-snug mb-6"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
             >
-              with someone who lives here.
-            </span>
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-snug" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Free to book. Pay what it was worth at the end.
-          </p>
-        </div>
+              Free to book. Pay what it was worth at the end.
+            </p>
 
-        {/* Trust row — social proof + key practicals above the widget */}
-        <div className="brand-container pb-5">
-          <div
-            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-brand-text/80"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            {googleReviewStats.count > 0 && (
-              <>
-                <a
-                  href={googleReviewStats.profileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 hover:underline"
-                  aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews`}
-                >
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
-                  <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
-                  <span>({googleReviewStats.count} Google reviews)</span>
-                </a>
-                <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
-              </>
-            )}
-            <span className="inline-flex items-center gap-1">
-              <Clock className="h-4 w-4 text-brand-accent" aria-hidden="true" /> 1h 45m
-            </span>
-            <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
-            <span className="inline-flex items-center gap-1">
-              <Users className="h-4 w-4 text-brand-accent" aria-hidden="true" /> Max 15
-            </span>
-            <span aria-hidden="true" className="text-brand-accent/40">&bull;</span>
-            <span className="inline-flex items-center gap-1">
-              <CloudRain className="h-4 w-4 text-brand-accent" aria-hidden="true" /> Near daily, rain or shine
-            </span>
+            {/* Trust row — adapted for the dark hero (white text) */}
+            <div
+              className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-white/90"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              {googleReviewStats.count > 0 && (
+                <>
+                  <a
+                    href={googleReviewStats.profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 hover:underline"
+                    aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews`}
+                  >
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                    <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
+                    <span>({googleReviewStats.count} Google reviews)</span>
+                  </a>
+                  <span aria-hidden="true" className="text-white/40">&bull;</span>
+                </>
+              )}
+              <span className="inline-flex items-center gap-1">
+                <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+              </span>
+              <span aria-hidden="true" className="text-white/40">&bull;</span>
+              <span className="inline-flex items-center gap-1">
+                <Users className="h-4 w-4" aria-hidden="true" /> Max 15
+              </span>
+              <span aria-hidden="true" className="text-white/40">&bull;</span>
+              <span className="inline-flex items-center gap-1">
+                <CloudRain className="h-4 w-4" aria-hidden="true" /> Near daily, rain or shine
+              </span>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Booking widget — full width */}
-        <div className="brand-container pb-16">
+        <div className="brand-container pt-10 pb-16">
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-brand-accent/15 bg-white">
             <BookingFrame height={700} />
           </div>
