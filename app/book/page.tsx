@@ -143,27 +143,28 @@ export default function BookPage() {
                 <CloudRain className="h-4 w-4" aria-hidden="true" /> Near daily, rain or shine
               </span>
             </div>
+
+            {/* Booking widget — embedded INSIDE the hero so the image bg +
+                overlay continue behind it. Single column, centered, max-w-3xl.
+                Mirrors HeroV2's "hero contains widget" pattern but single-column. */}
+            <div className="mt-10 max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white text-left">
+              <BookingFrame height={700} />
+            </div>
+
+            {/* Meeting-point reassurance — added for direct landers
+                (visitnorwich.co.uk) who'd otherwise scroll past the widget
+                wondering where they're meeting. */}
+            <p
+              className="mt-6 text-center text-sm text-white/90"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <MapPinIcon />
+                Meets outside The Forum, Millennium Plain. Look for the green flag.
+              </span>
+            </p>
           </div>
         </section>
-
-        {/* Booking widget — full width */}
-        <div className="brand-container pt-10 pb-16">
-          <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-brand-accent/15 bg-white">
-            <BookingFrame height={700} />
-          </div>
-          {/* Meeting-point reassurance — added for direct landers
-              (visitnorwich.co.uk) who'd otherwise scroll past the widget
-              wondering where they're meeting. */}
-          <p
-            className="mt-5 text-center text-sm text-muted-foreground"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <MapPinIcon />
-              Meets outside The Forum, Millennium Plain. Look for the green flag.
-            </span>
-          </p>
-        </div>
 
         {/* Reviews — same component as homepage (TestimonialsV2). Two-platform
             rating anchor + scroll-snap carousel of all real reviews. */}
