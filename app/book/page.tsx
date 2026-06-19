@@ -68,13 +68,29 @@ export default function BookPage() {
   return (
     <>
       <main className="min-h-screen bg-brand-bg pt-16">
-        {/* Page header */}
+        {/* Page header — Hero-mirror typography (Lora to Caveat split).
+            Value-led headline so direct landers (e.g. visitnorwich.co.uk)
+            get the same emotional anchor as visitors who saw the homepage Hero. */}
         <div className="brand-container pt-14 pb-4 text-center">
-          <p className="text-brand-accent text-xs font-semibold tracking-widest uppercase mb-2" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+          <p
+            className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-3"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
             Reserve your spot
           </p>
-          <h1 className="font-caveat text-4xl md:text-5xl font-bold mb-2">
-            Book your free Norwich walking tour
+          <h1 className="leading-[1.0] mb-4">
+            <span
+              className="block text-[clamp(28px,4.4vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              1h 45m of Norwich,
+            </span>
+            <span
+              className="block text-[clamp(40px,5.6vw,68px)] font-semibold leading-[0.95] text-brand-accent"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              with someone who lives here.
+            </span>
           </h1>
           <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-snug" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Free to book. Pay what it was worth at the end.
@@ -122,6 +138,18 @@ export default function BookPage() {
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-brand-accent/15 bg-white">
             <BookingFrame height={700} />
           </div>
+          {/* Meeting-point reassurance — added for direct landers
+              (visitnorwich.co.uk) who'd otherwise scroll past the widget
+              wondering where they're meeting. */}
+          <p
+            className="mt-5 text-center text-sm text-muted-foreground"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <MapPinIcon />
+              Meets outside The Forum, Millennium Plain. Look for the green flag.
+            </span>
+          </p>
         </div>
 
         {/* Reviews — same component as homepage (TestimonialsV2). Two-platform
