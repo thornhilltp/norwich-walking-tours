@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { CheckCircle, Star, Clock, Users, CloudRain } from "lucide-react";
 import { googleReviewStats } from "@/lib/testimonials";
-import { TestimonialsV2 } from "@/app/_components/TestimonialsV2";
+import { TestimonialsV3 } from "@/app/_components/TestimonialsV3";
 
 const MapPinIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true">
@@ -166,9 +166,9 @@ export default function BookPage() {
           </div>
         </section>
 
-        {/* Reviews — same component as homepage (TestimonialsV2). Two-platform
-            rating anchor + scroll-snap carousel of all real reviews. */}
-        <TestimonialsV2 />
+        {/* Reviews — same component as homepage. Dual-platform rating anchor +
+            4-card skim grid of curated highlight quotes. */}
+        <TestimonialsV3 />
 
         {/* What happens on the day — PhotoShowcaseV2-style polaroid duo */}
         <section className="section-padding bg-brand-bg border-t border-brand-accent/10">

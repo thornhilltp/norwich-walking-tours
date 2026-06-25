@@ -1,20 +1,14 @@
 "use client";
 
-// TestimonialsV2 — restructured per Tom's reference image #3.
-// Layout: H2 (Lora→Caveat pattern) on left + big rating anchor on right
-// (big rating number + star row + "<count> reviews · rated <avg> of 5" caption,
-// all driven from googleReviewStats in lib/testimonials.ts).
-// Below: 2×2 grid of all 4 real Google reviews. Centered "Read all" link.
+// TestimonialsV3 — Ellie-Planner-inspired skim layout.
+// Pattern: 4 small cards across desktop, single column on phone + tablet.
+// Each card shows a bolded pull-quote phrase + avatar + first name + visit context.
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
-import { googleReviews, googleReviewStats } from "@/lib/testimonials";
+import { googleReviewStats } from "@/lib/testimonials";
 
-// TripAdvisor data — hardcoded here (not added to shared lib/testimonials.ts
-// per Tom's "no main page changes" rule). Promote to lib when this V2
-// design ships and / can use it too.
 const tripAdvisorStats = {
   rating: 5.0,
   count: 26,
@@ -22,7 +16,49 @@ const tripAdvisorStats = {
     "https://www.tripadvisor.com/Attraction_Review-g186342-d34359588-Reviews-Norwich_Free_Walking_Tours-Norwich_Norfolk_East_Anglia_England.html",
 };
 
-// Inline brand logos. Public attribution use for review aggregation.
+type PullReview = {
+  id: number;
+  name: string;
+  visited: string;
+  avatar?: string;
+  pullQuote: string;       // short headline; phrase to bold marked with **markers**
+};
+
+// Curated 4-card mix. Picks span 4 distinct trip types (Local, Returning visitor,
+// Visiting historians, Couples) and four distinct objections/angles:
+//   1. "I already know Norwich"             → Julie, local for life, still learnt loads
+//   2. "Is this on-brand for visitors?"      → Evangelia, repeat visitor, 'lenses of the locals'
+//   3. "Tour guides probably make stuff up"  → Vina, skeptical historian, 'real thing'
+//   4. "What practical value do I get?"      → Pat, "best ice-cream" specifics
+// 2 Google + 2 TripAdvisor reinforces the dual-platform rating header.
+const reviews: PullReview[] = [
+  {
+    id: 1,
+    name: "Julie",
+    visited: "Google · Norwich local",
+    avatar: "/images/reviews/julie.png",
+    pullQuote: "**Lived here all my life** and still learnt loads",
+  },
+  {
+    id: 2,
+    name: "Evangelia",
+    visited: "Tripadvisor · Returning visitor, May 2026",
+    pullQuote: "See the city through the **lenses of the locals**",
+  },
+  {
+    id: 3,
+    name: "Vina",
+    visited: "Google · Visiting historians",
+    pullQuote: "Skeptical historians — **Tom is the real thing**",
+  },
+  {
+    id: 4,
+    name: "Pat",
+    visited: "Tripadvisor · Couples, June 2026",
+    pullQuote: "Learnt so much, including **where to buy the best ice-cream**",
+  },
+];
+
 function GoogleLogo({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 18 18" className={className} aria-hidden="true">
@@ -35,10 +71,6 @@ function GoogleLogo({ className }: { className?: string }) {
 }
 
 function TripAdvisorLogo({ className }: { className?: string }) {
-  // Simplified owl mark — two eyes inside the TripAdvisor green circle.
-  // Full-fidelity TripAdvisor branding would require licensed assets;
-  // this is a recognisable abstraction (same brand green, same two-eye
-  // silhouette) for credibility use.
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
       <circle cx="12" cy="12" r="11" fill="#34E0A1" />
@@ -50,58 +82,56 @@ function TripAdvisorLogo({ className }: { className?: string }) {
   );
 }
 
-export function TestimonialsV2() {
-  // Carousel: native scroll-snap inside an overflow-x-auto track. Mobile
-  // shows one review per page (4 dots); desktop shows two per page
-  // (2 dots, 2 'rows' user paginates through). Per Tom 2026-05-19 to
-  // save vertical space on the homepage.
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
+function renderWithBoldMarkers(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-bold text-brand-text">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+function Avatar({ review }: { review: PullReview }) {
+  if (review.avatar) {
+    return (
+      <div className="w-9 h-9 rounded-full overflow-hidden bg-brand-accent-light flex-shrink-0">
+        <Image
+          src={review.avatar}
+          alt={review.name}
+          width={36}
+          height={36}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+  return (
+    <div className="w-9 h-9 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold text-sm flex-shrink-0">
+      {review.name.charAt(0)}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    let raf = 0;
-    const handle = () => {
-      raf = 0;
-      const cardWidth = el.scrollWidth / googleReviews.length;
-      if (cardWidth > 0) {
-        const idx = Math.round(el.scrollLeft / cardWidth);
-        setActiveIndex(idx);
-      }
-    };
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(handle);
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
+function Stars({ size = 14 }: { size?: number }) {
+  return (
+    <div className="flex items-center gap-0.5" aria-hidden="true">
+      {[1, 2, 3, 4, 5].map(i => (
+        <Star
+          key={i}
+          className="fill-brand-accent text-brand-accent"
+          style={{ width: size, height: size }}
+        />
+      ))}
+    </div>
+  );
+}
 
-  const scrollToReview = (idx: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth = el.scrollWidth / googleReviews.length;
-    el.scrollTo({ left: cardWidth * idx, behavior: "smooth" });
-  };
-
-  // Page size: 1 review per page on mobile, 2 on desktop.
-  const pageSize = isDesktop ? 2 : 1;
-  const totalPages = Math.ceil(googleReviews.length / pageSize);
-  const currentPage = Math.floor(activeIndex / pageSize);
-
+export function TestimonialsV3() {
   return (
     <section
       id="reviews"
@@ -109,7 +139,6 @@ export function TestimonialsV2() {
       style={{ backgroundColor: "#FAF4E8" }}
     >
       <div className="brand-container">
-        {/* Header row — heading left, big rating right */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -138,8 +167,6 @@ export function TestimonialsV2() {
                 after.
               </span>
             </h2>
-            {/* SEO: weaves 'Norwich walking tour' exact phrase + the
-                local-tips differentiator. Same line that was on live /. */}
             <p
               className="mt-4 text-base text-muted-foreground leading-relaxed max-w-xl"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
@@ -148,17 +175,14 @@ export function TestimonialsV2() {
             </p>
           </div>
 
-          {/* Two-platform rating anchor — Google + TripAdvisor side-by-side.
-              Each is clickable, has its own logo, rating, stars + count.
-              Together they read as "verified across two independent
-              review platforms". */}
+          {/* Dual-platform rating anchor */}
           <div className="flex flex-row items-start md:items-end gap-6 sm:gap-8 shrink-0">
             <a
               href={googleReviewStats.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-start md:items-end group"
-              aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews — opens Google reviews in new tab`}
+              aria-label={`${googleReviewStats.rating.toFixed(1)} stars from ${googleReviewStats.count} Google reviews`}
             >
               <div className="flex items-center gap-2 mb-1">
                 <GoogleLogo className="w-4 h-4 flex-shrink-0" />
@@ -176,11 +200,7 @@ export function TestimonialsV2() {
                 >
                   {googleReviewStats.rating.toFixed(1)}
                 </span>
-                <span className="flex items-center gap-0.5">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-brand-accent text-brand-accent" aria-hidden="true" />
-                  ))}
-                </span>
+                <Stars size={16} />
               </div>
               <p
                 className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
@@ -195,7 +215,7 @@ export function TestimonialsV2() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-start md:items-end group"
-              aria-label={`${tripAdvisorStats.rating.toFixed(1)} stars from ${tripAdvisorStats.count} TripAdvisor reviews — opens TripAdvisor in new tab`}
+              aria-label={`${tripAdvisorStats.rating.toFixed(1)} stars from ${tripAdvisorStats.count} TripAdvisor reviews`}
             >
               <div className="flex items-center gap-2 mb-1">
                 <TripAdvisorLogo className="w-4 h-4 flex-shrink-0" />
@@ -213,11 +233,7 @@ export function TestimonialsV2() {
                 >
                   {tripAdvisorStats.rating.toFixed(1)}
                 </span>
-                <span className="flex items-center gap-0.5">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-brand-accent text-brand-accent" aria-hidden="true" />
-                  ))}
-                </span>
+                <Stars size={16} />
               </div>
               <p
                 className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
@@ -229,88 +245,43 @@ export function TestimonialsV2() {
           </div>
         </motion.div>
 
-        {/* Carousel — scroll-snap track. Mobile: one review per page,
-            swipe to advance. Desktop: two per page (basis 50% minus
-            half gap), paginates between two 'rows'. scrollbar-hide
-            class isn't standard Tailwind so falls back to a small
-            margin. */}
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          aria-label="Customer reviews carousel"
-        >
-          {googleReviews.map((review, idx) => (
+        {/* 4 cards across desktop; single-column on phone + tablet (Ellie's pattern). */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+          {reviews.map((review, idx) => (
             <motion.article
               key={review.id}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="flex-shrink-0 snap-start basis-full md:basis-[calc(50%-10px)] bg-white border border-brand-accent/15 rounded-xl p-6 md:p-7"
+              className="bg-white border border-brand-accent/15 rounded-xl p-5 flex flex-col gap-4"
             >
-              <div className="flex items-center gap-0.5 mb-4">
-                {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="w-4 h-4 fill-brand-accent text-brand-accent" aria-hidden="true" />
-                ))}
-              </div>
+              <Stars />
               <p
-                className="text-[17px] text-brand-text leading-relaxed mb-5"
+                className="text-[18px] text-brand-text/80 leading-[1.35]"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                &ldquo;{review.content.split("\n").join(" ")}&rdquo;
+                &ldquo;{renderWithBoldMarkers(review.pullQuote)}&hellip;&rdquo;
               </p>
-              <div className="flex items-center gap-3 pt-4 border-t border-brand-accent/10">
-                {review.avatar ? (
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-brand-accent-light flex-shrink-0">
-                    <Image
-                      src={review.avatar}
-                      alt={review.name}
-                      width={40}
-                      height={40}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold flex-shrink-0">
-                    {review.name.charAt(0)}
-                  </div>
-                )}
-                <div className="text-sm">
-                  <span
+              <div className="flex items-center gap-3 mt-auto pt-3 border-t border-brand-accent/10">
+                <Avatar review={review} />
+                <div className="text-sm leading-tight">
+                  <div
                     className="font-bold text-brand-text"
                     style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                   >
                     {review.name}
-                  </span>
-                  <span
-                    className="text-muted-foreground ml-2"
+                  </div>
+                  <div
+                    className="text-muted-foreground text-xs"
                     style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                   >
-                    &middot; {review.role}
-                  </span>
+                    {review.visited}
+                  </div>
                 </div>
               </div>
             </motion.article>
           ))}
-        </div>
-
-        {/* Dot indicators — count varies with viewport (4 dots mobile,
-            2 dots desktop). Active dot tracks current scroll position. */}
-        <div className="flex justify-center gap-2 mt-6" aria-hidden="true">
-          {Array.from({ length: totalPages }).map((_, i) => {
-            const isActive = i === currentPage;
-            return (
-              <button
-                key={i}
-                type="button"
-                onClick={() => scrollToReview(i * pageSize)}
-                aria-label={`Show review ${i * pageSize + 1}${pageSize === 2 ? `-${(i + 1) * pageSize}` : ""}`}
-                className={`h-2 rounded-full transition-all duration-200 ${
-                  isActive ? "w-6 bg-brand-accent" : "w-2 bg-brand-accent/30 hover:bg-brand-accent/60"
-                }`}
-              />
-            );
-          })}
         </div>
 
         {/* Read all links — two platforms */}
