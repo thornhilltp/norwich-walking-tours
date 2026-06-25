@@ -248,9 +248,8 @@ export function TestimonialsV3() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="bg-white border border-brand-accent/15 rounded-xl p-5 flex flex-col gap-4"
+              className="bg-white border border-brand-accent/15 rounded-xl shadow-sm p-5 flex flex-col gap-4"
             >
-              <Stars />
               <p
                 className="text-[18px] text-brand-text/80 leading-[1.35]"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
