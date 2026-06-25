@@ -1,12 +1,15 @@
 "use client";
 
-// TestimonialsV3 — Ellie-Planner-inspired skim layout.
-// Pattern: 4 small cards across desktop, single column on phone + tablet.
-// Each card shows a bolded pull-quote phrase + avatar + first name + visit context.
+// Testimonials — scan-first review block.
+//
+//   - Quote is the dominant element per card; everything else whispers.
+//   - 3 cards visible on desktop, 1 on mobile. Horizontal scroll-snap +
+//     prev/next arrows on the right reveal the remaining curated reviews.
+//   - Source attribution lives only in the dual-platform rating header.
 
-import Image from "next/image";
-import { Star } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { googleReviewStats } from "@/lib/testimonials";
 
 const tripAdvisorStats = {
@@ -19,43 +22,46 @@ const tripAdvisorStats = {
 type PullReview = {
   id: number;
   name: string;
-  visited: string;
-  avatar?: string;
-  pullQuote: string;       // short headline; phrase to bold marked with **markers**
+  visited: string;       // role only — no platform prefix
+  pullQuote: string;     // **markers** wrap the phrase to bold
 };
 
-// Curated 4-card mix. Picks span 4 distinct trip types (Local, Returning visitor,
-// Visiting historians, Couples) and four distinct objections/angles:
-//   1. "I already know Norwich"             → Julie, local for life, still learnt loads
-//   2. "Is this on-brand for visitors?"      → Evangelia, repeat visitor, 'lenses of the locals'
-//   3. "Tour guides probably make stuff up"  → Vina, skeptical historian, 'real thing'
-//   4. "What practical value do I get?"      → Pat, "best ice-cream" specifics
-// 2 Google + 2 TripAdvisor reinforces the dual-platform rating header.
 const reviews: PullReview[] = [
   {
     id: 1,
     name: "Julie",
-    visited: "Google · Norwich local",
-    avatar: "/images/reviews/julie.png",
+    visited: "Norwich local",
     pullQuote: "**Lived here all my life** and still learnt loads",
   },
   {
     id: 2,
     name: "Evangelia",
-    visited: "Tripadvisor · Returning visitor, May 2026",
+    visited: "Returning visitor, May 2026",
     pullQuote: "See the city through the **lenses of the locals**",
   },
   {
     id: 3,
     name: "Vina",
-    visited: "Google · Visiting historians",
+    visited: "Visiting historians",
     pullQuote: "Skeptical historians — **Tom is the real thing**",
   },
   {
     id: 4,
     name: "Pat",
-    visited: "Tripadvisor · Couples, June 2026",
-    pullQuote: "Learnt so much, including **where to buy the best ice-cream**",
+    visited: "Couples, June 2026",
+    pullQuote: "Learnt so much, including **where to buy the best icecream**",
+  },
+  {
+    id: 5,
+    name: "Yara",
+    visited: "Solo, May 2026",
+    pullQuote: "**1000 fascinating years** of history I'd never have spotted",
+  },
+  {
+    id: 6,
+    name: "Jesus",
+    visited: "Local Guide",
+    pullQuote: "Lots of **QI-worthy little stories** and hidden mentions",
   },
 ];
 
@@ -82,6 +88,18 @@ function TripAdvisorLogo({ className }: { className?: string }) {
   );
 }
 
+function Stars({ size = 16 }: { size?: number }) {
+  return (
+    <div className="flex items-center gap-0.5" aria-hidden="true">
+      {[1, 2, 3, 4, 5].map(i => (
+        <svg key={i} viewBox="0 0 20 20" className="fill-brand-accent" style={{ width: size, height: size }} aria-hidden="true">
+          <path d="M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.3 6L10 14.9 4.5 18l1.3-6L1.3 7.8l6.1-.7L10 1.5z"/>
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 function renderWithBoldMarkers(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
@@ -96,45 +114,39 @@ function renderWithBoldMarkers(text: string) {
   });
 }
 
-function Avatar({ review }: { review: PullReview }) {
-  if (review.avatar) {
-    return (
-      <div className="w-9 h-9 rounded-full overflow-hidden bg-brand-accent-light flex-shrink-0">
-        <Image
-          src={review.avatar}
-          alt={review.name}
-          width={36}
-          height={36}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    );
-  }
-  return (
-    <div className="w-9 h-9 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold text-sm flex-shrink-0">
-      {review.name.charAt(0)}
-    </div>
-  );
-}
+export function Testimonials() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
 
-function Stars({ size = 14 }: { size?: number }) {
-  return (
-    <div className="flex items-center gap-0.5" aria-hidden="true">
-      {[1, 2, 3, 4, 5].map(i => (
-        <Star
-          key={i}
-          className="fill-brand-accent text-brand-accent"
-          style={{ width: size, height: size }}
-        />
-      ))}
-    </div>
-  );
-}
+  // Track scroll position so arrows enable/disable at the edges.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const update = () => {
+      setCanPrev(el.scrollLeft > 4);
+      setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, []);
 
-export function TestimonialsV3() {
+  const advance = (dir: 1 | -1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const step = card ? card.offsetWidth + 20 : el.clientWidth;
+    el.scrollBy({ left: step * dir, behavior: "smooth" });
+  };
+
   return (
     <section
-      id="reviews"
       className="section-padding"
       style={{ backgroundColor: "#FFFFFF" }}
     >
@@ -169,7 +181,6 @@ export function TestimonialsV3() {
             </h2>
           </div>
 
-          {/* Dual-platform rating anchor */}
           <div className="flex flex-row items-start md:items-end gap-6 sm:gap-8 shrink-0">
             <a
               href={googleReviewStats.profileUrl}
@@ -200,7 +211,7 @@ export function TestimonialsV3() {
                 className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                {googleReviewStats.count} reviews &nbsp;·&nbsp; rated {googleReviewStats.rating.toFixed(1)} of 5
+                {googleReviewStats.count} reviews
               </p>
             </a>
 
@@ -233,70 +244,82 @@ export function TestimonialsV3() {
                 className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                {tripAdvisorStats.count} reviews &nbsp;·&nbsp; 100% 5-star
+                {tripAdvisorStats.count} reviews
               </p>
             </a>
           </div>
         </motion.div>
 
-        {/* 4 cards across desktop; single-column on phone + tablet (Ellie's pattern). */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-          {reviews.map((review, idx) => (
-            <motion.article
-              key={review.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="bg-white border border-brand-accent/15 rounded-xl shadow-sm p-5 flex flex-col gap-4"
-            >
-              <p
-                className="text-[18px] text-brand-text/80 leading-[1.35]"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+        {/* Card track + arrows. Arrows sit to the RIGHT of the card row,
+            vertically centred. On mobile they hide (native swipe replaces
+            them) and cards become a full-width snap track. */}
+        <div className="flex items-stretch gap-4">
+          <div
+            ref={scrollRef}
+            className="flex-1 flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            aria-label="Customer reviews"
+          >
+            {reviews.map((review, idx) => (
+              <motion.article
+                key={review.id}
+                data-card
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="flex-shrink-0 snap-start basis-full lg:basis-[calc(33.333%-13.333px)] bg-white border border-brand-accent/15 rounded-xl shadow-sm p-7 flex flex-col gap-6"
               >
-                &ldquo;{renderWithBoldMarkers(review.pullQuote)}&hellip;&rdquo;
-              </p>
-              <div className="flex items-center gap-3 mt-auto pt-3 border-t border-brand-accent/10">
-                <Avatar review={review} />
-                <div className="text-sm leading-tight">
-                  <div
-                    className="font-bold text-brand-text"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    {review.name}
+                <p
+                  className="text-[20px] text-brand-text leading-[1.4] font-medium"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  &ldquo;{renderWithBoldMarkers(review.pullQuote)}&hellip;&rdquo;
+                </p>
+
+                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-brand-accent/10">
+                  <div className="w-9 h-9 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent font-semibold text-sm flex-shrink-0">
+                    {review.name.charAt(0)}
                   </div>
-                  <div
-                    className="text-muted-foreground text-xs"
-                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                  >
-                    {review.visited}
+                  <div className="text-sm leading-tight">
+                    <div
+                      className="font-bold text-brand-text"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {review.name}
+                    </div>
+                    <div
+                      className="text-muted-foreground text-xs"
+                      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                    >
+                      {review.visited}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+              </motion.article>
+            ))}
+          </div>
 
-        {/* Read all links — two platforms */}
-        <div className="mt-10 text-center flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
-          <a
-            href={googleReviewStats.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Read all {googleReviewStats.count} on Google &rarr;
-          </a>
-          <a
-            href={tripAdvisorStats.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Read all {tripAdvisorStats.count} on TripAdvisor &rarr;
-          </a>
+          {/* Prev/next stack — hidden on mobile (native swipe takes over). */}
+          <div className="hidden lg:flex flex-col justify-center gap-3 flex-shrink-0">
+            <button
+              type="button"
+              onClick={() => advance(-1)}
+              disabled={!canPrev}
+              aria-label="Previous reviews"
+              className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light disabled:opacity-30 disabled:cursor-not-allowed transition"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => advance(1)}
+              disabled={!canNext}
+              aria-label="Next reviews"
+              className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light disabled:opacity-30 disabled:cursor-not-allowed transition"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@ import { HeroV2 } from "./_components/HeroV2";
 import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
-import { TestimonialsV3 } from "./_components/TestimonialsV3";
+import { Testimonials } from "./_components/Testimonials";
 
 export default function HomePage() {
   return (
@@ -47,7 +47,7 @@ export default function HomePage() {
             />
           }
         />
-        <TestimonialsV3 />
+        <Testimonials />
         <PhotoShowcaseV2 />
         <ThemedRouteSection />
         <BookingSectionV2 />
