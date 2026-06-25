@@ -47,8 +47,8 @@ export default function HomePage() {
             />
           }
         />
-        <PhotoShowcaseV2 />
         <TestimonialsV3 />
+        <PhotoShowcaseV2 />
         <ThemedRouteSection />
         <BookingSectionV2 />
         <FAQ

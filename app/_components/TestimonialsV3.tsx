@@ -167,12 +167,6 @@ export function TestimonialsV3() {
                 after.
               </span>
             </h2>
-            <p
-              className="mt-4 text-base text-muted-foreground leading-relaxed max-w-xl"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              What guests say about the Norwich walking tour and the local tips that come with it.
-            </p>
           </div>
 
           {/* Dual-platform rating anchor */}
