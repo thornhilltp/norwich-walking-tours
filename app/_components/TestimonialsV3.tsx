@@ -136,7 +136,7 @@ export function TestimonialsV3() {
     <section
       id="reviews"
       className="section-padding"
-      style={{ backgroundColor: "#FAF4E8" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="brand-container">
         <motion.div

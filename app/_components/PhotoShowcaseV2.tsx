@@ -95,7 +95,7 @@ const MapPinIcon = () => (
 
 export function PhotoShowcaseV2() {
   return (
-    <section id="stories" className="section-padding">
+    <section id="stories" className="section-padding" style={{ backgroundColor: "#FAF4E8" }}>
       <div className="brand-container">
         {/* Heading + customer quote */}
         <motion.div
