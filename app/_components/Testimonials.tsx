@@ -214,7 +214,9 @@ export function Testimonials() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  className="relative flex-none snap-start w-[280px] sm:w-[290px] bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-[18px] shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
+                  // Width: exactly 3 across on desktop (no peeking 4th card),
+                  // one full card on mobile. gap is 22px so 2 gaps = 44px.
+                  className="relative flex-none snap-start w-full lg:w-[calc((100%-44px)/3)] bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-[18px] shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
                   style={{ transform: `rotate(${rotate})` }}
                 >
                   {/* Masking tape — same shape as PhotoShowcaseV2, per-card colour. */}
