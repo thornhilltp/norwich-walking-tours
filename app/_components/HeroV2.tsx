@@ -117,8 +117,32 @@ export function HeroV2({
 
           <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             <a
-              href={buttonHref}
-              onClick={() => trackEvent("book_cta_click", { location: "hero_v2" })}
+              // Responsive target: on desktop the CTA scrolls to
+              // BookingSectionV2's in-page widget (#book-section, visible on
+              // lg+). On mobile that section's widget is hidden, so the CTA
+              // must go to the hero's OWN widget (#book) which renders on all
+              // viewports — otherwise phone users scroll past the only live
+              // widget to a section with nothing to book on. href="#book" is
+              // the no-JS fallback (safe on every viewport).
+              href="#book"
+              onClick={(e) => {
+                trackEvent("book_cta_click", { location: "hero_v2" });
+                const desktop =
+                  typeof window !== "undefined" &&
+                  window.matchMedia("(min-width: 1024px)").matches;
+                const targetId = desktop ? buttonHref.replace(/^#/, "") : "book";
+                const el =
+                  typeof document !== "undefined"
+                    ? document.getElementById(targetId)
+                    : null;
+                if (el) {
+                  e.preventDefault();
+                  el.scrollIntoView({
+                    behavior: "smooth",
+                    block: desktop ? "start" : "center",
+                  });
+                }
+              }}
               className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
               {buttonText}
@@ -188,7 +212,10 @@ export function HeroV2({
               Tom flagged it as missing — the iframe is the conversion
               engine and should be visible immediately on phone too. */}
           {widget ? (
-            <div className="block w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white">
+            <div
+              id="book"
+              className="block w-full rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-white scroll-mt-24"
+            >
               {widget}
             </div>
           ) : null}
