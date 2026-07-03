@@ -174,10 +174,10 @@ export function Testimonials() {
           </h2>
 
           <div
-            className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground"
+            className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2 sm:gap-x-3 text-sm text-muted-foreground"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
               <GoogleLogo className="w-3.5 h-3.5 flex-shrink-0" />
               <span className="font-semibold text-brand-text">{googleReviewStats.rating.toFixed(1)}</span>
               <Stars />
@@ -191,8 +191,8 @@ export function Testimonials() {
                 read all {googleReviewStats.count} &rarr;
               </a>
             </span>
-            <span aria-hidden="true" className="text-brand-accent/30">&middot;</span>
-            <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden="true" className="hidden sm:inline text-brand-accent/30">&middot;</span>
+            <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
               <TripAdvisorLogo className="w-4 h-4 flex-shrink-0" />
               <span className="font-semibold text-brand-text">{tripAdvisorStats.rating.toFixed(1)}</span>
               <Stars />
