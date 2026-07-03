@@ -97,6 +97,7 @@ export function Testimonials() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Enable/disable the arrows at the track edges.
   useEffect(() => {
@@ -105,6 +106,9 @@ export function Testimonials() {
     const update = () => {
       setCanPrev(el.scrollLeft > 4);
       setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+      const card = el.querySelector<HTMLElement>("[data-card]");
+      const step = card ? card.offsetWidth + 22 : el.clientWidth || 1;
+      setActiveIndex(Math.max(0, Math.round(el.scrollLeft / step)));
     };
     update();
     el.addEventListener("scroll", update, { passive: true });
@@ -122,6 +126,14 @@ export function Testimonials() {
     const card = el.querySelector<HTMLElement>("[data-card]");
     const step = card ? card.offsetWidth + 22 : el.clientWidth;
     el.scrollBy({ left: step * dir, behavior: "smooth" });
+  };
+
+  const scrollToIndex = (i: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const step = card ? card.offsetWidth + 22 : el.clientWidth;
+    el.scrollTo({ left: step * i, behavior: "smooth" });
   };
 
   return (
@@ -276,6 +288,27 @@ export function Testimonials() {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
+        </div>
+
+        {/* Mobile-only pagination dots — the "there's more, swipe" cue where
+            the arrows are hidden. Active dot widens; tap to jump to a review. */}
+        <div className="flex lg:hidden justify-center gap-1 mt-5" aria-label="Choose a review">
+          {featuredReviews.map((review, i) => (
+            <button
+              key={review.id}
+              type="button"
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to review ${i + 1} of ${featuredReviews.length}`}
+              aria-current={i === activeIndex}
+              className="px-1 py-2"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all ${
+                  i === activeIndex ? "w-5 bg-brand-accent" : "w-2 bg-brand-accent/30"
+                }`}
+              />
+            </button>
+          ))}
         </div>
       </div>
     </section>
