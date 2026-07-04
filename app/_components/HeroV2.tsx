@@ -79,7 +79,11 @@ export function HeroV2({
 
       <motion.div
         className="relative brand-container flex min-h-[80dvh] lg:min-h-[90dvh] items-center justify-between pt-32 pb-24 lg:py-24 flex-col lg:flex-row gap-12"
-        initial="hidden"
+        // initial={false}: render the visible state in server HTML. The old
+        // initial="hidden" SSR'd the H1/CTA/widget at opacity:0, so the
+        // above-the-fold content didn't paint until hydration (speed bug).
+        // Trade-off: no entrance stagger on first load.
+        initial={false}
         animate="visible"
         variants={containerVariants}
       >

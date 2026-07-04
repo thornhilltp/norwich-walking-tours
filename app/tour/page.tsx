@@ -112,15 +112,19 @@ export default function TourPage() {
       {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
           image background + dark overlay + white text. Copy cut from
           ~140 words to ~25 (per Tom's design-principles brief). */}
-      <section
-        id="top"
-        className="relative section-padding"
-        style={{
-          backgroundImage: "url('/images/tour/group-cathedral-lawn.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
-        }}
-      >
+      <section id="top" className="relative isolate section-padding">
+        {/* next/image instead of CSS background: the optimizer serves a
+            resized webp/avif and `priority` preloads it as the LCP —
+            the old backgroundImage shipped the full 486KB original. */}
+        <Image
+          src="/images/tour/group-cathedral-lawn.jpg"
+          alt="Tour group walking through Norwich city centre on the Norwich Free Walking Tour"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover -z-10"
+          style={{ objectPosition: "center 40%" }}
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative brand-container max-w-3xl mx-auto text-center">
           <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">

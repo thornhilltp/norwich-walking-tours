@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { WhatIsFreeTour } from "@/components/WhatIsFreeTour";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -129,15 +130,16 @@ export default function WhatIsAFreeTourPage() {
         />
         {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
             image background + dark overlay + white text. */}
-        <section
-          id="top"
-          className="relative section-padding"
-          style={{
-            backgroundImage: "url('/images/tour/group-cathedral-west-front.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 50%",
-          }}
-        >
+        <section id="top" className="relative isolate section-padding">
+          <Image
+            src="/images/tour/group-cathedral-west-front.jpg"
+            alt="Walking tour group outside the west front of Norwich Cathedral"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover -z-10"
+            style={{ objectPosition: "center 50%" }}
+          />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative brand-container max-w-3xl mx-auto text-center">
             <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">

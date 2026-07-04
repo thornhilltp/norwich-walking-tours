@@ -3,7 +3,7 @@ import { Caveat, Lora } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { StickyBookCTA } from "@/components/StickyBookCTA";
-import { PageTransition } from "@/components/PageTransition";
+import Script from "next/script";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MotionProvider } from "@/components/MotionProvider";
 
@@ -242,16 +242,10 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_ID}');`,
-          }}
-        />
+        {/* Early connection to the booking widget host — the iframe src is
+            set post-hydration, so without this the DNS+TLS handshake starts
+            far too late in the conversion path. */}
+        <link rel="preconnect" href="https://norwich-booking.vercel.app" />
       </head>
       <body className="antialiased sticky-cta-clearance">
         {/* GTM noscript fallback */}
@@ -265,11 +259,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         <MotionProvider>
           <Nav />
-          <PageTransition>{children}</PageTransition>
+          {/* No PageTransition wrapper — it SSR'd every page at opacity:0
+              until hydration, gating first paint on the full JS bundle
+              (removed 2026-07-04, the site-wide speed bug). */}
+          {children}
           <StickyBookCTA />
           {/* CookieConsent pushes consent signals to dataLayer — GTM reads them to control GA4 */}
           <CookieConsent />
         </MotionProvider>
+        {/* Google Tag Manager — loads after hydration so gtm.js (119KB)
+            stays out of the LCP window. Consent defaults above run first
+            (inline, during parse), so Consent Mode ordering is preserved. */}
+        <Script
+          id="gtm-loader"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
       </body>
     </html>
   );

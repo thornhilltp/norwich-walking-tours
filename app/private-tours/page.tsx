@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { ScrollTrail } from "@/components/ScrollTrail";
 import { Users, Clock, MapPin, Star, CheckCircle } from "lucide-react";
@@ -98,15 +99,16 @@ export default function PrivateToursPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       {/* Hero */}
-      <section
-        id="top"
-        className="relative section-padding"
-        style={{
-          backgroundImage: "url('/images/tour/guides-edith-cavell.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 20%",
-        }}
-      >
+      <section id="top" className="relative isolate section-padding">
+        <Image
+          src="/images/tour/guides-edith-cavell.jpg"
+          alt="Norwich tour guide beside the Edith Cavell memorial in Tombland"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover -z-10"
+          style={{ objectPosition: "center 20%" }}
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative brand-container max-w-3xl mx-auto text-center">
           <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
