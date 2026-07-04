@@ -53,7 +53,7 @@ const articleSchema = {
     name: "Norwich Free Walking Tours",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.norwichfreewalkingtours.co.uk/logo.png",
+      url: "https://www.norwichfreewalkingtours.co.uk/Logo_1.png",
     },
   },
 };

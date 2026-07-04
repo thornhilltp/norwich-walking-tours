@@ -1,78 +1,69 @@
 import type { MetadataRoute } from "next";
 
+// NOTE: no lastModified — the previous `new Date()` claimed every page
+// changed on every deploy, which teaches Google to distrust the sitemap.
+// Omitting the field is valid; Google falls back to its own crawl signals.
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://www.norwichfreewalkingtours.co.uk";
 
   return [
     {
       url: base,
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${base}/tour`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${base}/what-is-a-free-tour`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${base}/book`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${base}/contact`,
-      lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${base}/about`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${base}/private-tours`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${base}/things-to-do/free`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${base}/explore`,
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: `${base}/explore/where-to-stay-norwich`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${base}/privacy`,
-      lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.2,
     },
     {
       url: `${base}/terms`,
-      lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.2,
     },

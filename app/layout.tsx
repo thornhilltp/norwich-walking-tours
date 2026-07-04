@@ -6,7 +6,6 @@ import { StickyBookCTA } from "@/components/StickyBookCTA";
 import { PageTransition } from "@/components/PageTransition";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MotionProvider } from "@/components/MotionProvider";
-import { googleReviews, googleReviewStats } from "@/lib/testimonials";
 
 // !! REPLACE GTM-XXXXXXX with your real Google Tag Manager container ID !!
 // Get this from tagmanager.google.com → your container → Admin → Install GTM
@@ -91,35 +90,10 @@ export const metadata: Metadata = {
 };
 
 // ── JSON-LD Schema ────────────────────────────────────────────────────────────
-// aggregateRating + review[] only emit when real reviews exist
-// (googleReviewStats.count > 0). Self-served ratings without real reviews
-// violate Google's structured-data policy — see CLAUDE.md §10.
-const aggregateRating =
-  googleReviewStats.count > 0
-    ? {
-        "@type": "AggregateRating",
-        ratingValue: googleReviewStats.rating,
-        reviewCount: googleReviewStats.count,
-        bestRating: 5,
-        worstRating: 1,
-      }
-    : undefined;
-
-const reviewObjects =
-  googleReviewStats.count > 0
-    ? googleReviews.slice(0, 3).map((r) => ({
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: r.rating,
-          bestRating: 5,
-          worstRating: 1,
-        },
-        author: { "@type": "Person", name: r.name },
-        reviewBody: r.content,
-      }))
-    : undefined;
-
+// NOTE (2026-07): no aggregateRating/review on LocalBusiness. Google ignores
+// self-served ratings on LocalBusiness/Organization (2019 policy) and
+// republishing Google's own reviews violates their guidelines. Ratings live
+// as visible on-page content + llms.txt instead.
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -167,7 +141,9 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://www.norwichfreewalkingtours.co.uk/#tom",
+    // Canonical Person @id — must match app/about/page.tsx's Person schema
+    // so Google/AI merge them into one entity.
+    "@id": "https://www.norwichfreewalkingtours.co.uk/about#tom",
     name: "Tom Thornhill",
     jobTitle: "Founder and Guide",
     description:
@@ -216,10 +192,8 @@ const jsonLd = [
       "https://www.guruwalk.com/walks/69964-norwich-free-walking-tour-the-real-norwich-with-a-local",
       "https://www.visitnorwich.co.uk/service/norwich-free-walking-tours/",
     ],
-    founder: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
-    employee: { "@id": "https://www.norwichfreewalkingtours.co.uk/#tom" },
-    ...(aggregateRating ? { aggregateRating } : {}),
-    ...(reviewObjects ? { review: reviewObjects } : {}),
+    founder: { "@id": "https://www.norwichfreewalkingtours.co.uk/about#tom" },
+    employee: { "@id": "https://www.norwichfreewalkingtours.co.uk/about#tom" },
   },
 ];
 
