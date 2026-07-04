@@ -12,7 +12,7 @@ const CANONICAL = "https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour
 export const metadata: Metadata = {
   title: "What is a free walking tour? | Norwich Free Walking Tours",
   description:
-    "Free walking tours explained: you join for free, walk for 1h 45m with a local guide, and tip £10-£20 at the end if you enjoyed it. No fixed price, no pressure.",
+    "Free walking tours explained: you join for free, walk for 2 hours with a local guide, and tip £10-£20 at the end if you enjoyed it. No fixed price, no pressure.",
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "What is a free walking tour?",
@@ -94,7 +94,7 @@ const faqPageSchema = {
       name: "What happens on a free walking tour?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "On the Norwich Free Walking Tour: you book a spot online (free, no card needed), meet your guide outside The Forum at the booked time, walk for 1 hour 45 minutes at a relaxed pace through 12 stops finishing near Norwich Cathedral, and tip what you thought it was worth at the end. Card, Apple Pay, Google Pay or cash all work.",
+        text: "On the Norwich Free Walking Tour: you book a spot online (free, no card needed), meet your guide outside The Forum at the booked time, walk for 2 hours at a relaxed pace through 12 stops finishing at Norwich Market in the heart of the city, and tip what you thought it was worth at the end. Card, Apple Pay, Google Pay or cash all work.",
       },
     },
     {

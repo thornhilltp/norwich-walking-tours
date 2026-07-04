@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: "What happens on the day?",
-    a: "Three steps. Book your spot online (free, no card needed). Meet your guide outside The Forum at your booked time — they'll be in a green t-shirt with a suspicious amount of local knowledge. Walk for 1 hour 45 minutes, relaxed pace, finishing near the Cathedral. At the end you tip what you thought it was worth. Card, Apple Pay, Google Pay or cash.",
+    a: "Three steps. Book your spot online (free, no card needed). Meet your guide outside The Forum at your booked time — they'll be in a green t-shirt with a suspicious amount of local knowledge. Walk for 2 hours at a relaxed pace, about 2.5 km with no big hikes, finishing at Norwich Market right in the heart of the city, handy for lunch. At the end you tip what you thought it was worth. Card, Apple Pay, Google Pay or cash.",
   },
   {
     q: "What if it rains?",

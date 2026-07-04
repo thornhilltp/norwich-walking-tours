@@ -246,7 +246,7 @@ export default function WhereToStayPage() {
               Get your bearings on day one
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              The free walking tour leaves The Forum daily. 1 hour 45 minutes, mostly flat, one local guide and a group of 15 max. It&apos;s the fastest way to learn the city you&apos;re staying in.
+              The free walking tour leaves The Forum daily. 2 hours, mostly flat, one local guide and a group of 15 max, finishing at Norwich Market in time for lunch. It&apos;s the fastest way to learn the city you&apos;re staying in.
             </p>
             <TrackedBookLink
               location="where_to_stay"

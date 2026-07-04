@@ -165,7 +165,7 @@ export default function AboutPage() {
               Come on the tour
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              Free to book. 1 hour 45 minutes, mostly flat. Daily from The Forum. Pay what you think it was worth at the end.
+              Free to book. 2 hours, about 2.5 km, mostly flat. Daily from The Forum, finishing at Norwich Market. Pay what you think it was worth at the end.
             </p>
             <TrackedBookLink
               location="about"

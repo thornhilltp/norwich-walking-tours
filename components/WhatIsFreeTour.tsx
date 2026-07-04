@@ -26,7 +26,7 @@ export function WhatIsFreeTour() {
                 Free tours are a growing accessible way to get a great local introduction to a city.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                You join for free, spend 1 hour 45 minutes with a local guide who will show you the best spots and tell their favourite stories, and at the end you tip what you thought it was worth.
+                You join for free, spend 2 hours with a local guide who will show you the best spots and tell their favourite stories, and at the end you tip what you thought it was worth.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">No fixed price.</p>
               <p className="text-base text-muted-foreground leading-relaxed">No pressure.</p>

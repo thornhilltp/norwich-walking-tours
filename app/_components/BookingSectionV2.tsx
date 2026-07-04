@@ -74,7 +74,7 @@ export function BookingSectionV2() {
               className="text-base text-muted-foreground leading-relaxed mb-4"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              <strong className="text-brand-text font-semibold">Never done a free walking tour?</strong> Book free, walk 1h 45m with a local guide, tip what you thought it was worth at the end. No catch.{" "}
+              <strong className="text-brand-text font-semibold">Never done a free walking tour?</strong> Book free, walk 2 hours with a local guide, tip what you thought it was worth at the end. No catch.{" "}
               <a
                 href="/what-is-a-free-tour"
                 className="text-brand-accent-text font-semibold hover:underline underline-offset-2"

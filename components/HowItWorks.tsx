@@ -19,8 +19,8 @@ const steps = [
   {
     number: "02",
     title: "Meet your guide at The Forum",
-    sub: "1 hour 45 minutes, relaxed pace through Norwich's best bits.",
-    detail: "1h 45m, easy underfoot",
+    sub: "2 hours, relaxed pace through Norwich's best bits.",
+    detail: "2 hours, easy underfoot",
     image: "/images/tour/meet-at-the-forum.jpg",
     imageAlt: "Guests meeting their guide at The Forum, the start of the Norwich Free Walking Tour",
   },

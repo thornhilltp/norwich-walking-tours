@@ -93,7 +93,7 @@ export function StoriesTeaser({ hideCta = false }: StoriesTeaserProps = {}) {
               className="mt-3 text-sm text-muted-foreground"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              All covered on the 1h 45m walk.
+              All covered on the 2-hour walk.
             </p>
           </motion.div>
         )}

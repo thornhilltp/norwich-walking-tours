@@ -94,7 +94,7 @@ export default function BookPage() {
                 className="block text-[clamp(28px,4.4vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                1h 45m of Norwich,
+                2 hours of Norwich,
               </span>
               <span
                 className="block text-[clamp(40px,5.6vw,68px)] font-semibold leading-[0.95]"
@@ -132,7 +132,7 @@ export default function BookPage() {
                 </>
               )}
               <span className="inline-flex items-center gap-1">
-                <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+                <Clock className="h-4 w-4" aria-hidden="true" /> 2 hours
               </span>
               <span aria-hidden="true" className="text-white/40">&bull;</span>
               <span className="inline-flex items-center gap-1">

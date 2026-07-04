@@ -78,10 +78,10 @@ const items: FreeThingItem[] = [
     body: (
       <>
         <p>
-          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only daily free walking tour in Norwich. 1 hour 45 minutes, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
+          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only daily free walking tour in Norwich. 2 hours, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
         </p>
         <p>
-          We start at The Forum and finish near the Cathedral, taking in Elm Hill, the Lanes, the Market and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
+          We start at The Forum and finish at Norwich Market, right in the heart of the city and perfectly placed for lunch, taking in Elm Hill, the Lanes, the Cathedral and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
         </p>
         <p>
           <TrackedBookLink location="things_to_do_intro" className="text-brand-accent hover:underline font-semibold">
@@ -305,7 +305,7 @@ export default function FreeThingsToDoNorwichPage() {
               Want a local to show you the rest?
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              The free walking tour covers the city in 1h 45m with stories you won&apos;t find on a sign. Free to book, tip what it was worth at the end.
+              The free walking tour covers the city in 2 hours with stories you won&apos;t find on a sign. Free to book, tip what it was worth at the end.
             </p>
             <TrackedBookLink
               location="things_to_do_bottom"

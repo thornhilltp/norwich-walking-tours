@@ -267,7 +267,7 @@ export function ThemedRouteSection() {
             </div>
             <Image
               src="/images/route-map.png"
-              alt="Hand-drawn route map of the Norwich Free Walking Tours showing all 12 stops from The Forum to Norwich Cathedral."
+              alt="Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market."
               width={1500}
               height={1155}
               className="w-full h-auto"

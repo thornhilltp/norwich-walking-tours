@@ -190,7 +190,7 @@ export function HeroV2({
                 line). Uses lucide Clock to match the other two icons (Star
                 + Users) for visual consistency. Tom 2026-05-19. */}
             <span className="inline-flex items-center gap-1">
-              <Clock className="h-4 w-4" aria-hidden="true" /> 1h 45m
+              <Clock className="h-4 w-4" aria-hidden="true" /> 2 hours
             </span>
             <span aria-hidden="true" className="text-white/40">·</span>
             <span className="inline-flex items-center gap-1">
