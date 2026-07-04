@@ -22,6 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Globe, MapPin, Star } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { guideSections, reviewLinks, type GuidePick } from "@/lib/guide-picks";
 import QuestionFilter from "./_components/QuestionFilter";
 import {
@@ -388,9 +389,9 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
                 Back to home
               </Link>
               <span className="mx-2 text-brand-accent/40">&bull;</span>
-              <Link href="/book" className="text-brand-accent hover:underline font-semibold touch-manipulation">
+              <TrackedBookLink location="guide" className="text-brand-accent hover:underline font-semibold touch-manipulation">
                 Book another tour
-              </Link>
+              </TrackedBookLink>
               <span className="mx-2 text-brand-accent/40">&bull;</span>
               <Link href="/contact" className="text-brand-accent hover:underline font-semibold touch-manipulation">
                 Say hi

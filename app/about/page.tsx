@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -166,13 +167,13 @@ export default function AboutPage() {
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
               Free to book. 1 hour 45 minutes, mostly flat. Daily from The Forum. Pay what you think it was worth at the end.
             </p>
-            <Link
-              href="/book"
+            <TrackedBookLink
+              location="about"
               className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
             >
               Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
+            </TrackedBookLink>
             <p className="font-lora text-sm text-muted-foreground mt-4">
               Or{" "}
               <Link href="/tour" className="text-brand-accent hover:underline font-semibold">

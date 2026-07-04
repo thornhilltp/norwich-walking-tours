@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -247,13 +248,13 @@ export default function WhereToStayPage() {
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
               The free walking tour leaves The Forum daily. 1 hour 45 minutes, mostly flat, one local guide and a group of 15 max. It&apos;s the fastest way to learn the city you&apos;re staying in.
             </p>
-            <Link
-              href="/book"
+            <TrackedBookLink
+              location="where_to_stay"
               className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
             >
               Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
+            </TrackedBookLink>
             <p className="font-lora text-sm text-muted-foreground mt-4">
               Or{" "}
               <Link href="/tour" className="text-brand-accent hover:underline font-semibold">

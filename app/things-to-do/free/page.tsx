@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -83,9 +84,9 @@ const items: FreeThingItem[] = [
           We start at The Forum and finish near the Cathedral, taking in Elm Hill, the Lanes, the Market and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
         </p>
         <p>
-          <Link href="/book" className="text-brand-accent hover:underline font-semibold">
+          <TrackedBookLink location="things_to_do_intro" className="text-brand-accent hover:underline font-semibold">
             Book your spot (free) &rarr;
-          </Link>
+          </TrackedBookLink>
         </p>
       </>
     ),
@@ -306,13 +307,13 @@ export default function FreeThingsToDoNorwichPage() {
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
               The free walking tour covers the city in 1h 45m with stories you won&apos;t find on a sign. Free to book, tip what it was worth at the end.
             </p>
-            <Link
-              href="/book"
+            <TrackedBookLink
+              location="things_to_do_bottom"
               className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
             >
               Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
+            </TrackedBookLink>
             <p className="font-lora text-sm text-muted-foreground mt-4">
               Or{" "}
               <Link href="/tour" className="text-brand-accent hover:underline font-semibold">

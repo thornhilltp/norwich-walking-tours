@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { trackEvent } from "@/lib/tracking";
 
 // 'About Tom' link swapped for 'What is a free tour?' per Tom 2026-05-19.
 // Reasoning: the free-tour model is the consideration-stage question first-
@@ -122,6 +123,7 @@ export function Nav() {
             })}
             <a
               href="/book"
+              onClick={() => trackEvent("book_cta_click", { location: "nav_desktop" })}
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
               Book your spot (free)
@@ -177,7 +179,10 @@ export function Nav() {
           <div className="mt-2 pt-2 border-t border-brand-accent/10">
             <a
               href="/book"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => {
+                trackEvent("book_cta_click", { location: "nav_mobile" });
+                setMobileOpen(false);
+              }}
               className="btn-cta flex items-center justify-center w-full h-11 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-base"
             >
               Book your spot (free)

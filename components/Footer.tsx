@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 
 // Brand icons — lucide-react dropped Instagram/Facebook exports for trademark
 // reasons, so we inline them (and TikTok, which was never in lucide).
@@ -96,12 +97,21 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="font-lora text-sm text-white/70 hover:text-white transition-colors duration-150"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href === "/book" ? (
+                    <TrackedBookLink
+                      location="footer"
+                      className="font-lora text-sm text-white/70 hover:text-white transition-colors duration-150"
+                    >
+                      {link.label}
+                    </TrackedBookLink>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="font-lora text-sm text-white/70 hover:text-white transition-colors duration-150"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

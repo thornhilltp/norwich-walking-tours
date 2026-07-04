@@ -151,12 +151,12 @@ export default function WhatIsAFreeTourPage() {
             <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
               You join for free. You tip what it was worth at the end.
             </p>
-            <a
-              href="/book"
+            <TrackedBookLink
+              location="what_is_hero"
               className="inline-flex items-center justify-center h-12 px-8 bg-brand-accent text-white font-lora font-semibold text-base rounded-xl hover:bg-brand-accent/90 transition-colors duration-150"
             >
               Book your spot (free)
-            </a>
+            </TrackedBookLink>
             <p className="mt-4 text-sm text-white/70 font-lora">
               £0 to reserve &bull; Most guests tip £10 to £20 &bull; Free to cancel
             </p>

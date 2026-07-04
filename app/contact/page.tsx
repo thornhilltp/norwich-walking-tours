@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { Footer } from "@/components/Footer";
 import { Mail, MapPin, Users, Accessibility, Sparkles } from "lucide-react";
 
@@ -48,9 +49,9 @@ export default function ContactPage() {
           </p>
           <p className="font-lora text-sm text-muted-foreground mt-3">
             Booking the standard daily tour? Use the{" "}
-            <a href="/book" className="text-brand-accent hover:underline font-semibold">
+            <TrackedBookLink location="contact" className="text-brand-accent hover:underline font-semibold">
               booking page
-            </a>
+            </TrackedBookLink>
             {" "}instead. It&apos;s faster.
           </p>
         </div>

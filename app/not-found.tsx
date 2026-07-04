@@ -1,4 +1,5 @@
 import { ArrowRight, MapPin } from "lucide-react";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 
 export default function NotFound() {
   return (
@@ -31,13 +32,12 @@ export default function NotFound() {
           Back to home
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </a>
-        <a
-          href="/book"
-          className="inline-flex items-center justify-center h-12 px-6 border border-brand-accent/30 text-brand-accent rounded-xl hover:bg-brand-accent/5 transition-colors duration-150 text-base focus-brand"
-          style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+        <TrackedBookLink
+          location="not_found"
+          className="inline-flex items-center justify-center h-12 px-6 border border-brand-accent/30 text-brand-accent rounded-xl hover:bg-brand-accent/5 transition-colors duration-150 text-base focus-brand font-lora"
         >
           Book the tour
-        </a>
+        </TrackedBookLink>
       </div>
     </main>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import type { Metadata } from "next";
 import { tourStops } from "@/lib/tourStops";
 import { Footer } from "@/components/Footer";
@@ -136,12 +137,12 @@ export default function TourPage() {
           <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
             The real Norwich, on foot, with someone who lives here.
           </p>
-          <a
-            href="/book"
+          <TrackedBookLink
+            location="tour_hero"
             className="inline-flex items-center justify-center h-12 px-8 bg-brand-accent text-white font-lora font-semibold text-base rounded-xl hover:bg-brand-accent/90 transition-colors duration-150"
           >
             Book your spot (free)
-          </a>
+          </TrackedBookLink>
           <p className="mt-4 text-sm text-white/70 font-lora">
             Free to book &bull; Daily &bull; Pay what it was worth at the end
           </p>
@@ -356,12 +357,12 @@ export default function TourPage() {
           <p className="text-base text-muted-foreground mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Pick a date, lock in a spot, turn up. That&apos;s it.
           </p>
-          <a
-            href="/book"
+          <TrackedBookLink
+            location="tour_bottom"
             className="btn-cta inline-flex items-center justify-center px-10 py-4 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-xl shadow-md"
           >
             Book your spot (free)
-          </a>
+          </TrackedBookLink>
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
             Booking required &bull; Free to book &bull; Daily from The Forum
           </p>

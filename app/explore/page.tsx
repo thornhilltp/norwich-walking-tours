@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
+import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -194,9 +195,9 @@ export default function ExplorePage() {
         <section className="brand-container max-w-2xl mx-auto px-4 sm:px-6 mt-14 text-center">
           <p className="font-lora text-base text-muted-foreground leading-relaxed">
             Or skip the reading and just{" "}
-            <Link href="/book" className="text-brand-accent hover:underline font-semibold">
+            <TrackedBookLink location="explore" className="text-brand-accent hover:underline font-semibold">
               come on the tour
-            </Link>
+            </TrackedBookLink>
             . Daily from The Forum, free to book.
           </p>
         </section>
