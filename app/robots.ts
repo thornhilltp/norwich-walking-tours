@@ -5,10 +5,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // /guide is intentionally unlisted — distributed via post-tour QR card
-      // and booking-confirmation email, not via search. Page also carries a
-      // noindex meta tag (app/guide/page.tsx) and is excluded from sitemap.
-      disallow: ["/guide"],
+      // /guide stays out of search via its noindex meta tag
+      // (app/guide/page.tsx) + sitemap exclusion. Deliberately NOT
+      // disallowed here: blocking the crawl would stop Google from ever
+      // seeing the noindex, letting the URL index as a link-only result.
     },
     sitemap: "https://www.norwichfreewalkingtours.co.uk/sitemap.xml",
   };

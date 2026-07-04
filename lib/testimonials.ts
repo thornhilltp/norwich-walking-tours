@@ -24,7 +24,16 @@
 // │  30% / Couples 30% / Family 25% / Solo 7%. Surfaces matter.             │
 // └─────────────────────────────────────────────────────────────────────────┘
 
-import type { Testimonial } from "@/components/Testimonials";
+// Testimonial type lives here now (was imported from the deleted legacy
+// components/Testimonials.tsx carousel).
+export type Testimonial = {
+  id: number;
+  name: string;
+  role: string;
+  avatar?: string;
+  content: string;
+  rating: number;
+};
 
 export const googleReviewStats = {
   rating: 5.0,
