@@ -217,3 +217,12 @@
     }
   }
 }
+
+/* /tour stop-story disclosure — rotate the chevron when a <details> is open.
+   Tailwind's group-open variant did not generate here, so this is explicit. */
+.tour-stop-chevron {
+  transition: transform 0.2s ease;
+}
+details[open] .tour-stop-chevron {
+  transform: rotate(180deg);
+}

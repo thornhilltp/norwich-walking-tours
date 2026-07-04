@@ -111,6 +111,33 @@ export const featuredReviews: FeaturedReview[] = [
   },
 ];
 
+// A separate trio for the /tour page's "will this be my thing?" vibe check.
+// Chosen to answer that page's specific worries: is 2 hours too long, what
+// does it actually cover, and is it relaxed / dog-friendly enough for me.
+export const tourReviews: FeaturedReview[] = [
+  {
+    id: 1,
+    name: "Tim",
+    role: "Family visit",
+    pullQuote: "The two-hour tour **didn't feel that long**.",
+    sourced: "Tim S (TripAdvisor, 5★)",
+  },
+  {
+    id: 2,
+    name: "Lisa",
+    role: "Norwich local",
+    pullQuote: "Tom pointed out the **independent shops, restaurants and bars**.",
+    sourced: "Lisa W (TripAdvisor, 5★)",
+  },
+  {
+    id: 3,
+    name: "Blathnaid",
+    role: "Visited as a couple",
+    pullQuote: "Knew exactly where to stop, and it's **dog friendly** too.",
+    sourced: "Blathnaid C (TripAdvisor, 5★)",
+  },
+];
+
 export const googleReviews: Testimonial[] = [
   {
     id: 1,

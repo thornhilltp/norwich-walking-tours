@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import type { Metadata } from "next";
+import { ChevronDown } from "lucide-react";
 import { tourStops } from "@/lib/tourStops";
+import { tourReviews } from "@/lib/testimonials";
 import { Footer } from "@/components/Footer";
-import { StoriesTeaser } from "@/components/StoriesTeaser";
 import { ScrollTrail } from "@/components/ScrollTrail";
 
 export const metadata: Metadata = {
@@ -63,10 +64,25 @@ const faqSchema = {
   })),
 };
 
-// Stop stories — one-line hook + story + fun fact.
-// Keys follow the NEW 2-hour route order (2026-07-04): Forum, Guildhall,
-// Lanes, St Andrews, Elm Hill, Fye Bridge, Tombland, Cathedral,
-// London Street, Castle, Arcade, finishing at Norwich Market.
+// Aha moment per stop — the headline you scan. The full story sits behind a
+// tap (still in the DOM, so it stays crawlable). Keys follow the 2-hour
+// route order in lib/tourStops.ts. Drawn from the stories below, nothing new.
+const stopHooks: Record<number, string> = {
+  1: "Half a million books burned here.",
+  2: "Where the witch trials happened.",
+  3: "The streets the developers never got.",
+  4: "One building. Six lives.",
+  5: "Saved by a single vote.",
+  6: "They ducked witches here.",
+  7: "Nothing to do with graves.",
+  8: "Its stone was shipped from France.",
+  9: "Britain's first car-free street.",
+  10: "A palace that spent its life as a prison.",
+  11: "Frozen in 1899.",
+  12: "A thousand years of trading. And lunch.",
+};
+
+// Stop stories — the full read, revealed on tap.
 const stopStories: Record<number, string> = {
   1: "We start where Norwich nearly didn't. The Forum was built in 2001 on the site of the old library, which burned down in 1994 and took half a million books with it. Look up at the curve of the building. It's deliberately shaped to mirror the cathedral spire across the city.",
   2: "England's largest surviving medieval guildhall, built when Norwich was the country's second city. The witch trials happened here. So did most of the city's important business for nearly 500 years. The flint chequerboard pattern on the front wall is showing off, and we'll talk about why.",
@@ -82,7 +98,7 @@ const stopStories: Record<number, string> = {
   12: "Trading on the same patch of ground since the 11th century. One of the largest open-air markets in England and the most colourful from above. And this is where we finish: right in the heart of the city, surrounded by some of the best cheap lunch in Norwich. Ask your guide where they'd eat.",
 };
 
-// Stop photos — keyed to the NEW order.
+// Stop photos — keyed to the route order.
 const stopImages: Record<number, { src: string; alt: string }> = {
   1:  { src: "/images/tour/group-the-forum.jpg",     alt: "Walking tour group meeting at The Forum, Norwich's modern glass meeting hub on Millennium Plain." },
   2:  { src: "/images/tour/guide-guildhall.jpg",     alt: "Free Walking Tour Norwich guide explaining the chequerboard flintwork facade of Norwich Guildhall." },
@@ -95,6 +111,35 @@ const stopImages: Record<number, { src: string; alt: string }> = {
   12: { src: "/images/norwich-market-sun-stock.png", alt: "Norwich Market. One of England's oldest and largest outdoor markets, where the tour finishes." },
 };
 
+// Per-card colour for the vibe-check review notes (mid tone tape, dark name).
+const noteColors = [
+  { tape: "#2DA96B", name: "#1A6B47" },
+  { tape: "#E8734A", name: "#B44A28" },
+  { tape: "#D99A2B", name: "#8A5E10" },
+];
+
+// Render **key phrase** markers as a handwritten green highlight.
+function renderMarks(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <span
+        key={i}
+        style={{
+          fontFamily: "var(--font-caveat), cursive",
+          fontWeight: 700,
+          fontSize: "1.3em",
+          lineHeight: 1,
+          color: "#1A6B47",
+        }}
+      >
+        {part.slice(2, -2)}
+      </span>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
 export default function TourPage() {
   return (
     <main className="bg-brand-bg pt-16">
@@ -103,6 +148,7 @@ export default function TourPage() {
           { id: "top", label: "Top" },
           { id: "map", label: "Map" },
           { id: "stops", label: "Stops" },
+          { id: "reviews", label: "Vibe" },
           { id: "guide", label: "Guide" },
           { id: "faq", label: "FAQ" },
         ]}
@@ -113,13 +159,8 @@ export default function TourPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero — redesigned 2026-05-19 to match /private-tours pattern:
-          image background + dark overlay + white text. Copy cut from
-          ~140 words to ~25 (per Tom's design-principles brief). */}
+      {/* Hero */}
       <section id="top" className="relative isolate section-padding">
-        {/* next/image instead of CSS background: the optimizer serves a
-            resized webp/avif and `priority` preloads it as the LCP —
-            the old backgroundImage shipped the full 486KB original. */}
         <Image
           src="/images/tour/group-cathedral-lawn.jpg"
           alt="Tour group walking through Norwich city centre on the Norwich Free Walking Tour"
@@ -152,51 +193,20 @@ export default function TourPage() {
         </div>
       </section>
 
-      {/* SEO insurance block — 3-column 'what you'll see / how it works /
-          who runs it' summary. Added 2026-05-19 to restore keyword
-          density that the hero copy-cut removed. Entity-rich (Cathedral,
-          Castle, Elm Hill, Market, Lanes, Guildhall, St Andrews, Tombland)
-          for non-branded 'Norwich walking tour' search queries. */}
-      <section className="py-12 md:py-16 bg-brand-bg border-b border-brand-accent/10">
-        <div className="brand-container max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-            <div>
-              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
-                What you&apos;ll see
-              </h2>
-              <p className="font-lora text-base text-muted-foreground leading-relaxed">
-                Twelve stops covering nine hundred years of Norwich history. Norwich Cathedral, Norwich Castle, Elm Hill&apos;s Tudor cobbles, the Norwich Lanes, the Guildhall, St Andrews Hall, Tombland, finishing at Norwich Market (open since the 11th century) right in the heart of the city. About 2.5 km all told, mostly flat, no big hikes.
-              </p>
-            </div>
-            <div>
-              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
-                How it works
-              </h2>
-              <p className="font-lora text-base text-muted-foreground leading-relaxed">
-                Book free in thirty seconds. No card needed. Meet at The Forum at your booked time, typically 10:30am. Walk for two hours at a relaxed pace, about 2.5 km all told, finishing at Norwich Market right in the heart of the city. At the end, tip what you thought it was worth. Card, Apple Pay, Google Pay or cash. Most guests tip £10 to £20.
-              </p>
-            </div>
-            <div>
-              <h2 className="font-caveat text-2xl md:text-3xl font-bold text-brand-text mb-3">
-                Who runs it
-              </h2>
-              <p className="font-lora text-base text-muted-foreground leading-relaxed">
-                Tom Thornhill, a Norwich local who studied at UEA and has lived in the city for thirteen years. Walks the route most days. Not a script-reader, not a costume-wearer. Someone who actually loves the place and wants to show you why.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Route Map */}
+      {/* The route — map first. The old three-paragraph block is gone; the
+          keywords live on in the stop hooks + stories below. */}
       <section id="map" className="section-padding bg-brand-bg border-b border-brand-accent/10">
-        <div className="brand-container max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-              Map of the Route
-            </h2>
-          </div>
-          <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden max-w-xl mx-auto">
+        <div className="brand-container max-w-3xl mx-auto text-center">
+          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            The route
+          </p>
+          <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-4">
+            The whole city in one loop.
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Two hours, about 2.5 easy kilometres, twelve stops. We start at The Forum and finish at Norwich Market, right in time for lunch. Elm Hill, the Cathedral, the Castle, the Lanes and Tombland in between. Nothing flat-out, no big hikes.
+          </p>
+          <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden">
             <Image
               src="/images/route-map.png"
               alt="Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market."
@@ -205,68 +215,73 @@ export default function TourPage() {
               className="w-full h-auto"
               priority
             />
-            <p className="px-4 py-2 text-xs text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Map of Norwich City Centre
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Tour Stops */}
+      {/* Tour stops — hook first, story on tap. Native <details> keeps every
+          word in the HTML (crawlable) while scanners get twelve punches. */}
       <section id="stops" className="section-padding bg-brand-bg">
         <div className="brand-container max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               Stop by stop
             </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold">
-              What you&apos;ll see
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-3">
+              Twelve moments, one walk.
             </h2>
+            <p className="text-base text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              Tap any stop to read the story.
+            </p>
           </div>
-          <div className="flex flex-col gap-0">
+
+          <div className="flex flex-col gap-3">
             {tourStops.map((stop) => (
-              <article key={stop.id} className="flex gap-5 pb-0">
-                {/* Number + line */}
-                <div className="flex-shrink-0 flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-brand-accent text-white font-bold text-sm flex items-center justify-center" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              <details
+                key={stop.id}
+                className="group bg-white rounded-xl border border-brand-accent/15 shadow-sm overflow-hidden"
+              >
+                <summary className="list-none [&::-webkit-details-marker]:hidden flex items-center gap-4 p-5 cursor-pointer">
+                  <span
+                    className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-accent text-white font-bold text-sm flex items-center justify-center"
+                    style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                  >
                     {stop.id}
-                  </div>
-                  {stop.id < tourStops.length && (
-                    <div className="w-px flex-1 bg-brand-accent/20 mt-3 min-h-[2rem]" aria-hidden="true" />
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="pb-10 flex-1 min-w-0">
-                  <h3 className="font-caveat text-3xl font-bold mb-2">
-                    {stop.name}
-                  </h3>
-
-                  {/* Stop image where available */}
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-[11px] uppercase tracking-[0.14em] font-semibold text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                      {stop.name}
+                    </span>
+                    <span className="block font-caveat text-2xl md:text-[28px] font-bold text-brand-accent leading-[1.1]">
+                      {stopHooks[stop.id]}
+                    </span>
+                  </span>
+                  <ChevronDown
+                    className="tour-stop-chevron flex-shrink-0 w-5 h-5 text-brand-accent"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <div className="px-5 pb-5">
                   {stopImages[stop.id] && (
-                    <div className="relative aspect-[16/7] rounded-xl overflow-hidden mb-4 shadow-sm">
+                    <div className="relative aspect-[16/8] rounded-lg overflow-hidden mb-4 shadow-sm">
                       <Image
                         src={stopImages[stop.id].src}
                         alt={stopImages[stop.id].alt}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 672px"
+                        sizes="(max-width: 768px) 100vw, 640px"
                       />
                     </div>
                   )}
-
                   <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
                     {stopStories[stop.id]}
                   </p>
                 </div>
-              </article>
+              </details>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Stories along the way — entity-rich topics woven through the walk */}
-      <StoriesTeaser hideCta />
 
       {/* Pointed out, not visited */}
       <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
@@ -306,24 +321,98 @@ export default function TourPage() {
         </div>
       </section>
 
-      {/* Who's running it */}
-      <section id="guide" className="section-padding bg-brand-bg border-t border-brand-accent/10">
+      {/* Vibe check — is this my kind of thing? Proof + fit, minimal text. */}
+      <section id="reviews" className="section-padding bg-brand-bg border-t border-brand-accent/10">
+        <div className="brand-container max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+              Will it be your thing?
+            </p>
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold">
+              What it&apos;s actually like.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {tourReviews.map((review, idx) => {
+              const c = noteColors[idx % noteColors.length];
+              const rotate = idx % 2 === 0 ? "-1.2deg" : "1deg";
+              return (
+                <div
+                  key={review.id}
+                  className="relative bg-white border border-[#EAE0D4] rounded-[4px] px-5 pt-6 pb-4 shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
+                  style={{ transform: `rotate(${rotate})` }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-[10px] left-1/2 w-16 h-5 rounded-[3px]"
+                    style={{ transform: "translateX(-50%) rotate(-2deg)", backgroundColor: c.tape, borderTop: "1px solid rgba(255,255,255,0.3)", boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
+                  />
+                  <p className="text-[19px] leading-[1.4] mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif", color: "#000" }}>
+                    {renderMarks(review.pullQuote)}
+                  </p>
+                  <div className="border-t border-[#F0E9DF] pt-3">
+                    <div className="text-[23px] font-bold leading-none" style={{ fontFamily: "var(--font-caveat), cursive", color: c.name }}>
+                      {review.name}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground mt-0.5" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                      {review.role}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-lg text-brand-text leading-relaxed max-w-2xl mx-auto mt-10" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+            Relaxed pace, mostly flat, no big hikes. Kids from about six do fine, dogs are welcome, and rain doesn&apos;t stop us. If that sounds like your kind of morning, it probably is.
+          </p>
+
+          <div className="text-center mt-8">
+            <TrackedBookLink
+              location="tour_reviews"
+              className="btn-cta inline-flex items-center justify-center px-8 py-3.5 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-lg shadow-md"
+            >
+              Sounds like you? Book your spot (free)
+            </TrackedBookLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Your guide */}
+      <section id="guide" className="section-padding bg-brand-accent-light/40 border-t border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto">
-          <div className="mb-6">
+          <div className="text-center mb-8">
             <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               Your guide
             </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-6">
-              Who&apos;s running it
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold">
+              Who&apos;s running it.
             </h2>
           </div>
-          <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-sm p-6 md:p-8">
-            <p className="text-base text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Tom. Local. Lives in Norwich, walks the city most days, and started this because the existing tours all seemed to skip the bits that make Norwich actually interesting. Not a costumed actor, not a script-reader. Just someone who likes telling people why this small city is worth their afternoon.
-            </p>
-            <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              If you&apos;ve got questions about anything beyond the route: where to eat, what to skip, where to drink. Ask. That&apos;s the point.
-            </p>
+          <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-sm p-6 md:p-8 flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start">
+            {/* Polaroid portrait — a face converts, especially for visitors
+                arriving cold from search who've never seen the guide. */}
+            <div className="flex-shrink-0 bg-white p-2.5 pb-8 shadow-lg border border-brand-text/5 rotate-[-2deg]">
+              <div className="relative w-40 aspect-[4/5] overflow-hidden">
+                <Image
+                  src="/images/tom-portrait.jpg"
+                  alt="Tom Thornhill, founder and guide of the Norwich Free Walking Tour"
+                  fill
+                  className="object-cover"
+                  sizes="160px"
+                />
+              </div>
+              <p className="text-center font-caveat text-2xl font-bold text-brand-text mt-1">Tom</p>
+            </div>
+            <div>
+              <p className="text-base text-muted-foreground leading-relaxed mb-4" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                Tom. Local. Lives in Norwich, walks the city most days, and started this because the existing tours all seemed to skip the bits that make Norwich actually interesting. Not a costumed actor, not a script-reader. Just someone who likes telling people why this small city is worth their afternoon.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
+                Got questions about anything beyond the route: where to eat, what to skip, where to drink? Ask. That&apos;s the point.
+              </p>
+            </div>
           </div>
         </div>
       </section>
