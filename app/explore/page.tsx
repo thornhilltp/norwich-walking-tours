@@ -197,7 +197,7 @@ export default function ExplorePage() {
             <Link href="/book" className="text-brand-accent hover:underline font-semibold">
               come on the tour
             </Link>
-            . Mon to Sat from The Forum, free to book.
+            . Daily from The Forum, free to book.
           </p>
         </section>
       </main>

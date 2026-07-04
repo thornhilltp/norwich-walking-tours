@@ -16,7 +16,7 @@ const MapPinIcon = () => (
 export const metadata: Metadata = {
   title: "Book | Norwich Free Walking Tours",
   description:
-    "Book your spot on the Norwich Free Walking Tours. Free to reserve. Near daily from The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.",
+    "Book your spot on the Norwich Free Walking Tours. Free to reserve. Daily from The Forum. Pay what it was worth at the end by card, Apple Pay, Google Pay or cash.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/book",
   },
@@ -140,7 +140,7 @@ export default function BookPage() {
               </span>
               <span aria-hidden="true" className="text-white/40">&bull;</span>
               <span className="inline-flex items-center gap-1">
-                <CloudRain className="h-4 w-4" aria-hidden="true" /> Near daily, rain or shine
+                <CloudRain className="h-4 w-4" aria-hidden="true" /> Daily, rain or shine
               </span>
             </div>
 
@@ -160,7 +160,7 @@ export default function BookPage() {
             >
               <span className="inline-flex items-center gap-1.5">
                 <MapPinIcon />
-                Meets outside The Forum, Millennium Plain. Look for the green flag.
+                Meets outside The Forum, Millennium Plain, typically at 10:30am. Look for the green flag.
               </span>
             </p>
           </div>
@@ -306,7 +306,7 @@ export default function BookPage() {
               </p>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              The only near-daily free walking tour in Norwich. Local guides. Group capped at 15. If the tour wasn&apos;t worth it, you don&apos;t pay. That&apos;s the deal.
+              The only daily free walking tour in Norwich. Local guides. Group capped at 15. If the tour wasn&apos;t worth it, you don&apos;t pay. That&apos;s the deal.
             </p>
           </div>
         </section>

@@ -71,8 +71,12 @@ const faqs = [
     a: "Yes. Still free to reserve. The group is capped at 15 so we need to know how many are coming. Booking ahead also lets us send you a heads-up if anything changes with the weather or the meeting point. Same form as above.",
   },
   {
+    q: "Can I cancel my booking?",
+    a: "Yes, any time, no charge. If you can't make it, please cancel so your spot can go to someone else. There's a link in your booking email.",
+  },
+  {
     q: "What's the best walking tour in Norwich?",
-    a: "Everyone has their pick. We're biased, but this is the only near-daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
+    a: "Everyone has their pick. We're biased, but this is the only daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
   },
 ];
 

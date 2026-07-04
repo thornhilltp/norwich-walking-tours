@@ -8,7 +8,7 @@ import { ScrollTrail } from "@/components/ScrollTrail";
 export const metadata: Metadata = {
   title: "Norwich Walking Tour | 12 Stops, 1h 45m",
   description:
-    "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Near daily from The Forum. Book your spot free.",
+    "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Daily from The Forum. Book your spot free.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/tour",
   },
@@ -165,7 +165,7 @@ export default function TourPage() {
                 How it works
               </h2>
               <p className="font-lora text-base text-muted-foreground leading-relaxed">
-                Book free in thirty seconds. No card needed. Meet at The Forum at your booked time. Walk for one hour forty-five minutes, relaxed pace. At the end, tip what you thought it was worth. Card, Apple Pay, Google Pay or cash. Most guests tip £10 to £20.
+                Book free in thirty seconds. No card needed. Meet at The Forum at your booked time, typically 10:30am. Walk for one hour forty-five minutes, relaxed pace. At the end, tip what you thought it was worth. Card, Apple Pay, Google Pay or cash. Most guests tip £10 to £20.
               </p>
             </div>
             <div>
@@ -359,7 +359,7 @@ export default function TourPage() {
             Book your spot (free)
           </a>
           <p className="text-sm text-muted-foreground mt-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Booking required &bull; Free to book &bull; Near daily from The Forum
+            Booking required &bull; Free to book &bull; Daily from The Forum
           </p>
         </div>
       </div>

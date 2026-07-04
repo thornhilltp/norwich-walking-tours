@@ -19,6 +19,7 @@ import {
   tripAdvisorStats,
   featuredReviews,
 } from "@/lib/testimonials";
+import { trackEvent } from "@/lib/tracking";
 
 // Per-card colour: mid tone (tape + signature accent) + a darker,
 // readable tone for the name. Cycles green → coral → amber → brick
@@ -314,6 +315,20 @@ export function Testimonials() {
               />
             </button>
           ))}
+        </div>
+
+        {/* Quiet post-proof CTA — catches readers at their warmest moment.
+            Points at /book (works on every viewport, unlike #book-section
+            whose widget is desktop-only). */}
+        <div className="text-center mt-6 lg:mt-3">
+          <a
+            href="/book"
+            onClick={() => trackEvent("book_cta_click", { location: "reviews" })}
+            className="inline-block italic text-lg text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            Fancy joining them? Book your spot (free) &rarr;
+          </a>
         </div>
       </div>
     </section>

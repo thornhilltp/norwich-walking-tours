@@ -164,7 +164,7 @@ export default function AboutPage() {
               Come on the tour
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              Free to book. 1 hour 45 minutes, mostly flat. Mon-Sat from The Forum. Pay what you think it was worth at the end.
+              Free to book. 1 hour 45 minutes, mostly flat. Daily from The Forum. Pay what you think it was worth at the end.
             </p>
             <Link
               href="/book"

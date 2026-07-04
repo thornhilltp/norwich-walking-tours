@@ -47,7 +47,7 @@ export default function ContactPage() {
             touch. We&apos;re quick to respond.
           </p>
           <p className="font-lora text-sm text-muted-foreground mt-3">
-            Booking the standard near-daily tour? Use the{" "}
+            Booking the standard daily tour? Use the{" "}
             <a href="/book" className="text-brand-accent hover:underline font-semibold">
               booking page
             </a>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                     Outside The Forum<br />
                     Millennium Plain<br />
                     Norwich, NR2 1TF<br />
-                    Mon to Sat
+                    Daily, typically 10:30am
                   </address>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function ContactPage() {
             Free to book. Pay what it was worth.
           </h2>
           <p className="font-lora text-base text-muted-foreground leading-relaxed mb-3">
-            We&apos;re the only near-daily free walking tour in Norwich. Mon to Sat from The Forum. 1 hour 45 minutes, mostly flat, group capped at 15. Local guides who actually live here.
+            We&apos;re the only daily free walking tour in Norwich. Every day from The Forum, typically 10:30am. 1 hour 45 minutes, mostly flat, group capped at 15. Local guides who actually live here.
           </p>
           <p className="font-lora text-base text-muted-foreground leading-relaxed">
             At the end you tip what you think the tour was worth. Most guests tip £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay. That&apos;s the deal.

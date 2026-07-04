@@ -77,7 +77,7 @@ const items: FreeThingItem[] = [
     body: (
       <>
         <p>
-          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only near-daily free walking tour in Norwich. 1 hour 45 minutes, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
+          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only daily free walking tour in Norwich. 1 hour 45 minutes, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
         </p>
         <p>
           We start at The Forum and finish near the Cathedral, taking in Elm Hill, the Lanes, the Market and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
