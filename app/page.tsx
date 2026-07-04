@@ -10,10 +10,9 @@
 //
 // Surviving sections in order: Hero, WhatHowWho (SEO insurance block),
 // PhotoShowcase, Testimonials, ThemedRoute, About, Booking, FAQ,
-// internal-link row, EmailCapture, Footer.
+// internal-link row, Footer.
 
 import { FAQ } from "@/components/FAQ";
-import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { ScrollTrail } from "@/components/ScrollTrail";
@@ -98,7 +97,6 @@ export default function HomePage() {
             </p>
           </div>
         </section>
-        <EmailCapture />
         <Footer />
       </div>
     </main>
