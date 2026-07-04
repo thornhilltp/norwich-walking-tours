@@ -32,6 +32,11 @@ const cardAccents = [
 
 const KEY_PHRASE_GREEN = "#1A6B47";
 
+// Varied tilt (degrees) so the notes read as casually posted, not a tidy
+// grid. Applied via Framer's `rotate` style so it composes with the
+// mount animation's transform instead of being overridden by it.
+const cardAngles = [-2, 1.5, -1.4, 2, -1.1, 1.7];
+
 function GoogleLogo({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 18 18" className={className} aria-hidden="true">
@@ -213,11 +218,11 @@ export function Testimonials() {
         <div className="flex items-stretch gap-4">
           <div
             ref={scrollRef}
-            className="flex-1 flex gap-[22px] overflow-x-auto snap-x snap-mandatory pt-4 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex-1 flex gap-[22px] overflow-x-auto snap-x snap-mandatory pt-9 pb-8 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {featuredReviews.map((review, idx) => {
               const { ac, ad } = cardAccents[idx % cardAccents.length];
-              const rotate = idx % 2 === 0 ? "-1.1deg" : "1deg";
+              const rotate = cardAngles[idx % cardAngles.length];
               return (
                 <motion.article
                   key={review.id}
@@ -228,8 +233,8 @@ export function Testimonials() {
                   transition={{ duration: 0.5, delay: idx * 0.05 }}
                   // Width: exactly 3 across on desktop (no peeking 4th card),
                   // one full card on mobile. gap is 22px so 2 gaps = 44px.
-                  className="relative flex-none snap-start w-full lg:w-[calc((100%-44px)/3)] bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-[18px] shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
-                  style={{ transform: `rotate(${rotate})` }}
+                  className="relative flex-none snap-start w-full lg:w-[calc((100%_-_44px)/3)] bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-[18px] shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
+                  style={{ rotate }}
                 >
                   {/* Masking tape — same shape as PhotoShowcaseV2, per-card colour. */}
                   <span

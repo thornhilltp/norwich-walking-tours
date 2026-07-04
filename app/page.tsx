@@ -29,8 +29,8 @@ export default function HomePage() {
       <ScrollTrail
         sections={[
           { id: "top", label: "Hello" },
-          { id: "reviews", label: "Reviews" },
           { id: "stories", label: "Stories" },
+          { id: "reviews", label: "Reviews" },
           { id: "tour-map", label: "The walk" },
           { id: "book-section", label: "Book" },
           { id: "faq", label: "FAQs" },
@@ -47,8 +47,8 @@ export default function HomePage() {
             />
           }
         />
-        <Testimonials />
         <PhotoShowcaseV2 />
+        <Testimonials />
         <ThemedRouteSection />
         <BookingSectionV2 />
         <FAQ
