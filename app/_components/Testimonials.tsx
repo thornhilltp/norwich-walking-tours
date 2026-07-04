@@ -146,7 +146,7 @@ export function Testimonials() {
     <section
       id="reviews"
       className="section-padding"
-      style={{ backgroundColor: "#FCFAF8" }}
+      style={{ backgroundColor: "#FAF4E8" }}
       aria-label="Customer reviews"
     >
       <div className="brand-container">
