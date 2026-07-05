@@ -64,38 +64,41 @@ const faqSchema = {
   })),
 };
 
-// Aha moment per stop — the headline you scan. The full story sits behind a
-// tap (still in the DOM, so it stays crawlable). Keys follow the 2-hour
-// route order in lib/tourStops.ts. Drawn from the stories below, nothing new.
+// Hook per stop — INTRIGUE, not the answer. Name the mystery, don't solve
+// it: the actual reveals are the guide's job on the day, not something to
+// give away for free on the website. Keys follow the route order in
+// lib/tourStops.ts. Stop 1 is simply the meeting point.
 const stopHooks: Record<number, string> = {
-  1: "Half a million books burned here.",
-  2: "Where the witch trials happened.",
-  3: "The streets the developers never got.",
-  4: "One building. Six lives.",
-  5: "Saved by a single vote.",
-  6: "They ducked witches here.",
-  7: "Nothing to do with graves.",
-  8: "Its stone was shipped from France.",
-  9: "Britain's first car-free street.",
-  10: "A palace that spent its life as a prison.",
-  11: "Frozen in 1899.",
-  12: "A thousand years of trading. And lunch.",
+  1: "Your starting line.",
+  2: "Where the big decisions were made.",
+  3: "The bit that got away.",
+  4: "One roof, six different lives.",
+  5: "It nearly didn't make it.",
+  6: "You wouldn't want to end up here.",
+  7: "Not what the name suggests.",
+  8: "Nine hundred years of showing off.",
+  9: "A British first, hiding in plain sight.",
+  10: "It wasn't always for kings.",
+  11: "A different century, one door in.",
+  12: "Where we finish. And where you eat.",
 };
 
-// Stop stories — the full read, revealed on tap.
+// Stop teasers — set the scene and the curiosity, then hand the payoff to
+// the tour. Names what you'll see (keeps the entities for SEO) without
+// spoiling the stories the guide tells in person.
 const stopStories: Record<number, string> = {
-  1: "We start where Norwich nearly didn't. The Forum was built in 2001 on the site of the old library, which burned down in 1994 and took half a million books with it. Look up at the curve of the building. It's deliberately shaped to mirror the cathedral spire across the city.",
-  2: "England's largest surviving medieval guildhall, built when Norwich was the country's second city. The witch trials happened here. So did most of the city's important business for nearly 500 years. The flint chequerboard pattern on the front wall is showing off, and we'll talk about why.",
-  3: "A maze of independent shops, hidden courtyards, and Tudor buildings the developers somehow never got hold of. This was the medieval shopping district. Walk slowly. Half the fun is what you spot in the side alleys you'd never find on your own.",
-  4: "Originally a Dominican friary, then a town hall, then a synagogue, then a fire station, now a concert venue. One building, six lives. The roof beams are the original 14th-century timber.",
-  5: "The most photographed street in Norwich and the closest you'll come to walking through a Tudor film set. Nearly demolished in the 1920s for being \"slum housing.\" Saved by a single vote on the city council. We'll show you exactly where the vote was cast.",
-  6: "One of the oldest river crossings in the city, used as a ducking stool site in the medieval period. People accused of being witches, scolds, or generally awkward got dunked here. Quiet now. Not always.",
-  7: "Doesn't mean what you think. The name is Saxon, predates Christianity, and has nothing to do with graves. The square in front of the cathedral was the original Norwich market before the current one was built. The story behind the name catches everyone out.",
-  8: "Nearly a thousand years old, built from limestone shipped across from Caen in Normandy because the locals didn't think English stone was good enough. The cloisters are the largest in England. The spire is the second tallest. And the close around it is the only one in the country you can still walk through freely after dark.",
-  9: "The first pedestrianised shopping street in the UK, going car-free in 1967. A small thing, but Norwich got there before everyone else. We'll talk about why this matters more than it sounds.",
-  10: "A Norman keep built to remind the locals who was in charge. It worked. For most of its life it was a prison, and the stories from that period are not for the squeamish. Recently reopened after a major restoration, and now arguably the most impressive medieval royal palace in England you've never heard of.",
-  11: "Norwich's small slice of Victorian shopping theatre. Built in 1899, decorated with art nouveau tiles, and one of the few places in the city that feels frozen in time. Walk through it slowly. The tiles tell their own story.",
-  12: "Trading on the same patch of ground since the 11th century. One of the largest open-air markets in England and the most colourful from above. And this is where we finish: right in the heart of the city, surrounded by some of the best cheap lunch in Norwich. Ask your guide where they'd eat.",
+  1: "Our meeting point, and hard to miss: the big glass curve on Millennium Plain, next to the library. Look for your guide out front in green. There's a reason it's shaped the way it is, and it's where the walk begins.",
+  2: "England's largest surviving medieval guildhall. Stand here and you're next to five centuries of the city's power, its business, and a few things it would rather forget. Your guide will fill you in.",
+  3: "A maze of independent shops, hidden courtyards and Tudor lanes the developers somehow never got hold of. Walk it slow. The best bits are down the alleys you'd never try on your own.",
+  4: "Friary, town hall, and more besides. One medieval building that's been reinvented over and over. We'll tell you what it's been, and what still survives from the 1300s.",
+  5: "The most photographed street in Norwich, and a Tudor film set in all but name. It came within a whisker of being knocked down. Ask your guide how it survived.",
+  6: "The city's oldest river crossing, with a dark little history attached. People were once brought here to answer for themselves, one way or another. We'll explain on the day.",
+  7: "The name catches everyone out. It's older than it sounds and means nothing like you'd think. There's a story here most locals don't even know.",
+  8: "Nearly a thousand years old and built to impress, right down to where the stone came from. The cloisters and the close hold a few things we'll point out that most visitors walk straight past.",
+  9: "A quiet shopping street with a genuine national first to its name. Most people walk straight through without ever knowing. You won't.",
+  10: "A Norman keep on its own hill, recently restored. It's spent more of its life as something other than a castle, and those stories aren't for the faint-hearted.",
+  11: "Step through one doorway and it's 1899: art nouveau tiles, Victorian ironwork, the lot. One of the few corners of the city that never quite moved on.",
+  12: "Where the walk ends, right in the heart of the city. One of England's oldest markets, and some of its best cheap lunch. Ask your guide where they'd eat.",
 };
 
 // Stop photos — keyed to the route order.
@@ -231,7 +234,7 @@ export default function TourPage() {
               Twelve moments, one walk.
             </h2>
             <p className="text-base text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Tap any stop to read the story.
+              Tap any stop for a taste. The full stories are Tom&apos;s job on the day.
             </p>
           </div>
 
