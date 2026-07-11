@@ -59,14 +59,32 @@ interface BookingFrameProps {
   className?: string;
   height?: number;
   sandbox?: string;
+  /**
+   * Above-the-fold placement. When true the iframe is seeded with the bare
+   * widget URL so it renders in the initial server HTML — the browser starts
+   * fetching the widget during page load instead of one tick after hydration —
+   * and it gets fetchpriority="high" with no loading="lazy". Use for the single
+   * most important (hero) embed only. Leave false for below-the-fold embeds so
+   * they keep loading="lazy" and mount lazily on scroll.
+   */
+  priority?: boolean;
 }
 
-export function BookingFrame({ className, height = 700, sandbox }: BookingFrameProps) {
+export function BookingFrame({ className, height = 700, sandbox, priority = false }: BookingFrameProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [currentHeight, setCurrentHeight] = useState(height);
-  // Defer iframe mount until we can read window.location + document.referrer.
-  // Avoids a hydration mismatch + a wasted load of the bare URL.
-  const [iframeSrc, setIframeSrc] = useState<string | null>(null);
+  // Priority (above-the-fold) embed: seed with the bare widget URL so the
+  // iframe is in the server-rendered HTML and the browser can start the request
+  // immediately. The effect below upgrades it to the attribution-enriched URL
+  // only when UTMs/referrer are present — for direct/organic visits that's the
+  // same bare URL, so React bails out and there's no wasted second load. The
+  // seed is identical on server + client, so no hydration mismatch.
+  //
+  // Non-priority embed: stay null until the client computes the src (old
+  // deferred-mount behaviour). It's lazy anyway, so nothing is lost by waiting.
+  const [iframeSrc, setIframeSrc] = useState<string | null>(
+    priority ? `${WIDGET_ORIGIN}/` : null,
+  );
 
   useEffect(() => {
     setIframeSrc(buildWidgetSrc());
@@ -110,13 +128,22 @@ export function BookingFrame({ className, height = 700, sandbox }: BookingFrameP
     );
   }
 
+  // fetchpriority is standardised on <img>/<link>/<script>, so React's types
+  // don't declare it on <iframe> — but React DOM still serialises the canonical
+  // `fetchPriority` prop to a `fetchpriority` attribute on any element. Spread it
+  // in (spreads skip excess-property checks) to set it on the hero embed only.
+  const priorityAttr = priority ? { fetchPriority: "high" } : {};
+
   return (
     <iframe
       ref={iframeRef}
       src={iframeSrc}
       title="Book your Norwich walking tour"
       allow="payment"
-      loading="lazy"
+      // Above-the-fold hero embed: fetch eagerly at high priority. Below-the-fold
+      // embed: keep loading="lazy" so it only fetches as it nears the viewport.
+      loading={priority ? undefined : "lazy"}
+      {...priorityAttr}
       referrerPolicy="origin"
       sandbox={sandbox}
       className={className ?? "w-full"}

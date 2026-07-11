@@ -242,10 +242,16 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Early connection to the booking widget host — the iframe src is
-            set post-hydration, so without this the DNS+TLS handshake starts
-            far too late in the conversion path. */}
+        {/* Early connection to the booking widget host. The hero iframe now
+            renders in the server HTML (see BookingFrame `priority`), so the
+            browser discovers it during parse — this preconnect warms the
+            DNS+TLS handshake even earlier, and also covers the below-the-fold
+            lazy embed. */}
         <link rel="preconnect" href="https://norwich-booking.vercel.app" />
+        {/* Best-effort warm-up for the widget's database origin (Supabase).
+            dns-prefetch only — the connection isn't guaranteed to be used, so
+            we resolve DNS ahead of time without committing a full TLS handshake. */}
+        <link rel="dns-prefetch" href="https://qjinckfpvuoxllpwcadw.supabase.co" />
       </head>
       <body className="antialiased sticky-cta-clearance">
         {/* GTM noscript fallback */}

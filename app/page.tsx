@@ -41,6 +41,7 @@ export default function HomePage() {
           buttonHref="#book-section"
           widget={
             <BookingFrame
+              priority
               height={520}
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
             />
