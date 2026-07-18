@@ -37,7 +37,7 @@ export type Testimonial = {
 
 export const googleReviewStats = {
   rating: 5.0,
-  count: 66,
+  count: 74,
   profileUrl: "https://www.google.com/search?q=Norwich+Free+Walking+Tours#lrd=0x8bf78e00ceee4e5:0x992c2bcfd5063b62,1,,,,",
 };
 
@@ -45,7 +45,7 @@ export const googleReviewStats = {
 // from one source of truth (was previously hardcoded inside the component).
 export const tripAdvisorStats = {
   rating: 5.0,
-  count: 40,
+  count: 44,
   profileUrl:
     "https://www.tripadvisor.com/Attraction_Review-g186342-d34359588-Reviews-Norwich_Free_Walking_Tours-Norwich_Norfolk_East_Anglia_England.html",
 };
