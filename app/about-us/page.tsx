@@ -158,8 +158,13 @@ export default function AboutUsPage() {
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rounded-sm"
-                    style={{ backgroundColor: "rgba(241,225,161,0.75)", borderTop: "1px solid rgba(241,225,161,0.95)" }}
+                    className="absolute -top-3 left-1/2 w-24 h-6 rounded-[3px]"
+                    style={{
+                      transform: "translateX(-50%) rotate(-2deg)",
+                      backgroundColor: g.accent?.ac ?? "#2DA96B",
+                      borderTop: "1px solid rgba(255,255,255,0.3)",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+                    }}
                   />
                   {/* Coloured initial behind, photo as CSS background on top;
                       a missing file just reveals the initial (no broken icon). */}
@@ -212,16 +217,12 @@ export default function AboutUsPage() {
             whether visiting or living here. Sits below the guides. */}
         <section className="mt-16 py-16 border-y border-brand-accent/10" style={{ backgroundColor: "#F5EBDA" }}>
           <div className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="leading-[1.02] mb-4">
-              <span className="block font-lora text-2xl md:text-3xl font-semibold text-brand-text">
-                We just want you to
-              </span>
-              <span className="block font-caveat text-4xl md:text-5xl font-bold text-brand-accent">
-                make the most of Norwich.
-              </span>
+            <h2 className="mb-4">
+              <span className="font-lora text-3xl md:text-4xl font-semibold text-brand-text">Our </span>
+              <span className="font-caveat text-5xl md:text-6xl font-bold text-brand-accent">philosophy.</span>
             </h2>
             <p className="font-lora text-brand-text/80 leading-relaxed max-w-xl mx-auto text-base md:text-lg">
-              It&apos;s a conversation, not a lecture. Whether you&apos;re here for the day or you&apos;ve lived here for years, we want you leaving loving the place, and knowing what to do with it.
+              However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-9 max-w-2xl mx-auto mt-12 text-left">
@@ -254,26 +255,7 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Recruit */}
-        <section className="bg-brand-accent text-white mt-16 py-14">
-          <div className="brand-container max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-3">
-              Guide in Norwich?
-            </h2>
-            <p className="font-lora text-white/90 leading-relaxed max-w-xl mx-auto mb-6 text-base md:text-lg">
-              Keep your own tours and your own way of doing things. We share the costs and the customers, so you actually get paid for the work.
-            </p>
-            <Link
-              href="/contact"
-              className="btn-cta inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-brand-accent-text rounded-xl font-semibold shadow-md hover:bg-white/90 transition-colors"
-            >
-              Come and do it with us
-              <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
-          </div>
-        </section>
-
-        {/* Book CTA */}
+        {/* Book CTA — the visitor "join a tour" action. */}
         <section className="brand-container max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center">
           <h2 className="mb-3">
             <span className="font-lora text-2xl md:text-3xl font-semibold text-brand-text">Come and </span>
@@ -289,6 +271,29 @@ export default function AboutUsPage() {
             Book your spot (free)
             <ArrowRight className="w-5 h-5" aria-hidden="true" />
           </TrackedBookLink>
+        </section>
+
+        {/* Recruit — for prospective guides. Sits at the very bottom, below
+            the visitor book CTA, with its own section title. */}
+        <section className="bg-brand-accent text-white py-14">
+          <div className="brand-container max-w-2xl mx-auto px-4 sm:px-6 text-center">
+            <p className="font-lora text-sm font-semibold tracking-[0.18em] uppercase mb-3 text-white/80">
+              Join the team
+            </p>
+            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-3">
+              Guide in Norwich?
+            </h2>
+            <p className="font-lora text-white/90 leading-relaxed max-w-xl mx-auto mb-6 text-base md:text-lg">
+              Keep your own tours and your own way of doing things. We share the costs and the customers, so you actually get paid for the work.
+            </p>
+            <Link
+              href="/contact"
+              className="btn-cta inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-brand-accent-text rounded-xl font-semibold shadow-md hover:bg-white/90 transition-colors"
+            >
+              Come and do it with us
+              <ArrowRight className="w-5 h-5" aria-hidden="true" />
+            </Link>
+          </div>
         </section>
       </main>
       <Footer />
