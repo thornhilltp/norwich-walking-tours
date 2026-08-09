@@ -17,7 +17,7 @@ import { trackEvent } from "@/lib/tracking";
 // 'About' was briefly removed earlier today then added back per Tom.
 const navLinks = [
   { label: "The Tour", href: "/tour" },
-  { label: "About", href: "/about" },
+  { label: "About", href: "/about-us" },
   { label: "What Is a Free Tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Contact", href: "/contact" },

@@ -69,6 +69,13 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // /about (old solo-Tom page) retired in favour of the collective
+      // /about-us. 301 preserves its indexed equity + external backlinks.
+      { source: "/about", destination: "/about-us", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

@@ -7,14 +7,24 @@ import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
 // language (cream paper, tape, tilt, Caveat captions). Short scannable
-// copy, no role labels, no badges. Preview route (noindex) while the
-// Norwich Walking Tours rebrand is being decided.
+// copy, no role labels, no badges. Live at /about-us; replaces the old
+// solo-Tom /about (301 redirect in next.config.mjs).
 
 export const metadata: Metadata = {
-  title: "About Us | Norwich Walking Tours",
+  title: "About Us | Norwich Free Walking Tours",
   description:
-    "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz and Holly.",
-  robots: { index: false, follow: false },
+    "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz and Holly, the guides behind the Norwich free walking tour.",
+  alternates: {
+    canonical: "https://www.norwichfreewalkingtours.co.uk/about-us",
+  },
+  openGraph: {
+    title: "About Us | Norwich Free Walking Tours",
+    description:
+      "Meet the Norwich locals who show you round: Tom, Joolz and Holly.",
+    url: "https://www.norwichfreewalkingtours.co.uk/about-us",
+    type: "website",
+    images: [{ url: "/og-image.jpg", alt: "The Norwich Free Walking Tours guides." }],
+  },
 };
 
 type Guide = {

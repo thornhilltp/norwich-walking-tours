@@ -274,8 +274,8 @@ export default function WhereToStayPage() {
               Home
             </Link>
             <span className="mx-2 text-brand-accent/40">&bull;</span>
-            <Link href="/about" className="text-brand-accent hover:underline">
-              About Tom
+            <Link href="/about-us" className="text-brand-accent hover:underline">
+              About us
             </Link>
           </nav>
         </article>
