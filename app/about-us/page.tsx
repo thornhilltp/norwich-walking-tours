@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle, UserRound, MapPin, Home } from "lucide-react";
 import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
@@ -123,6 +123,43 @@ const guides: Guide[] = [
   },
 ];
 
+// Philosophy points — icon + heading + short line with a bolded key phrase.
+// Bold via **markers** rendered as semibold ink for emphasis on the sand band.
+function renderBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-brand-text">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
+const philosophy = [
+  {
+    Icon: MessageCircle,
+    h: "A conversation, not a lecture",
+    p: "We tell stories and ask questions, we don't reel off dates. **You'll talk to us, and to each other.** That's the bit people remember.",
+  },
+  {
+    Icon: UserRound,
+    h: "Built around you",
+    p: "We read the group. Where you're from, what you're into, how much history you actually want. **Nobody gets quite the same walk.**",
+  },
+  {
+    Icon: MapPin,
+    h: "More than history",
+    p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
+  },
+  {
+    Icon: Home,
+    h: "Visiting or living here",
+    p: "New to Norwich or been here forty years, there's a **strong chance you'll hear something** about this city you didn't know.",
+  },
+];
+
 export default function AboutUsPage() {
   return (
     <>
@@ -225,30 +262,18 @@ export default function AboutUsPage() {
               However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-9 max-w-2xl mx-auto mt-12 text-left">
-              {[
-                {
-                  h: "A conversation, not a lecture",
-                  p: "We tell stories and ask questions, we don't reel off dates. You'll talk to us, and to each other. That's the bit people remember.",
-                },
-                {
-                  h: "Built around you",
-                  p: "We read the group. Where you're from, what you're into, how much history you actually want. Nobody gets quite the same walk.",
-                },
-                {
-                  h: "More than history",
-                  p: "Where to eat, what to see next, what locals actually do. We want you making the most of the whole trip, not just the two hours with us.",
-                },
-                {
-                  h: "Visiting or living here",
-                  p: "New to Norwich or been here forty years, there's a strong chance you'll hear something about this city you didn't know.",
-                },
-              ].map((v) => (
-                <div key={v.h}>
-                  <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none mb-2">
-                    {v.h}
-                  </h3>
-                  <p className="font-lora text-brand-text/80 leading-relaxed">{v.p}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 max-w-2xl mx-auto mt-12 text-left">
+              {philosophy.map(({ Icon, h, p }) => (
+                <div key={h} className="flex flex-col gap-2.5">
+                  <div className="flex items-center gap-3">
+                    <span className="flex-none w-10 h-10 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none">
+                      {h}
+                    </h3>
+                  </div>
+                  <p className="font-lora text-brand-text/80 leading-relaxed">{renderBold(p)}</p>
                 </div>
               ))}
             </div>
