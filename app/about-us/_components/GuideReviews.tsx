@@ -97,7 +97,7 @@ export function GuideReviews({
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous review"
-            className="w-9 h-9 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
+            className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -115,7 +115,7 @@ export function GuideReviews({
             type="button"
             onClick={() => go(1)}
             aria-label="Next review"
-            className="w-9 h-9 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
+            className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
           >
             <ChevronRight className="w-4 h-4" />
           </button>

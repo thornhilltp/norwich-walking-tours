@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
-import { ArrowRight, MessageCircle, UserRound, MapPin, Home } from "lucide-react";
+import { ArrowRight, MessageCircle, UserRound, MapPin } from "lucide-react";
 import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
@@ -153,11 +153,6 @@ const philosophy = [
     h: "More than history",
     p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
   },
-  {
-    Icon: Home,
-    h: "Visiting or living here",
-    p: "New to Norwich or been here forty years, there's a **strong chance you'll hear something** about this city you didn't know.",
-  },
 ];
 
 export default function AboutUsPage() {
@@ -262,18 +257,18 @@ export default function AboutUsPage() {
               However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 max-w-2xl mx-auto mt-12 text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-10 max-w-3xl mx-auto mt-12">
               {philosophy.map(({ Icon, h, p }) => (
-                <div key={h} className="flex flex-col gap-2.5">
-                  <div className="flex items-center gap-3">
-                    <span className="flex-none w-10 h-10 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
-                      <Icon className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                    <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none">
-                      {h}
-                    </h3>
-                  </div>
-                  <p className="font-lora text-brand-text/80 leading-relaxed">{renderBold(p)}</p>
+                <div key={h} className="flex flex-col items-center text-center gap-3">
+                  <span className="flex-none w-12 h-12 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
+                    <Icon className="w-6 h-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none">
+                    {h}
+                  </h3>
+                  <p className="font-lora text-brand-text/80 leading-relaxed max-w-[260px]">
+                    {renderBold(p)}
+                  </p>
                 </div>
               ))}
             </div>
