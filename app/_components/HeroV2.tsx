@@ -119,7 +119,21 @@ export function HeroV2({
             </span>
           </motion.h1>
 
-          <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
+          {/* Mission subheading — Lora, white/90 (matches the hero's other
+              supporting lines), sized between the H1 and the trust row.
+              Widens the promise to locals + travellers. */}
+          <motion.p
+            variants={itemVariants}
+            className="mt-5 max-w-md text-lg md:text-xl text-white/90 leading-snug"
+            style={{
+              fontFamily: "var(--font-lora), Georgia, serif",
+              textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+            }}
+          >
+            Helping locals and travellers discover and love Norwich.
+          </motion.p>
+
+          <motion.div variants={itemVariants} className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             <a
               // Responsive target: on desktop the CTA scrolls to
               // BookingSectionV2's in-page widget (#book-section, visible on
