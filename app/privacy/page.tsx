@@ -70,6 +70,13 @@ export default function PrivacyPage() {
               to the guide by card reader or cash.
             </p>
             <p>
+              <strong>Petition signatures:</strong> When you sign the Roy&apos;s Plaza petition at{" "}
+              <a href="/roys-plaza" className="text-brand-accent hover:underline">/roys-plaza</a> we
+              collect your name, email address, and which of the escalating demands you ticked. The
+              petition is a parody and is not submitted to any authority, so your details are never
+              passed to Norwich City Council, Roys, or anyone else.
+            </p>
+            <p>
               <strong>Analytics:</strong> With your consent, we use Google Analytics 4 to understand
               how visitors use the site. This collects anonymised data such as pages visited, time
               on site, and device type. IP addresses are anonymised. No personally identifiable
@@ -88,6 +95,13 @@ export default function PrivacyPage() {
               you information about future tours if you have not unsubscribed.
             </p>
             <p>
+              <strong>Petition signatures</strong> are used to count how many people have signed and
+              to display that running total on the page. If you ticked the optional box when signing,
+              we will also email you updates on how the petition is going, and occasionally about our
+              walking tours. If you did not tick it, we will not email you at all. You can
+              unsubscribe from petition updates at any time.
+            </p>
+            <p>
               <strong>Analytics data</strong> is used to improve the website experience. It is
               never sold or shared with third parties for advertising purposes.
             </p>
@@ -103,6 +117,11 @@ export default function PrivacyPage() {
               Personal information (name, email, phone) is automatically anonymised after 2 years.
               Email preference records (e.g. unsubscribe records) are deleted after 3 years of
               inactivity.
+            </p>
+            <p>
+              <strong>Petition signatures</strong> are stored in Supabase (AWS EU region) and kept
+              while the petition is running. They are deleted within 12 months of the petition
+              closing, or sooner on request.
             </p>
             <p>
               <strong>Google Analytics data</strong> is retained for 14 months in accordance with
