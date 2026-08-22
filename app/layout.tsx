@@ -3,7 +3,6 @@ import { Caveat, Lora } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { StickyBookCTA } from "@/components/StickyBookCTA";
-import Script from "next/script";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MotionProvider } from "@/components/MotionProvider";
 
@@ -242,6 +241,29 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Warm the GTM origin before the loader below fires, so the async
+            gtm.js fetch doesn't pay DNS+TLS on the critical path. */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        {/* Google Tag Manager — MUST run during head parse, not after hydration.
+            Google Ads attribution depends on the Google Tag reading `gclid` from
+            the landing URL and writing the _gcl_aw first-party cookie. Between
+            11 Jul and 19 Aug 2026 this was deferred (next/script
+            strategy="afterInteractive"), which put it behind the full JS bundle
+            — ad visitors tapped through to /book before it ever ran, the gclid
+            was lost, and Ads-tracked conversions fell from ~52% of real bookings
+            to ~8%. gtm.js is injected with async=true, so loading it here never
+            blocks parsing or rendering. Consent Mode defaults above still run
+            first, so consent ordering is preserved. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
         {/* Early connection to the booking widget host. The hero iframe now
             renders in the server HTML (see BookingFrame `priority`), so the
             browser discovers it during parse — this preconnect warms the
@@ -273,20 +295,6 @@ export default function RootLayout({
           {/* CookieConsent pushes consent signals to dataLayer — GTM reads them to control GA4 */}
           <CookieConsent />
         </MotionProvider>
-        {/* Google Tag Manager — loads after hydration so gtm.js (119KB)
-            stays out of the LCP window. Consent defaults above run first
-            (inline, during parse), so Consent Mode ordering is preserved. */}
-        <Script
-          id="gtm-loader"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_ID}');`,
-          }}
-        />
       </body>
     </html>
   );
