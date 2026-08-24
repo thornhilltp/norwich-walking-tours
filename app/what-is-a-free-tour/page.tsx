@@ -47,14 +47,14 @@ const articleSchema = {
   author: {
     "@type": "Person",
     name: "Tom Thornhill",
-    url: "https://www.norwichfreewalkingtours.co.uk/about",
+    url: "https://www.norwichfreewalkingtours.co.uk/about-us",
   },
   publisher: {
     "@type": "Organization",
     name: "Norwich Free Walking Tours",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.norwichfreewalkingtours.co.uk/Logo_1.png",
+      url: "https://www.norwichfreewalkingtours.co.uk/nwt-logo-green.png",
     },
   },
 };

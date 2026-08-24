@@ -63,12 +63,12 @@ export function Nav() {
           {/* Logo — sized larger on desktop for brand presence.
               Mobile stays moderate so the wordmark doesn't crowd the
               hamburger at 375px viewports. */}
-          <a href="/" aria-label="Norwich Free Walking Tours, home">
+          <a href="/" aria-label="Norwich Walking Tours, home">
             <Image
-              src={isOpaque ? "/Logo_1.svg" : "/Logo_2.svg"}
-              alt="Norwich Free Walking Tours"
-              width={500}
-              height={500}
+              src={isOpaque ? "/nwt-logo-green.png" : "/nwt-logo-white.png"}
+              alt="Norwich Walking Tours"
+              width={508}
+              height={400}
               unoptimized
               className={`w-auto object-contain transition-all duration-300 ${
                 isOpaque ? "h-[60px] md:h-[72px]" : "h-[68px] md:h-[84px]"
