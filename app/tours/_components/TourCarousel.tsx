@@ -78,6 +78,15 @@ export function TourCarousel({ tours }: { tours: Tour[] }) {
     });
   }, []);
 
+  // Soft edge on the side that still has cards behind it. `transparent` at
+  // the very edge, opaque by 6%, so only the cut-off card is feathered.
+  const stops = [
+    atStart ? "black 0" : "transparent 0, black 6%",
+    atEnd ? "black 100%" : "black 94%, transparent 100%",
+  ].join(", ");
+  const edgeMask =
+    atStart && atEnd ? undefined : `linear-gradient(to right, ${stops})`;
+
   return (
     <div
       className="relative"
@@ -111,6 +120,10 @@ export function TourCarousel({ tours }: { tours: Tour[] }) {
         onScroll={syncFromScroll}
         // pb-2 leaves room for the card shadow inside the scroll box.
         className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        // Fade whichever edge has more cards behind it. Without this the
+        // half-visible card is cut by a hard vertical line mid-page, which
+        // reads as a broken image rather than "keep scrolling".
+        style={{ maskImage: edgeMask, WebkitMaskImage: edgeMask }}
       >
         {tours.map((tour, i) => (
           <li
