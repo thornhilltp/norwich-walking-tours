@@ -7,7 +7,20 @@ import { trackEvent } from "@/lib/tracking";
 
 type Status = "idle" | "submitting" | "success" | "already" | "error";
 
-export function EmailCapture() {
+// Copy is overridable so the same working form can sit on pages with a
+// different promise (e.g. the tours hub offers new-tour alerts). Defaults
+// reproduce the homepage block exactly.
+interface EmailCaptureProps {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+}
+
+export function EmailCapture({
+  eyebrow = "Stay in the loop",
+  heading = "Norwich from the inside",
+  body = "Monthly local tips, new tour updates, and the occasional story you won't get on any tourist site. No spam.",
+}: EmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [trap, setTrap] = useState("");
@@ -64,16 +77,16 @@ export function EmailCapture() {
             className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-2"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            Stay in the loop
+            {eyebrow}
           </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-3">
-            Norwich from the inside
+            {heading}
           </h2>
           <p
             className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-md mx-auto"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            Monthly local tips, new tour updates, and the occasional story you won&apos;t get on any tourist site. No spam.
+            {body}
           </p>
 
           {status === "success" ? (

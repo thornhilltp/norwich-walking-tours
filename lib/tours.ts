@@ -1,0 +1,133 @@
+// Tour catalogue — PROTOTYPE DATA.
+//
+// Only `norwich-essentials` and `private-tours` describe tours that
+// actually run today. Everything with status: "example" is placeholder
+// copy so Tom can see the /tours layout populated. Real names, prices,
+// schedules and photos land once Joolz and Holly scope their tours.
+//
+// When these become real: drop `status`, move the prices into the
+// booking widget, and give each one a /tours/[slug] page.
+
+export type TourStatus = "live" | "example";
+
+export interface Tour {
+  slug: string;
+  /** Card title. Keep short — it sets the card's visual weight. */
+  name: string;
+  /** Small line under the title. Who leads it. */
+  byline: string;
+  image: string;
+  imageAlt: string;
+  /** Thin meta line under the image: duration, group cap, when it runs. */
+  meta: string[];
+  blurb: string;
+  /** Bold bottom-left line — the money answer. */
+  priceLine: string;
+  /** Muted second line under the price. */
+  priceSub: string;
+  ctaLabel: string;
+  ctaHref: string;
+  /** Tint behind the card image. Rotates through the brand paper tones. */
+  tint: string;
+  status: TourStatus;
+}
+
+export const tours: Tour[] = [
+  {
+    slug: "norwich-essentials",
+    name: "The Norwich Essentials Tour",
+    byline: "Led by Tom, Joolz or Holly",
+    image: "/images/tour/what-is-free-tour.jpg",
+    imageAlt:
+      "A Norwich walking tour group standing with their guide outside The Forum",
+    meta: ["1h 45m", "Max 15", "Daily"],
+    blurb:
+      "The whole city centre in one walk. Castle, Market, the Lanes, Elm Hill, Tombland and the Cathedral, with the stories that tie them together.",
+    priceLine: "Free to book",
+    priceSub: "Pay what it was worth at the end",
+    ctaLabel: "Book",
+    ctaHref: "/book",
+    tint: "#E8F8F1",
+    status: "live",
+  },
+  {
+    slug: "norwich-after-dark",
+    name: "Norwich After Dark",
+    byline: "Led by Holly",
+    image: "/images/tour/elm-hill-tour.jpg",
+    imageAlt: "Elm Hill in Norwich at dusk, cobbles and timber-framed houses",
+    meta: ["1h 30m", "Max 12", "Fri & Sat"],
+    blurb:
+      "Plague pits, witch trials and the Norwich that the daylight tour skips. Starts at sunset and finishes in a pub.",
+    priceLine: "From £15 per person",
+    priceSub: "Booked and paid in advance",
+    ctaLabel: "Notify me",
+    ctaHref: "#notify",
+    tint: "#F5EBDA",
+    status: "example",
+  },
+  {
+    slug: "medieval-norwich",
+    name: "Medieval Norwich",
+    byline: "Led by Joolz Bailey",
+    image: "/images/tour/group-cathedral-west-front.jpg",
+    imageAlt: "Tour group at the west front of Norwich Cathedral",
+    meta: ["2h", "Max 12", "Weekends"],
+    blurb:
+      "England's second city in 1350. Thirty churches, a cathedral built by a man buying his way out of trouble, and a street plan that never quite recovered.",
+    priceLine: "From £18 per person",
+    priceSub: "Booked and paid in advance",
+    ctaLabel: "Notify me",
+    ctaHref: "#notify",
+    tint: "#E8F0E4",
+    status: "example",
+  },
+  {
+    slug: "market-to-table",
+    name: "Market to Table",
+    byline: "Led by Tom",
+    image: "/images/tour/guide-norwich-market.jpg",
+    imageAlt: "Guide talking to a tour group at the coloured stalls of Norwich Market",
+    meta: ["2h 30m", "Max 10", "Saturdays"],
+    blurb:
+      "Six hundred years of market, four tastings, and the traders who will tell you more in five minutes than any guidebook.",
+    priceLine: "From £30 per person",
+    priceSub: "Tastings included",
+    ctaLabel: "Notify me",
+    ctaHref: "#notify",
+    tint: "#F5EBDA",
+    status: "example",
+  },
+  {
+    slug: "pubs-and-breweries",
+    name: "Pubs & Breweries",
+    byline: "Led by Tom",
+    image: "/images/tour/group-britons-arms.jpg",
+    imageAlt: "Tour group outside the Britons Arms, a medieval building in Norwich",
+    meta: ["2h", "Max 12", "Thursdays"],
+    blurb:
+      "Norwich once had a pub for every day of the year. We visit four of the ones still standing and explain what happened to the rest.",
+    priceLine: "From £20 per person",
+    priceSub: "First drink included",
+    ctaLabel: "Notify me",
+    ctaHref: "#notify",
+    tint: "#E8F0E4",
+    status: "example",
+  },
+  {
+    slug: "private-tours",
+    name: "Private & Group Tours",
+    byline: "Your group, your date",
+    image: "/images/tour/group-portrait-bridge.jpg",
+    imageAlt: "A private tour group photographed together on a Norwich bridge",
+    meta: ["Flexible", "2 to 30+", "Any day"],
+    blurb:
+      "Corporate days, birthdays, family visits and school groups. We build the route around what your group actually wants to see.",
+    priceLine: "Price on request",
+    priceSub: "We'll match your budget where we can",
+    ctaLabel: "Enquire",
+    ctaHref: "/private-tours",
+    tint: "#E8F8F1",
+    status: "live",
+  },
+];
