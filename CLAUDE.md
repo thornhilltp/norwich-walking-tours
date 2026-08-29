@@ -9,7 +9,7 @@ Mobile-first marketing website for the **Norwich Free Walking Tour** ("The Real 
 
 **Repos:** Main site `thornhilltp/norwich-walking-tours` · Booking widget `thornhilltp/norwich-booking`
 **Hosting:** Vercel (both) · **Domain:** `norwichfreewalkingtours.co.uk` — live, DNS pointing to Vercel (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`)
-**Status:** Live as of April 2026. Tours running daily since May 2026 with strong review flow (33 Google at 4.9★ + 11 TripAdvisor at 5.0★ as of 2026-05-28). Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
+**Status:** Live as of April 2026. Tours running daily since May 2026. Reviews as of 2026-08-29: **116 Google at 4.9★ + 70 TripAdvisor at 4.9★**. Counts change often — `lib/testimonials.ts` (`googleReviewStats` / `tripAdvisorStats`) is the single source of truth; never quote review numbers from this file or from memory without checking it first. Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
 
 ---
 
@@ -64,7 +64,7 @@ Text:           #1A1A1A
 
 ### `/` — Home
 Sections in order (rebuilt 2026-05-19 — promoted from `/home-v2` experiment after design review):
-1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (5.0★ · 1h 45m · Max 15), partner logos.
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (rating · 2 hours · Max 15), partner logos.
 2. **WhatHowWho** (`app/_components/WhatHowWho.tsx`) — 3-column SEO insurance block: What you'll see / How it works / Who runs it. Restores keyword density below the outcome-shaped H1.
 3. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — Lora→Caveat H2, 3-benefit row, 2-polaroid card grid (An overview / A local to ask). `id="stories"`.
 4. **TestimonialsV2** (`app/_components/TestimonialsV2.tsx`) — Lora→Caveat H2, dual Google + TripAdvisor rating blocks, 2×2 review grid, dual "Read all" links. `id="reviews"`.
@@ -79,10 +79,16 @@ Sections in order (rebuilt 2026-05-19 — promoted from `/home-v2` experiment af
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
 ### `/tour` — The Tour
-10 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 1h 45m, daily, relaxed pace, what to wear.
+12 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 2 hours, daily, relaxed pace, what to wear.
 
 ### `/book` — Book
 `<iframe src="https://norwich-booking.vercel.app/" />` — minimal surrounding page. Reinforces: "£0 to join. Pay at the end by card, Apple Pay, Google Pay or cash."
+
+### `/about-us` — About (the collective)
+Live About page since 2026-08-09 (`f65e054`), replacing the solo `/about`. Per-guide polaroids, "Our philosophy" three-point block, recruit CTA below the book CTA. Part of the collective-brand pivot — see the `project_walking_tours_rebrand` memory.
+
+### `/roys-plaza` — Parody petition page
+Standalone campaign page added 2026-08-14 (`45971df`). Not part of the core booking funnel.
 
 ### `/contact` — Contact
 Simple form (name, email, message) + WhatsApp link + Instagram handle.
@@ -150,6 +156,8 @@ Source files in `_templates/`.
 - Do not modify the booking widget repo from the main site session
 - Do not install 21st.dev as a package — adapt patterns manually
 - Do not use stock tourism photography — use authentic Norwich architectural photography
+- **Do not move the GTM loader out of `<head>`.** It must stay an inline `<script>` in `app/layout.tsx`, right after the Consent Mode defaults. Deferring it (`next/script` `afterInteractive`) silently destroys Google Ads gclid attribution — it cost ~5 weeks of analytics in Jul–Aug 2026. See the `reference_gtm_must_load_in_head` memory.
+- Do not quote review counts or tour duration from this file without checking `lib/testimonials.ts` / the live site — both have drifted repeatedly
 
 ---
 
@@ -181,7 +189,7 @@ Source files in `_templates/`.
 
 _Launch admin:_
 - [x] **Launch badge:** removed from Hero (tours live since May 2026).
-- [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (33 reviews, 4.9 average as of 2026-05-28). TripAdvisor at 5.0 from 11 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
+- [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (116 reviews, 4.9 average as of 2026-08-29). TripAdvisor at 4.9 from 70 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.
 - [ ] **Contacts table (Supabase):** architectural decision pending. See Section 11. Currently using `subscribers` table for homepage signups only.
 - [x] **Contact form email bounce: resolved 2026-04-16.** Root cause confirmed: Zoho's inbound anti-spoof rule (`554 5.7.7 Email policy violation`) hard-rejects any mail claiming to be `From: @norwichfreewalkingtours.co.uk` that arrives via non-Zoho infrastructure (Resend / Amazon SES). Fix: switched `/api/contact` and `/api/subscribe` to send via **Zoho SMTP** (`smtp.zoho.eu:465`, app-specific password). Zoho-to-Zoho mail is internal and bypasses the rule entirely. See `lib/zohoMail.ts`. Booking widget keeps Resend (its mail goes to external customer inboxes — no self-spoof issue). Required env vars: `ZOHO_EMAIL=hello@norwichfreewalkingtours.co.uk`, `ZOHO_APP_PASSWORD` (app password from accounts.zoho.eu — **rotate this password: it was inadvertently shared in a chat session on 2026-04-16**).
@@ -210,11 +218,11 @@ _Technical (from April 2026 site review):_
 _Marketing — near-term:_
 - [ ] **M3. Replace stock photography with authentic tour photos** once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
 - [x] **M4. FAQPage JSON-LD** shipped in `components/FAQ.tsx:79-90` (built from the `faqs` array, emitted via `<script type="application/ld+json">` inside the component render). Unlocks rich FAQ accordions in Google SERP.
-- [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 1h 45m · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
+- [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 2 hours · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
 - [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
 - [ ] **M12. OG image upgrade** — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
 - [ ] **M18. `/book` page — add below-widget content** — `app/book/page.tsx` is currently the iframe plus minimal surrounding copy, but it's the highest-intent page on the site. Once testimonials exist (post-launch), add below the widget: (a) 2–3 real guest quotes, (b) a "What happens after you book" 3-step explainer (confirmation email → meet at The Forum → pay what it was worth), (c) a 4-question FAQ subset pulled from `components/FAQ.tsx`: "Is it really free?", "What if it rains?", "Do I have to pay?", "Can I cancel?". Reduces pre-booking anxiety which is the #1 drop-off on free-tour booking flows. Keep the iframe itself above the fold — the new content is for users who scrolled because they're hesitating.
-- [x] **M19. End-of-tour QR review card / review acquisition** — reviews are flowing (33 Google at 4.9★ + 11 TripAdvisor at 5.0★ as of 2026-05-28). Trigger items completed: (1) `lib/testimonials.ts` populated with real Google reviews, (2) `aggregateRating` + `review` re-added to JSON-LD in `app/layout.tsx`, (3) star rating surfaced in the Hero trust row on `/home-v2`.
+- [x] **M19. End-of-tour QR review card / review acquisition** — reviews are flowing (116 Google at 4.9★ + 70 TripAdvisor at 4.9★ as of 2026-08-29). Trigger items completed: (1) `lib/testimonials.ts` populated with real Google reviews, (2) `aggregateRating` + `review` re-added to JSON-LD in `app/layout.tsx`, (3) star rating surfaced in the Hero trust row on `/home-v2`.
 
 **Longer-term / post-launch iteration:**
 - [ ] **M1. Meet Your Guide page** (`/about-the-guide`) — headshot, 2–3 paragraph story, favourite stop, Q&A section. Biggest trust gap on the site today.
