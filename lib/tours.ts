@@ -40,7 +40,7 @@ export const tours: Tour[] = [
     image: "/images/tour/what-is-free-tour.jpg",
     imageAlt:
       "A Norwich walking tour group standing with their guide outside The Forum",
-    meta: ["1h 45m", "Max 15", "Daily"],
+    meta: ["2 hours", "Max 15", "Daily"],
     blurb:
       "The whole city centre in one walk. Castle, Market, the Lanes, Elm Hill, Tombland and the Cathedral, with the stories that tie them together.",
     priceLine: "Free to book",
