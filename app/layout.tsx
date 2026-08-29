@@ -237,6 +237,34 @@ export default function RootLayout({
                 'ad_user_data': 'granted',
                 'ad_personalization': 'granted'
               });
+              // Returning visitors: apply the stored banner choice NOW, during
+              // head parse, before GTM initialises. Without this, the stored
+              // choice is only applied by CookieConsent after React hydration,
+              // so a returning accepter's first page_view still fires with
+              // consent denied (gcs=G100) — cookieless, and invisible in
+              // reports on a property this small. Reading it here means their
+              // very first event carries granted consent. New visitors are
+              // unaffected (no stored value, so the region defaults above
+              // stand until they choose in the banner). try/catch because
+              // localStorage can throw in some privacy modes.
+              try {
+                var storedConsent = localStorage.getItem('cookie-consent');
+                if (storedConsent === 'accepted') {
+                  gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'analytics_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
+                  });
+                } else if (storedConsent === 'declined') {
+                  gtag('consent', 'update', {
+                    'ad_storage': 'denied',
+                    'analytics_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied'
+                  });
+                }
+              } catch (e) {}
               gtag('js', new Date());
             `,
           }}
