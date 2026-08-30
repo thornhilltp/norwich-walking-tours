@@ -1,48 +1,51 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Check, Loader2, Plus } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 import { RESULTS_DATE, VOTING_CLOSES, formatDate } from "@/lib/best-in-norwich";
 
-// VoteBoard — the 2027 vote at /best-in-norwich and /best-in-norwich/vote.
+// VoteBoard — the Best in Norwich 2027 vote. One widget, hero right column.
 //
-// Third design, and Tom's: the chart IS the ballot. Each category is a set of
-// bars showing what people have voted for so far, and clicking a bar is the
-// vote. Nothing to fill in unless the place you want is missing, in which case
-// "Add a place" takes a name, a website and a category.
-//
-// What this replaced and why:
-//   1. A stepper with last year's winner pre-listed — leading, would have
+// Design history, so nobody rebuilds a rejected version:
+//   1. Stepper with last year's winner pre-listed — leading, would have
 //      re-elected the 2026 list.
-//   2. Sixteen blank text boxes on one page — the US alt-weekly ballot
-//      pattern, and a wall people abandon.
+//   2. Sixteen blank text boxes on one page — the US alt-weekly ballot, a wall
+//      people abandon.
+//   3. Sixteen categories of bars down the page — better, still a page rather
+//      than a widget.
+//   4. This: one hero-sized widget. Category chips to jump anywhere, top three
+//      bars for the current one, and after a vote it advances to the next
+//      category you have not answered. Choice if you want it, momentum if you
+//      do not.
 //
-// Trade-off worth knowing: showing counts before voting does nudge people
-// toward whoever is ahead. Tom's call, and the competitive board is the thing
-// that makes this shareable, so we take the nudge over the empty form.
-//
-// Email is asked once, on the first vote, then kept in localStorage so a
-// second vote is a single click. The server still dedupes on email, so a
-// cleared browser cannot double-vote.
+// Clicking a bar is the vote — there is no form unless a place is missing.
+// Email is asked once and kept in localStorage; the server still dedupes on
+// email, so clearing the browser buys nothing.
 
 const EMAIL_KEY = "bin_voter_email";
+const VOTED_KEY = "bin_voted_categories";
+const TOP_N = 3;
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 
 interface Nominee {
   name: string;
   url: string | null;
+  image: string | null;
   votes: number;
 }
 
-interface BoardCategory {
+export interface BoardCategory {
   key: string;
   label: string;
+  question: string;
   blurb?: string;
   nominees: Nominee[];
 }
 
-type Pending = { categoryKey: string; name: string } | null;
+function initials(name: string) {
+  return name.replace(/^(the|a)\s+/i, "").trim().charAt(0).toUpperCase();
+}
 
 export function VoteBoard({
   initialCategories,
@@ -51,29 +54,39 @@ export function VoteBoard({
 }) {
   const [categories, setCategories] = useState<BoardCategory[]>(initialCategories);
   const [totalVotes, setTotalVotes] = useState<number | null>(null);
+  const [active, setActive] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+
   const [voted, setVoted] = useState<Record<string, string>>({});
-  const [busy, setBusy] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  // Email gate, shown once
   const [email, setEmail] = useState("");
   const [knownEmail, setKnownEmail] = useState<string | null>(null);
   const [marketingOptIn, setMarketingOptIn] = useState(false);
-  const [pending, setPending] = useState<Pending>(null);
+  const [pending, setPending] = useState<{ key: string; name: string } | null>(null);
 
-  // "Add a place" panel, per category
-  const [addingFor, setAddingFor] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState("");
   const [newUrl, setNewUrl] = useState("");
-  const [newCategory, setNewCategory] = useState("");
-  const [added, setAdded] = useState<string[]>([]);
+  const [justAdded, setJustAdded] = useState(false);
+
+  const chipsRef = useRef<HTMLDivElement | null>(null);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const category = categories[active];
 
   useEffect(() => {
     try {
       setKnownEmail(window.localStorage.getItem(EMAIL_KEY));
+      const stored = window.localStorage.getItem(VOTED_KEY);
+      if (stored) setVoted(JSON.parse(stored) as Record<string, string>);
     } catch {
-      // Private browsing. The email prompt just shows every time.
+      // Private browsing. Everything still works, it just asks again.
     }
+    return () => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    };
   }, []);
 
   const refresh = useCallback(async () => {
@@ -85,7 +98,7 @@ export function VoteBoard({
       }
       if (typeof data.totalVotes === "number") setTotalVotes(data.totalVotes);
     } catch {
-      // Keep whatever the server rendered.
+      // Keep the server-rendered board.
     }
   }, []);
 
@@ -93,15 +106,58 @@ export function VoteBoard({
     refresh();
   }, [refresh]);
 
-  // ── Voting ─────────────────────────────────────────────────────────────────
-  async function castVote(categoryKey: string, name: string, voterEmail: string) {
-    setBusy(categoryKey);
+  // Keep the active chip in view when the widget advances on its own.
+  useEffect(() => {
+    const row = chipsRef.current;
+    const chip = row?.querySelector<HTMLElement>('[data-active="true"]');
+    if (row && chip) {
+      row.scrollTo({
+        left: chip.offsetLeft - row.offsetWidth / 2 + chip.offsetWidth / 2,
+        behavior: "smooth",
+      });
+    }
+    setExpanded(false);
+    setAdding(false);
+    setJustAdded(false);
+  }, [active]);
+
+  const answered = useMemo(() => Object.keys(voted).length, [voted]);
+
+  function rememberVote(key: string, name: string) {
+    setVoted((prev) => {
+      const next = { ...prev, [key]: name };
+      try {
+        window.localStorage.setItem(VOTED_KEY, JSON.stringify(next));
+      } catch {
+        // Ignore.
+      }
+      return next;
+    });
+  }
+
+  function advance(fromIndex: number) {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    advanceTimer.current = setTimeout(() => {
+      setCategories((current) => {
+        setVoted((v) => {
+          const nextIndex = current.findIndex((c, i) => i > fromIndex && !v[c.key]);
+          const wrapped =
+            nextIndex === -1 ? current.findIndex((c) => !v[c.key]) : nextIndex;
+          if (wrapped !== -1) setActive(wrapped);
+          return v;
+        });
+        return current;
+      });
+    }, 900);
+  }
+
+  async function castVote(key: string, name: string, voterEmail: string) {
+    setBusy(true);
     setError("");
 
-    // Move the bar straight away. The refresh below corrects it either way.
     setCategories((prev) =>
       prev.map((c) =>
-        c.key !== categoryKey
+        c.key !== key
           ? c
           : {
               ...c,
@@ -111,7 +167,8 @@ export function VoteBoard({
             }
       )
     );
-    setVoted((prev) => ({ ...prev, [categoryKey]: name }));
+    rememberVote(key, name);
+    advance(categories.findIndex((c) => c.key === key));
 
     try {
       const res = await fetch("/api/best-in-norwich", {
@@ -120,71 +177,61 @@ export function VoteBoard({
         body: JSON.stringify({
           email: voterEmail,
           marketingOptIn,
-          votes: { [categoryKey]: name },
+          votes: { [key]: name },
         }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error ?? "Something went wrong.");
 
-      if (Array.isArray(data.alreadyVoted) && data.alreadyVoted.includes(categoryKey)) {
-        setError("You have already voted in that category. Your first pick stands.");
-      }
-
       trackEvent("bin_vote_submitted", {
+        category: key,
         categories_voted: Number(data.counted) || 0,
-        category: categoryKey,
-        is_new: (Number(data.counted) || 0) > 0,
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
-      setBusy(null);
+      setBusy(false);
       refresh();
     }
   }
 
-  function handleBarClick(categoryKey: string, name: string) {
-    if (busy) return;
+  function onBar(name: string) {
+    if (busy || !category) return;
     if (knownEmail) {
-      castVote(categoryKey, name, knownEmail);
+      castVote(category.key, name, knownEmail);
       return;
     }
-    setPending({ categoryKey, name });
+    setPending({ key: category.key, name });
   }
 
   async function confirmEmail(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const clean = email.trim();
     if (!clean) return;
-
     try {
       window.localStorage.setItem(EMAIL_KEY, clean);
     } catch {
-      // Fine. They will be asked again next time.
+      // Ignore.
     }
     setKnownEmail(clean);
-
     const job = pending;
     setPending(null);
-    if (job) await castVote(job.categoryKey, job.name, clean);
+    if (job) await castVote(job.key, job.name, clean);
   }
 
-  // ── Adding a place ─────────────────────────────────────────────────────────
   async function submitNew(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!category) return;
     const name = newName.trim();
-    const categoryKey = newCategory || addingFor;
-    if (!name || !categoryKey) return;
-
     const voterEmail = knownEmail ?? email.trim();
+    if (!name) return;
     if (!voterEmail) {
       setError("We need your email to count the vote.");
       return;
     }
 
-    setBusy(categoryKey);
+    setBusy(true);
     setError("");
-
     try {
       const res = await fetch("/api/best-in-norwich", {
         method: "POST",
@@ -192,8 +239,10 @@ export function VoteBoard({
         body: JSON.stringify({
           email: voterEmail,
           marketingOptIn,
-          votes: { [categoryKey]: name },
-          nominations: [{ categoryKey, name, url: newUrl.trim() || undefined }],
+          votes: { [category.key]: name },
+          nominations: [
+            { categoryKey: category.key, name, url: newUrl.trim() || undefined },
+          ],
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -205,55 +254,91 @@ export function VoteBoard({
         // Ignore.
       }
       setKnownEmail(voterEmail);
-      setAdded((prev) => [...prev, categoryKey]);
-      setVoted((prev) => ({ ...prev, [categoryKey]: name }));
-      setAddingFor(null);
+      rememberVote(category.key, name);
+      setJustAdded(true);
+      setAdding(false);
       setNewName("");
       setNewUrl("");
-      setNewCategory("");
-
-      trackEvent("bin_nomination_added", { category: categoryKey });
+      trackEvent("bin_nomination_added", { category: category.key });
+      advance(active);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
-      setBusy(null);
+      setBusy(false);
       refresh();
     }
   }
 
+  if (!category) return null;
+
+  const myVote = voted[category.key];
+  const ranked = [...category.nominees].sort((a, b) => b.votes - a.votes);
+  const shown = expanded ? ranked : ranked.slice(0, TOP_N);
+  const top = Math.max(ranked[0]?.votes ?? 0, 1);
+
   return (
-    <div>
-      {/* ── Running total ─────────────────────────────────────────────────── */}
-      <p className="mb-6 text-sm text-muted-foreground" style={lora}>
+    <div className="bg-brand-white border-2 border-brand-text/10 rounded-2xl shadow-2xl p-5 sm:p-6">
+      {/* ── Header ─────────────────────────────────────────────────────── */}
+      <p className="font-caveat text-3xl font-bold text-brand-accent leading-none">
+        Vote — Best in Norwich 2027
+      </p>
+      <p className="mt-1 text-xs text-muted-foreground" style={lora}>
         {totalVotes === null
-          ? `Open until ${formatDate(VOTING_CLOSES)}`
+          ? `Closes ${formatDate(VOTING_CLOSES)}`
           : `${totalVotes.toLocaleString("en-GB")} ${
               totalVotes === 1 ? "vote" : "votes"
-            } so far · open until ${formatDate(VOTING_CLOSES)} · winners ${formatDate(
-              RESULTS_DATE
-            )}`}
+            } · closes ${formatDate(VOTING_CLOSES)} · winners ${formatDate(RESULTS_DATE)}`}
+        {answered > 0 && ` · you have voted in ${answered}`}
+      </p>
+
+      {/* ── Category chips ─────────────────────────────────────────────── */}
+      <div
+        ref={chipsRef}
+        className="mt-4 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {categories.map((c, i) => {
+          const isActive = i === active;
+          const done = Boolean(voted[c.key]);
+          return (
+            <button
+              key={c.key}
+              type="button"
+              data-active={isActive}
+              onClick={() => setActive(i)}
+              className={`shrink-0 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition min-h-[36px] ${
+                isActive
+                  ? "bg-brand-accent text-brand-white"
+                  : done
+                    ? "bg-brand-accent-light text-brand-accent"
+                    : "border border-brand-text/15 text-muted-foreground hover:border-brand-accent"
+              }`}
+              style={lora}
+            >
+              {done && !isActive && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
+              {c.label.replace(/^Best /, "")}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── The question ───────────────────────────────────────────────── */}
+      <p className="mt-3 text-lg font-bold text-brand-text" style={lora}>
+        {category.question}
       </p>
 
       {error && (
-        <p className="mb-5 text-sm text-red-700" role="alert" style={lora}>
+        <p className="mt-2 text-sm text-red-700" role="alert" style={lora}>
           {error}
         </p>
       )}
 
-      {/* ── Email, asked once ─────────────────────────────────────────────── */}
+      {/* ── Email, asked once ──────────────────────────────────────────── */}
       {pending && (
-        <form
-          onSubmit={confirmEmail}
-          className="mb-8 rounded-xl bg-brand-white border-2 border-brand-accent p-5"
-        >
-          <p className="text-lg font-bold text-brand-text mb-1" style={lora}>
-            One thing before that counts.
+        <form onSubmit={confirmEmail} className="mt-3 rounded-xl bg-brand-accent-light p-4">
+          <p className="text-sm font-semibold text-brand-text mb-2" style={lora}>
+            One thing, so it only counts once.
           </p>
-          <p className="text-sm text-muted-foreground mb-3" style={lora}>
-            Your email keeps it honest, one vote per person per category. Never
-            published, never shared with anyone on the board.
-          </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
             <input
               type="email"
               required
@@ -262,210 +347,186 @@ export function VoteBoard({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="flex-1 min-w-[220px] rounded-lg border-2 border-brand-text/15 bg-brand-bg px-4 py-3 text-base text-brand-text outline-none transition focus:border-brand-accent min-h-[48px]"
+              className="flex-1 min-w-[180px] rounded-lg border-2 border-brand-text/15 bg-brand-white px-3 py-2.5 text-base text-brand-text outline-none focus:border-brand-accent min-h-[44px]"
               style={lora}
             />
             <button
               type="submit"
-              className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-3 text-xl font-bold text-brand-white transition hover:opacity-90 min-h-[48px]"
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-lg font-bold text-brand-white transition hover:opacity-90 min-h-[44px]"
               style={{ fontFamily: "var(--font-caveat), cursive" }}
             >
-              Count my vote
+              Count it
             </button>
           </div>
-          <label className="mt-3 flex items-start gap-3 cursor-pointer">
+          <label className="mt-2 flex items-start gap-2 cursor-pointer">
             <input
               type="checkbox"
               checked={marketingOptIn}
               onChange={(e) => setMarketingOptIn(e.target.checked)}
-              className="mt-1 h-4 w-4 shrink-0 accent-[#2DA96B]"
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[#2DA96B]"
             />
-            <span className="text-xs leading-relaxed text-muted-foreground" style={lora}>
-              Optional: email me the results and the odd thing from Norwich Free Walking
-              Tours.{" "}
+            <span className="text-xs leading-snug text-muted-foreground" style={lora}>
+              Email me the results.{" "}
               <a href="/privacy" className="underline hover:text-brand-accent">
-                Privacy policy
+                Privacy
               </a>
-              .
             </span>
           </label>
         </form>
       )}
 
-      {/* ── The board ─────────────────────────────────────────────────────── */}
-      <div className="space-y-10">
-        {categories.map((category) => {
-          const top = Math.max(...category.nominees.map((n) => n.votes), 1);
-          const myVote = voted[category.key];
-
+      {/* ── Bars ───────────────────────────────────────────────────────── */}
+      <div className="mt-3 space-y-2">
+        {shown.map((nominee) => {
+          const mine = myVote === nominee.name;
           return (
-            <div key={category.key} id={category.key} className="scroll-mt-28">
-              <div className="flex items-baseline justify-between gap-4 mb-3">
-                <div>
-                  <h3 className="text-lg font-bold text-brand-text" style={lora}>
-                    {category.label}
-                  </h3>
-                  {category.blurb && (
-                    <p className="text-sm text-muted-foreground" style={lora}>
-                      {category.blurb}
-                    </p>
-                  )}
-                </div>
-                {myVote && (
-                  <span
-                    className="shrink-0 inline-flex items-center gap-1 text-sm font-semibold text-brand-accent"
-                    style={lora}
-                  >
-                    <Check className="h-4 w-4" aria-hidden="true" />
-                    Voted
-                  </span>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                {category.nominees.map((nominee) => {
-                  const mine = myVote === nominee.name;
-                  return (
-                    <button
-                      key={nominee.name}
-                      type="button"
-                      disabled={busy === category.key}
-                      onClick={() => handleBarClick(category.key, nominee.name)}
-                      aria-label={`Vote for ${nominee.name} as ${category.label}`}
-                      className={`group relative flex w-full items-center gap-3 rounded-lg border p-2.5 text-left transition min-h-[48px] disabled:opacity-60 ${
-                        mine
-                          ? "border-brand-accent bg-brand-accent-light"
-                          : "border-brand-text/10 bg-brand-white hover:border-brand-accent"
-                      }`}
-                    >
-                      <span className="relative z-10 flex-1 text-base text-brand-text" style={lora}>
-                        {nominee.name}
-                      </span>
-                      <span
-                        className="relative z-10 w-10 shrink-0 text-right text-sm tabular-nums text-muted-foreground"
-                        style={lora}
-                      >
-                        {nominee.votes}
-                      </span>
-                      {/* The bar itself, behind the label */}
-                      <span
-                        aria-hidden="true"
-                        className={`absolute inset-y-0 left-0 rounded-lg transition-[width] duration-500 ${
-                          mine ? "bg-brand-accent/25" : "bg-brand-accent/10"
-                        }`}
-                        style={{ width: `${(nominee.votes / top) * 100}%` }}
-                      />
-                    </button>
-                  );
-                })}
-
-                {added.includes(category.key) && (
-                  <p className="text-sm text-brand-accent" style={lora}>
-                    Thanks. We check new places by hand, so it joins the board in a day or
-                    so, with your vote on it.
-                  </p>
-                )}
-
-                {addingFor === category.key ? (
-                  <form
-                    onSubmit={submitNew}
-                    className="rounded-lg border-2 border-brand-accent bg-brand-white p-4 space-y-3"
-                  >
-                    <p className="text-sm font-semibold text-brand-text" style={lora}>
-                      Add a place to {category.label.toLowerCase()}
-                    </p>
-                    <input
-                      type="text"
-                      required
-                      autoFocus
-                      maxLength={80}
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      placeholder="Name of the place"
-                      className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-bg px-4 py-3 text-base text-brand-text outline-none focus:border-brand-accent min-h-[48px]"
-                      style={lora}
-                    />
-                    <input
-                      type="text"
-                      maxLength={300}
-                      value={newUrl}
-                      onChange={(e) => setNewUrl(e.target.value)}
-                      placeholder="Their website (optional)"
-                      className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-bg px-4 py-3 text-base text-brand-text outline-none focus:border-brand-accent min-h-[48px]"
-                      style={lora}
-                    />
-                    <label className="block text-sm text-muted-foreground" style={lora}>
-                      Category
-                      <select
-                        value={newCategory || category.key}
-                        onChange={(e) => setNewCategory(e.target.value)}
-                        className="mt-1 w-full rounded-lg border-2 border-brand-text/15 bg-brand-bg px-4 py-3 text-base text-brand-text outline-none focus:border-brand-accent min-h-[48px]"
-                        style={lora}
-                      >
-                        {categories.map((c) => (
-                          <option key={c.key} value={c.key}>
-                            {c.label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    {!knownEmail && (
-                      <input
-                        type="email"
-                        required
-                        maxLength={254}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Your email"
-                        className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-bg px-4 py-3 text-base text-brand-text outline-none focus:border-brand-accent min-h-[48px]"
-                        style={lora}
-                      />
-                    )}
-
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button
-                        type="submit"
-                        disabled={busy === category.key}
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-accent px-6 py-3 text-xl font-bold text-brand-white transition hover:opacity-90 disabled:opacity-60 min-h-[48px]"
-                        style={{ fontFamily: "var(--font-caveat), cursive" }}
-                      >
-                        {busy === category.key && (
-                          <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                        )}
-                        Add and vote
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setAddingFor(null)}
-                        className="text-sm text-muted-foreground underline underline-offset-4"
-                        style={lora}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setAddingFor(category.key);
-                      setNewCategory(category.key);
-                    }}
-                    className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-accent transition hover:underline underline-offset-4 min-h-[44px]"
-                    style={lora}
-                  >
-                    <Plus className="h-4 w-4" aria-hidden="true" />
-                    {category.nominees.length === 0
-                      ? "Nothing here yet. Add the first one"
-                      : "Not on the list? Add it"}
-                  </button>
-                )}
-              </div>
-            </div>
+            <button
+              key={nominee.name}
+              type="button"
+              disabled={busy}
+              onClick={() => onBar(nominee.name)}
+              aria-label={`Vote for ${nominee.name} as ${category.label}`}
+              className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl border p-2 text-left transition min-h-[56px] disabled:opacity-60 ${
+                mine
+                  ? "border-brand-accent"
+                  : "border-brand-text/10 hover:border-brand-accent"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-0 left-0 transition-[width] duration-500 ${
+                  mine ? "bg-brand-accent/20" : "bg-brand-accent/10"
+                }`}
+                style={{ width: `${(nominee.votes / top) * 100}%` }}
+              />
+              {nominee.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={nominee.image}
+                  alt=""
+                  className="relative z-10 h-10 w-10 shrink-0 rounded-lg object-cover"
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent-light text-lg font-bold text-brand-accent"
+                  style={lora}
+                >
+                  {initials(nominee.name)}
+                </span>
+              )}
+              <span
+                className="relative z-10 flex-1 text-base leading-snug text-brand-text"
+                style={lora}
+              >
+                {nominee.name}
+              </span>
+              {mine ? (
+                <Check className="relative z-10 h-5 w-5 shrink-0 text-brand-accent" aria-hidden="true" />
+              ) : (
+                <span
+                  className="relative z-10 shrink-0 text-sm tabular-nums text-muted-foreground"
+                  style={lora}
+                >
+                  {nominee.votes}
+                </span>
+              )}
+            </button>
           );
         })}
+
+        {ranked.length === 0 && !adding && (
+          <p className="text-sm text-muted-foreground" style={lora}>
+            Nobody has said yet. Go first.
+          </p>
+        )}
+
+        {justAdded && (
+          <p className="text-sm text-brand-accent" style={lora}>
+            Counted. We check new places by hand, so it joins the board in a day or so.
+          </p>
+        )}
       </div>
+
+      {/* ── Add a place ────────────────────────────────────────────────── */}
+      {adding ? (
+        <form onSubmit={submitNew} className="mt-3 rounded-xl bg-brand-accent-light p-4 space-y-2">
+          <input
+            type="text"
+            required
+            autoFocus
+            maxLength={80}
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            placeholder="Name of the place"
+            className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-white px-3 py-2.5 text-base text-brand-text outline-none focus:border-brand-accent min-h-[44px]"
+            style={lora}
+          />
+          <input
+            type="text"
+            maxLength={300}
+            value={newUrl}
+            onChange={(e) => setNewUrl(e.target.value)}
+            placeholder="Their website (optional)"
+            className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-white px-3 py-2.5 text-base text-brand-text outline-none focus:border-brand-accent min-h-[44px]"
+            style={lora}
+          />
+          {!knownEmail && (
+            <input
+              type="email"
+              required
+              maxLength={254}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email"
+              className="w-full rounded-lg border-2 border-brand-text/15 bg-brand-white px-3 py-2.5 text-base text-brand-text outline-none focus:border-brand-accent min-h-[44px]"
+              style={lora}
+            />
+          )}
+          <div className="flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={busy}
+              className="inline-flex items-center gap-2 rounded-full bg-brand-accent px-5 py-2.5 text-lg font-bold text-brand-white transition hover:opacity-90 disabled:opacity-60 min-h-[44px]"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+              Add and vote
+            </button>
+            <button
+              type="button"
+              onClick={() => setAdding(false)}
+              className="text-sm text-muted-foreground underline underline-offset-4"
+              style={lora}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      ) : (
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setAdding(true)}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline underline-offset-4 min-h-[44px]"
+            style={lora}
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Not there? Add it
+          </button>
+
+          {ranked.length > TOP_N && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="text-sm text-muted-foreground hover:text-brand-accent min-h-[44px]"
+              style={lora}
+            >
+              {expanded ? "Show fewer" : `All ${ranked.length} →`}
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

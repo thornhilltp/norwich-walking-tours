@@ -14,14 +14,19 @@ import { CATEGORIES, VOTE_YEAR } from "@/lib/best-in-norwich";
 export interface BoardCategory {
   key: string;
   label: string;
+  question: string;
   blurb?: string;
-  nominees: { name: string; url: string | null; votes: number }[];
+  nominees: { name: string; url: string | null; image: string | null; votes: number }[];
 }
+
+const questionFor = (label: string, question?: string) =>
+  question ?? `${label} in Norwich?`;
 
 export async function getBoard(): Promise<BoardCategory[]> {
   const empty = CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
+    question: questionFor(c.label, c.question),
     blurb: c.blurb,
     nominees: [],
   }));
@@ -39,18 +44,21 @@ export async function getBoard(): Promise<BoardCategory[]> {
     category_key: string;
     nominee_name: string;
     url: string | null;
+    image_url: string | null;
     votes: number;
   }[];
 
   return CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
+    question: questionFor(c.label, c.question),
     blurb: c.blurb,
     nominees: rows
       .filter((r) => r.category_key === c.key)
       .map((r) => ({
         name: r.nominee_name,
         url: r.url,
+        image: r.image_url,
         votes: Number(r.votes) || 0,
       })),
   }));

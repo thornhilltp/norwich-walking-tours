@@ -86,6 +86,9 @@ export interface AwardCategory {
   label: string;
   /** Optional one-liner shown under the label on the ballot. */
   blurb?: string;
+  /** The question the vote widget asks. Falls back to "<label> in Norwich?"
+   *  which reads badly for some labels, so most categories set it. */
+  question?: string;
   icon?: GuideIconKey;
   /** Undefined until Tom supplies the winner — the card renders a
    *  "still counting" state rather than breaking. */
@@ -117,6 +120,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "coffee",
     label: "Best coffee",
+    question: "Best coffee in Norwich?",
     blurb: "The cup itself. Nothing else counts.",
     icon: "coffee",
     winner: {
@@ -133,6 +137,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "coffee-sit-in",
     label: "Best coffee to sit in",
+    question: "Best place to sit with a coffee?",
     blurb: "Where you stay for the second one.",
     icon: "coffee",
     winner: {
@@ -146,6 +151,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "bakery",
     label: "Best bakery",
+    question: "Best bakery in Norwich?",
     blurb: "Bread, pastry, the lot.",
     icon: "fork",
     winner: {
@@ -159,6 +165,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "market-stall",
     label: "Best market stall",
+    question: "Best stall on Norwich Market?",
     blurb: "Two hundred stalls. One favourite.",
     icon: "bag",
     winner: {
@@ -175,6 +182,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "sweet-treat",
     label: "Best sweet treat",
+    question: "Best sweet thing in Norwich?",
     blurb: "The thing you buy on the way past.",
     icon: "sparkle",
     winner: {
@@ -190,6 +198,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "ice-cream",
     label: "Best ice cream",
+    question: "Best ice cream in Norwich?",
     blurb: "Norfolk milk, Sicilian standards.",
     icon: "sparkle",
     winner: {
@@ -206,6 +215,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "pasta",
     label: "Best pasta",
+    question: "Best pasta in Norwich?",
     blurb: "Made that morning, eaten that night.",
     icon: "fork",
     winner: {
@@ -223,6 +233,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "pizza",
     label: "Best pizza",
+    question: "Best pizza in Norwich?",
     blurb: "Wood fired, Italian run.",
     icon: "fork",
     winner: {
@@ -239,6 +250,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "lunch-on-the-go",
     label: "Best lunch on the go",
+    question: "Best lunch on the go?",
     blurb: "In your hand in ten minutes.",
     icon: "fork",
     winner: {
@@ -253,6 +265,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "wine-bar",
     label: "Best wine bar",
+    question: "Best wine bar in Norwich?",
     blurb: "One glass, one hour, no plan.",
     icon: "beer",
     winner: {
@@ -272,6 +285,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "pub",
     label: "Best pub",
+    question: "Best pub in Norwich?",
     blurb: "Not the trendiest. The best.",
     icon: "beer",
     voteOnly: true,
@@ -279,6 +293,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "breakfast",
     label: "Best breakfast",
+    question: "Best breakfast in Norwich?",
     blurb: "Full English, pancakes, whatever gets you going.",
     icon: "fork",
     voteOnly: true,
@@ -286,6 +301,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "chippy",
     label: "Best chippy",
+    question: "Best chippy in Norwich?",
     blurb: "Norfolk takes this seriously.",
     icon: "fork",
     voteOnly: true,
@@ -293,6 +309,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "independent-shop",
     label: "Best independent shop",
+    question: "Best independent shop in Norwich?",
     blurb: "Norwich has more of these per head than almost anywhere.",
     icon: "bag",
     voteOnly: true,
@@ -300,6 +317,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "free-thing",
     label: "Best free thing to do",
+    question: "Best free thing to do in Norwich?",
     blurb: "Costs nothing, still beats most things that cost something.",
     icon: "sparkle",
     voteOnly: true,
@@ -307,6 +325,7 @@ export const CATEGORIES: AwardCategory[] = [
   {
     key: "view",
     label: "Best view",
+    question: "Best view in Norwich?",
     blurb: "Where you take the visitors.",
     icon: "view",
     voteOnly: true,

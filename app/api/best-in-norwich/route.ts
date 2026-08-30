@@ -77,8 +77,13 @@ function sanitizeUrl(value: unknown): string | null {
 export async function GET() {
   const supabase = getSupabaseClient();
 
-  let board: { category_key: string; nominee_name: string; url: string | null; votes: number }[] =
-    [];
+  let board: {
+    category_key: string;
+    nominee_name: string;
+    url: string | null;
+    image_url: string | null;
+    votes: number;
+  }[] = [];
   let totalVotes = 0;
 
   if (supabase) {
@@ -103,12 +108,14 @@ export async function GET() {
   const categories = CATEGORIES.map((category) => ({
     key: category.key,
     label: category.label,
+    question: category.question ?? `${category.label} in Norwich?`,
     blurb: category.blurb,
     nominees: board
       .filter((row) => row.category_key === category.key)
       .map((row) => ({
         name: row.nominee_name,
         url: row.url,
+        image: row.image_url,
         votes: Number(row.votes) || 0,
       })),
   }));

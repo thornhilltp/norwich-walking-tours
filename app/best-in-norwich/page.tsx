@@ -11,7 +11,6 @@ import {
   CONTENT_READY,
   PHASE,
   RESULTS_DATE,
-  TOTAL_BALLOT_CATEGORIES,
   TOTAL_CATEGORIES,
   VOTE_PATH,
   VOTE_YEAR,
@@ -102,49 +101,51 @@ export default async function BestInNorwichPage() {
       )}
 
       <main className="bg-brand-bg pt-16">
-        {/* ── Hero. Two lines, then straight into the winners. ──────────── */}
-        <section className="pt-10 pb-8 sm:pt-14 sm:pb-10">
+        {/* ── Hero. Copy left, vote widget right — same shape as the
+              homepage hero, which puts the booking widget in the same place.
+              On a phone the widget lands directly under the headline. ───── */}
+        <section className="pt-10 pb-10 sm:pt-14">
           <div className="brand-container">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-3 mb-5 flex-wrap">
-                <span className="inline-flex items-center rounded-full bg-brand-accent-light px-4 py-1.5 text-sm font-semibold text-brand-accent">
-                  Best in Norwich {WINNERS_YEAR}
-                </span>
-                <span className="text-sm text-muted-foreground" style={lora}>
-                  {TOTAL_CATEGORIES} categories · no fees, no sponsors
-                </span>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-14 items-start">
+              <div>
+                <div className="flex items-center gap-3 mb-5 flex-wrap">
+                  <span className="inline-flex items-center rounded-full bg-brand-accent-light px-4 py-1.5 text-sm font-semibold text-brand-accent">
+                    Best in Norwich {WINNERS_YEAR}
+                  </span>
+                  <span className="text-sm text-muted-foreground" style={lora}>
+                    {TOTAL_CATEGORIES} categories · no fees, no sponsors
+                  </span>
+                </div>
+
+                <h1 className="mb-4 leading-[1.05]">
+                  <span
+                    className="block text-3xl md:text-4xl font-bold text-brand-text"
+                    style={lora}
+                  >
+                    The best of Norwich,
+                  </span>
+                  <span className="block font-caveat text-5xl sm:text-6xl md:text-7xl font-bold text-brand-accent">
+                    argued over by locals.
+                  </span>
+                </h1>
+
+                <div className="space-y-3 max-w-xl" style={lora}>
+                  <p className="text-lg text-brand-text leading-relaxed" style={{ fontWeight: 700 }}>
+                    The best places here have no marketing budget. That is the whole point
+                    of this.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Ten winners for {WINNERS_YEAR}, picked by about 25 locals we know. So
+                    we have missed things, and {VOTE_YEAR} is not our call: vote for
+                    whoever you want, add anyone we have missed, no shortlist and nobody
+                    can buy a category.
+                  </p>
+                </div>
               </div>
 
-              <h1 className="mb-4 leading-[1.05]">
-                <span
-                  className="block text-3xl md:text-4xl font-bold text-brand-text"
-                  style={lora}
-                >
-                  The best of Norwich,
-                </span>
-                <span className="block font-caveat text-5xl sm:text-6xl md:text-7xl font-bold text-brand-accent">
-                  argued over by locals.
-                </span>
-              </h1>
-
-              <p className="text-lg text-muted-foreground leading-relaxed" style={lora}>
-                Where we send people when they ask on tour. Twenty-five locals argued it
-                out, and nobody paid a penny to be here.
-              </p>
-
               {voteOpen && (
-                <div className="mt-6 flex flex-wrap items-center gap-4">
-                  <a
-                    href="#vote"
-                    className="inline-flex items-center justify-center rounded-full bg-brand-accent px-7 py-3.5 text-2xl font-bold text-brand-white shadow-lg transition hover:opacity-90 min-h-[52px]"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    Vote for {VOTE_YEAR}
-                  </a>
-                  <p className="text-sm text-muted-foreground" style={lora}>
-                    {TOTAL_BALLOT_CATEGORIES} categories, no shortlist. Closes{" "}
-                    {formatDate(VOTING_CLOSES)}.
-                  </p>
+                <div className="w-full max-w-md mx-auto lg:mx-0 lg:sticky lg:top-24">
+                  <VoteBoard initialCategories={board} />
                 </div>
               )}
             </div>
@@ -234,81 +235,40 @@ export default async function BestInNorwichPage() {
           </div>
         </section>
 
-        {/* ── The vote. On the page, not behind a link: the homepage embeds
-              the booking widget rather than pointing at /book, and this is the
-              same call. The mission sits directly above it because the two
-              only make sense together. ───────────────────────────────────── */}
-        <section
-          id="vote"
-          className="section-padding bg-brand-accent-light border-t border-brand-accent/10 scroll-mt-20"
-        >
+        {/* ── How this was decided. Short, and load-bearing. ──────────── */}
+        <section className="py-12 sm:py-14 bg-brand-accent-light border-t border-brand-accent/10">
           <div className="brand-container">
-            <div className="max-w-2xl mb-10">
-              <p
-                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-                style={lora}
-              >
-                Best in Norwich {VOTE_YEAR}
-              </p>
+            <div className="max-w-2xl">
               <h2 className="mb-4 leading-tight">
                 <span
                   className="block text-2xl md:text-3xl font-bold text-brand-text"
                   style={lora}
                 >
-                  The best places here have
+                  Twenty-five locals.
                 </span>
                 <span className="block font-caveat text-4xl md:text-5xl font-bold text-brand-accent">
-                  no marketing budget.
+                  That was the whole panel.
                 </span>
               </h2>
-              <div className="space-y-3" style={lora}>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  That is the whole point of this. We spend every day telling visitors
-                  where to eat and drink in Norwich, and the places worth sending them to
-                  are almost always the small independent ones nobody is advertising.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  This year&apos;s list came from about 25 locals we know, so we have
-                  missed things. {VOTE_YEAR} is not our call. Click a bar to vote, and if
-                  the place you want is missing, add it. No shortlist, no fees, no
-                  sponsors, and nobody can buy a category.
-                </p>
-                <p
-                  className="text-lg text-brand-text leading-relaxed"
-                  style={{ fontWeight: 700 }}
-                >
-                  {voteOpen ? (
-                    <>
-                      Open until {formatDate(VOTING_CLOSES)}. Winners announced{" "}
-                      {formatDate(RESULTS_DATE)}.
-                    </>
-                  ) : (
-                    <>
-                      Voting has closed. Winners announced {formatDate(RESULTS_DATE)}.
-                    </>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            {voteOpen ? (
-              <VoteBoard initialCategories={board} />
-            ) : (
-              <p className="text-lg text-muted-foreground" style={lora}>
-                Counting now. Winners go up on {formatDate(RESULTS_DATE)}.
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4" style={lora}>
+                Not a public vote. About 25 people we know, all living here, arguing it
+                out. Everything on the list is independent and local, nobody paid, and
+                most winners had no idea they were in it.
               </p>
-            )}
-
-            <p className="mt-8 text-sm text-muted-foreground" style={lora}>
-              Want to send just the vote to someone?{" "}
-              <Link
-                href={VOTE_PATH}
-                className="text-brand-accent underline underline-offset-4"
-              >
-                It has its own page
-              </Link>
-              .
-            </p>
+              <p className="text-lg text-brand-text leading-relaxed" style={{ ...lora, fontWeight: 700 }}>
+                {voteOpen ? (
+                  <>
+                    {VOTE_YEAR} is yours.{" "}
+                    <Link href={VOTE_PATH} className="text-brand-accent underline underline-offset-4">
+                      Vote here
+                    </Link>
+                    , closing {formatDate(VOTING_CLOSES)}, winners {formatDate(RESULTS_DATE)}.
+                  </>
+                ) : (
+                  <>Winners for {VOTE_YEAR} announced {formatDate(RESULTS_DATE)}.</>
+                )}
+              </p>
+            </div>
           </div>
         </section>
 

@@ -27,6 +27,7 @@ create table if not exists public.bin_nominees (
   name               text not null,
   url                text,
   status             text not null default 'pending',   -- pending | approved | rejected
+  image_url          text,                              -- optional photo on the ballot
   submitted_by_email text,
   -- Consent recorded here too: during the nominations phase there are no vote
   -- rows, so bin_votes.marketing_opt_in would never be written.
@@ -308,20 +309,20 @@ on conflict do nothing;
 -- object, so voting is one click on a bar. Unapproved suggestions are absent
 -- by design; their votes still count and appear once approved.
 create or replace function public.bin_board(p_year int)
-returns table (category_key text, nominee_name text, url text, votes bigint)
+returns table (category_key text, nominee_name text, url text, image_url text, votes bigint)
 language sql
 security definer
 stable
 set search_path = public
 as $$
-  select n.category_key, n.name, n.url, count(v.id) as votes
+  select n.category_key, n.name, n.url, n.image_url, count(v.id) as votes
   from public.bin_nominees n
   left join public.bin_votes v
     on v.year = n.year
    and v.category_key = n.category_key
    and lower(v.nominee_name) = lower(n.name)
   where n.year = p_year and n.status = 'approved'
-  group by n.category_key, n.name, n.url
+  group by n.category_key, n.name, n.url, n.image_url
   order by n.category_key, votes desc, n.name;
 $$;
 

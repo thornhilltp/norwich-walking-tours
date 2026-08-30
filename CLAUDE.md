@@ -109,15 +109,19 @@ saying so**; it was not a public vote.
 **`/best-in-norwich/vote`** renders the same `components/VoteBoard.tsx` on its own page,
 so the ballot can be shared as a standalone link.
 
-**The chart IS the ballot** (Tom's design, third attempt and the one that stuck). Each
-category shows bars of what people have voted for with live counts; clicking a bar is
-the vote. Nothing to fill in unless a place is missing, and then "Add it" takes a name,
-a website and a category. Email is asked once on the first vote and kept in
-localStorage, so a second vote is one click; the server still dedupes on email.
+**One widget in the hero, and the chart IS the ballot.** `components/VoteBoard.tsx`:
+category chips across the top (tap to jump), the current category's question, its top
+three names as bars with photo or initial, and a vote is one tap on a bar. After a vote
+it advances to the next category you have not answered. "Not there? Add it" takes a name
+and website. Email asked once, kept in localStorage; the server still dedupes on email.
 
-Two rejected designs, do not reintroduce them: a stepper with last year's winner
-pre-listed (leading — would have re-elected the 2026 list), and sixteen blank text boxes
-on one page (the US alt-weekly ballot pattern, a wall people abandon).
+Three rejected designs, do not reintroduce them: a stepper with last year's winner
+pre-listed (leading — would have re-elected the 2026 list); sixteen blank text boxes on
+one page (US alt-weekly ballot, a wall people abandon); and sixteen categories of bars
+down the page (a page, not a widget).
+
+Nominee photos live in `bin_nominees.image_url` — five seeded winners reuse the `/guide`
+photography, everything else falls back to an initial.
 
 Only approved names appear as bars (`bin_board`). Votes for unapproved suggestions still
 count and show once moderated. Both pages server-render the board via `lib/binBoard.ts`

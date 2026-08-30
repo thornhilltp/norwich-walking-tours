@@ -602,3 +602,35 @@ form nobody filled in.
 recorded, bar moved, total incremented; second vote in another category did not re-ask
 for email; "Add it" in an empty category queued The Fat Cat as pending with its URL
 normalised and counted the vote without showing the bar. Test rows deleted afterwards.
+
+---
+
+## 15. The hero widget — 2026-08-30, fourth and final vote design
+
+Tom: *"its the voting we need to nail... have a singular widget at the top of the page
+in the hero."* Plus, on the design options: *"hybrid but we should also include the
+images of each place on the form too."*
+
+**Shape.** One widget, hero right column, same placement as the booking widget on the
+homepage. On a phone it lands directly under the headline. The winners grid moves below
+the hero: the vote is the top of the page, the guide is what you scroll to.
+
+**Behaviour — the hybrid.** Category chips across the top so anyone can jump to the one
+they care about, and after each vote the widget advances to the next category they have
+not answered. Choice for people who want it, momentum for people who do not. Voted
+categories keep a tick on their chip. Only the top three names show, with "All N →" to
+expand, so the widget stays hero-sized as the field grows.
+
+**Photos.** `bin_nominees.image_url`, added in migration
+`best_in_norwich_nominee_images_v2`. Five seeded winners were backfilled with the
+existing `/images/guide/` photography; anything without a photo renders an initial in a
+tinted square, so a public suggestion still looks deliberate.
+
+**Per-category questions.** `question` on `AwardCategory` — "Best place to sit with a
+coffee?" reads better than the label alone. Falls back to "<label> in Norwich?".
+
+**Verified against the live database:** first tap opened the email prompt, the vote
+recorded, the widget advanced to the next question, the chip ticked and the header
+counted "you have voted in 1". A second visit with the email already in localStorage
+voted in one tap with no prompt. Test rows deleted; the ten seeded names and their five
+photos remain.
