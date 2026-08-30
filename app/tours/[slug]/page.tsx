@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/about-us/_components/GuideReviews";
 import { PhotoCarousel } from "@/app/tours/_components/PhotoCarousel";
+import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 
@@ -44,28 +45,6 @@ function renderBold(text: string) {
     ) : (
       <span key={i}>{part}</span>
     )
-  );
-}
-
-// Green map-pin with the group number — ThemedRouteSection's marker.
-function PinMarker({ index }: { index: number }) {
-  return (
-    <span className="relative inline-flex items-center justify-center w-9 h-11 shrink-0">
-      <svg viewBox="0 0 32 40" className="w-9 h-11 drop-shadow-sm" aria-hidden="true">
-        <path
-          d="M 16 1 C 7.7 1 1 7.7 1 16 c 0 12 15 23 15 23 s 15 -11 15 -23 C 31 7.7 24.3 1 16 1 z"
-          fill="#2DA96B"
-          stroke="#FCFAF8"
-          strokeWidth="2"
-        />
-      </svg>
-      <span
-        className="absolute text-white font-bold text-sm"
-        style={{ fontFamily: "var(--font-lora), Georgia, serif", top: "8px" }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-    </span>
   );
 }
 
@@ -235,20 +214,29 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           the hero slot is reserved for the booking widget. */}
       <div className="relative z-10 -mt-10 md:-mt-12">
         <div className="brand-container">
-          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-5 md:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4">
-            {d.logistics.map((row) => (
-              <div key={row.label}>
-                <dt
-                  className="text-[11px] uppercase tracking-[0.14em] font-semibold text-muted-foreground mb-0.5"
-                  style={lora}
-                >
-                  {row.label}
-                </dt>
-                <dd className="text-[15px] font-semibold text-brand-text m-0 leading-snug" style={lora}>
-                  {row.value}
-                </dd>
-              </div>
-            ))}
+          {/* Four facts only (Tom): How long / Start / Finish / Price.
+              Each reads as two lines - small label over a bold value. */}
+          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5">
+            {d.logistics
+              .filter((row) =>
+                ["How long", "Start", "Finish", "Price"].includes(row.label)
+              )
+              .map((row) => (
+                <div key={row.label}>
+                  <dt
+                    className="text-[11px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-1"
+                    style={lora}
+                  >
+                    {row.label}
+                  </dt>
+                  <dd
+                    className="text-[17px] md:text-[18px] font-bold text-brand-text m-0 leading-snug"
+                    style={lora}
+                  >
+                    {row.value}
+                  </dd>
+                </div>
+              ))}
           </dl>
         </div>
       </div>
@@ -273,41 +261,22 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      {/* The walk - homepage ThemedRouteSection language: pins +
-          eyebrow/headline/stops/body groups selling what you get. */}
+      {/* The walk - the homepage ThemedRouteSection itself: wiggly
+          thread, pin drops, mobile accordion, sticky map. Placeholder
+          map until the tour has its own. */}
       {d.walk && d.walk.length > 0 && (
-        <section className="section-padding bg-brand-bg">
-          <div className="brand-container">
-            <SplitHeading plain="The walk, and" script="what you get." />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 max-w-5xl">
-              {d.walk.map((group, i) => (
-                <div key={group.eyebrow} className="flex gap-4">
-                  <PinMarker index={i} />
-                  <div>
-                    <p
-                      className="text-brand-accent text-[12px] font-semibold tracking-[0.16em] uppercase mb-1.5"
-                      style={lora}
-                    >
-                      {group.eyebrow}
-                    </p>
-                    <h3
-                      className="text-[22px] font-bold text-brand-text leading-snug mb-1.5"
-                      style={{ fontFamily: "var(--font-caveat), cursive", fontSize: "26px" }}
-                    >
-                      {group.headline}
-                    </h3>
-                    <p className="text-[13.5px] font-semibold text-brand-text/60 mb-2.5" style={lora}>
-                      {group.stops}
-                    </p>
-                    <p className="text-[15px] text-brand-text/75 leading-relaxed m-0" style={lora}>
-                      {group.body}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ThemedRouteSection
+          id="walk"
+          heading={{ plain: "The walk, and", script: "what you get." }}
+          groups={d.walk}
+          map={{
+            src: "/images/route-map.png",
+            alt: "Placeholder route map of Norwich city centre. This tour's own route map is being drawn.",
+            caption: "Placeholder map. This tour's route is being finalised.",
+            placeholder: true,
+          }}
+          footerLink={null}
+        />
       )}
 
       {/* Reviews - platform rating chips + the paper-card carousel. */}

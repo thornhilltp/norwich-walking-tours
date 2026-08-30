@@ -20,11 +20,23 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Plus, Minus } from "lucide-react";
 
-interface Group {
+export interface RouteGroup {
   eyebrow: string;
   headline: string;
   stops: string;
   body: string;
+}
+type Group = RouteGroup;
+
+interface ThemedRouteSectionProps {
+  /** Overrides for tour pages. Defaults reproduce the homepage exactly. */
+  id?: string;
+  eyebrow?: string;
+  heading?: { plain: string; script: string };
+  groups?: RouteGroup[];
+  map?: { src: string; alt: string; caption: string; placeholder?: boolean };
+  /** null hides the see-every-stop link (free-tour specific). */
+  footerLink?: { href: string; label: string } | null;
 }
 
 // Restructured per Tom's review — back to the original three
@@ -75,14 +87,26 @@ function PinMarker({ index }: { index: number }) {
   );
 }
 
-export function ThemedRouteSection() {
+export function ThemedRouteSection({
+  id = "tour-map",
+  eyebrow = "The walk",
+  heading = { plain: "Three threads through", script: "the medieval city." },
+  groups: groupsProp,
+  map = {
+    src: "/images/route-map.png",
+    alt: "Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market.",
+    caption: "Map of Norwich City Centre",
+  },
+  footerLink = { href: "/tour", label: "See every stop, in order, with the full story" },
+}: ThemedRouteSectionProps = {}) {
+  const items = groupsProp ?? groups;
   // Mobile-only: which group is expanded. -1 = all collapsed by default.
   // On lg+ all three groups stay open (existing behaviour) — the
   // collapse logic only renders below the lg breakpoint via CSS.
   const [expandedIndex, setExpandedIndex] = useState(-1);
 
   return (
-    <section id="tour-map" className="section-padding">
+    <section id={id} className="section-padding">
       <div className="brand-container">
         {/* Heading — Lora→Caveat pattern */}
         <div className="text-center mb-14 max-w-3xl mx-auto">
@@ -90,20 +114,20 @@ export function ThemedRouteSection() {
             className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            The walk
+            {eyebrow}
           </p>
           <h2 className="leading-[1.0]">
             <span
               className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              Three threads through
+              {heading.plain}
             </span>{" "}
             <span
               className="inline text-[clamp(48px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent"
               style={{ fontFamily: "var(--font-caveat), cursive" }}
             >
-              the medieval city.
+              {heading.script}
             </span>
           </h2>
           {/* Meta line dropped per Tom — length and end location both
@@ -134,7 +158,7 @@ export function ThemedRouteSection() {
             </svg>
 
             <ol className="flex flex-col gap-10 relative">
-              {groups.map((group, i) => {
+              {items.map((group, i) => {
                 const isExpanded = expandedIndex === i;
                 return (
                   <li key={i} className="flex gap-6 items-start">
@@ -265,33 +289,45 @@ export function ThemedRouteSection() {
                 Map of the Route
               </p>
             </div>
-            <Image
-              src="/images/route-map.png"
-              alt="Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market."
-              width={1500}
-              height={1155}
-              className="w-full h-auto"
-            />
+            <div className="relative">
+              <Image
+                src={map.src}
+                alt={map.alt}
+                width={1500}
+                height={1155}
+                className="w-full h-auto"
+              />
+              {map.placeholder && (
+                <span
+                  className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-text/75 text-white text-[11px] font-semibold tracking-[0.1em] uppercase backdrop-blur-sm"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  Placeholder
+                </span>
+              )}
+            </div>
             <p
               className="px-4 py-2 text-xs text-muted-foreground"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              Map of Norwich City Centre
+              {map.caption}
             </p>
           </div>
         </div>
 
         {/* Quiet link to /tour where every stop has photo + paragraph */}
-        <div className="mt-12 text-center">
-          <a
-            href="/tour"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            See every stop, in order, with the full story
-            <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          </a>
-        </div>
+        {footerLink && (
+          <div className="mt-12 text-center">
+            <a
+              href={footerLink.href}
+              className="inline-flex items-center gap-1.5 font-semibold text-brand-accent-text hover:underline underline-offset-4"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              {footerLink.label}
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );
