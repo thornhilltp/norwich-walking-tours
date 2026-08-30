@@ -76,7 +76,9 @@ export interface Winner {
   url?: string;
   /** Google Maps link. Falls back to a maps search on the name. */
   mapsUrl?: string;
-  image?: { src: string; alt: string };
+  /** `position` is an object-position value, for photos whose subject is not
+   *  centred once cropped to the card's landscape ratio. */
+  image?: { src: string; alt: string; position?: string };
 }
 
 export interface AwardCategory {
@@ -156,6 +158,13 @@ export const CATEGORIES: AwardCategory[] = [
       why: "Focaccia and savoury croissants that are gone before lunch. Get there early.",
       url: "https://devecchio.co.uk/",
       mapsUrl: mapsSearch("DeVecchio Bakery Lobster Lane Norwich"),
+      image: {
+        src: "/images/best-in-norwich/devecchio-bakery.webp",
+        alt: "A cruffin at DeVecchio Bakery, dusted in sugar and topped with cream and a prune, on a wooden stand in the window.",
+        // Portrait photo cropped to a landscape card: hold the top so the
+        // cream and the prune stay in frame.
+        position: "50% 22%",
+      },
     },
   },
   {

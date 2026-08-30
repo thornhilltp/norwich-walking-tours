@@ -667,3 +667,29 @@ heading, so the hero has room instead of the cards running straight on from it.
 Verified against the live database: fresh browser saw no counts, voting revealed that
 category and advanced to the next, the header switched to "1 vote so far · you have
 voted in 1 of 6". Test rows removed.
+
+---
+
+## 17. Nominee photography
+
+Photos live in two places and both need setting when a new one arrives:
+
+1. `lib/best-in-norwich.ts` → the winner's `image` (the guide card). Add
+   `position` when a portrait photo needs a specific crop in the landscape card.
+2. `bin_nominees.image_url` in Supabase → the ballot row in the widget.
+
+```sql
+update public.bin_nominees set image_url = '/images/best-in-norwich/<file>'
+where year = 2027 and category_key = '<key>' and lower(name) = '<name in lower case>';
+```
+
+Files go in `public/images/best-in-norwich/`. Five of the seeded names reuse the
+existing `/images/guide/` photography.
+
+**Have photos:** Blue Bear, Big Deal's Bodega, Donnelli's, Yard, DeVecchio Bakery
+(supplied by Tom 2026-08-30 — 287x510, small; a higher-resolution original would render
+better on the guide card, where it is cropped to landscape).
+
+**Still want photos:** Alchemista, Churros for the People, Avo Burrito, Jarrolds Wine
+Bar. Anything without one falls back to an initial, which is deliberate rather than
+broken.

@@ -196,6 +196,11 @@ export default async function BestInNorwichPage() {
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 380px"
                           className="object-cover"
+                          style={
+                            winner.image.position
+                              ? { objectPosition: winner.image.position }
+                              : undefined
+                          }
                         />
                       </div>
                     )}
