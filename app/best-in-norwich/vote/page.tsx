@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { VoteForm } from "@/components/VoteForm";
 import {
+  CATEGORIES,
   CONTENT_READY,
   PHASE,
   RESULTS_DATE,
@@ -114,7 +115,14 @@ export default function VotePage() {
         <section className="pb-16 sm:pb-20">
           <div className="brand-container">
             {open ? (
-              <VoteForm />
+              <VoteForm
+                initialCategories={CATEGORIES.map((c) => ({
+                  key: c.key,
+                  label: c.label,
+                  blurb: c.blurb,
+                  nominees: [],
+                }))}
+              />
             ) : (
               <p className="text-lg text-muted-foreground" style={lora}>
                 Counting now. Winners go up on {formatDate(RESULTS_DATE)}.

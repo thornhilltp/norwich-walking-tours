@@ -37,8 +37,11 @@ interface ResultRow {
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 
-export function VoteForm() {
-  const [categories, setCategories] = useState<BallotCategory[] | null>(null);
+export function VoteForm({ initialCategories }: { initialCategories: BallotCategory[] }) {
+  // Server-rendered from CATEGORIES so the form exists before any JavaScript
+  // runs. The fetch below only enriches it: autocomplete names and the running
+  // vote total. A form that needs JS to appear is a form some people never see.
+  const [categories, setCategories] = useState<BallotCategory[]>(initialCategories);
   const [totalVotes, setTotalVotes] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -59,14 +62,14 @@ export function VoteForm() {
       .then((r) => r.json())
       .then((d) => {
         if (cancelled) return;
-        setCategories(Array.isArray(d.categories) ? d.categories : []);
+        if (Array.isArray(d.categories) && d.categories.length > 0) {
+          setCategories(d.categories);
+        }
         setTotalVotes(Number(d.totalVotes) || 0);
       })
       .catch(() => {
-        if (!cancelled) {
-          setCategories([]);
-          setTotalVotes(0);
-        }
+        // Keep the server-rendered categories. Only the suggestions are lost.
+        if (!cancelled) setTotalVotes(0);
       });
     return () => {
       cancelled = true;
@@ -80,7 +83,7 @@ export function VoteForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "submitting" || !categories) return;
+    if (status === "submitting") return;
 
     const votes: Record<string, string> = {};
     const nominations: { categoryKey: string; name: string }[] = [];
@@ -165,7 +168,7 @@ export function VoteForm() {
         </div>
 
         <StandingsChart
-          categories={categories ?? []}
+          categories={categories}
           results={results ?? []}
           totalVotes={totalVotes}
         />
@@ -197,14 +200,7 @@ export function VoteForm() {
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
 
-      {categories === null ? (
-        <p className="flex items-center gap-3 text-muted-foreground" style={lora}>
-          <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-          Loading the categories
-        </p>
-      ) : (
-        <>
-          <div className="space-y-5">
+      <div className="space-y-5">
             {categories.map((category) => (
               <div key={category.key} id={category.key} className="scroll-mt-28">
                 <label
@@ -320,8 +316,6 @@ export function VoteForm() {
                 : `Open until ${formatDate(VOTING_CLOSES)}`}
             </p>
           </div>
-        </>
-      )}
     </form>
   );
 }
