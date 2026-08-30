@@ -154,6 +154,10 @@ function FAQItem({
 interface FAQProps {
   /** Optional custom heading element (e.g. Lora→Caveat inline pattern for /home-v2). */
   customHeading?: React.ReactNode;
+  /** Override the sitewide questions (e.g. a tour page's own FAQs). */
+  items?: { q: string; a: string }[];
+  /** Emit FAQPage JSON-LD. Leave true only on ONE indexable page per URL. */
+  emitSchema?: boolean;
 }
 
 // Number of FAQs always visible on mobile. The rest stay in the DOM
@@ -162,7 +166,8 @@ interface FAQProps {
 // unaffected — always shows all FAQs.
 const MOBILE_VISIBLE_COUNT = 8;
 
-export function FAQ({ customHeading }: FAQProps = {}) {
+export function FAQ({ customHeading, items, emitSchema = true }: FAQProps = {}) {
+  const list = items ?? faqs;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllMobile, setShowAllMobile] = useState(false);
   const ref = useRef(null);
@@ -170,10 +175,12 @@ export function FAQ({ customHeading }: FAQProps = {}) {
 
   return (
     <>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
-    />
+    {emitSchema && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+      />
+    )}
     <section ref={ref} id="faq" className="section-padding bg-brand-bg">
       <div className="brand-container">
         <div className="max-w-2xl mx-auto">
@@ -196,7 +203,7 @@ export function FAQ({ customHeading }: FAQProps = {}) {
 
           {/* Accordion */}
           <div className="bg-white rounded-2xl px-6 md:px-8 border border-brand-accent/10 shadow-sm">
-            {faqs.map((faq, index) => {
+            {list.map((faq, index) => {
               // Hide the tail end on mobile until user expands. Always
               // rendered in DOM for SEO (mobile-first index sees them).
               const isHiddenOnMobile =
@@ -222,13 +229,13 @@ export function FAQ({ customHeading }: FAQProps = {}) {
 
           {/* Mobile-only 'Show more' button — desktop already shows
               every FAQ so it's hidden there. Disappears after expansion. */}
-          {!showAllMobile && faqs.length > MOBILE_VISIBLE_COUNT && (
+          {!showAllMobile && list.length > MOBILE_VISIBLE_COUNT && (
             <button
               type="button"
               onClick={() => setShowAllMobile(true)}
               className="md:hidden mt-6 w-full py-3 rounded-xl border border-brand-accent/20 bg-white text-brand-accent-text font-lora font-semibold text-sm hover:bg-brand-accent-light/30 transition-colors duration-150"
             >
-              Show all {faqs.length} questions &darr;
+              Show all {list.length} questions &darr;
             </button>
           )}
         </div>

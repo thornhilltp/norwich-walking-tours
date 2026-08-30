@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+import { BookingFrame } from "@/components/BookingFrame";
 import { EmailCapture } from "@/components/EmailCapture";
 import { TourCarousel } from "./_components/TourCarousel";
 import { tours } from "@/lib/tours";
@@ -13,24 +14,6 @@ export const metadata: Metadata = {
     "Prototype tours hub. Not published.",
   robots: { index: false, follow: false },
 };
-
-const howItWorks = [
-  {
-    step: "01",
-    title: "Book your spot",
-    body: "The Essentials Tour costs nothing to book and nothing to cancel. Paid tours are booked and paid up front.",
-  },
-  {
-    step: "02",
-    title: "Meet your guide",
-    body: "Every tour starts somewhere obvious in the city centre. You get the meeting point and a photo of your guide by email.",
-  },
-  {
-    step: "03",
-    title: "Pay what it was worth",
-    body: "On the Essentials Tour there is no set price. Most people give £10 to £20 per person at the end. Card, Apple Pay or cash.",
-  },
-];
 
 export default function ToursPage() {
   return (
@@ -92,38 +75,35 @@ export default function ToursPage() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* What's on - upcoming dates. Currently the booking widget
+          (free tour only); the booking app will grow a dedicated
+          "upcoming tours" view listing every tour's dates, and that
+          embeds here in place of this one. */}
       <section className="section-padding bg-white border-y border-brand-accent/10">
         <div className="brand-container">
-          <h2
-            className="text-[clamp(28px,3vw,38px)] font-semibold tracking-[-0.01em] text-brand-text mb-10"
+          <h2 className="leading-[1.0] mb-3">
+            <span
+              className="inline text-[clamp(28px,3.4vw,42px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+            >
+              What&apos;s
+            </span>{" "}
+            <span
+              className="inline text-[clamp(38px,4.6vw,58px)] font-semibold leading-[0.95] text-brand-accent"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              on.
+            </span>
+          </h2>
+          <p
+            className="text-[16px] text-brand-text/70 leading-relaxed max-w-xl mb-8"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            How booking works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-            {howItWorks.map((item) => (
-              <div key={item.step}>
-                <p
-                  className="text-brand-accent text-[13px] font-semibold tracking-[0.16em] mb-3"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {item.step}
-                </p>
-                <h3
-                  className="font-semibold text-[19px] text-brand-text mb-2"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="text-[15px] text-muted-foreground leading-relaxed"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  {item.body}
-                </p>
-              </div>
-            ))}
+            Upcoming dates you can book right now. New tours appear here as
+            their dates open.
+          </p>
+          <div className="max-w-2xl">
+            <BookingFrame height={560} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />
           </div>
         </div>
       </section>

@@ -9,7 +9,7 @@ import { tours } from "@/lib/tours";
 import { ArrowRight } from "lucide-react";
 
 export function ToursTeaser() {
-  const otherTours = tours.filter((t) => t.slug !== "norwich-essentials");
+  const otherTours = tours.filter((t) => t.slug !== "free-walking-tour");
 
   return (
     <section

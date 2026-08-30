@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight, Clock, Star, Users } from "lucide-react";
+import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/about-us/_components/GuideReviews";
@@ -204,6 +205,17 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+      {/* Photo band - straight under the hero, no heading. Multiple
+          photos, plain treatment (Tom preferred this over the framed
+          "where the walk takes you" section). */}
+      {d.gallery && d.gallery.length > 0 && (
+        <section className="py-10 md:py-12 bg-brand-bg">
+          <div className="brand-container">
+            <PhotoStrip photos={d.gallery} framed={false} />
+          </div>
+        </section>
+      )}
+
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       <section className="section-padding bg-white border-b border-brand-accent/10">
         <div className="brand-container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
@@ -249,38 +261,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </p>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Photo strip - the Peloton-style scroller in polaroid dress. */}
-      {d.gallery && d.gallery.length > 0 && (
-        <section className="section-padding bg-brand-bg">
-          <div className="brand-container">
-            <SplitHeading plain="Where the walk" script="takes you." />
-            <PhotoStrip photos={d.gallery} />
-          </div>
-        </section>
-      )}
-
-      {/* Run of show */}
-      <section className="section-padding bg-white border-y border-brand-accent/10">
-        <div className="brand-container">
-          <SplitHeading plain="How the evening" script="runs." />
-          <ol className="m-0 p-0 list-none max-w-2xl">
-            {d.runOfShow.map((step, i) => (
-              <li
-                key={step}
-                className="flex gap-4 items-baseline py-3.5 border-b border-brand-text/[0.07] last:border-0"
-              >
-                <span className="shrink-0 w-7 h-7 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-bold flex items-center justify-center translate-y-1">
-                  {i + 1}
-                </span>
-                <span className="text-[16.5px] text-brand-text/80" style={lora}>
-                  {step}
-                </span>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
@@ -382,35 +362,28 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* FAQs */}
-      <section className="section-padding bg-white border-t border-brand-accent/10">
-        <div className="brand-container max-w-3xl">
-          <SplitHeading plain="Asked" script="every time." />
-          <div className="flex flex-col gap-6">
-            {d.faqs.map((f) => (
-              <div key={f.q}>
-                <h3 className="text-[17.5px] font-bold text-brand-text mb-1.5" style={lora}>
-                  {f.q}
-                </h3>
-                <p className="text-[16px] text-brand-text/75 leading-relaxed m-0" style={lora}>
-                  {f.a}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8 text-[15px] text-muted-foreground" style={lora}>
-            Different question?{" "}
-            <a href="/contact" className="text-brand-accent font-semibold hover:underline">
-              Ask us direct
-            </a>{" "}
-            or see{" "}
-            <a href="/tours" className="text-brand-accent font-semibold hover:underline">
-              all our tours
-            </a>
-            .
-          </p>
-        </div>
-      </section>
+      {/* FAQs - same accordion as the homepage, this tour's questions.
+          No FAQPage schema here while the page is a noindex prototype. */}
+      <FAQ
+        items={d.faqs}
+        emitSchema={false}
+        customHeading={
+          <h2 className="leading-[1.0]">
+            <span
+              className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+              style={lora}
+            >
+              Asked
+            </span>{" "}
+            <span
+              className="inline text-[clamp(40px,4.8vw,60px)] font-semibold leading-[0.95] text-brand-accent"
+              style={caveat}
+            >
+              every time.
+            </span>
+          </h2>
+        }
+      />
 
       <div id="notify" className="scroll-mt-28">
         <EmailCapture

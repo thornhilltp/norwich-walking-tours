@@ -14,7 +14,14 @@ export interface StripPhoto {
   caption: string;
 }
 
-export function PhotoStrip({ photos }: { photos: StripPhoto[] }) {
+export function PhotoStrip({
+  photos,
+  framed = true,
+}: {
+  photos: StripPhoto[];
+  /** false = plain rounded photos, no polaroid frame or caption. */
+  framed?: boolean;
+}) {
   const trackRef = useRef<HTMLUListElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -51,6 +58,18 @@ export function PhotoStrip({ photos }: { photos: StripPhoto[] }) {
           key={photo.src}
           className="snap-start shrink-0 w-[72vw] sm:w-[320px]"
         >
+          {!framed ? (
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#F5EBDA]">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 72vw, 320px"
+                loading={i === 0 ? undefined : "eager"}
+              />
+            </div>
+          ) : (
           <figure
             className="relative m-0 bg-white rounded-[4px] border border-[#EAE0D4] p-2.5 pb-11 shadow-[2px_8px_20px_-12px_rgba(90,70,40,0.5)]"
             style={{ rotate: i % 2 === 0 ? "-1.2deg" : "1.1deg" }}
@@ -76,6 +95,7 @@ export function PhotoStrip({ photos }: { photos: StripPhoto[] }) {
               {photo.caption}
             </figcaption>
           </figure>
+          )}
         </li>
       ))}
     </ul>

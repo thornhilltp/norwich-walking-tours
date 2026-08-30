@@ -63,8 +63,8 @@ export interface Tour {
 
 export const tours: Tour[] = [
   {
-    slug: "norwich-essentials",
-    name: "The Norwich Essentials Tour",
+    slug: "free-walking-tour",
+    name: "The Free Walking Tour",
     byline: "Led by Tom, Joolz or Holly",
     image: "/images/tour/what-is-free-tour.jpg",
     imageAlt:
@@ -75,7 +75,7 @@ export const tours: Tour[] = [
     priceLine: "Free to book",
     priceSub: "Pay what it was worth at the end",
     ctaLabel: "Book",
-    ctaHref: "/book",
+    ctaHref: "/",
     tint: "#E8F8F1",
     status: "live",
   },
