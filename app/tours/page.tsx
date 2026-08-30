@@ -8,9 +8,9 @@ import { tours } from "@/lib/tours";
 // Nothing links to it from the nav yet and it is not in sitemap.ts, so
 // the only way in is by typing the URL.
 export const metadata: Metadata = {
-  title: "Our Tours (prototype) | Norwich Walking Tours",
+  title: "More Tours (prototype) | Norwich Free Walking Tours",
   description:
-    "Prototype tours hub for Norwich Walking Tours. Not published.",
+    "Prototype tours hub. Not published.",
   robots: { index: false, follow: false },
 };
 
@@ -57,7 +57,7 @@ export default function ToursPage() {
             className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            Norwich Walking Tours
+            Norwich Free Walking Tours
           </p>
           <h1 className="leading-[1.0] mb-6 max-w-4xl">
             <span

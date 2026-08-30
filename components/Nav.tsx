@@ -17,9 +17,9 @@ import { trackEvent } from "@/lib/tracking";
 // 'About' was briefly removed earlier today then added back per Tom.
 const navLinks = [
   { label: "The Tour", href: "/tour" },
-  // PROTOTYPE: "Tours" entry so the /tours hub is reachable while
-  // reviewing. Final nav naming ("The Tour" vs "Tours" collision) TBD.
-  { label: "Tours", href: "/tours" },
+  // "More Tours" per Tom 2026-08-30: current brand stays everywhere;
+  // the tours hub is additive. "The Tour" = the free tour, unchanged.
+  { label: "More Tours", href: "/tours" },
   { label: "About", href: "/about-us" },
   { label: "What Is a Free Tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
@@ -66,12 +66,12 @@ export function Nav() {
           {/* Logo — sized larger on desktop for brand presence.
               Mobile stays moderate so the wordmark doesn't crowd the
               hamburger at 375px viewports. */}
-          <a href="/" aria-label="Norwich Walking Tours, home">
+          <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src={isOpaque ? "/nwt-logo-green.png" : "/nwt-logo-white.png"}
-              alt="Norwich Walking Tours"
-              width={508}
-              height={400}
+              src={isOpaque ? "/Logo_1.svg" : "/Logo_2.svg"}
+              alt="Norwich Free Walking Tours"
+              width={500}
+              height={500}
               unoptimized
               className={`w-auto object-contain transition-all duration-300 ${
                 isOpaque ? "h-[60px] md:h-[72px]" : "h-[68px] md:h-[84px]"

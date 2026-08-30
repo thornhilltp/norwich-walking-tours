@@ -22,7 +22,7 @@ export function ToursTeaser() {
           className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
           style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
         >
-          Norwich Walking Tours
+          More tours
         </p>
         <h2 id="tours-heading" className="leading-[1.0] mb-4">
           <span

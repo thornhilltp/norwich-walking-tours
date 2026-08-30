@@ -77,10 +77,10 @@ export function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <Image
-              src="/nwt-logo-white.png"
-              alt="Norwich Walking Tours"
-              width={508}
-              height={400}
+              src="/Logo_2.svg"
+              alt="Norwich Free Walking Tours"
+              width={500}
+              height={500}
               unoptimized
               className="h-20 w-auto object-contain"
             />
