@@ -301,6 +301,33 @@ values
   (2027, 'wine-bar',         'Jarrolds Wine Bar',      'https://www.jarrolds.co.uk/departments/restaurants/the-wine-bars', 'approved', null)
 on conflict do nothing;
 
+-- ── The board (applied 2026-08-30, migration best_in_norwich_board) ─────────
+--
+-- Every approved name in a category with its running count, zero included.
+-- The vote page renders this directly: the chart and the ballot are the same
+-- object, so voting is one click on a bar. Unapproved suggestions are absent
+-- by design; their votes still count and appear once approved.
+create or replace function public.bin_board(p_year int)
+returns table (category_key text, nominee_name text, url text, votes bigint)
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select n.category_key, n.name, n.url, count(v.id) as votes
+  from public.bin_nominees n
+  left join public.bin_votes v
+    on v.year = n.year
+   and v.category_key = n.category_key
+   and lower(v.nominee_name) = lower(n.name)
+  where n.year = p_year and n.status = 'approved'
+  group by n.category_key, n.name, n.url
+  order by n.category_key, votes desc, n.name;
+$$;
+
+revoke all on function public.bin_board(int) from public;
+grant execute on function public.bin_board(int) to anon, authenticated;
+
 -- ── Moderation cheat sheet (if you would rather use the SQL editor) ──────────
 -- Pending write-ins waiting on approval:
 --   select category_key, name, url, created_at

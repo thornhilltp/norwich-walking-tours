@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { WinnerLink } from "@/components/BestInNorwichLinks";
-import { VoteForm } from "@/components/VoteForm";
+import { VoteBoard } from "@/components/VoteBoard";
+import { getBoard } from "@/lib/binBoard";
 import {
   BADGE_IMAGE,
-  CATEGORIES,
   CONTENT_READY,
   PHASE,
   RESULTS_DATE,
@@ -40,6 +40,11 @@ import {
 // does not belong here.
 //
 // CONTENT_READY gates indexing, the sitemap and the site-wide links.
+
+// Board counts move, so the page is revalidated rather than baked at build
+// time. VoteBoard also refreshes on mount, so a cached page is never stale to
+// the person looking at it.
+export const revalidate = 60;
 
 const CANONICAL = "https://www.norwichfreewalkingtours.co.uk/best-in-norwich";
 
@@ -83,7 +88,8 @@ const itemListSchema = {
   })),
 };
 
-export default function BestInNorwichPage() {
+export default async function BestInNorwichPage() {
+  const board = await getBoard();
   const voteOpen = PHASE === "voting-open" || PHASE === "nominations-open";
 
   return (
@@ -263,10 +269,9 @@ export default function BestInNorwichPage() {
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   This year&apos;s list came from about 25 locals we know, so we have
-                  missed things. {VOTE_YEAR} is not our call. No shortlist, no fees, no
-                  sponsors, and nobody can buy a category. Fill in the ones you have an
-                  opinion on and you will see where the city stands as soon as you
-                  submit.
+                  missed things. {VOTE_YEAR} is not our call. Click a bar to vote, and if
+                  the place you want is missing, add it. No shortlist, no fees, no
+                  sponsors, and nobody can buy a category.
                 </p>
                 <p
                   className="text-lg text-brand-text leading-relaxed"
@@ -287,14 +292,7 @@ export default function BestInNorwichPage() {
             </div>
 
             {voteOpen ? (
-              <VoteForm
-                initialCategories={CATEGORIES.map((c) => ({
-                  key: c.key,
-                  label: c.label,
-                  blurb: c.blurb,
-                  nominees: [],
-                }))}
-              />
+              <VoteBoard initialCategories={board} />
             ) : (
               <p className="text-lg text-muted-foreground" style={lora}>
                 Counting now. Winners go up on {formatDate(RESULTS_DATE)}.

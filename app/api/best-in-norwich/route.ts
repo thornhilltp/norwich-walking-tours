@@ -5,15 +5,13 @@ import {
   PHASE,
   VOTE_YEAR,
   findCategory,
-  seedNominees,
 } from "@/lib/best-in-norwich";
 
 // /api/best-in-norwich — ballot + vote capture for the Best in Norwich awards.
 //
-// GET  → { phase, totalVotes, categories: [{ key, nominees: string[] }] }
-//         `nominees` feeds the <datalist> autocomplete on the vote page. It is
-//         not a ballot: nothing is pre-selected and nothing is shown until the
-//         voter starts typing.
+// GET  → { phase, totalVotes, categories: [{ key, label, blurb, nominees:
+//         [{ name, url, votes }] }] }  — the board. Approved names with their
+//         running counts, including names on zero.
 // POST → { success, counted, alreadyVoted, totalVotes, results }
 //
 // Tables (see supabase/best-in-norwich.sql):
@@ -72,27 +70,27 @@ function sanitizeUrl(value: unknown): string | null {
   }
 }
 
-const normalise = (name: string) => name.trim().toLowerCase();
-
-// ── Ballot ────────────────────────────────────────────────────────────────────
+// ── Board ────────────────────────────────────────────────────────────────────
+// The chart and the ballot are the same thing: every approved name in a
+// category with its running count. Clicking a bar is a vote, so the client
+// needs the counts up front.
 export async function GET() {
   const supabase = getSupabaseClient();
 
-  // Approved public write-ins, if the tables exist yet. Failure here is not
-  // fatal: the ballot falls back to the static seed.
-  let approved: { category_key: string; name: string }[] = [];
+  let board: { category_key: string; nominee_name: string; url: string | null; votes: number }[] =
+    [];
   let totalVotes = 0;
 
   if (supabase) {
-    const [nomineesRes, countRes] = await Promise.all([
-      supabase.rpc("bin_approved_nominees", { p_year: VOTE_YEAR }),
+    const [boardRes, countRes] = await Promise.all([
+      supabase.rpc("bin_board", { p_year: VOTE_YEAR }),
       supabase.rpc("bin_total_votes", { p_year: VOTE_YEAR }),
     ]);
 
-    if (nomineesRes.error) {
-      console.error("[BestInNorwich] Nominee RPC failed:", nomineesRes.error);
-    } else if (Array.isArray(nomineesRes.data)) {
-      approved = nomineesRes.data;
+    if (boardRes.error) {
+      console.error("[BestInNorwich] Board RPC failed:", boardRes.error);
+    } else if (Array.isArray(boardRes.data)) {
+      board = boardRes.data;
     }
 
     if (countRes.error) {
@@ -102,26 +100,18 @@ export async function GET() {
     }
   }
 
-  const categories = CATEGORIES.map((category) => {
-    const seen = new Set<string>();
-    const nominees: string[] = [];
-
-    for (const name of [
-      ...seedNominees(category),
-      ...approved
-        .filter((row) => row.category_key === category.key)
-        .map((row) => row.name),
-    ]) {
-      const key = normalise(name);
-      if (seen.has(key)) continue;
-      seen.add(key);
-      nominees.push(name);
-    }
-
-    nominees.sort((a, b) => a.localeCompare(b, "en-GB"));
-
-    return { key: category.key, label: category.label, blurb: category.blurb, nominees };
-  });
+  const categories = CATEGORIES.map((category) => ({
+    key: category.key,
+    label: category.label,
+    blurb: category.blurb,
+    nominees: board
+      .filter((row) => row.category_key === category.key)
+      .map((row) => ({
+        name: row.nominee_name,
+        url: row.url,
+        votes: Number(row.votes) || 0,
+      })),
+  }));
 
   return NextResponse.json({ phase: PHASE, year: VOTE_YEAR, totalVotes, categories });
 }

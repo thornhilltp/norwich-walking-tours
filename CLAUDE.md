@@ -106,17 +106,22 @@ locals so we missed things, next year is yours. Keep the prose that short.
 Winners were picked by ~25 locals Tom knows — **the page says so plainly and must keep
 saying so**; it was not a public vote.
 
-**`/best-in-norwich/vote`** renders the same `components/VoteForm.tsx` on its own page,
-so the ballot can be shared as a standalone link. The form is the 2027 ballot: sixteen
-blank free-text boxes, one submit, email at the end. **No shortlist is ever shown** —
-the first version pre-listed last year's winner per category, which would simply have
-re-elected them. Typing offers a `<datalist>` of names already entered, which keeps the
-tally from fragmenting across spellings without leading anyone.
+**`/best-in-norwich/vote`** renders the same `components/VoteBoard.tsx` on its own page,
+so the ballot can be shared as a standalone link.
 
-The standings bar chart appears **after** submitting, never before: up front it is a
-leaderboard telling people the right answer; after, it is the payoff and the share hook.
-Only approved names chart (`bin_public_results`); votes for unapproved names still count
-and appear once moderated.
+**The chart IS the ballot** (Tom's design, third attempt and the one that stuck). Each
+category shows bars of what people have voted for with live counts; clicking a bar is
+the vote. Nothing to fill in unless a place is missing, and then "Add it" takes a name,
+a website and a category. Email is asked once on the first vote and kept in
+localStorage, so a second vote is one click; the server still dedupes on email.
+
+Two rejected designs, do not reintroduce them: a stepper with last year's winner
+pre-listed (leading — would have re-elected the 2026 list), and sixteen blank text boxes
+on one page (the US alt-weekly ballot pattern, a wall people abandon).
+
+Only approved names appear as bars (`bin_board`). Votes for unapproved suggestions still
+count and show once moderated. Both pages server-render the board via `lib/binBoard.ts`
+with `revalidate = 60`, so bars exist without JavaScript.
 
 Timeline (hand-flipped `PHASE` in `lib/best-in-norwich.ts`): one combined window for
 voting + nominations, now to 31 Jan 2027 → counting in February → winners 2 Mar 2027.

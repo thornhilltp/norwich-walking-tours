@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
-import { VoteForm } from "@/components/VoteForm";
+import { VoteBoard } from "@/components/VoteBoard";
+import { getBoard } from "@/lib/binBoard";
 import {
-  CATEGORIES,
   CONTENT_READY,
   PHASE,
   RESULTS_DATE,
@@ -18,6 +18,11 @@ import {
 // /best-in-norwich/vote — the 2027 ballot, split off from the guide on
 // 2026-08-30. One page was trying to be a recommendation list and a voting
 // form at the same time and did neither well.
+
+// Board counts move, so the page is revalidated rather than baked at build
+// time. VoteBoard also refreshes on mount, so a cached page is never stale to
+// the person looking at it.
+export const revalidate = 60;
 
 const CANONICAL =
   "https://www.norwichfreewalkingtours.co.uk/best-in-norwich/vote";
@@ -40,8 +45,8 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    q: "Is there a shortlist?",
-    a: "No. Every box is blank on purpose. Last year's list came from 25 people we know, so putting it in front of you would just get it voted back in.",
+    q: "Where did these names come from?",
+    a: "Other people voting, plus last year's ten winners to get the board started. Nothing is a shortlist and nothing is fixed: add whoever is missing and they appear once we have checked they are a real, independent, Norwich place.",
   },
   {
     q: "Why do you want my email?",
@@ -63,7 +68,8 @@ const faqSchema = {
   })),
 };
 
-export default function VotePage() {
+export default async function VotePage() {
+  const board = await getBoard();
   const open = PHASE === "voting-open" || PHASE === "nominations-open";
 
   return (
@@ -86,16 +92,16 @@ export default function VotePage() {
                   className="block text-3xl md:text-4xl font-bold text-brand-text"
                   style={lora}
                 >
-                  No shortlist.
+                  One tap to vote.
                 </span>
                 <span className="block font-caveat text-5xl sm:text-6xl md:text-7xl font-bold text-brand-accent">
-                  Just tell us.
+                  Just click.
                 </span>
               </h1>
 
               <p className="text-lg text-muted-foreground leading-relaxed" style={lora}>
                 {open
-                  ? `Every box is blank. Fill in the ones you care about, skip the rest, and you will see where the city stands as soon as you submit. Closes ${formatDate(VOTING_CLOSES)}.`
+                  ? `Click a bar to vote. If the place you want is not there, add it and it joins the board. Closes ${formatDate(VOTING_CLOSES)}.`
                   : `Voting has closed. Winners announced ${formatDate(RESULTS_DATE)}.`}
               </p>
 
@@ -115,14 +121,7 @@ export default function VotePage() {
         <section className="pb-16 sm:pb-20">
           <div className="brand-container">
             {open ? (
-              <VoteForm
-                initialCategories={CATEGORIES.map((c) => ({
-                  key: c.key,
-                  label: c.label,
-                  blurb: c.blurb,
-                  nominees: [],
-                }))}
-              />
+              <VoteBoard initialCategories={board} />
             ) : (
               <p className="text-lg text-muted-foreground" style={lora}>
                 Counting now. Winners go up on {formatDate(RESULTS_DATE)}.

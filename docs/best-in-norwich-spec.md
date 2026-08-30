@@ -561,3 +561,44 @@ back):
 | Sitemap | both `/best-in-norwich` and `/best-in-norwich/vote` present |
 
 So the go-live flip is genuinely one line.
+
+---
+
+## 14. The board — 2026-08-30, third vote design
+
+Tom on the sixteen-box form: *"not a nice form and too overwhelming… how do other
+websites do this?"*
+
+**What other sites do.** Muddy Stilettos, who run a Norfolk edition, take one nomination
+per category and then run a second round on a named shortlist with email-verified
+voting. US alt-weekly "Best Of" polls (Phoenix New Times, Tucson) run 90+ categories as
+one long ballot with a submit button at the bottom — which is exactly what had been
+built, and the pattern people abandon. Typeform-style one-question-per-screen is the
+third option.
+
+**Tom's answer, which beat all three:** *"like click to vote like a bar chart selector
+and then if you don't see it, type your suggestion which asks for their website + what
+category."* The chart is the ballot. `components/VoteBoard.tsx`:
+
+- Each category renders its approved names as bars with live counts. Clicking a bar
+  casts the vote. No form to fill in.
+- "Not on the list? Add it" opens name + website + category, and that submission is both
+  a nomination and a vote for it.
+- Email asked once on the first vote, stored in localStorage, so the second vote is a
+  single click. The server still dedupes on `(year, category, email)`, so clearing the
+  browser does not buy a second vote.
+- Optimistic increment on click, corrected by a refetch.
+
+**This reverses the earlier "hide the counts" decision.** Showing counts before voting
+does nudge people toward whoever is ahead. Tom's call, and the right one: the
+competitive board is what makes this worth sharing, and the alternative was an empty
+form nobody filled in.
+
+**Server-rendered.** `lib/binBoard.ts` fetches the board in the page (kept out of
+`lib/best-in-norwich.ts` so the Supabase SDK does not reach the client bundle), with
+`revalidate = 60`. Bars exist in the HTML; VoteBoard refreshes on mount for live counts.
+
+**Verified end to end against the live database:** clicked a bar → email prompt → vote
+recorded, bar moved, total incremented; second vote in another category did not re-ask
+for email; "Add it" in an empty category queued The Fat Cat as pending with its URL
+normalised and counted the vote without showing the bar. Test rows deleted afterwards.
