@@ -121,7 +121,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         />
         <div className="absolute inset-0 bg-black/75" />
 
-        <div className="relative brand-container pt-32 pb-16 lg:pt-36 lg:pb-20 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
+        <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-accent text-white text-sm font-semibold"
@@ -204,41 +204,54 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             </div>
           </div>
 
-          {/* Widget slot — logistics + waiting list for now, booking
-              iframe when the tour is real. Mirrors the homepage hero's
-              right-column widget card. */}
-          <aside className="w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6">
-            <dl className="grid grid-cols-1 gap-3">
-              {d.logistics.map((row) => (
-                <div
-                  key={row.label}
-                  className="flex items-baseline justify-between gap-4 border-b border-brand-text/[0.06] pb-2.5 last:border-0 last:pb-0"
-                >
-                  <dt
-                    className="text-[11px] uppercase tracking-[0.14em] font-semibold text-muted-foreground shrink-0"
-                    style={lora}
-                  >
-                    {row.label}
-                  </dt>
-                  <dd className="text-[15px] font-semibold text-brand-text text-right m-0" style={lora}>
-                    {row.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          {/* Widget slot - the booking iframe drops in here when the
+              tour is bookable. Until then, a compact waiting-list card. */}
+          <aside className="w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
+            <p
+              className="text-[13px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-2"
+              style={lora}
+            >
+              Dates open soon
+            </p>
+            <p className="text-[17px] font-semibold text-brand-text mb-1" style={lora}>
+              {tour.name} is nearly ready.
+            </p>
+            <p className="text-[14.5px] text-muted-foreground mb-5" style={lora}>
+              The waiting list gets first pick of the first dates.
+            </p>
             <a
               href="#notify"
-              className="mt-5 inline-flex w-full items-center justify-center h-12 px-6 rounded-xl bg-brand-accent text-white font-semibold text-[16px] hover:bg-brand-accent/90 transition-colors duration-150"
+              className="inline-flex w-full items-center justify-center h-12 px-6 rounded-xl bg-brand-accent text-white font-semibold text-[16px] hover:bg-brand-accent/90 transition-colors duration-150"
               style={lora}
             >
               Join the waiting list
             </a>
-            <p className="mt-3 text-[13px] text-muted-foreground text-center" style={lora}>
-              No dates on sale yet. The list hears first.
-            </p>
           </aside>
         </div>
       </section>
+
+      {/* Logistics bar - bridges the hero and the story, overlapping
+          the hero's bottom edge. The at-a-glance answers live here now
+          the hero slot is reserved for the booking widget. */}
+      <div className="relative z-10 -mt-10 md:-mt-12">
+        <div className="brand-container">
+          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-5 md:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4">
+            {d.logistics.map((row) => (
+              <div key={row.label}>
+                <dt
+                  className="text-[11px] uppercase tracking-[0.14em] font-semibold text-muted-foreground mb-0.5"
+                  style={lora}
+                >
+                  {row.label}
+                </dt>
+                <dd className="text-[15px] font-semibold text-brand-text m-0 leading-snug" style={lora}>
+                  {row.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
 
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       <section className="section-padding bg-white border-b border-brand-accent/10">
