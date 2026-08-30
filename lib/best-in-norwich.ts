@@ -86,6 +86,9 @@ export interface AwardCategory {
   key: string;
   /** "Best coffee" — used as the card label and the ballot legend. */
   label: string;
+  /** Short form for the widget's chips, where three rows of chips push the
+   *  vote below the fold on a phone. Falls back to `label`. */
+  short?: string;
   /** Optional one-liner shown under the label on the ballot. */
   blurb?: string;
   /** The question the vote widget asks. Falls back to "<label> in Norwich?"
@@ -307,6 +310,7 @@ export const VOTE_CATEGORIES: AwardCategory[] = [
   },
   {
     key: "pub-drinks",
+    short: "Pub",
     label: "Pub or drinks",
     question: "Best pub or bar in Norwich?",
     blurb: "Pub, bar, wine, whatever you call a good one.",
@@ -321,6 +325,7 @@ export const VOTE_CATEGORIES: AwardCategory[] = [
   },
   {
     key: "meal-out",
+    short: "Meal out",
     label: "Meal out",
     question: "Best meal out in Norwich?",
     blurb: "The one you book a table for.",
@@ -328,6 +333,7 @@ export const VOTE_CATEGORIES: AwardCategory[] = [
   },
   {
     key: "market",
+    short: "Market",
     label: "The market",
     question: "Best thing on Norwich Market?",
     blurb: "Two hundred stalls. One favourite.",
@@ -335,6 +341,7 @@ export const VOTE_CATEGORIES: AwardCategory[] = [
   },
   {
     key: "shops",
+    short: "Shops",
     label: "Independent shop",
     question: "Best independent shop in Norwich?",
     blurb: "Norwich has more of these per head than almost anywhere.",

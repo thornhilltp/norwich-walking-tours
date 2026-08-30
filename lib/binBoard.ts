@@ -14,6 +14,7 @@ import { VOTE_CATEGORIES, VOTE_YEAR } from "@/lib/best-in-norwich";
 export interface BoardCategory {
   key: string;
   label: string;
+  short: string;
   question: string;
   blurb?: string;
   nominees: { name: string; url: string | null; image: string | null; votes: number }[];
@@ -26,6 +27,7 @@ export async function getBoard(): Promise<BoardCategory[]> {
   const empty = VOTE_CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
+    short: c.short ?? c.label,
     question: questionFor(c.label, c.question),
     blurb: c.blurb,
     nominees: [],
@@ -51,6 +53,7 @@ export async function getBoard(): Promise<BoardCategory[]> {
   return VOTE_CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
+    short: c.short ?? c.label,
     question: questionFor(c.label, c.question),
     blurb: c.blurb,
     nominees: rows

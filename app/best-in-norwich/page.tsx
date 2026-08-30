@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Award } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { WinnerLink } from "@/components/BestInNorwichLinks";
@@ -59,13 +60,13 @@ export const metadata: Metadata = {
     description: `Ten categories, picked by 25 locals. No fees, no sponsors. ${VOTE_YEAR} is open to everyone.`,
     url: CANONICAL,
     type: "website",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    // Image comes from opengraph-image.tsx in this folder, generated from the
+    // winners list so the two can never drift apart.
   },
   twitter: {
     card: "summary_large_image",
     title: `Best in Norwich ${WINNERS_YEAR}`,
     description: "Ten categories, picked by 25 locals. No fees, no sponsors.",
-    images: ["/og-image.jpg"],
   },
 };
 
@@ -106,14 +107,14 @@ export default async function BestInNorwichPage() {
               On a phone the widget lands directly under the headline. ───── */}
         <section className="pt-10 pb-16 sm:pt-14 sm:pb-20">
           <div className="brand-container">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-14 items-start">
-              <div>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] lg:grid-rows-[auto_auto] gap-x-10 lg:gap-x-14 gap-y-8 lg:gap-y-6 items-start">
+              <div className="lg:col-start-1 lg:row-start-1">
                 <div className="flex items-center gap-3 mb-5 flex-wrap">
                   <span className="inline-flex items-center rounded-full bg-brand-accent-light px-4 py-1.5 text-sm font-semibold text-brand-accent">
                     Best in Norwich {WINNERS_YEAR}
                   </span>
                   <span className="text-sm text-muted-foreground" style={lora}>
-                    {TOTAL_CATEGORIES} categories · no fees, no sponsors
+                    {TOTAL_CATEGORIES} winners · no fees, no sponsors
                   </span>
                 </div>
 
@@ -129,25 +130,31 @@ export default async function BestInNorwichPage() {
                   </span>
                 </h1>
 
-                <div className="space-y-3 max-w-xl" style={lora}>
-                  <p className="text-lg text-brand-text leading-relaxed" style={{ fontWeight: 700 }}>
-                    The best places here have no marketing budget. That is the whole point
-                    of this.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    Ten winners for {WINNERS_YEAR}, picked by about 25 locals we know. So
-                    we have missed things, and {VOTE_YEAR} is not our call: six
-                    categories, no shortlist, and nobody can buy their way in. Pick one
-                    to see how Norwich has voted.
-                  </p>
-                </div>
+                <p
+                  className="text-lg text-brand-text leading-relaxed max-w-xl"
+                  style={{ fontWeight: 700 }}
+                >
+                  The best places here have no marketing budget. That is the whole point
+                  of this.
+                </p>
               </div>
 
               {voteOpen && (
-                <div className="w-full max-w-md mx-auto lg:mx-0 lg:sticky lg:top-24">
+                <div
+                  id="vote"
+                  className="w-full max-w-md mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 scroll-mt-24"
+                >
                   <VoteBoard initialCategories={board} />
                 </div>
               )}
+
+              <div className="lg:col-start-1 lg:row-start-2">
+                <p className="text-lg text-muted-foreground leading-relaxed max-w-xl" style={lora}>
+                  Ten winners for {WINNERS_YEAR}, picked by about 25 locals we know. So we
+                  have missed things, and {VOTE_YEAR} is not our call: six categories, no
+                  shortlist, and nobody can buy their way in.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -188,8 +195,11 @@ export default async function BestInNorwichPage() {
                     key={category.key}
                     className="flex flex-col bg-brand-white rounded-xl border border-brand-text/5 shadow-sm overflow-hidden"
                   >
-                    {winner?.image && (
-                      <div className="relative aspect-[16/10]">
+                    {/* Every card gets an image block, photo or not. Half the
+                        winners have photography and half do not, and letting
+                        that show made the grid jump about. */}
+                    <div className="relative aspect-[16/10] bg-brand-accent-light">
+                      {winner?.image ? (
                         <Image
                           src={winner.image.src}
                           alt={winner.image.alt}
@@ -202,8 +212,23 @@ export default async function BestInNorwichPage() {
                               : undefined
                           }
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 flex items-center justify-center font-caveat text-6xl font-bold text-brand-accent/40"
+                        >
+                          {winner?.name?.replace(/^(The|A)\s+/i, "").charAt(0) ?? "?"}
+                        </span>
+                      )}
+
+                      <span
+                        className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-brand-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-accent shadow-sm"
+                        style={lora}
+                      >
+                        <Award className="h-3.5 w-3.5" aria-hidden="true" />
+                        {WINNERS_YEAR} winner
+                      </span>
+                    </div>
 
                     <div className="flex flex-col flex-1 p-5">
                       <p
@@ -215,12 +240,12 @@ export default async function BestInNorwichPage() {
 
                       {winner ? (
                         <>
-                          <h2
+                          <h3
                             className="text-xl font-bold text-brand-text leading-snug"
                             style={lora}
                           >
                             {winner.name}
-                          </h2>
+                          </h3>
                           {winner.why && (
                             <p
                               className="mt-1.5 text-base text-muted-foreground leading-snug"
@@ -252,9 +277,19 @@ export default async function BestInNorwichPage() {
                           </div>
                         </>
                       ) : (
-                        <h2 className="text-xl font-bold text-brand-text" style={lora}>
+                        <h3 className="text-xl font-bold text-brand-text" style={lora}>
                           Still counting.
-                        </h2>
+                        </h3>
+                      )}
+
+                      {voteOpen && (
+                        <a
+                          href="#vote"
+                          className="mt-auto pt-4 text-sm font-semibold text-brand-accent underline-offset-4 hover:underline"
+                          style={lora}
+                        >
+                          Think someone is better? Vote →
+                        </a>
                       )}
                     </div>
                   </article>

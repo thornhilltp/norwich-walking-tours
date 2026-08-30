@@ -108,6 +108,7 @@ export async function GET() {
   const categories = VOTE_CATEGORIES.map((category) => ({
     key: category.key,
     label: category.label,
+    short: category.short ?? category.label,
     question: category.question ?? `${category.label} in Norwich?`,
     blurb: category.blurb,
     nominees: board

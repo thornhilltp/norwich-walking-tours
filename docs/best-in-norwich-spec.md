@@ -693,3 +693,44 @@ better on the guide card, where it is cropped to landscape).
 **Still want photos:** Alchemista, Churros for the People, Avo Burrito, Jarrolds Wine
 Bar. Anything without one falls back to an initial, which is deliberate rather than
 broken.
+
+---
+
+## 18. Review pass — 2026-08-30
+
+Reviewed the live page at desktop and 375px. Four rough edges and four additions,
+all agreed and shipped.
+
+**Fixed**
+
+1. **Chips were clipped.** The row was 652px inside 307px, so it scrolled and cut a
+   label mid-word with the active chip half off the left edge. Fine at sixteen
+   categories, broken-looking at six. They now wrap, and carry a `short` label
+   (Pub, Market, Shops) so they fit two rows on a phone instead of three.
+2. **"10 categories" next to a six-category widget.** Both numbers were true — ten
+   awards, six on the ballot — but together they read as a bug. Now "10 winners".
+3. **The widget started below the fold on a phone** (top edge 77% down the first
+   screen). The long paragraph moved below the widget via explicit grid placement;
+   desktop is unchanged.
+4. **Ragged winners grid.** Five cards had photos and five did not, so heights jumped.
+   Every card now has an image block: the photo, or a tinted panel with the winner's
+   initial in Caveat. Cards measure the same height.
+
+**Added**
+
+5. **Share prompt in the widget**, after three votes. WhatsApp button plus copy-link,
+   with the line changing to "That is the lot. Now stitch someone up." once all six are
+   done. The page previously had no share mechanism at all, which for a local award is
+   the entire distribution model. Fires `bin_share_click`.
+6. **Generated share card** at `app/best-in-norwich/opengraph-image.tsx` — brand colours,
+   the headline and all ten winners as pills. Built from `WINNER_CATEGORIES`, so it can
+   never drift from the list. No custom font is loaded on purpose: Caveat and Lora would
+   each need a font file fetched at render time, which is a failure mode for the sake of
+   a thumbnail.
+7. **"2026 winner" rosettes** on each card, so the grid reads as awards rather than a
+   directory.
+8. **"Think someone is better? Vote →"** on every card, anchored to the widget.
+
+Note on verification: the preview pane stopped honouring viewport emulation partway
+through, so the final mobile offset is inferred from the chip-row reduction rather than
+re-measured. Everything else was verified in the DOM.

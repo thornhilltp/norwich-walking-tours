@@ -43,6 +43,7 @@ interface Nominee {
 export interface BoardCategory {
   key: string;
   label: string;
+  short?: string;
   question: string;
   blurb?: string;
   nominees: Nominee[];
@@ -77,6 +78,7 @@ export function VoteBoard({
   const [justAdded, setJustAdded] = useState(false);
 
   const chipsRef = useRef<HTMLDivElement | null>(null);
+  const shareUrl = "https://www.norwichfreewalkingtours.co.uk/best-in-norwich";
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const category = categories[active];
@@ -111,22 +113,27 @@ export function VoteBoard({
     refresh();
   }, [refresh]);
 
-  // Keep the active chip in view when the widget advances on its own.
   useEffect(() => {
-    const row = chipsRef.current;
-    const chip = row?.querySelector<HTMLElement>('[data-active="true"]');
-    if (row && chip) {
-      row.scrollTo({
-        left: chip.offsetLeft - row.offsetWidth / 2 + chip.offsetWidth / 2,
-        behavior: "smooth",
-      });
-    }
     setExpanded(false);
     setAdding(false);
     setJustAdded(false);
   }, [active]);
 
   const answered = useMemo(() => Object.keys(voted).length, [voted]);
+  const allDone = answered >= categories.length && categories.length > 0;
+  const showShare = answered >= 3;
+  const [copied, setCopied] = useState(false);
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError("Could not copy. The link is norwichfreewalkingtours.co.uk/best-in-norwich");
+    }
+    trackEvent("bin_share_click", { method: "copy", categories_voted: answered });
+  }
 
   function rememberVote(key: string, name: string) {
     setVoted((prev) => {
@@ -301,10 +308,7 @@ export function VoteBoard({
       </p>
 
       {/* ── Category chips ─────────────────────────────────────────────── */}
-      <div
-        ref={chipsRef}
-        className="mt-4 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
+      <div ref={chipsRef} className="mt-4 flex flex-wrap gap-2">
         {categories.map((c, i) => {
           const isActive = i === active;
           const done = Boolean(voted[c.key]);
@@ -314,7 +318,7 @@ export function VoteBoard({
               type="button"
               data-active={isActive}
               onClick={() => setActive(i)}
-              className={`shrink-0 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition min-h-[36px] ${
+              className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition min-h-[36px] ${
                 isActive
                   ? "bg-brand-accent text-brand-white"
                   : done
@@ -324,7 +328,7 @@ export function VoteBoard({
               style={lora}
             >
               {done && !isActive && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
-              {c.label.replace(/^Best /, "")}
+              {c.short ?? c.label}
             </button>
           );
         })}
@@ -468,6 +472,46 @@ export function VoteBoard({
           </p>
         )}
       </div>
+
+      {/* ── Share. Appears once someone has three votes in, because that is
+            the point at which they are invested enough to send it on. ───── */}
+      {showShare && (
+        <div className="mt-4 rounded-xl bg-brand-accent-light p-4">
+          <p className="font-caveat text-2xl font-bold text-brand-text leading-none mb-1">
+            {allDone ? "That is the lot. Now stitch someone up." : "Send it to someone who will disagree."}
+          </p>
+          <p className="text-xs text-muted-foreground mb-3" style={lora}>
+            The categories with fewest votes are the easiest to swing.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(
+                `Best in Norwich 2027 is open. Vote for your coffee, pub and chippy here: ${shareUrl}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent("bin_share_click", {
+                  method: "whatsapp",
+                  categories_voted: answered,
+                })
+              }
+              className="inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-2.5 text-lg font-bold text-brand-white transition hover:opacity-90 min-h-[44px]"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              Send on WhatsApp
+            </a>
+            <button
+              type="button"
+              onClick={copyLink}
+              className="inline-flex items-center justify-center rounded-full border-2 border-brand-text/15 px-5 py-2.5 text-sm font-semibold text-brand-text transition hover:border-brand-accent min-h-[44px]"
+              style={lora}
+            >
+              {copied ? "Link copied" : "Copy link"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ── Add a place ────────────────────────────────────────────────── */}
       {adding ? (
