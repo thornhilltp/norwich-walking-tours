@@ -10,6 +10,18 @@
 
 export type TourStatus = "live" | "example";
 
+/** Everything a tour's own landing page needs beyond the card. */
+export interface TourDetails {
+  /** One-line answer to the search query that lands here. */
+  promise: string;
+  /** The story sold in 2-3 short paragraphs. Vibe for browsers. */
+  story: string[];
+  /** What actually happens, in order. Logistics for planners. */
+  runOfShow: string[];
+  logistics: { label: string; value: string }[];
+  faqs: { q: string; a: string }[];
+}
+
 export interface Tour {
   slug: string;
   /** Card title. Keep short — it sets the card's visual weight. */
@@ -30,6 +42,8 @@ export interface Tour {
   /** Tint behind the card image. Rotates through the brand paper tones. */
   tint: string;
   status: TourStatus;
+  /** Present = this tour has its own /tours/[slug] page. */
+  details?: TourDetails;
 }
 
 export const tours: Tour[] = [
@@ -61,10 +75,47 @@ export const tours: Tour[] = [
       "Plague pits, witch trials and the Norwich that the daylight tour skips. Starts at sunset and finishes in a pub.",
     priceLine: "From £15 per person",
     priceSub: "Booked and paid in advance",
-    ctaLabel: "Notify me",
-    ctaHref: "#notify",
+    ctaLabel: "See the tour",
+    ctaHref: "/tours/norwich-after-dark",
     tint: "#F5EBDA",
     status: "example",
+    details: {
+      promise:
+        "A 90-minute walk through the Norwich that only comes out after sunset. Plague pits, witch trials, and a pub at the end.",
+      story: [
+        "Norwich by day is fine cathedrals and coffee. Norwich by night is a different city. This is the walk through that one.",
+        "Holly leads it. She spends her days in the archives and her evenings telling you what she found there: the plague pits under the car parks, the women tried as witches on the Castle hill, the streets people still cross the road to avoid.",
+        "It ends in one of the oldest pubs in the city, where you can decide over a pint which stories you believe.",
+      ],
+      runOfShow: [
+        "Meet at sunset by the Erpingham Gate, Tombland",
+        "Tombland, Elm Hill and the lanes as the lights come on",
+        "The Castle hill and the trial stories",
+        "Finish at a medieval pub, first round on your own conscience",
+      ],
+      logistics: [
+        { label: "When", value: "Fri & Sat evenings, from sunset" },
+        { label: "How long", value: "1h 30m" },
+        { label: "Group", value: "Max 12" },
+        { label: "Start", value: "Erpingham Gate, Tombland" },
+        { label: "Finish", value: "A pub. A good one." },
+        { label: "Price", value: "From £15 per person, paid at booking" },
+      ],
+      faqs: [
+        {
+          q: "Is it scary?",
+          a: "It is dark history told well, not a haunted house. Nobody jumps out at you. Bring anyone who likes a story; maybe not the under 10s.",
+        },
+        {
+          q: "Is it the same route as the free tour?",
+          a: "It crosses it in a couple of places, but the stops and the stories are completely different. Plenty of people do both.",
+        },
+        {
+          q: "What if it rains?",
+          a: "It runs. Rain improves a ghost walk enormously. Bring a coat.",
+        },
+      ],
+    },
   },
   {
     slug: "medieval-norwich",
