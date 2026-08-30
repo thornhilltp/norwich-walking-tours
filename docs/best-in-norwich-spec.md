@@ -1,6 +1,6 @@
 # Spec — /best-in-norwich
 
-Status: **BUILT, real 2026 winners in place**, 2026-08-23. Branch:
+Status: **LIVE at a hidden URL, rebuilt as two pages 2026-08-30.** Branch:
 `claude/best-in-norwich-page-05e937`. See §9 for what is still open and §10 for what
 shipped.
 
@@ -461,3 +461,48 @@ no fees). The dates in `TIMELINE` are set; change them there, not in the page.
 market stall) · Churros for the People (best sweet treat) · Café Gelato (best ice
 cream) · Yard (best pasta) · Donnelli's (best pizza) · Avo Burrito (best lunch on the
 go) · Jarrolds Wine Bar (best wine bar).
+
+---
+
+## 11. Rebuild — 2026-08-30
+
+Tom's review of the shipped version, and what changed.
+
+**"It's too much writing, and the page is way too long."** Guide page is now ~350 words,
+down from roughly 1,100. Winners are one line each. The timeline band, the rules card
+and the six-question FAQ came off the guide entirely.
+
+**"Maybe this should be more of a guide page, and then a separate page of voting."**
+Done. `/best-in-norwich` is the guide; `/best-in-norwich/vote` is the ballot, with its
+own metadata and a three-question FAQ. The guide links to it twice.
+
+**"I don't like your vote thing… it's a bit leading against Blue Bear."** He is right and
+this was the important note. Pre-listing last year's winner as the only option in each
+category would have re-elected the 2026 list by construction. Every box is now blank
+free text. A `<datalist>` offers already-entered names once you start typing, which
+keeps the tally from splitting across spellings without putting a name in front of
+anyone.
+
+**"You can see a bar chart of what people are voting for."** Built, shown after
+submitting rather than before — same reasoning as above: a chart on arrival is a
+leaderboard announcing the popular answer. Held back, it is the reward for voting and
+the reason to send the page on. This reverses the earlier "hide counts entirely" call;
+the competitive element is the distribution channel here.
+
+**Bug found while testing the new flow.** Every answer is now a write-in, so a ballot
+usually contains at least one name that already exists. Nominations were inserted as one
+multi-row statement, which fails as a whole on the first unique violation — so a vote
+containing a known name silently dropped the genuinely new names alongside it. Verified
+against the live database: three write-ins, none reached moderation. Now inserted one
+row at a time, ignoring per-row duplicates. Retested: known name skipped, new names
+queued as pending.
+
+Test votes and nominations were deleted from the live tables afterwards; the ten seeded
+winner names remain, which is intended.
+
+### Still open
+
+1. Three `[CONFIRM]` names in `lib/best-in-norwich.ts`
+2. Badge art → drop in `/public/images/` and set `BADGE_IMAGE`
+3. Set the moderation password (`bin_admin_set_secret`)
+4. Flip `CONTENT_READY = true` to index both pages and add the site-wide links

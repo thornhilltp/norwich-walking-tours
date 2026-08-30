@@ -122,7 +122,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Blue Bear Coffee Co.",
       nickname: "on Tombland",
-      why: "Small independent bar right on the tour route, and the flat white beats places three times the size. No queue, no fuss, no laptop farm.",
+      why: "Right on the tour route, and the flat white beats places three times the size.",
       mapsUrl: mapsSearch("Blue Bear Coffee Tombland Norwich"),
       image: {
         src: "/images/guide/bear-coffee.jpg",
@@ -138,7 +138,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Alchemista Coffee",
       nickname: "St Gregory's Alley",
-      why: "Steampunk fit-out down one of the best alleys in the city, dog friendly, and nobody rushes you. Go for one, leave an hour later.",
+      why: "Steampunk room down the best alley in the city, and nobody rushes you out of it.",
       url: "https://www.alchemistacoffee.co.uk/",
       mapsUrl: mapsSearch("Alchemista Coffee St Gregorys Alley Norwich"),
     },
@@ -151,7 +151,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "DeVecchio Bakery",
       nickname: "Lobster Lane, in the Lanes",
-      why: "Tiny warm room in the Norwich Lanes turning out focaccia and savoury croissants that go before lunch. Get there early or get disappointed.",
+      why: "Focaccia and savoury croissants that are gone before lunch. Get there early.",
       url: "https://devecchio.co.uk/",
       mapsUrl: mapsSearch("DeVecchio Bakery Lobster Lane Norwich"),
     },
@@ -164,7 +164,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Big Deal's Bodega",
       nickname: "best sandwich on the market",
-      why: "Best sandwich in the city and it is not close. Tuesday to Saturday, lunchtime only, so plan your day round it. Ask for the Parmageddon.",
+      why: "Best sandwich in the city, no contest. Tuesday to Saturday, lunchtime only.",
       mapsUrl: "https://share.google/t1xaXH0ueUUXLMPdD",
       image: {
         src: "/images/guide/big-deals-bodega.webp",
@@ -183,7 +183,7 @@ export const CATEGORIES: AwardCategory[] = [
       // before this goes public.
       name: "Churros for the People",
       nickname: "on Norwich Market",
-      why: "Fried to order, still too hot to eat, gone before you reach the Guildhall. The correct way to end a market lunch.",
+      why: "Fried to order, too hot to eat, gone before you reach the Guildhall.",
       mapsUrl: mapsSearch("Churros for the People Norwich Market"),
     },
   },
@@ -195,7 +195,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Café Gelato",
       nickname: "Norwich's first gelato parlour",
-      why: "Churned daily with Norfolk milk and Sicilian pistachios. The queue out the door on Opie Street is the local endorsement.",
+      why: "Norfolk milk, Sicilian pistachios, churned daily. The queue is the endorsement.",
       mapsUrl: mapsSearch("Cafe Gelato Opie Street Norwich"),
       image: {
         src: "/images/guide/cafe-gelato.webp",
@@ -211,7 +211,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Yard",
       nickname: "fresh pasta on Pottergate",
-      why: "Pasta made on the premises, walk-ins only. Cellar bar if the main room is full, churchyard opposite if the sun is out.",
+      why: "Pasta made on the premises, walk-ins only. Cellar bar if the main room is full.",
       url: "https://www.yardnorwich.com/",
       mapsUrl: "https://share.google/DJJh99gaNiiuf8B2O",
       image: {
@@ -228,7 +228,7 @@ export const CATEGORIES: AwardCategory[] = [
     winner: {
       name: "Donnelli's",
       nickname: "proper pizza, no theatre",
-      why: "Italian-run pizzeria doing wood-fired pizza and meatballs with nothing dressed up. Go hungry and order the sides you were not going to order.",
+      why: "Wood-fired, Italian run, nothing dressed up. Order the sides.",
       mapsUrl: mapsSearch("Donnellis pizza Norwich"),
       image: {
         src: "/images/guide/donnellis.jpg",
@@ -246,7 +246,7 @@ export const CATEGORIES: AwardCategory[] = [
       // page, so we are linking the map instead for now.
       name: "Avo Burrito",
       nickname: "Timber Hill",
-      why: "Burritos and bowls built to order, adobo chicken, guac made that day. Fast, generous, and it holds together to the last bite.",
+      why: "Built to order, guac made that day, holds together to the last bite.",
       mapsUrl: mapsSearch("Avo Burrito Timber Hill Norwich"),
     },
   },
@@ -260,7 +260,7 @@ export const CATEGORIES: AwardCategory[] = [
       // Patisserie Wine Bar, both in the Food Hall. Which one won?
       name: "Jarrolds Wine Bar",
       nickname: "downstairs in the Food Hall",
-      why: "Cheese, charcuterie and a proper glass of wine in the basement of a department store that has been here since 1823. Nowhere else does this.",
+      why: "Cheese, charcuterie and a proper glass, in the basement of a shop from 1823.",
       url: "https://www.jarrolds.co.uk/departments/restaurants/the-wine-bars",
       mapsUrl: mapsSearch("Jarrold Department Store London Street Norwich"),
     },
@@ -335,6 +335,10 @@ export function seedNominees(category: AwardCategory): string[] {
  *  the vote-only ones. */
 export const TOTAL_CATEGORIES = WINNER_CATEGORIES.length;
 export const TOTAL_BALLOT_CATEGORIES = CATEGORIES.length;
+
+/** Where the 2027 vote lives. Its own page since 2026-08-30: the guide and the
+ *  vote were fighting each other for attention on one screen. */
+export const VOTE_PATH = "/best-in-norwich/vote";
 
 /** The published timeline. Rendered on the page and used in the FAQ copy, so
  *  the dates can never drift between the two. */

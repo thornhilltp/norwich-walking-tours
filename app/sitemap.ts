@@ -67,6 +67,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "weekly" as const,
             priority: 0.8,
           },
+          {
+            url: `${base}/best-in-norwich/vote`,
+            changeFrequency: "weekly" as const,
+            priority: 0.6,
+          },
         ]
       : []),
     {

@@ -2,11 +2,10 @@
 
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
-import { BIN_GOTO_EVENT, VOTE_ANCHOR_ID } from "@/components/VoteWidget";
 
-// Two small client bits for the server-rendered /best-in-norwich page: the
-// outbound winner links (which need a click handler for tracking) and the
-// "vote in this category" link (which drives the stepper without a page load).
+// Outbound winner links for the server-rendered /best-in-norwich page. They
+// are a client component only because the click needs to fire a tracking
+// event; everything else on that page stays server-rendered.
 
 interface WinnerLinkProps {
   href: string;
@@ -42,30 +41,6 @@ export function WinnerLink({
     >
       <Icon className="h-4 w-4" aria-hidden="true" />
       {children}
-    </a>
-  );
-}
-
-export function CategoryVoteLink({
-  categoryKey,
-  label,
-}: {
-  categoryKey: string;
-  label: string;
-}) {
-  return (
-    <a
-      href={`#${VOTE_ANCHOR_ID}`}
-      onClick={(e) => {
-        e.preventDefault();
-        window.dispatchEvent(
-          new CustomEvent(BIN_GOTO_EVENT, { detail: categoryKey })
-        );
-      }}
-      className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent underline-offset-4 hover:underline min-h-[44px] py-2"
-      style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-    >
-      {label}
     </a>
   );
 }

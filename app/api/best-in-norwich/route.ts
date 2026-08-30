@@ -11,7 +11,10 @@ import {
 // /api/best-in-norwich — ballot + vote capture for the Best in Norwich awards.
 //
 // GET  → { phase, totalVotes, categories: [{ key, nominees: string[] }] }
-// POST → { success, counted, alreadyVoted, totalVotes }
+//         `nominees` feeds the <datalist> autocomplete on the vote page. It is
+//         not a ballot: nothing is pre-selected and nothing is shown until the
+//         voter starts typing.
+// POST → { success, counted, alreadyVoted, totalVotes, results }
 //
 // Tables (see supabase/best-in-norwich.sql):
 //   public.bin_nominees  — public write-ins, moderated. anon INSERT-only.
@@ -234,19 +237,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Write-ins next, so an approved one can be voted for next time round.
-    // A duplicate name in the same category is a unique violation and fine.
-    if (nominations.length > 0) {
-      const { error } = await supabase.from("bin_nominees").insert(
-        nominations.map((n) => ({
-          year: VOTE_YEAR,
-          category_key: n.category_key,
-          name: n.name,
-          url: n.url,
-          status: "pending",
-          submitted_by_email: email,
-          marketing_opt_in: marketingOptIn,
-        }))
-      );
+    //
+    // One row at a time, deliberately. Every answer is a write-in now, so a
+    // ballot will usually contain at least one name that already exists — and
+    // a multi-row insert fails as a whole on the first unique violation, which
+    // would silently drop the genuinely new names alongside it.
+    for (const nomination of nominations) {
+      const { error } = await supabase.from("bin_nominees").insert({
+        year: VOTE_YEAR,
+        category_key: nomination.category_key,
+        name: nomination.name,
+        url: nomination.url,
+        status: "pending",
+        submitted_by_email: email,
+        marketing_opt_in: marketingOptIn,
+      });
+      // 23505 = we already know this name in this category. Nothing to do.
       if (error && error.code !== "23505") {
         console.error("[BestInNorwich] Nomination insert failed:", error);
       }
@@ -289,12 +295,27 @@ export async function POST(request: NextRequest) {
       p_year: VOTE_YEAR,
     });
 
+    // Standings, for the chart the vote page shows once someone has voted.
+    // Only approved names are charted — see bin_public_results.
+    let results: unknown[] = [];
+    if (body.wantResults === true) {
+      const { data, error } = await supabase.rpc("bin_public_results", {
+        p_year: VOTE_YEAR,
+      });
+      if (error) {
+        console.error("[BestInNorwich] Results RPC failed:", error);
+      } else if (Array.isArray(data)) {
+        results = data;
+      }
+    }
+
     return NextResponse.json({
       success: true,
       counted,
       alreadyVoted,
       nominated: nominations.length,
       totalVotes: Number(totalData) || 0,
+      results,
     });
   } catch (err) {
     console.error("[BestInNorwich] Error:", err);

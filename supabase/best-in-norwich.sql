@@ -1,8 +1,8 @@
 -- Best in Norwich — Supabase schema for /best-in-norwich + /api/best-in-norwich
 --
--- NOT YET APPLIED. Run in the Supabase SQL editor when the awards page goes
--- live. Until then /api/best-in-norwich degrades gracefully: the ballot falls
--- back to the static seed in lib/best-in-norwich.ts and votes return an error.
+-- APPLIED to the live project on 2026-08-30 (migrations best_in_norwich_awards
+-- and best_in_norwich_public_results). Kept here as the readable source of
+-- truth; re-running it is safe.
 --
 -- Conventions copied from public.roys_plaza_signatures:
 --   * anon gets INSERT only, never SELECT
@@ -251,6 +251,55 @@ grant execute on function public.bin_admin_check(text)               to anon, au
 grant execute on function public.bin_admin_pending(text, int)        to anon, authenticated;
 grant execute on function public.bin_admin_counts(text, int)         to anon, authenticated;
 grant execute on function public.bin_admin_set_status(text, uuid, text) to anon, authenticated;
+
+
+-- ── Public standings (applied 2026-08-30, migration best_in_norwich_public_results)
+--
+-- Drives the bar chart shown after someone votes. Only APPROVED names chart:
+-- votes for unapproved names are still recorded and still count, they just do
+-- not render publicly until a human has looked at them. That keeps the chart
+-- clear of anything typed in bad faith.
+create or replace function public.bin_public_results(p_year int)
+returns table (category_key text, nominee_name text, votes bigint)
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select
+    v.category_key,
+    min(n.name) as nominee_name,
+    count(*)    as votes
+  from public.bin_votes v
+  join public.bin_nominees n
+    on n.year = v.year
+   and n.category_key = v.category_key
+   and lower(n.name) = lower(v.nominee_name)
+   and n.status = 'approved'
+  where v.year = p_year
+  group by v.category_key, lower(v.nominee_name)
+  order by v.category_key, votes desc;
+$$;
+
+revoke all on function public.bin_public_results(int) from public;
+grant execute on function public.bin_public_results(int) to anon, authenticated;
+
+-- Last year's winners seeded as approved names, so a vote for one charts
+-- immediately instead of waiting on moderation. They are NOT pre-selected
+-- anywhere on the site: every box on the vote page is blank.
+insert into public.bin_nominees (year, category_key, name, url, status, submitted_by_email)
+values
+  (2027, 'coffee',           'Blue Bear Coffee Co.',   null, 'approved', null),
+  (2027, 'coffee-sit-in',    'Alchemista Coffee',      'https://www.alchemistacoffee.co.uk/', 'approved', null),
+  (2027, 'bakery',           'DeVecchio Bakery',       'https://devecchio.co.uk/', 'approved', null),
+  (2027, 'market-stall',     'Big Deal''s Bodega',     null, 'approved', null),
+  (2027, 'sweet-treat',      'Churros for the People', null, 'approved', null),
+  (2027, 'ice-cream',        'Café Gelato',            null, 'approved', null),
+  (2027, 'pasta',            'Yard',                   'https://www.yardnorwich.com/', 'approved', null),
+  (2027, 'pizza',            'Donnelli''s',            null, 'approved', null),
+  (2027, 'lunch-on-the-go',  'Avo Burrito',            null, 'approved', null),
+  (2027, 'wine-bar',         'Jarrolds Wine Bar',      'https://www.jarrolds.co.uk/departments/restaurants/the-wine-bars', 'approved', null)
+on conflict do nothing;
 
 -- ── Moderation cheat sheet (if you would rather use the SQL editor) ──────────
 -- Pending write-ins waiting on approval:
