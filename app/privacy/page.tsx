@@ -77,6 +77,16 @@ export default function PrivacyPage() {
               passed to Norwich City Council, Roys, or anyone else.
             </p>
             <p>
+              <strong>Best in Norwich votes and nominations:</strong> When you nominate or vote at{" "}
+              <a href="/best-in-norwich" className="text-brand-accent hover:underline">
+                /best-in-norwich
+              </a>{" "}
+              we collect your email address, the categories you answered, and the names you
+              suggested. The email address is used to make sure one person votes once per category
+              and to come back to you if a suggestion needs checking. It is never published beside
+              your vote, and it is never shared with the businesses on the ballot.
+            </p>
+            <p>
               <strong>Analytics:</strong> With your consent, we use Google Analytics 4 to understand
               how visitors use the site. This collects anonymised data such as pages visited, time
               on site, and device type. IP addresses are anonymised. No personally identifiable
@@ -102,6 +112,13 @@ export default function PrivacyPage() {
               unsubscribe from petition updates at any time.
             </p>
             <p>
+              <strong>Best in Norwich votes and nominations</strong> are used to build the ballot,
+              count the result, and publish the winners. Totals are published, individual votes are
+              not. If you ticked the optional box, we will also email you the results and
+              occasionally about our walking tours, and you can unsubscribe at any time. If you did
+              not tick it, we will not email you at all.
+            </p>
+            <p>
               <strong>Analytics data</strong> is used to improve the website experience. It is
               never sold or shared with third parties for advertising purposes.
             </p>
@@ -122,6 +139,11 @@ export default function PrivacyPage() {
               <strong>Petition signatures</strong> are stored in Supabase (AWS EU region) and kept
               while the petition is running. They are deleted within 12 months of the petition
               closing, or sooner on request.
+            </p>
+            <p>
+              <strong>Best in Norwich votes and nominations</strong> are stored in Supabase (AWS EU
+              region) and kept while that year&apos;s awards are running. They are deleted within 12
+              months of the winners being announced, or sooner on request.
             </p>
             <p>
               <strong>Google Analytics data</strong> is retained for 14 months in accordance with

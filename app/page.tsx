@@ -21,6 +21,7 @@ import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { Testimonials } from "./_components/Testimonials";
+import { CONTENT_READY as BIN_READY } from "@/lib/best-in-norwich";
 
 export default function HomePage() {
   return (
@@ -95,6 +96,17 @@ export default function HomePage() {
               <a href="/explore" className="text-brand-accent hover:underline font-semibold">
                 More articles
               </a>
+              {BIN_READY && (
+                <>
+                  {" · "}
+                  <a
+                    href="/best-in-norwich"
+                    className="text-brand-accent hover:underline font-semibold"
+                  >
+                    Best in Norwich
+                  </a>
+                </>
+              )}
             </p>
           </div>
         </section>

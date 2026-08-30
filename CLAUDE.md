@@ -93,6 +93,29 @@ Standalone campaign page added 2026-08-14 (`45971df`). Not part of the core book
 ### `/contact` — Contact
 Simple form (name, email, message) + WhatsApp link + Instagram handle.
 
+### `/best-in-norwich` — Best in Norwich awards
+Campaign page (built 2026-08-23). Publishes the 2026 winners and runs the 2027 vote via
+`components/VoteWidget.tsx` → `/api/best-in-norwich`. Ten food-and-drink winners picked
+by ~25 locals Tom knows — **the page says so plainly and must keep saying so**; it was
+not a public vote. 2027 is an open vote across 16 categories.
+
+Timeline (hand-flipped `PHASE` in `lib/best-in-norwich.ts`): one combined window for
+voting + nominations, now to 31 Jan 2027 → counting in February → winners 2 Mar 2027.
+
+`CONTENT_READY = false` keeps the page noindex, out of the sitemap, and unlinked from
+the footer + homepage link row. Supabase schema **applied 2026-08-30** (migration
+`best_in_norwich_awards`; source kept at `supabase/best-in-norwich.sql`): tables
+`bin_nominees`, `bin_votes`, `bin_admin_secret` plus the `bin_*` RPCs.
+
+Nominations are moderated at `/admin/best-in-norwich` (noindex, unlinked). **No env
+vars and no service-role key**: the password is stored as a SHA-256 hash in
+`public.bin_admin_secret` and checked inside `SECURITY DEFINER` functions, so the app
+keeps using the write-only anon key. Set it with
+`select public.bin_admin_set_secret('long-random-string');` in the SQL editor. Until
+that runs, the screen locks everyone out.
+
+Full spec + go-live checklist: `docs/best-in-norwich-spec.md`.
+
 ---
 
 ## 5. Tour Stops (in order)
