@@ -188,7 +188,7 @@ export function VoteForm({ initialCategories }: { initialCategories: BallotCateg
 
   // ── Form ───────────────────────────────────────────────────────────────────
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl">
+    <form onSubmit={handleSubmit} className="max-w-4xl">
       <input
         type="text"
         name="company"
@@ -200,7 +200,10 @@ export function VoteForm({ initialCategories }: { initialCategories: BallotCateg
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="space-y-5">
+      {/* Two columns from md up. Sixteen stacked inputs made the page about
+          seven screens long on a laptop; this halves it without touching the
+          phone layout, where one column is the only sane option. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
             {categories.map((category) => (
               <div key={category.key} id={category.key} className="scroll-mt-28">
                 <label
@@ -242,7 +245,7 @@ export function VoteForm({ initialCategories }: { initialCategories: BallotCateg
             ))}
           </div>
 
-          <div className="mt-10 rounded-xl bg-brand-accent-light p-6">
+          <div className="mt-10 rounded-xl bg-brand-white border border-brand-text/10 p-6 max-w-2xl">
             <p className="text-lg font-bold text-brand-text mb-1" style={lora}>
               Last bit.
             </p>

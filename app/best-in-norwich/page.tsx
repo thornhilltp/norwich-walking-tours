@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { WinnerLink } from "@/components/BestInNorwichLinks";
+import { VoteForm } from "@/components/VoteForm";
 import {
   BADGE_IMAGE,
+  CATEGORIES,
   CONTENT_READY,
   PHASE,
   RESULTS_DATE,
@@ -20,15 +22,22 @@ import {
   mapsSearch,
 } from "@/lib/best-in-norwich";
 
-// /best-in-norwich — the winners guide.
+// /best-in-norwich — the winners guide, with the 2027 vote on the page.
 //
-// Rewritten 2026-08-30. The first version carried the winners AND the ballot
-// AND the rules AND a timeline, and read like an essay. The vote now lives at
-// /best-in-norwich/vote and this page has one job: answer "where is the best
-// coffee in Norwich" in as few words as possible.
+// Two rewrites on 2026-08-30. First the essay came out: every winner is one
+// line now. Then the vote came back in, as an actual form rather than a button
+// to another page — which matches how the rest of the site works (the homepage
+// embeds the booking widget instead of linking to /book).
 //
-// Keep it short. Every winner is one line. If a section needs three paragraphs
-// to justify itself, it belongs on the vote page or nowhere.
+// Order is deliberate: winners first, because that is what people arrive for
+// and what ranks. The vote sits below with its own short statement of what
+// these awards are for.
+//
+// /best-in-norwich/vote still exists, rendering the same VoteForm, so the
+// ballot can be shared as a link of its own.
+//
+// Keep it short. If a section needs three paragraphs to justify itself, it
+// does not belong here.
 //
 // CONTENT_READY gates indexing, the sitemap and the site-wide links.
 
@@ -119,13 +128,13 @@ export default function BestInNorwichPage() {
 
               {voteOpen && (
                 <div className="mt-6 flex flex-wrap items-center gap-4">
-                  <Link
-                    href={VOTE_PATH}
+                  <a
+                    href="#vote"
                     className="inline-flex items-center justify-center rounded-full bg-brand-accent px-7 py-3.5 text-2xl font-bold text-brand-white shadow-lg transition hover:opacity-90 min-h-[52px]"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     Vote for {VOTE_YEAR}
-                  </Link>
+                  </a>
                   <p className="text-sm text-muted-foreground" style={lora}>
                     {TOTAL_BALLOT_CATEGORIES} categories, no shortlist. Closes{" "}
                     {formatDate(VOTING_CLOSES)}.
@@ -219,26 +228,45 @@ export default function BestInNorwichPage() {
           </div>
         </section>
 
-        {/* ── How it was decided. Short, and load-bearing for credibility. ─ */}
-        <section className="py-12 sm:py-14 bg-brand-accent-light">
+        {/* ── The vote. On the page, not behind a link: the homepage embeds
+              the booking widget rather than pointing at /book, and this is the
+              same call. The mission sits directly above it because the two
+              only make sense together. ───────────────────────────────────── */}
+        <section
+          id="vote"
+          className="section-padding bg-brand-accent-light border-t border-brand-accent/10 scroll-mt-20"
+        >
           <div className="brand-container">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl mb-10">
+              <p
+                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
+                style={lora}
+              >
+                Best in Norwich {VOTE_YEAR}
+              </p>
               <h2 className="mb-4 leading-tight">
                 <span
                   className="block text-2xl md:text-3xl font-bold text-brand-text"
                   style={lora}
                 >
-                  Twenty-five locals.
+                  The best places here have
                 </span>
                 <span className="block font-caveat text-4xl md:text-5xl font-bold text-brand-accent">
-                  That was the whole panel.
+                  no marketing budget.
                 </span>
               </h2>
               <div className="space-y-3" style={lora}>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Not a public vote. About 25 people we know, all living here, arguing it
-                  out. So we have missed things. Everything here is independent and local,
-                  nobody paid, and most winners had no idea they were in it.
+                  That is the whole point of this. We spend every day telling visitors
+                  where to eat and drink in Norwich, and the places worth sending them to
+                  are almost always the small independent ones nobody is advertising.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  This year&apos;s list came from about 25 locals we know, so we have
+                  missed things. {VOTE_YEAR} is not our call. No shortlist, no fees, no
+                  sponsors, and nobody can buy a category. Fill in the ones you have an
+                  opinion on and you will see where the city stands as soon as you
+                  submit.
                 </p>
                 <p
                   className="text-lg text-brand-text leading-relaxed"
@@ -246,24 +274,43 @@ export default function BestInNorwichPage() {
                 >
                   {voteOpen ? (
                     <>
-                      {VOTE_YEAR} is not our call.{" "}
-                      <Link
-                        href={VOTE_PATH}
-                        className="text-brand-accent underline underline-offset-4"
-                      >
-                        Open vote, no shortlist
-                      </Link>
-                      , closing {formatDate(VOTING_CLOSES)}. Winners announced{" "}
+                      Open until {formatDate(VOTING_CLOSES)}. Winners announced{" "}
                       {formatDate(RESULTS_DATE)}.
                     </>
                   ) : (
                     <>
-                      Winners for {VOTE_YEAR} announced {formatDate(RESULTS_DATE)}.
+                      Voting has closed. Winners announced {formatDate(RESULTS_DATE)}.
                     </>
                   )}
                 </p>
               </div>
             </div>
+
+            {voteOpen ? (
+              <VoteForm
+                initialCategories={CATEGORIES.map((c) => ({
+                  key: c.key,
+                  label: c.label,
+                  blurb: c.blurb,
+                  nominees: [],
+                }))}
+              />
+            ) : (
+              <p className="text-lg text-muted-foreground" style={lora}>
+                Counting now. Winners go up on {formatDate(RESULTS_DATE)}.
+              </p>
+            )}
+
+            <p className="mt-8 text-sm text-muted-foreground" style={lora}>
+              Want to send just the vote to someone?{" "}
+              <Link
+                href={VOTE_PATH}
+                className="text-brand-accent underline underline-offset-4"
+              >
+                It has its own page
+              </Link>
+              .
+            </p>
           </div>
         </section>
 

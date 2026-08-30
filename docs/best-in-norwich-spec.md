@@ -506,3 +506,33 @@ winner names remain, which is intended.
 2. Badge art → drop in `/public/images/` and set `BADGE_IMAGE`
 3. Set the moderation password (`bin_admin_set_secret`)
 4. Flip `CONTENT_READY = true` to index both pages and add the site-wide links
+
+---
+
+## 12. Vote back on the guide page — 2026-08-30 (later same day)
+
+Tom: *"the vote for 2027 should be a form right then and there not behind a button…
+should articulate our mission for best in norwich… then the categories below. what do
+other pages do?"*
+
+Checked, and he is right on the convention. Across the site the real interactive thing
+is embedded rather than linked: the homepage carries the booking iframe instead of
+pointing at `/book`, `/what-is-a-free-tour` has an `id="book"` section, `/tour` runs
+anchored sections with the CTA repeated. A button to a separate ballot page was the
+odd one out.
+
+**Now on `/best-in-norwich`:** hero → winners → `id="vote"` section holding the mission
+and the live form → tour CTA. The hero button is an in-page anchor to `#vote`, not a
+link away. `/best-in-norwich/vote` still renders the same component for sharing.
+
+**Mission copy** (three short paragraphs above the form): the places worth sending
+people to have no marketing budget, which is the whole point; this year came from 25
+locals so we have missed things; 2027 is not our call, no shortlist, no fees, nobody can
+buy a category.
+
+**Form is two columns from `md` up.** Sixteen stacked inputs made the page about seven
+screens on a laptop; two columns roughly halve the form. Phones stay single column.
+
+Verified structurally (17 inputs server-rendered in the HTML, `#vote` anchor present,
+mission copy in the markup). The preview pane in that session was rescaling itself and
+producing nonsense geometry, so visual sign-off is on the live URL.

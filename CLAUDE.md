@@ -96,14 +96,18 @@ Simple form (name, email, message) + WhatsApp link + Instagram handle.
 ### `/best-in-norwich` — Winners guide, and `/best-in-norwich/vote` — the 2027 vote
 Split into two pages 2026-08-30 (Tom's call: one page was doing both jobs badly).
 
-**`/best-in-norwich`** publishes the ten 2026 winners. One line each, website + map
-links, and a CTA to the vote. Deliberately short — around 350 words. Keep it that way:
-if a section needs three paragraphs, it belongs on the vote page or nowhere.
+**`/best-in-norwich`** publishes the ten 2026 winners (one line each, website + map
+links) and then carries the 2027 vote **as a live form in an `id="vote"` section**, not
+a button to another page. That matches the rest of the site: the homepage embeds the
+booking widget rather than linking to /book. Above the form sits the mission in three
+short paragraphs — the best places here have no marketing budget, this year was 25
+locals so we missed things, next year is yours. Keep the prose that short.
 
 Winners were picked by ~25 locals Tom knows — **the page says so plainly and must keep
 saying so**; it was not a public vote.
 
-**`/best-in-norwich/vote`** (`components/VoteForm.tsx`) is the 2027 ballot: sixteen
+**`/best-in-norwich/vote`** renders the same `components/VoteForm.tsx` on its own page,
+so the ballot can be shared as a standalone link. The form is the 2027 ballot: sixteen
 blank free-text boxes, one submit, email at the end. **No shortlist is ever shown** —
 the first version pre-listed last year's winner per category, which would simply have
 re-elected them. Typing offers a `<datalist>` of names already entered, which keeps the
