@@ -23,6 +23,17 @@ export interface TourDetails {
   logistics: { label: string; value: string }[];
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
   reviews?: { quote: string; author: string; source?: string }[];
+  /** Scrollable photo strip. Swap for real tour shots as they arrive. */
+  gallery?: { src: string; alt: string; caption: string }[];
+  /** The guide, presented /about-us style: polaroid + first person. */
+  guide?: {
+    name: string;
+    image: string;
+    focal?: string;
+    zoom?: string;
+    blurb: string;
+    handle?: { label: string; href: string };
+  };
   faqs: { q: string; a: string }[];
 }
 
@@ -119,6 +130,22 @@ export const tours: Tour[] = [
           author: "Caroline",
         },
       ],
+      gallery: [
+        { src: "/images/tour/elm-hill-tour.jpg", alt: "Elm Hill's cobbles and timber-framed houses", caption: "Elm Hill, once the lights come on" },
+        { src: "/images/tour/group-fye-bridge.jpg", alt: "The tour group crossing Fye Bridge", caption: "Fye Bridge, where the ducking stool stood" },
+        { src: "/images/tour/group-cathedral-west-front.jpg", alt: "Norwich Cathedral west front at dusk", caption: "The Cathedral, quieter after hours" },
+        { src: "/images/tour/pottergate-st-gregorys.jpg", alt: "Pottergate and St Gregorys church", caption: "Pottergate, where the lanes go dark" },
+        { src: "/images/tour/walking-ertherberts-arch.jpg", alt: "Walking under St Ethelberts arch", caption: "Through St Ethelbert's Gate" },
+      ],
+      guide: {
+        name: "Holly",
+        image: "/images/guides/holly.png",
+        focal: "50% 28%",
+        zoom: "165%",
+        blurb:
+          "I tell the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones. This walk is the dark ones, saved up.",
+        handle: { label: "@historyhollydays", href: "https://www.instagram.com/historyhollydays" },
+      },
       faqs: [
         {
           q: "Is it scary?",

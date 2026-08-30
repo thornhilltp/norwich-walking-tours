@@ -5,7 +5,8 @@ import { ArrowRight, Clock, Star, Users } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/about-us/_components/GuideReviews";
-import { googleReviewStats } from "@/lib/testimonials";
+import { PhotoStrip } from "@/app/tours/_components/PhotoStrip";
+import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 
 // PROTOTYPE — per-tour landing page in the homepage's own language:
@@ -251,45 +252,135 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      {/* Run of show + guide reviews */}
-      <section className="section-padding bg-brand-bg">
-        <div className="brand-container grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <SplitHeading plain="How the evening" script="runs." />
-            <ol className="m-0 p-0 list-none max-w-xl">
-              {d.runOfShow.map((step, i) => (
-                <li
-                  key={step}
-                  className="flex gap-4 items-baseline py-3.5 border-b border-brand-text/[0.07] last:border-0"
-                >
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-bold flex items-center justify-center translate-y-1">
-                    {i + 1}
-                  </span>
-                  <span className="text-[16.5px] text-brand-text/80" style={lora}>
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
+      {/* Photo strip - the Peloton-style scroller in polaroid dress. */}
+      {d.gallery && d.gallery.length > 0 && (
+        <section className="section-padding bg-brand-bg">
+          <div className="brand-container">
+            <SplitHeading plain="Where the walk" script="takes you." />
+            <PhotoStrip photos={d.gallery} />
           </div>
+        </section>
+      )}
 
-          {d.reviews && d.reviews.length > 0 && (
-            <div className="flex flex-col items-center lg:items-start">
-              <SplitHeading
-                plain="Walking with"
-                script={tour.byline.replace(/^Led by /, "") + "."}
-              />
-              <p
-                className="text-[15px] text-muted-foreground -mt-3 mb-2 max-w-sm text-center lg:text-left"
-                style={lora}
+      {/* Run of show */}
+      <section className="section-padding bg-white border-y border-brand-accent/10">
+        <div className="brand-container">
+          <SplitHeading plain="How the evening" script="runs." />
+          <ol className="m-0 p-0 list-none max-w-2xl">
+            {d.runOfShow.map((step, i) => (
+              <li
+                key={step}
+                className="flex gap-4 items-baseline py-3.5 border-b border-brand-text/[0.07] last:border-0"
               >
-                Real reviews from guests who have walked with her on our tours.
-              </p>
-              <GuideReviews reviews={d.reviews} />
-            </div>
-          )}
+                <span className="shrink-0 w-7 h-7 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-bold flex items-center justify-center translate-y-1">
+                  {i + 1}
+                </span>
+                <span className="text-[16.5px] text-brand-text/80" style={lora}>
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
+
+      {/* Reviews - platform rating chips + the paper-card carousel. */}
+      {d.reviews && d.reviews.length > 0 && (
+        <section className="section-padding bg-brand-bg">
+          <div className="brand-container flex flex-col items-center text-center">
+            <SplitHeading plain="What guests" script="say." />
+            <div
+              className="-mt-2 mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] text-brand-text/80"
+              style={lora}
+            >
+              <a
+                href={googleReviewStats.profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 hover:underline"
+              >
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
+                <span className="text-muted-foreground">
+                  ({googleReviewStats.count} Google reviews)
+                </span>
+              </a>
+              <a
+                href={tripAdvisorStats.profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 hover:underline"
+              >
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                <span className="font-semibold">{tripAdvisorStats.rating.toFixed(1)}</span>
+                <span className="text-muted-foreground">
+                  ({tripAdvisorStats.count} TripAdvisor reviews)
+                </span>
+              </a>
+            </div>
+            <p className="text-[15px] text-muted-foreground -mt-2 mb-2 max-w-md" style={lora}>
+              This walk is new, so these are real reviews of {d.guide ? d.guide.name : "the guide"} from our tours.
+            </p>
+            <GuideReviews reviews={d.reviews} />
+          </div>
+        </section>
+      )}
+
+      {/* Meet your guide - /about-us language: polaroid portrait,
+          first person blurb, handle. */}
+      {d.guide && (
+        <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
+          <div className="brand-container grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-center">
+            <div
+              className="relative bg-white rounded-[4px] border border-[#EAE0D4] p-3 pb-12 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.55)] max-w-[300px] mx-auto lg:mx-0 w-full"
+              style={{ rotate: "1.4deg" }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#F5EBDA]/90 rotate-[2deg] shadow-sm"
+              />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-[#EFE3D0]">
+                <Image
+                  src={d.guide.image}
+                  alt={"Portrait of " + d.guide.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 80vw, 300px"
+                  style={{ objectPosition: d.guide.focal ?? "50% 30%" }}
+                />
+              </div>
+              <p
+                className="absolute bottom-2.5 left-0 right-0 text-center text-[28px] font-bold text-brand-text/80"
+                style={caveat}
+              >
+                {d.guide.name}
+              </p>
+            </div>
+
+            <div>
+              <SplitHeading plain="Your guide," script={d.guide.name + "."} />
+              <p className="text-[17px] text-brand-text/80 leading-relaxed max-w-[55ch] mb-5" style={lora}>
+                &ldquo;{d.guide.blurb}&rdquo;
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2" style={lora}>
+                {d.guide.handle && (
+                  <a
+                    href={d.guide.handle.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-accent font-semibold hover:underline"
+                  >
+                    {d.guide.handle.label}
+                  </a>
+                )}
+                <a href="/about-us" className="text-brand-text/70 italic underline underline-offset-4 decoration-brand-text/30 hover:decoration-brand-text">
+                  or meet all of us
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQs */}
       <section className="section-padding bg-white border-t border-brand-accent/10">
