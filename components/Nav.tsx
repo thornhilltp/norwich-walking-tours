@@ -16,7 +16,7 @@ import { trackEvent } from "@/lib/tracking";
 //   The Tour > About > What is a free tour? > Private Tours > Contact
 // 'About' was briefly removed earlier today then added back per Tom.
 const navLinks = [
-  { label: "The Tour", href: "/tour" },
+  { label: "Free Walking Tour", href: "/tour" },
   // "More Tours" per Tom 2026-08-30: current brand stays everywhere;
   // the tours hub is additive. "The Tour" = the free tour, unchanged.
   { label: "More Tours", href: "/tours" },
