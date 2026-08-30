@@ -104,7 +104,7 @@ export default async function BestInNorwichPage() {
         {/* ── Hero. Copy left, vote widget right — same shape as the
               homepage hero, which puts the booking widget in the same place.
               On a phone the widget lands directly under the headline. ───── */}
-        <section className="pt-10 pb-10 sm:pt-14">
+        <section className="pt-10 pb-16 sm:pt-14 sm:pb-20">
           <div className="brand-container">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-14 items-start">
               <div>
@@ -152,9 +152,33 @@ export default async function BestInNorwichPage() {
           </div>
         </section>
 
-        {/* ── The winners. The whole point of the page. ─────────────────── */}
-        <section className="pb-14 sm:pb-16">
+        {/* ── The winners. Own band, own heading, so the hero has room to
+              breathe instead of the cards running straight on from it. ──── */}
+        <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
           <div className="brand-container">
+            <div className="max-w-2xl mb-8 sm:mb-10">
+              <p
+                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
+                style={lora}
+              >
+                The results
+              </p>
+              <h2 className="mb-3 leading-tight">
+                <span
+                  className="block text-2xl md:text-3xl font-bold text-brand-text"
+                  style={lora}
+                >
+                  The {WINNERS_YEAR} winners.
+                </span>
+                <span className="block font-caveat text-4xl md:text-5xl font-bold text-brand-accent">
+                  Every category.
+                </span>
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed" style={lora}>
+                Go and give them your money. That is the whole point of a list like this.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {WINNER_CATEGORIES.map((category) => {
                 const winner = category.winner;
@@ -236,7 +260,7 @@ export default async function BestInNorwichPage() {
         </section>
 
         {/* ── How this was decided. Short, and load-bearing. ──────────── */}
-        <section className="py-12 sm:py-14 bg-brand-accent-light border-t border-brand-accent/10">
+        <section className="py-12 sm:py-14 border-t border-brand-accent/10">
           <div className="brand-container">
             <div className="max-w-2xl">
               <h2 className="mb-4 leading-tight">
