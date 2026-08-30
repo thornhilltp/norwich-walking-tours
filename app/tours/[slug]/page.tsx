@@ -75,7 +75,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
   return (
     <main className="bg-brand-bg">
       {/* Prototype banner — remove when this tour is real. */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-brand-text">
+      <div className="fixed bottom-[72px] md:bottom-0 inset-x-0 z-40 bg-brand-text">
         <div className="brand-container py-2.5">
           <p className="text-[12.5px] text-white/80 leading-snug" style={lora}>
             <span className="font-semibold text-white">Prototype.</span> Example
@@ -192,11 +192,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             >
               Dates open soon
             </p>
-            <p className="text-[17px] font-semibold text-brand-text mb-1" style={lora}>
-              {tour.name} is nearly ready.
+            <p className="text-[19px] font-bold text-brand-text mb-1" style={lora}>
+              {d.availability ? d.availability.headline : `${tour.name} is nearly ready.`}
             </p>
             <p className="text-[14.5px] text-muted-foreground mb-5" style={lora}>
-              The waiting list gets first pick of the first dates.
+              {d.availability
+                ? d.availability.sub
+                : "The waiting list gets first pick of the first dates."}
             </p>
             <a
               href="#notify"
@@ -316,7 +318,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             <p className="text-[15px] text-muted-foreground -mt-2 mb-2 max-w-md" style={lora}>
               This walk is new, so these are real reviews of {d.guide ? d.guide.name : "the guide"} from our tours.
             </p>
-            <GuideReviews reviews={d.reviews} />
+            <GuideReviews reviews={d.reviews} layout="grid" />
           </div>
         </section>
       )}
@@ -399,6 +401,54 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </h2>
         }
       />
+
+      {/* Cross-sell - hand the not-sold browser the next thing
+          before the page runs out. Compact cards: the free tour plus
+          the next tour that is not this one. */}
+      <section className="section-padding bg-white border-t border-brand-accent/10">
+        <div className="brand-container">
+          <SplitHeading plain="Not your kind of" script="walk?" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
+            {[
+              tours.find((t) => t.slug === "free-walking-tour"),
+              tours.find((t) => t.slug !== "free-walking-tour" && t.slug !== tour.slug),
+            ]
+              .filter((t): t is NonNullable<typeof t> => Boolean(t))
+              .map((t) => (
+                <a
+                  key={t.slug}
+                  href={t.ctaHref === "#notify" ? `/tours#notify` : t.ctaHref}
+                  className="group flex gap-4 items-center bg-brand-bg rounded-2xl border border-brand-text/[0.07] p-4 hover:border-brand-accent/40 hover:shadow-md transition-all duration-150"
+                >
+                  <span
+                    className="relative shrink-0 w-24 h-20 rounded-xl overflow-hidden"
+                    style={{ backgroundColor: t.tint }}
+                  >
+                    <Image
+                      src={t.image}
+                      alt={t.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[17px] font-bold text-brand-text leading-snug" style={lora}>
+                      {t.name}
+                    </span>
+                    <span className="block text-[13px] text-muted-foreground mt-0.5" style={lora}>
+                      {t.meta.join(" · ")}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[14px] font-semibold text-brand-accent mt-1.5 group-hover:underline" style={lora}>
+                      {t.priceLine}
+                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </span>
+                  </span>
+                </a>
+              ))}
+          </div>
+        </div>
+      </section>
 
       <div id="notify" className="scroll-mt-28">
         <EmailCapture

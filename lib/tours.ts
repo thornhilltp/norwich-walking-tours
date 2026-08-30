@@ -24,6 +24,8 @@ export interface TourDetails {
   /** What actually happens, in order. Logistics for planners. */
   runOfShow: string[];
   logistics: { label: string; value: string }[];
+  /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
+  availability?: { headline: string; sub: string };
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
   reviews?: { quote: string; author: string; source?: string }[];
   /** Scrollable photo strip. Swap for real tour shots as they arrive. */
@@ -99,6 +101,10 @@ export const tours: Tour[] = [
     status: "example",
     details: {
       heroTitle: ["Norwich,", "after dark."],
+      availability: {
+        headline: "First dates: Halloween week.",
+        sub: "Two evenings only, 12 places each. The waiting list books first.",
+      },
       promise:
         "A 90-minute walk through the Norwich that only comes out after sunset. Plague pits, witch trials, and a pub at the end.",
       story: [

@@ -36,12 +36,65 @@ function renderQuote(text: string) {
   });
 }
 
+function ReviewCard({
+  review,
+  rotate,
+  accent = { ac: "#2DA96B", ad: "#1A6B47" },
+}: {
+  review: GuideReview;
+  rotate: string;
+  accent?: { ac: string; ad: string };
+}) {
+  return (
+    <article
+      className="relative w-[300px] bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-4 shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
+      style={{ rotate }}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute -top-[10px] left-1/2 w-[64px] h-5 rounded-[3px]"
+        style={{
+          transform: "translateX(-50%) rotate(-2deg)",
+          backgroundColor: accent.ac,
+          borderTop: "1px solid rgba(255,255,255,0.3)",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+        }}
+      />
+      <p
+        className="text-[17px] leading-[1.45] mb-4 text-left"
+        style={{ fontFamily: "var(--font-lora), Georgia, serif", color: "#000" }}
+      >
+        {renderQuote(review.quote)}
+      </p>
+      <div className="border-t border-[#F0E9DF] pt-[10px] text-left">
+        <div
+          className="text-[22px] font-bold leading-none"
+          style={{ fontFamily: "var(--font-caveat), cursive", color: accent.ad }}
+        >
+          {review.author}
+        </div>
+        {review.source && (
+          <div
+            className="text-[11px] text-muted-foreground mt-1"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            {review.source}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
 export function GuideReviews({
   reviews,
   accent = { ac: "#2DA96B", ad: "#1A6B47" },
+  layout = "carousel",
 }: {
   reviews: GuideReview[];
   accent?: { ac: string; ad: string };
+  /** "grid" shows every card side by side on lg+ (carousel below lg). */
+  layout?: "carousel" | "grid";
 }) {
   const [i, setI] = useState(0);
   if (!reviews || reviews.length === 0) return null;
@@ -49,6 +102,27 @@ export function GuideReviews({
   const many = reviews.length > 1;
   const r = reviews[i];
   const go = (d: 1 | -1) => setI((p) => (p + d + reviews.length) % reviews.length);
+
+  if (layout === "grid" && many) {
+    return (
+      <div>
+        {/* lg+: all cards side by side, alternating tilt */}
+        <div className="hidden lg:flex flex-wrap justify-center gap-8">
+          {reviews.map((rev, idx) => (
+            <ReviewCard
+              key={rev.author + idx}
+              review={rev}
+              rotate={idx % 2 === 0 ? "-1.2deg" : "1.1deg"}
+            />
+          ))}
+        </div>
+        {/* below lg: the carousel */}
+        <div className="lg:hidden">
+          <GuideReviews reviews={reviews} accent={accent} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-[260px] mt-6">

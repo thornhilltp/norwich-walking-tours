@@ -7,6 +7,9 @@ import { trackEvent } from "@/lib/tracking";
 /**
  * Fixed bottom bar visible on mobile while scrolling.
  * Hidden on /book (user is already booking) and on desktop (nav CTA handles it).
+ * On /tours/[slug] pages the action becomes that tour's waiting list —
+ * a "book the free tour" bar on the ghost tour's page sells the wrong
+ * thing. Swaps to the booking widget slot when tours go bookable.
  */
 export function StickyBookCTA() {
   const pathname = usePathname();
@@ -14,14 +17,19 @@ export function StickyBookCTA() {
   // Don't render on the booking page
   if (pathname === "/book") return null;
 
+  const isTourPage = /^\/tours\/.+/.test(pathname ?? "");
+  const href = isTourPage ? "#notify" : "/book";
+  const label = isTourPage ? "Join the waiting list" : "Book your spot (free)";
+  const location = isTourPage ? "sticky_tour_waitlist" : "sticky_mobile";
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 safe-area-inset-bottom">
       <a
-        href="/book"
-        onClick={() => trackEvent("book_cta_click", { location: "sticky_mobile" })}
+        href={href}
+        onClick={() => trackEvent("book_cta_click", { location })}
         className="btn-cta flex items-center justify-center gap-2 w-full h-12 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 focus-brand"
       >
-        Book your spot (free)
+        {label}
         <ArrowRight className="w-4 h-4" aria-hidden="true" />
       </a>
     </div>
