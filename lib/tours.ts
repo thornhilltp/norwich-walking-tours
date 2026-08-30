@@ -12,6 +12,8 @@ export type TourStatus = "live" | "example";
 
 /** Everything a tour's own landing page needs beyond the card. */
 export interface TourDetails {
+  /** Hero headline in the site's signature split: [Lora white, Caveat green]. */
+  heroTitle: [string, string];
   /** One-line answer to the search query that lands here. */
   promise: string;
   /** The story sold in 2-3 short paragraphs. Vibe for browsers. */
@@ -19,6 +21,8 @@ export interface TourDetails {
   /** What actually happens, in order. Logistics for planners. */
   runOfShow: string[];
   logistics: { label: string; value: string }[];
+  /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
+  reviews?: { quote: string; author: string; source?: string }[];
   faqs: { q: string; a: string }[];
 }
 
@@ -80,6 +84,7 @@ export const tours: Tour[] = [
     tint: "#F5EBDA",
     status: "example",
     details: {
+      heroTitle: ["Norwich,", "after dark."],
       promise:
         "A 90-minute walk through the Norwich that only comes out after sunset. Plague pits, witch trials, and a pub at the end.",
       story: [
@@ -100,6 +105,19 @@ export const tours: Tour[] = [
         { label: "Start", value: "Erpingham Gate, Tombland" },
         { label: "Finish", value: "A pub. A good one." },
         { label: "Price", value: "From £15 per person, paid at booking" },
+      ],
+      reviews: [
+        {
+          quote:
+            "She kept our group totally engaged with **interesting, funny and warm-hearted stories**. Simply the best first-day activity in Norwich.",
+          author: "OwlQueen",
+          source: "TripAdvisor",
+        },
+        {
+          quote:
+            "Holly's tour is **fabulous**. Very fun and loads of info. What an amazing intro to historic Norwich.",
+          author: "Caroline",
+        },
       ],
       faqs: [
         {
