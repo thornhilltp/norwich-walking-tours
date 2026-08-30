@@ -6,7 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/about-us/_components/GuideReviews";
-import { PhotoStrip } from "@/app/tours/_components/PhotoStrip";
+import { PhotoCarousel } from "@/app/tours/_components/PhotoCarousel";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 
@@ -33,6 +33,41 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 const caveat = { fontFamily: "var(--font-caveat), cursive" } as const;
+
+// **bold** markers -> semibold ink, matching /about-us renderBold.
+function renderBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-brand-text">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
+// Green map-pin with the group number — ThemedRouteSection's marker.
+function PinMarker({ index }: { index: number }) {
+  return (
+    <span className="relative inline-flex items-center justify-center w-9 h-11 shrink-0">
+      <svg viewBox="0 0 32 40" className="w-9 h-11 drop-shadow-sm" aria-hidden="true">
+        <path
+          d="M 16 1 C 7.7 1 1 7.7 1 16 c 0 12 15 23 15 23 s 15 -11 15 -23 C 31 7.7 24.3 1 16 1 z"
+          fill="#2DA96B"
+          stroke="#FCFAF8"
+          strokeWidth="2"
+        />
+      </svg>
+      <span
+        className="absolute text-white font-bold text-sm"
+        style={{ fontFamily: "var(--font-lora), Georgia, serif", top: "8px" }}
+      >
+        {String(index + 1).padStart(2, "0")}
+      </span>
+    </span>
+  );
+}
 
 function SplitHeading({ plain, script }: { plain: string; script: string }) {
   return (
@@ -205,49 +240,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      {/* Photo band - straight under the hero, no heading. Multiple
-          photos, plain treatment (Tom preferred this over the framed
-          "where the walk takes you" section). */}
-      {d.gallery && d.gallery.length > 0 && (
-        <section className="py-10 md:py-12 bg-brand-bg">
-          <div className="brand-container">
-            <PhotoStrip photos={d.gallery} framed={false} />
-          </div>
-        </section>
-      )}
-
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       <section className="section-padding bg-white border-b border-brand-accent/10">
         <div className="brand-container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <div className="relative max-w-md mx-auto lg:mx-0 w-full">
-            <div
-              className="relative bg-white rounded-[4px] border border-[#EAE0D4] p-3 pb-14 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.55)]"
-              style={{ rotate: "-1.6deg" }}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#F5EBDA]/90 rotate-[-2deg] shadow-sm"
-              />
-              <div
-                className="relative aspect-[4/3] overflow-hidden rounded-[2px]"
-                style={{ backgroundColor: tour.tint }}
-              >
-                <Image
-                  src={tour.image}
-                  alt={tour.imageAlt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                />
-              </div>
-              <p
-                className="absolute bottom-4 left-0 right-0 text-center text-[26px] font-bold text-brand-text/80"
-                style={caveat}
-              >
-                {tour.name}
-              </p>
-            </div>
-          </div>
+          <PhotoCarousel photos={d.gallery ?? []} />
 
           <div>
             <SplitHeading plain="What this" script="walk is." />
@@ -257,12 +253,49 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className="text-[16.5px] text-brand-text/75 leading-relaxed mb-4 max-w-[60ch]"
                 style={lora}
               >
-                {p}
+                {renderBold(p)}
               </p>
             ))}
           </div>
         </div>
       </section>
+
+      {/* The walk - homepage ThemedRouteSection language: pins +
+          eyebrow/headline/stops/body groups selling what you get. */}
+      {d.walk && d.walk.length > 0 && (
+        <section className="section-padding bg-brand-bg">
+          <div className="brand-container">
+            <SplitHeading plain="The walk, and" script="what you get." />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 max-w-5xl">
+              {d.walk.map((group, i) => (
+                <div key={group.eyebrow} className="flex gap-4">
+                  <PinMarker index={i} />
+                  <div>
+                    <p
+                      className="text-brand-accent text-[12px] font-semibold tracking-[0.16em] uppercase mb-1.5"
+                      style={lora}
+                    >
+                      {group.eyebrow}
+                    </p>
+                    <h3
+                      className="text-[22px] font-bold text-brand-text leading-snug mb-1.5"
+                      style={{ fontFamily: "var(--font-caveat), cursive", fontSize: "26px" }}
+                    >
+                      {group.headline}
+                    </h3>
+                    <p className="text-[13.5px] font-semibold text-brand-text/60 mb-2.5" style={lora}>
+                      {group.stops}
+                    </p>
+                    <p className="text-[15px] text-brand-text/75 leading-relaxed m-0" style={lora}>
+                      {group.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Reviews - platform rating chips + the paper-card carousel. */}
       {d.reviews && d.reviews.length > 0 && (

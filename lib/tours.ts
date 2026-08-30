@@ -16,8 +16,11 @@ export interface TourDetails {
   heroTitle: [string, string];
   /** One-line answer to the search query that lands here. */
   promise: string;
-  /** The story sold in 2-3 short paragraphs. Vibe for browsers. */
+  /** The story sold in 2-3 short paragraphs. **bold** = semibold ink. */
   story: string[];
+  /** The-walk groups, homepage ThemedRouteSection language:
+      what you'll see / where you'll go / what you leave with. */
+  walk?: { eyebrow: string; headline: string; stops: string; body: string }[];
   /** What actually happens, in order. Logistics for planners. */
   runOfShow: string[];
   logistics: { label: string; value: string }[];
@@ -99,9 +102,29 @@ export const tours: Tour[] = [
       promise:
         "A 90-minute walk through the Norwich that only comes out after sunset. Plague pits, witch trials, and a pub at the end.",
       story: [
-        "Norwich by day is fine cathedrals and coffee. Norwich by night is a different city. This is the walk through that one.",
-        "Holly leads it. She spends her days in the archives and her evenings telling you what she found there: the plague pits under the car parks, the women tried as witches on the Castle hill, the streets people still cross the road to avoid.",
-        "It ends in one of the oldest pubs in the city, where you can decide over a pint which stories you believe.",
+        "Norwich by day is fine cathedrals and coffee. **Norwich by night is a different city.** This is the walk through that one.",
+        "Holly leads it. She spends her days in the archives and her evenings telling you what she found there: **the plague pits under the car parks**, the women tried as **witches on the Castle hill**, the streets people still cross the road to avoid.",
+        "It ends in **one of the oldest pubs in the city**, where you can decide over a pint which stories you believe.",
+      ],
+      walk: [
+        {
+          eyebrow: "What you'll see",
+          headline: "Norwich by lamplight.",
+          stops: "Tombland · Elm Hill · the Lanes · the Castle hill",
+          body: "The prettiest streets in the city, after the crowds have gone. Cobbles, crooked timber, and the corners the daylight tour walks straight past.",
+        },
+        {
+          eyebrow: "What you'll hear",
+          headline: "The city's dark ledger.",
+          stops: "Plague pits · witch trials · the ducking stool",
+          body: "Real history from the archives, not jump scares. The bits of Norwich's story that don't make the postcards, told by someone who has read the records.",
+        },
+        {
+          eyebrow: "What you leave with",
+          headline: "A darker map of Norwich.",
+          stops: "One good pub · stories you'll retell",
+          body: "You will never walk these streets the same way again. And you'll know exactly which pub to take people to when they visit.",
+        },
       ],
       runOfShow: [
         "Meet at sunset by the Erpingham Gate, Tombland",
