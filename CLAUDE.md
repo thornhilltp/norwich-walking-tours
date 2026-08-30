@@ -122,7 +122,11 @@ Timeline (hand-flipped `PHASE` in `lib/best-in-norwich.ts`): one combined window
 voting + nominations, now to 31 Jan 2027 → counting in February → winners 2 Mar 2027.
 
 `CONTENT_READY = false` keeps both pages noindex, out of the sitemap, and unlinked from
-the footer + homepage link row. Supabase schema **applied 2026-08-30** (migrations
+the footer, the homepage link row and the homepage promo block (a short "You decide the
+2027 list" section sitting after the FAQ — deliberately a link, not the ballot, so it
+does not compete with the booking widget). Flipping the flag to true was dry-run tested
+on 2026-08-30: block appears, footer link appears, noindex drops, both URLs enter the
+sitemap. Supabase schema **applied 2026-08-30** (migrations
 `best_in_norwich_awards`, `best_in_norwich_public_results`; source kept at
 `supabase/best-in-norwich.sql`).
 

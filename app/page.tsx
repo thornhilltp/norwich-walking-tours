@@ -70,6 +70,62 @@ export default function HomePage() {
             </h2>
           }
         />
+        {/* Best in Norwich promo. Sits after the FAQ on purpose: the booking
+            widget above it is what pays for the tour, and a vote CTA higher up
+            would compete with it. Deliberately a link, not the ballot itself —
+            sixteen inputs here would be a wall between the FAQ and the footer.
+            Hidden entirely until CONTENT_READY, so the homepage never points at
+            a noindexed page. */}
+        {BIN_READY && (
+          <section className="py-14 bg-brand-accent-light border-t border-brand-accent/10">
+            <div className="brand-container max-w-3xl mx-auto text-center">
+              <p
+                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                Best in Norwich
+              </p>
+              <h2 className="mb-4 leading-tight">
+                <span
+                  className="block text-2xl md:text-3xl font-bold text-brand-text"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  Best coffee, best pub, best chippy.
+                </span>
+                <span
+                  className="block text-4xl md:text-5xl font-semibold text-brand-accent"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  You decide the 2027 list.
+                </span>
+              </h2>
+              <p
+                className="text-lg text-muted-foreground leading-relaxed mb-6"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+              >
+                Ten winners for 2026, picked by 25 locals. Next year is an open vote with
+                no shortlist, no fees and nobody able to buy a category.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href="/best-in-norwich#vote"
+                  className="inline-flex items-center justify-center rounded-full bg-brand-accent px-7 py-3.5 text-2xl font-bold text-brand-white shadow-lg transition hover:opacity-90 min-h-[52px]"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  Vote for 2027
+                </a>
+                <a
+                  href="/best-in-norwich"
+                  className="text-lg font-semibold text-brand-accent underline-offset-4 hover:underline"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  See the 2026 winners
+                </a>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Internal-link row — surfaces /tour, /what-is-a-free-tour, the
             content hub, and explore articles. Plain text, low visual
             weight; Google sees the anchors. Replaces the larger

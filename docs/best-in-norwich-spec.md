@@ -536,3 +536,28 @@ screens on a laptop; two columns roughly halve the form. Phones stay single colu
 Verified structurally (17 inputs server-rendered in the HTML, `#vote` anchor present,
 mission copy in the markup). The preview pane in that session was rescaling itself and
 producing nonsense geometry, so visual sign-off is on the live URL.
+
+---
+
+## 13. Homepage promo block — 2026-08-30
+
+Tom asked for the vote on "the main page". Built as a compact section on `/` rather
+than the full ballot: sixteen inputs between the FAQ and the footer would be a wall,
+and a vote CTA higher up would compete with the booking widget, which is the page that
+pays for the tour. So it is a heading, one line, and a button through to
+`/best-in-norwich#vote`, placed after the FAQ.
+
+Gated on `CONTENT_READY` like everything else, so the public homepage never points at a
+noindexed page.
+
+**Flag dry run** (flipped to true, built, inspected the prerendered output, flipped
+back):
+
+| With `CONTENT_READY = true` | Result |
+|---|---|
+| Homepage promo block | renders |
+| Footer link | renders |
+| `noindex` on the guide | gone |
+| Sitemap | both `/best-in-norwich` and `/best-in-norwich/vote` present |
+
+So the go-live flip is genuinely one line.
