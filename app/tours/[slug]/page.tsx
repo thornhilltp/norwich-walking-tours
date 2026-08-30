@@ -455,6 +455,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           eyebrow={tour.name}
           heading="Hear when dates open"
           body="Leave your email and you get first pick of the dates before they go on the site. Plus the odd local tip. No spam."
+          tourInterest={tour.slug}
         />
       </div>
 

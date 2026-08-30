@@ -14,12 +14,15 @@ interface EmailCaptureProps {
   eyebrow?: string;
   heading?: string;
   body?: string;
+  /** Tags the signup onto a tour's waiting list (tour slug). */
+  tourInterest?: string;
 }
 
 export function EmailCapture({
   eyebrow = "Stay in the loop",
   heading = "Norwich from the inside",
   body = "Monthly local tips, new tour updates, and the occasional story you won't get on any tourist site. No spam.",
+  tourInterest,
 }: EmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
@@ -42,14 +45,22 @@ export function EmailCapture({
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, consent, _trap: trap }),
+        body: JSON.stringify({
+          email,
+          consent,
+          _trap: trap,
+          ...(tourInterest ? { tour_interest: tourInterest } : {}),
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         throw new Error(data.error ?? "Something went wrong.");
       }
       setStatus(data.alreadySubscribed ? "already" : "success");
-      trackEvent("subscribe_success", { is_new: !data.alreadySubscribed });
+      trackEvent("subscribe_success", {
+        is_new: !data.alreadySubscribed,
+        ...(tourInterest ? { tour_interest: tourInterest } : {}),
+      });
       setEmail("");
     } catch (err) {
       setStatus("error");

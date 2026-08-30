@@ -74,6 +74,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Optional per-tour waiting-list tag. Slug-shaped only; anything
+    // else is dropped rather than rejected (the subscription itself
+    // still stands).
+    const rawInterest = sanitizeText(body.tour_interest, 64);
+    const tourInterest =
+      rawInterest && /^[a-z0-9-]+$/.test(rawInterest) ? rawInterest : null;
+
     const timestamp = new Date().toISOString();
 
     // ── 1. Persist to Supabase ───────────────────────────────────────────────
@@ -99,6 +106,22 @@ export async function POST(request: NextRequest) {
           );
         }
       }
+
+      // Per-tour waiting list. Runs for already-subscribed people too:
+      // an existing subscriber joining the ghost-tour list is exactly
+      // the signal we want. Duplicate (email, tour) rows collapse into
+      // the unique constraint; failures never break the subscription.
+      if (tourInterest) {
+        const { error: interestError } = await supabase
+          .from("subscriber_interests")
+          .insert({ email, tour_slug: tourInterest, source: "tour-page" });
+        if (interestError && interestError.code !== "23505") {
+          console.error(
+            "[Subscribe] interest insert failed:",
+            interestError
+          );
+        }
+      }
     } else {
       console.warn(
         "[Subscribe] Supabase env vars not set — skipping DB insert."
@@ -115,7 +138,9 @@ export async function POST(request: NextRequest) {
           const info = await transporter.sendMail({
             from: `"Norwich Free Tour" <${process.env.ZOHO_EMAIL}>`,
             to: "hello@norwichfreewalkingtours.co.uk",
-            subject: `New subscriber: ${email}`,
+            subject: tourInterest
+              ? `New waiting-list signup (${tourInterest}): ${email}`
+              : `New subscriber: ${email}`,
             text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
             html: `
               <h2>New email subscription</h2>
