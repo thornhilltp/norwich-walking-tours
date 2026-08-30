@@ -136,9 +136,9 @@ export default async function BestInNorwichPage() {
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     Ten winners for {WINNERS_YEAR}, picked by about 25 locals we know. So
-                    we have missed things, and {VOTE_YEAR} is not our call: vote for
-                    whoever you want, add anyone we have missed, no shortlist and nobody
-                    can buy a category.
+                    we have missed things, and {VOTE_YEAR} is not our call: six
+                    categories, no shortlist, and nobody can buy their way in. Pick one
+                    to see how Norwich has voted.
                   </p>
                 </div>
               </div>

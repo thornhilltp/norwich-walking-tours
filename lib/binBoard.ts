@@ -1,5 +1,5 @@
 import { getSupabaseClient } from "@/lib/supabase";
-import { CATEGORIES, VOTE_YEAR } from "@/lib/best-in-norwich";
+import { VOTE_CATEGORIES, VOTE_YEAR } from "@/lib/best-in-norwich";
 
 // Server-side board fetch for /best-in-norwich and /best-in-norwich/vote.
 //
@@ -23,7 +23,7 @@ const questionFor = (label: string, question?: string) =>
   question ?? `${label} in Norwich?`;
 
 export async function getBoard(): Promise<BoardCategory[]> {
-  const empty = CATEGORIES.map((c) => ({
+  const empty = VOTE_CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
     question: questionFor(c.label, c.question),
@@ -48,7 +48,7 @@ export async function getBoard(): Promise<BoardCategory[]> {
     votes: number;
   }[];
 
-  return CATEGORIES.map((c) => ({
+  return VOTE_CATEGORIES.map((c) => ({
     key: c.key,
     label: c.label,
     question: questionFor(c.label, c.question),

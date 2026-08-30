@@ -31,7 +31,7 @@ const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 
 export const metadata: Metadata = {
   title: `Vote — Best in Norwich ${VOTE_YEAR}`,
-  description: `Tell us the best coffee, pub, chippy and view in Norwich. Open vote, no shortlist, ${TOTAL_BALLOT_CATEGORIES} categories. Closes ${formatDate(VOTING_CLOSES)}.`,
+  description: `Tell us the best coffee, pub, breakfast, meal out, market stall and independent shop in Norwich. Open vote, no shortlist. Closes ${formatDate(VOTING_CLOSES)}.`,
   alternates: { canonical: CANONICAL },
   robots: CONTENT_READY ? undefined : { index: false, follow: false },
   openGraph: {
@@ -101,7 +101,7 @@ export default async function VotePage() {
 
               <p className="text-lg text-muted-foreground leading-relaxed" style={lora}>
                 {open
-                  ? `Click a bar to vote. If the place you want is not there, add it and it joins the board. Closes ${formatDate(VOTING_CLOSES)}.`
+                  ? `${TOTAL_BALLOT_CATEGORIES} categories, one tap each. Pick one to see how Norwich has voted, and add anyone missing. Closes ${formatDate(VOTING_CLOSES)}.`
                   : `Voting has closed. Winners announced ${formatDate(RESULTS_DATE)}.`}
               </p>
 

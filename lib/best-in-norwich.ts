@@ -95,10 +95,6 @@ export interface AwardCategory {
   winner?: Winner;
   /** Optional 2nd/3rd. Also seed the ballot for next year. */
   runnersUp?: Winner[];
-  /** True = on next year's ballot but NOT in the winners grid. Used for
-   *  categories we did not run this year, so the published list has no
-   *  empty cards while the vote still grows the awards. */
-  voteOnly?: boolean;
 }
 
 export const mapsSearch = (name: string) =>
@@ -277,63 +273,69 @@ export const CATEGORIES: AwardCategory[] = [
       url: "https://www.jarrolds.co.uk/departments/restaurants/the-wine-bars",
       mapsUrl: mapsSearch("Jarrold Department Store London Street Norwich"),
     },
-  },
+  }
+];
 
-  // ── Vote-only: new for 2027 ───────────────────────────────────────────────
-  // These did not run this year, so they never appear in the winners grid.
-  // They are on the ballot so the awards widen out next time round.
+/** The 2026 awards, as they were given. Drives the winners grid and nothing
+ *  else — the ballot below is deliberately a different, shorter list. */
+export const WINNER_CATEGORIES = CATEGORIES;
+
+// ── The 2027 ballot ─────────────────────────────────────────────────────────
+//
+// Six categories, Tom's call on 2026-08-30, cut from sixteen. Sixteen chips
+// was a lot of scrolling and most would have sat empty; six broad ones each
+// start with names on the board and are quick to fill.
+//
+// These keys are stored in bin_votes and bin_nominees. Never rename one after
+// voting opens — the rows are keyed on it.
+export const VOTE_CATEGORIES: AwardCategory[] = [
   {
-    key: "pub",
-    label: "Best pub",
-    question: "Best pub in Norwich?",
-    blurb: "Not the trendiest. The best.",
+    key: "coffee",
+    label: "Coffee",
+    question: "Best coffee in Norwich?",
+    blurb: "The cup, and the room you drink it in.",
+    icon: "coffee",
+  },
+  {
+    key: "pub-drinks",
+    label: "Pub or drinks",
+    question: "Best pub or bar in Norwich?",
+    blurb: "Pub, bar, wine, whatever you call a good one.",
     icon: "beer",
-    voteOnly: true,
   },
   {
     key: "breakfast",
-    label: "Best breakfast",
+    label: "Breakfast",
     question: "Best breakfast in Norwich?",
-    blurb: "Full English, pancakes, whatever gets you going.",
+    blurb: "Full English, pastry, whatever starts the day.",
     icon: "fork",
-    voteOnly: true,
   },
   {
-    key: "chippy",
-    label: "Best chippy",
-    question: "Best chippy in Norwich?",
-    blurb: "Norfolk takes this seriously.",
+    key: "meal-out",
+    label: "Meal out",
+    question: "Best meal out in Norwich?",
+    blurb: "The one you book a table for.",
     icon: "fork",
-    voteOnly: true,
   },
   {
-    key: "independent-shop",
-    label: "Best independent shop",
+    key: "market",
+    label: "The market",
+    question: "Best thing on Norwich Market?",
+    blurb: "Two hundred stalls. One favourite.",
+    icon: "bag",
+  },
+  {
+    key: "shops",
+    label: "Independent shop",
     question: "Best independent shop in Norwich?",
     blurb: "Norwich has more of these per head than almost anywhere.",
     icon: "bag",
-    voteOnly: true,
-  },
-  {
-    key: "free-thing",
-    label: "Best free thing to do",
-    question: "Best free thing to do in Norwich?",
-    blurb: "Costs nothing, still beats most things that cost something.",
-    icon: "sparkle",
-    voteOnly: true,
-  },
-  {
-    key: "view",
-    label: "Best view",
-    question: "Best view in Norwich?",
-    blurb: "Where you take the visitors.",
-    icon: "view",
-    voteOnly: true,
   },
 ];
 
-/** Categories with a published winner. Drives the winners grid. */
-export const WINNER_CATEGORIES = CATEGORIES.filter((c) => !c.voteOnly);
+export function findVoteCategory(key: string): AwardCategory | undefined {
+  return VOTE_CATEGORIES.find((c) => c.key === key);
+}
 
 export function findCategory(key: string): AwardCategory | undefined {
   return CATEGORIES.find((c) => c.key === key);
@@ -350,10 +352,9 @@ export function seedNominees(category: AwardCategory): string[] {
   return Array.from(new Set(names));
 }
 
-/** Published categories (winners grid). The ballot is longer — it also carries
- *  the vote-only ones. */
+/** Published 2026 categories (winners grid) and the shorter 2027 ballot. */
 export const TOTAL_CATEGORIES = WINNER_CATEGORIES.length;
-export const TOTAL_BALLOT_CATEGORIES = CATEGORIES.length;
+export const TOTAL_BALLOT_CATEGORIES = VOTE_CATEGORIES.length;
 
 /** Where the 2027 vote lives. Its own page since 2026-08-30: the guide and the
  *  vote were fighting each other for attention on one screen. */

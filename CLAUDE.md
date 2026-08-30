@@ -110,8 +110,13 @@ saying so**; it was not a public vote.
 so the ballot can be shared as a standalone link.
 
 **One widget in the hero, and the chart IS the ballot.** `components/VoteBoard.tsx`:
-category chips across the top (tap to jump), the current category's question, its top
-three names as bars with photo or initial, and a vote is one tap on a bar. After a vote
+category chips across the top (tap to jump), the current category's question, its names
+with photo or initial, and a vote is one tap on a row.
+
+**Counts stay hidden in a category until you vote in it** — names sit alphabetically,
+no bars, no numbers, "pick one to see how Norwich has voted". Voting reveals that
+category's standings. Nobody's answer is steered by the leader, and there is a payoff
+every time. After a vote
 it advances to the next category you have not answered. "Not there? Add it" takes a name
 and website. Email asked once, kept in localStorage; the server still dedupes on email.
 

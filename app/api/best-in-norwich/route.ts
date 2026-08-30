@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
 import {
-  CATEGORIES,
   PHASE,
+  VOTE_CATEGORIES,
   VOTE_YEAR,
-  findCategory,
+  findVoteCategory,
 } from "@/lib/best-in-norwich";
 
 // /api/best-in-norwich — ballot + vote capture for the Best in Norwich awards.
@@ -105,7 +105,7 @@ export async function GET() {
     }
   }
 
-  const categories = CATEGORIES.map((category) => ({
+  const categories = VOTE_CATEGORIES.map((category) => ({
     key: category.key,
     label: category.label,
     question: category.question ?? `${category.label} in Norwich?`,
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     const votes: { category_key: string; nominee_name: string }[] = [];
 
     for (const [categoryKey, value] of Object.entries(takingVotes ? rawVotes : {})) {
-      if (!findCategory(categoryKey)) continue;
+      if (!findVoteCategory(categoryKey)) continue;
       const nomineeName = sanitizeText(value, MAX_NOMINEE_NAME);
       if (!nomineeName) continue;
       votes.push({ category_key: categoryKey, nominee_name: nomineeName });
@@ -188,9 +188,9 @@ export async function POST(request: NextRequest) {
       url: string | null;
     }[] = [];
 
-    for (const entry of rawNominations.slice(0, CATEGORIES.length)) {
+    for (const entry of rawNominations.slice(0, VOTE_CATEGORIES.length)) {
       if (!entry || typeof entry !== "object") continue;
-      if (!findCategory(entry.categoryKey)) continue;
+      if (!findVoteCategory(entry.categoryKey)) continue;
       const name = sanitizeText(entry.name, MAX_NOMINEE_NAME);
       if (!name) continue;
       nominations.push({

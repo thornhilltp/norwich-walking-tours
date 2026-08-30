@@ -22,6 +22,11 @@ import { RESULTS_DATE, VOTING_CLOSES, formatDate } from "@/lib/best-in-norwich";
 // Clicking a bar is the vote — there is no form unless a place is missing.
 // Email is asked once and kept in localStorage; the server still dedupes on
 // email, so clearing the browser buys nothing.
+//
+// Counts stay hidden in a category until you have voted in it (Tom, 2026-08-30).
+// Standard poll behaviour, and it means nobody's answer is steered by seeing
+// who is already ahead — while still paying out the running result the moment
+// they commit.
 
 const EMAIL_KEY = "bin_voter_email";
 const VOTED_KEY = "bin_voted_categories";
@@ -272,9 +277,14 @@ export function VoteBoard({
   if (!category) return null;
 
   const myVote = voted[category.key];
-  const ranked = [...category.nominees].sort((a, b) => b.votes - a.votes);
+  // Before voting the order must not leak the standings either, so names sit
+  // alphabetically until the reveal.
+  const revealed = Boolean(myVote);
+  const ranked = [...category.nominees].sort((a, b) =>
+    revealed ? b.votes - a.votes : a.name.localeCompare(b.name, "en-GB")
+  );
   const shown = expanded ? ranked : ranked.slice(0, TOP_N);
-  const top = Math.max(ranked[0]?.votes ?? 0, 1);
+  const top = Math.max(...ranked.map((n) => n.votes), 1);
 
   return (
     <div className="bg-brand-white border-2 border-brand-text/10 rounded-2xl shadow-2xl p-5 sm:p-6">
@@ -283,12 +293,11 @@ export function VoteBoard({
         Vote — Best in Norwich 2027
       </p>
       <p className="mt-1 text-xs text-muted-foreground" style={lora}>
-        {totalVotes === null
-          ? `Closes ${formatDate(VOTING_CLOSES)}`
+        {answered === 0 || totalVotes === null
+          ? `Closes ${formatDate(VOTING_CLOSES)} · winners ${formatDate(RESULTS_DATE)}`
           : `${totalVotes.toLocaleString("en-GB")} ${
               totalVotes === 1 ? "vote" : "votes"
-            } · closes ${formatDate(VOTING_CLOSES)} · winners ${formatDate(RESULTS_DATE)}`}
-        {answered > 0 && ` · you have voted in ${answered}`}
+            } so far · you have voted in ${answered} of ${categories.length}`}
       </p>
 
       {/* ── Category chips ─────────────────────────────────────────────── */}
@@ -325,6 +334,11 @@ export function VoteBoard({
       <p className="mt-3 text-lg font-bold text-brand-text" style={lora}>
         {category.question}
       </p>
+      {!revealed && category.nominees.length > 0 && (
+        <p className="mt-0.5 text-xs text-muted-foreground" style={lora}>
+          Pick one to see how Norwich has voted.
+        </p>
+      )}
 
       {error && (
         <p className="mt-2 text-sm text-red-700" role="alert" style={lora}>
@@ -392,13 +406,15 @@ export function VoteBoard({
                   : "border-brand-text/10 hover:border-brand-accent"
               }`}
             >
-              <span
-                aria-hidden="true"
-                className={`absolute inset-y-0 left-0 transition-[width] duration-500 ${
-                  mine ? "bg-brand-accent/20" : "bg-brand-accent/10"
-                }`}
-                style={{ width: `${(nominee.votes / top) * 100}%` }}
-              />
+              {revealed && (
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-y-0 left-0 transition-[width] duration-500 ${
+                    mine ? "bg-brand-accent/20" : "bg-brand-accent/10"
+                  }`}
+                  style={{ width: `${(nominee.votes / top) * 100}%` }}
+                />
+              )}
               {nominee.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -421,16 +437,21 @@ export function VoteBoard({
               >
                 {nominee.name}
               </span>
-              {mine ? (
-                <Check className="relative z-10 h-5 w-5 shrink-0 text-brand-accent" aria-hidden="true" />
-              ) : (
-                <span
-                  className="relative z-10 shrink-0 text-sm tabular-nums text-muted-foreground"
-                  style={lora}
-                >
-                  {nominee.votes}
-                </span>
-              )}
+              <span className="relative z-10 flex shrink-0 items-center gap-1.5">
+                {revealed && (
+                  <span
+                    className={`text-sm tabular-nums ${
+                      mine ? "text-brand-accent" : "text-muted-foreground"
+                    }`}
+                    style={lora}
+                  >
+                    {nominee.votes}
+                  </span>
+                )}
+                {mine && (
+                  <Check className="h-5 w-5 text-brand-accent" aria-hidden="true" />
+                )}
+              </span>
             </button>
           );
         })}

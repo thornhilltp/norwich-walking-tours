@@ -634,3 +634,36 @@ recorded, the widget advanced to the next question, the chip ticked and the head
 counted "you have voted in 1". A second visit with the email already in localStorage
 voted in one tap with no prompt. Test rows deleted; the ten seeded names and their five
 photos remain.
+
+---
+
+## 16. Six categories, and hide the counts — 2026-08-30
+
+Two more calls from Tom, both after seeing the hero widget live.
+
+**"Don't show the current votes until all are filled in."** Implemented per category:
+a category shows its names alphabetically with no bars and no numbers until you vote in
+it, under the line "pick one to see how Norwich has voted". Your vote reveals that
+category's standings, and the header total stays hidden until you have voted somewhere.
+Standard poll behaviour — nobody is steered by the leader, and there is a payoff on
+every single vote rather than only at the end of sixteen.
+
+**Sixteen categories cut to six.** `VOTE_CATEGORIES` in `lib/best-in-norwich.ts`:
+coffee, pub or drinks, breakfast, meal out, the market, independent shop. This is now a
+separate list from the 2026 awards, which keep their own ten categories on the guide —
+that is history and does not move. `WINNER_CATEGORIES` drives the grid,
+`VOTE_CATEGORIES` drives the ballot, the API and the moderation screen. The `voteOnly`
+flag is gone.
+
+The seeded names were remapped in migration `best_in_norwich_six_categories`: coffee
+(Blue Bear, Alchemista), pub or drinks (Jarrolds Wine Bar), breakfast (DeVecchio),
+meal out (Yard, Donnelli's, Avo Burrito), the market (Big Deal's Bodega, Churros for the
+People). Independent shop starts empty on purpose. Café Gelato has no natural home in
+six categories and is not on the ballot; it remains a 2026 winner on the guide.
+
+**Also this round:** the 2026 winners moved into their own light-green band with a
+heading, so the hero has room instead of the cards running straight on from it.
+
+Verified against the live database: fresh browser saw no counts, voting revealed that
+category and advanced to the next, the header switched to "1 vote so far · you have
+voted in 1 of 6". Test rows removed.

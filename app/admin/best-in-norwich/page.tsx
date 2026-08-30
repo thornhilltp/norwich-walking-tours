@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getAdminToken, tokenIsValid } from "@/lib/binAdminAuth";
 import { getSupabaseClient } from "@/lib/supabase";
-import { CATEGORIES, VOTE_YEAR, findCategory } from "@/lib/best-in-norwich";
+import { VOTE_CATEGORIES, VOTE_YEAR, findVoteCategory } from "@/lib/best-in-norwich";
 import {
   NomineeList,
   SignIn,
@@ -60,7 +60,7 @@ export default async function BinAdminPage() {
         pending = ((pendingRes.data ?? []) as PendingRow[]).map((row) => ({
           id: row.id,
           category_key: row.category_key,
-          category_label: findCategory(row.category_key)?.label ?? row.category_key,
+          category_label: findVoteCategory(row.category_key)?.label ?? row.category_key,
           name: row.name,
           url: row.url,
           created_at: row.created_at,
@@ -113,7 +113,7 @@ export default async function BinAdminPage() {
               <span aria-hidden="true">·</span>
               <span>{counts.rejected ?? 0} rejected</span>
               <span aria-hidden="true">·</span>
-              <span>{CATEGORIES.length} categories</span>
+              <span>{VOTE_CATEGORIES.length} categories</span>
             </div>
 
             <NomineeList nominees={pending} />
