@@ -48,9 +48,9 @@ const securityHeaders = [
       // Images: self, Unsplash, data URIs, blob.
       // googletagmanager.com needed for GTM's image beacon pings (/td, /a).
       // google.com + google.co.uk for Google Ads conversion image beacons.
-      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk",
+      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.google.com https://www.google.co.uk",
       // Google Analytics + GTM + Google Ads (conversion + remarketing endpoints)
-      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://www.google.com https://googleads.g.doubleclick.net",
+      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk https://stats.g.doubleclick.net https://googleads.g.doubleclick.net",
       // Booking widget iframe
       "frame-src https://norwich-booking.vercel.app",
       "worker-src blob:",
