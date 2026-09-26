@@ -9,7 +9,7 @@ Mobile-first marketing website for the **Norwich Free Walking Tour** ("The Real 
 
 **Repos:** Main site `thornhilltp/norwich-walking-tours` · Booking widget `thornhilltp/norwich-booking`
 **Hosting:** Vercel (both) · **Domain:** `norwichfreewalkingtours.co.uk` — live, DNS pointing to Vercel (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`)
-**Status:** Live as of April 2026. Tours running daily since May 2026. Reviews as of 2026-08-29: **116 Google at 4.9★ + 70 TripAdvisor at 4.9★**. Counts change often — `lib/testimonials.ts` (`googleReviewStats` / `tripAdvisorStats`) is the single source of truth; never quote review numbers from this file or from memory without checking it first. Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
+**Status:** Live as of April 2026. Tours running daily since May 2026. Reviews as of 2026-09-26: **136 Google at 4.9★ + 74 TripAdvisor at 4.9★**. Counts change often — `lib/testimonials.ts` (`googleReviewStats` / `tripAdvisorStats`) is the single source of truth; never quote review numbers from this file or from memory without checking it first. Canonical URL is `https://www.norwichfreewalkingtours.co.uk`.
 
 ---
 

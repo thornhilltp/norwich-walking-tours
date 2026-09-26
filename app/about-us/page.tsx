@@ -108,6 +108,11 @@ const guides: Guide[] = [
     reviews: [
       {
         quote:
+          "An excellent balance of knowledgeable history, insightful information, personal anecdote and occasional opinion, all laced with good humour. **First class.**",
+        author: "Guest on Holly's tour",
+      },
+      {
+        quote:
           "She kept our group totally engaged with **interesting, funny and warm-hearted stories**. Simply the best first-day activity in Norwich.",
         author: "OwlQueen",
         source: "TripAdvisor",
