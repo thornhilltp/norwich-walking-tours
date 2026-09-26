@@ -109,7 +109,7 @@ const guides: Guide[] = [
       {
         quote:
           "An excellent balance of knowledgeable history, insightful information, personal anecdote and occasional opinion, all laced with good humour. **First class.**",
-        author: "Guest on Holly's tour",
+        author: "Andrew Wright",
       },
       {
         quote:

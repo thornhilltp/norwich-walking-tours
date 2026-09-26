@@ -69,10 +69,10 @@ export type FeaturedReview = {
 export const featuredReviews: FeaturedReview[] = [
   {
     id: 7,
-    name: "Holly's group",
-    role: "Seasoned city walkers",
+    name: "Andrew",
+    role: "Seasoned city walker",
     pullQuote: "One of the very best, **perhaps the best**, on our numerous city walking tours around Europe.",
-    sourced: "Review of Holly, shared by Tom 2026-09-26 (reviewer name + platform to confirm)",
+    sourced: "Andrew Wright, review of Holly, shared by Tom 2026-09-26 (platform unconfirmed)",
   },
   {
     id: 1,
