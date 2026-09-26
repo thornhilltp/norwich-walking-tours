@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { ArrowRight, MessageCircle, UserRound, MapPin } from "lucide-react";
 import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
+import { GuideExpand } from "./_components/GuideExpand";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
 // language (cream paper, tape, tilt, Caveat captions). Short scannable
@@ -138,16 +139,28 @@ const philosophy = [
     Icon: MessageCircle,
     h: "A conversation, not a lecture",
     p: "We tell stories and ask questions, we don't reel off dates. **You'll talk to us, and to each other.** That's the bit people remember.",
+    img: "/images/tour/tom-tombland-talk.jpg",
+    alt: "Tom mid-story in Tombland with a tour group listening",
+    tape: "#2DA96B",
+    tilt: "-1.2deg",
   },
   {
     Icon: UserRound,
     h: "Built around you",
     p: "We read the group. Where you're from, what you're into, how much history you actually want. **Nobody gets quite the same walk.**",
+    img: "/images/tour/group-street-laughing.jpg",
+    alt: "Guests laughing with their guide on a Norwich street",
+    tape: "#E8734A",
+    tilt: "0.8deg",
   },
   {
     Icon: MapPin,
     h: "More than history",
     p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
+    img: "/images/tour/holly-market.jpg",
+    alt: "Guide at Norwich Market, where the tour finishes and lunch starts",
+    tape: "#D99A2B",
+    tilt: "-0.6deg",
   },
 ];
 
@@ -235,7 +248,11 @@ export default function AboutUsPage() {
                   </a>
                 )}
 
-                {g.reviews && <GuideReviews reviews={g.reviews} accent={g.accent} />}
+                {g.reviews && (
+                  <GuideExpand name={g.name} count={g.reviews.length} accent={g.accent}>
+                    <GuideReviews reviews={g.reviews} accent={g.accent} />
+                  </GuideExpand>
+                )}
               </div>
             ))}
           </div>
@@ -244,7 +261,7 @@ export default function AboutUsPage() {
         {/* Creed — the promise is the outcome: make the most of Norwich,
             whether visiting or living here. Sits below the guides. */}
         <section className="mt-16 py-16 border-y border-brand-accent/10" style={{ backgroundColor: "#F5EBDA" }}>
-          <div className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <div className="brand-container max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <h2 className="mb-4">
               <span className="font-lora text-3xl md:text-4xl font-semibold text-brand-text">Our </span>
               <span className="font-caveat text-5xl md:text-6xl font-bold text-brand-accent">philosophy.</span>
@@ -253,19 +270,34 @@ export default function AboutUsPage() {
               However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-10 max-w-3xl mx-auto mt-12">
-              {philosophy.map(({ Icon, h, p }) => (
-                <div key={h} className="flex flex-col items-center text-center gap-3">
-                  <span className="flex-none w-12 h-12 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
-                    <Icon className="w-6 h-6" aria-hidden="true" />
-                  </span>
-                  <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none">
-                    {h}
-                  </h3>
-                  <p className="font-lora text-brand-text/80 leading-relaxed max-w-[260px]">
-                    {renderBold(p)}
-                  </p>
-                </div>
+            {/* Three taped note cards with a photo each, matching the
+                polaroid / review-note language used across the site. */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 max-w-5xl mx-auto mt-14 text-left">
+              {philosophy.map(({ Icon, h, p, img, alt, tape, tilt }, i) => (
+                <article
+                  key={h}
+                  className="relative bg-white p-3 pb-6 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.45)] border border-[#EAE0D4]"
+                  style={{ transform: `rotate(${tilt})` }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-3 left-1/2 w-20 h-5 rounded-[3px]"
+                    style={{ transform: "translateX(-50%) rotate(-2deg)", backgroundColor: tape, boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
+                  />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image src={img} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 90vw, 320px" />
+                  </div>
+                  <div className="px-2 pt-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="flex-none w-8 h-8 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
+                        <Icon className="w-4 h-4" aria-hidden="true" />
+                      </span>
+                      <span className="font-lora text-xs font-semibold tracking-[0.18em] text-brand-text/50">0{i + 1}</span>
+                    </div>
+                    <h3 className="font-caveat text-3xl font-bold text-brand-accent leading-none mb-3">{h}</h3>
+                    <p className="font-lora text-brand-text/80 leading-relaxed">{renderBold(p)}</p>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
@@ -289,28 +321,6 @@ export default function AboutUsPage() {
           </TrackedBookLink>
         </section>
 
-        {/* Recruit — for prospective guides. Sits at the very bottom, below
-            the visitor book CTA, with its own section title. */}
-        <section className="bg-brand-accent text-white py-14">
-          <div className="brand-container max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <p className="font-lora text-sm font-semibold tracking-[0.18em] uppercase mb-3 text-white/80">
-              Join the team
-            </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-3">
-              Guide in Norwich?
-            </h2>
-            <p className="font-lora text-white/90 leading-relaxed max-w-xl mx-auto mb-6 text-base md:text-lg">
-              Keep your own tours and your own way of doing things. We share the costs and the customers, so you actually get paid for the work.
-            </p>
-            <Link
-              href="/contact"
-              className="btn-cta inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-brand-accent-text rounded-xl font-semibold shadow-md hover:bg-white/90 transition-colors"
-            >
-              Come and do it with us
-              <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
-          </div>
-        </section>
       </main>
       <Footer />
     </>

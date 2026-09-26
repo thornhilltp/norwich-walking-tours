@@ -8,7 +8,6 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Image from "next/image";
 import { BookingFrame } from "@/components/BookingFrame";
 
 const bullets = [
@@ -124,29 +123,6 @@ export function BookingSectionV2() {
               Call it merit-based. If the tour earned it, you tip. If it didn&apos;t, you walk off. Honest deal.
             </p>
           </motion.div>
-
-          {/* Phone only: the widget below is hidden on phones, which left
-              this section as a wall of text. One photo breaks it up. */}
-          <div
-            className="lg:hidden relative p-2.5 pb-9 shadow-lg border border-brand-text/5 bg-white max-w-md mx-auto w-full"
-            style={{ transform: "rotate(-1deg)" }}
-          >
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/tour/group-street-laughing.jpg"
-                alt="Guests laughing with their guide at the end of the Norwich Free Walking Tour"
-                fill
-                className="object-cover"
-                sizes="90vw"
-              />
-            </div>
-            <p
-              className="absolute bottom-1.5 left-3 text-[20px] italic font-bold text-brand-text"
-              style={{ fontFamily: "var(--font-caveat), cursive" }}
-            >
-              the bit at the end
-            </p>
-          </div>
 
           {/* Right: real booking widget iframe.
               Mobile-only behaviour 2026-05-19: the iframe is hidden on

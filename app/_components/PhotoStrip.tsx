@@ -51,12 +51,28 @@ export function PhotoStrip() {
     };
   }, [open, go]);
 
-  const step = (dir: 1 | -1) => {
+  // Carousel navigator (Watermelon UI "Carousel Navigator" pattern, rebuilt
+  // by hand): bottom bar with prev/next, a thumbnail per photo (dots on
+  // phones), and an "n / total" counter. Replaces the side arrows, which
+  // clashed with the ScrollTrail dots on the right edge.
+  const [active, setActive] = useState(0);
+  const cards = () => Array.from(rowRef.current?.querySelectorAll("figure") ?? []) as HTMLElement[];
+  const goTo = (i: number) => {
     const row = rowRef.current;
-    if (!row) return;
-    const card = row.querySelector("figure");
-    const by = card ? card.getBoundingClientRect().width + 24 : row.clientWidth * 0.8;
-    row.scrollBy({ left: dir * by, behavior: "smooth" });
+    const list = cards();
+    if (!row || !list.length) return;
+    const t = Math.max(0, Math.min(list.length - 1, i));
+    row.scrollTo({ left: list[t].offsetLeft - list[0].offsetLeft, behavior: "smooth" });
+    setActive(t);
+  };
+  const step = (dir: 1 | -1) => goTo(active + dir);
+  const onRowScroll = () => {
+    const row = rowRef.current;
+    const list = cards();
+    if (!row || list.length < 2) return;
+    const w = list[1].offsetLeft - list[0].offsetLeft;
+    const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+    setActive(atEnd ? list.length - 1 : Math.round(row.scrollLeft / w));
   };
 
   const arrow =
@@ -86,19 +102,15 @@ export function PhotoStrip() {
           </span>
         </h2>
       </div>
-      <div className="relative">
-        <button type="button" aria-label="Previous photos" onClick={() => step(-1)} className={`${arrow} left-2 md:left-6`}>
-          <ChevronLeft className="w-6 h-6" aria-hidden="true" />
-        </button>
-        <button type="button" aria-label="Next photos" onClick={() => step(1)} className={`${arrow} right-2 md:right-6`}>
-          <ChevronRight className="w-6 h-6" aria-hidden="true" />
-        </button>
-
+      {/* lg:mr-20 keeps the row clear of the ScrollTrail dots on the right edge. */}
+      <div className="brand-container">
+      <div className="relative lg:mr-20">
         <div
           ref={rowRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-px-6 py-6 px-6 md:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onScroll={onRowScroll}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-px-2 py-6 px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="region"
-          aria-label="Photos from the tour. Use the arrows or scroll sideways for more."
+          aria-label="Photos from the tour. Use the bar below or scroll sideways for more."
           tabIndex={0}
         >
           {photos.map((photo, idx) => (
@@ -133,6 +145,70 @@ export function PhotoStrip() {
             </figure>
           ))}
         </div>
+
+        <div className="flex justify-center mt-4">
+          <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full bg-white border border-brand-accent/15 shadow-md px-2 py-1.5">
+            <button
+              type="button"
+              aria-label="Previous photo"
+              onClick={() => step(-1)}
+              disabled={active === 0}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-brand-accent hover:bg-brand-accent-light disabled:opacity-30 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+            </button>
+
+            {/* Thumbnails from sm up, dots on phones. */}
+            <div className="hidden sm:flex items-center gap-1.5">
+              {photos.map((ph, i) => (
+                <button
+                  key={ph.src}
+                  type="button"
+                  aria-label={`Show photo ${i + 1}`}
+                  aria-current={i === active}
+                  onClick={() => goTo(i)}
+                  className="relative overflow-hidden rounded-md transition-all duration-300"
+                  style={{
+                    width: i === active ? 44 : 30,
+                    height: 30,
+                    opacity: i === active ? 1 : 0.55,
+                    boxShadow: i === active ? "0 0 0 2px #2DA96B" : "none",
+                  }}
+                >
+                  <Image src={ph.src} alt="" fill className="object-cover" sizes="44px" />
+                </button>
+              ))}
+            </div>
+            <div className="flex sm:hidden items-center gap-1.5">
+              {photos.map((ph, i) => (
+                <button
+                  key={ph.src}
+                  type="button"
+                  aria-label={`Show photo ${i + 1}`}
+                  aria-current={i === active}
+                  onClick={() => goTo(i)}
+                  className="h-2 rounded-full transition-all duration-300"
+                  style={{ width: i === active ? 18 : 8, backgroundColor: i === active ? "#2DA96B" : "rgba(45,169,107,0.3)" }}
+                />
+              ))}
+            </div>
+
+            <span className="font-lora text-xs text-brand-text/60 tabular-nums w-12 text-center" aria-live="polite">
+              {active + 1} / {n}
+            </span>
+
+            <button
+              type="button"
+              aria-label="Next photo"
+              onClick={() => step(1)}
+              disabled={active === n - 1}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-brand-accent hover:bg-brand-accent-light disabled:opacity-30 transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </div>
       </div>
 
       {open !== null && (

@@ -77,9 +77,9 @@ Sections in order (photo pass 2026-09-26, Tom signed off section by section):
 1. **HeroV2** (`app/_components/HeroV2.tsx`) — single photo (`pottergate-walk.jpg`) via `HeroSlideshow` with one slide, gradient overlay (dark left under text, lighter right), value-prop H1, trust row, booking widget, partner logos.
 2. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — two polaroids: cathedral west front group ("An overview") + Tom by the river ("A local to ask", desktop only). `id="stories"`.
 3. **Testimonials** (`app/_components/Testimonials.tsx`) — review carousel. `id="reviews"`.
-4. **PhotoStrip** (`app/_components/PhotoStrip.tsx`) — "Photo gallery / Snaps from our tours." 11 polaroids mixing Morrie's evening shoot with older sunny-day phone shots. Arrows + swipe, no autoplay, tap to enlarge (full-screen viewer, Esc/arrow keys). Captions only where the place is certain; unknown places stay blank on purpose. `id="photos"`.
+4. **PhotoStrip** (`app/_components/PhotoStrip.tsx`) — "Photo gallery / Snaps from our tours." 12 polaroids mixing Morrie's evening shoot with older sunny-day phone shots. Bottom navigator bar (prev/next, thumbnails or dots on phones, n / total), swipe, no autoplay, tap to enlarge (full-screen viewer, Esc/arrow keys). Captions only where the place is certain; unknown places stay blank on purpose. `id="photos"`.
 5. **ThemedRouteSection** — route text + map. `id="tour-map"`.
-6. **BookingSectionV2** — copy + widget (desktop). Phones get a laughing-guests polaroid instead, since the widget is hidden there. `id="book-section"`.
+6. **BookingSectionV2** — copy + widget (desktop only). No photo: tried on phone and desktop 2026-09-26, Tom said no. `id="book-section"`.
 7. **FAQ**. `id="faq"`.
 8. Best in Norwich promo (hidden until `CONTENT_READY`).
 9. **EmailCapture** (`components/EmailCapture.tsx`) — re-added 2026-09-26 after FAQ.
