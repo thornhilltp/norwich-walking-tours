@@ -54,7 +54,7 @@ const socials = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Tour", href: "/tour" },
-  { label: "About us", href: "/about-us" },
+  { label: "Our guides", href: "/about-us" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Book your spot (free)", href: "/book" },
   { label: "Articles", href: "/explore" },

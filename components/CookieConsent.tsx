@@ -67,11 +67,11 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-brand-bg border-t border-brand-accent/15 shadow-lg"
+      className="fixed z-50 bottom-3 left-3 right-3 sm:bottom-6 sm:right-6 sm:left-auto sm:max-w-sm rounded-2xl bg-white border border-brand-accent/15 shadow-[0_12px_40px_-12px_rgba(26,26,26,0.35)]"
     >
-      <div className="brand-container py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+      <div className="p-5">
         <p
-          className="text-sm text-brand-text/80 leading-relaxed max-w-prose"
+          className="text-sm text-brand-text/80 leading-relaxed"
           style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
         >
           We use Google Analytics and Google Ads cookies to understand how
@@ -84,17 +84,17 @@ export function CookieConsent() {
           </a>
           .
         </p>
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-3 mt-4">
           <button
             onClick={handleDecline}
-            className="text-sm font-medium text-brand-text/60 hover:text-brand-text transition-colors duration-150 px-3 py-2"
+            className="flex-1 h-11 rounded-full border border-brand-text/20 text-sm font-semibold text-brand-text hover:border-brand-text/40 transition-colors duration-150"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             Decline
           </button>
           <button
             onClick={handleAccept}
-            className="text-sm font-semibold bg-brand-accent text-white rounded-lg px-5 py-2 hover:bg-brand-accent/90 transition-colors duration-150"
+            className="flex-1 h-11 rounded-full bg-brand-accent text-white text-sm font-semibold hover:bg-brand-accent/90 transition-colors duration-150"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
             Accept

@@ -9,7 +9,7 @@
 //  - Standardised tip phrasing: "Tip what it was worth at the end."
 
 import React from "react";
-import Image from "next/image";
+import { HeroSlideshow, type HeroSlide } from "./HeroSlideshow";
 import { motion, type Variants, type Easing } from "framer-motion";
 import { ArrowRight, Clock, Star, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,6 +20,17 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 // HeroV2 props — `title` removed in iteration 4 (Tom's feedback +
 // confirmation of original 4-audit recommendation). Brand name lives
 // in the nav logo + page <title> + JSON-LD — H1 should sell the offer.
+// Hero slideshow. First slide is the LCP image. Order = story order:
+// walking the Lanes, guide telling a story, guests laughing, finish at
+// the market. Positions keep faces out of the top nav band.
+const heroSlides: HeroSlide[] = [
+  {
+    src: "/images/tour/pottergate-walk.jpg",
+    alt: "Tour group walking down Pottergate in the Norwich Lanes with their guide on the Norwich Free Walking Tour",
+    position: "center 55%",
+  },
+];
+
 interface HeroV2Props {
   buttonText: string;
   buttonHref: string;
@@ -63,19 +74,22 @@ export function HeroV2({
       id="top"
       className={cn("relative isolate w-full overflow-hidden", className)}
     >
-      <Image
-        src="/images/tour/group-cathedral-lawn.jpg"
-        alt="Tour group walking through Norwich city centre on the Norwich Free Walking Tour"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover -z-10"
-        style={{ objectPosition: "center 40%" }}
-      />
+      <HeroSlideshow slides={heroSlides} />
 
-      {/* Darkened overlay — bumped from /65 to /75 for AA contrast on
-          the green Caveat text + the white-opacity supporting lines. */}
-      <div className="absolute inset-0 bg-black/75" />
+      {/* Darkened overlay, two variants. Phone: top-heavy vertical scrim
+          (text sits at the top, widget is white anyway). Desktop: left
+          to right gradient, darkest under the text column, light on the
+          right so the slideshow actually shows around the widget.
+          Inline gradients, not Tailwind classes: v4 renamed the gradient
+          utilities and dev served stale CSS when this was first tried. */}
+      <div
+        className="absolute inset-0 lg:hidden"
+        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.5) 100%)" }}
+      />
+      <div
+        className="absolute inset-0 hidden lg:block"
+        style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.7) 42%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0.3) 100%)" }}
+      />
 
       <motion.div
         className="relative brand-container flex min-h-[80dvh] lg:min-h-[90dvh] items-center justify-between pt-32 pb-24 lg:py-24 flex-col lg:flex-row gap-12"

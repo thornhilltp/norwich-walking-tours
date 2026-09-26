@@ -26,8 +26,8 @@ import { motion } from "framer-motion";
 const cards = [
   {
     label: "An overview",
-    src: "/images/tour/what-is-free-tour.jpg",
-    alt: "Norwich Free Walking Tour group walking together with their guide, mid-tour",
+    src: "/images/tour/group-cathedral-west-front.jpg",
+    alt: "Walking tour group outside the west front of Norwich Cathedral",
     title: "The whole city in one walk.",
     quote: "It's like a walking visitor centre with a local.",
     quoteAttribution: "what guests say",
@@ -36,8 +36,8 @@ const cards = [
   },
   {
     label: "A local to ask",
-    src: "/images/tour/guide-guildhall.jpg",
-    alt: "Tom explaining the chequerboard flintwork on Norwich Guildhall to a small tour group",
+    src: "/images/tour/tom-river.jpg",
+    alt: "Tom talking to guests beside the River Wensum at Fye Bridge",
     title: "Someone you can actually ask.",
     body: "Got a question about Norwich? Tom's lived here years. Ask about food, kids' stuff, where to drink, what's worth your time.",
     pin: "ask anything",

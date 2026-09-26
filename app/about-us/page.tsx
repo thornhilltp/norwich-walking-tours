@@ -46,11 +46,8 @@ const guides: Guide[] = [
     name: "Tom",
     initial: "T",
     tint: "linear-gradient(150deg,#2DA96B,#1f6d47)",
-    img: "/images/tom-portrait.jpg",
-    // Group shot — crop tight to Tom (green shirt, left). Interim until a
-    // solo headshot exists.
-    focal: "50% 60%",
-    zoom: "280%",
+    img: "/images/tour/tom-portrait-river.jpg",
+    focal: "50% 20%",
     rotate: "-2deg",
     blurb:
       "I came for a history degree and never left, that was 13 years ago. I started the tour because Norwich didn't have one and every other city did.",
@@ -100,9 +97,8 @@ const guides: Guide[] = [
     name: "Holly",
     initial: "H",
     tint: "linear-gradient(150deg,#c8823f,#8a5220)",
-    img: "/images/guides/holly.png",
-    focal: "50% 28%",
-    zoom: "165%",
+    img: "/images/tour/holly-portrait.jpg",
+    focal: "50% 15%",
     rotate: "-1.5deg",
     blurb:
       "I tell the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
@@ -179,13 +175,13 @@ export default function AboutUsPage() {
 
         {/* The locals — polaroid grid. Leads the page (faces first) per
             Tom; the values/creed band sits below it. */}
-        <section className="brand-container max-w-4xl mx-auto px-4 sm:px-6 mt-16 text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
+        <section className="brand-container max-w-6xl mx-auto px-4 sm:px-6 mt-16 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8">
             {guides.map((g) => (
               <div key={g.name} className="flex flex-col items-center">
                 {/* Cream polaroid — matches PhotoShowcaseV2 / About */}
                 <div
-                  className="p-3 pb-12 shadow-xl border border-brand-text/5 relative w-[220px]"
+                  className="p-3 pb-12 shadow-xl border border-brand-text/5 relative w-full max-w-[320px]"
                   style={{ backgroundColor: "#F5EBDA", transform: `rotate(${g.rotate})` }}
                 >
                   <span
@@ -200,7 +196,7 @@ export default function AboutUsPage() {
                   />
                   {/* Coloured initial behind, photo as CSS background on top;
                       a missing file just reveals the initial (no broken icon). */}
-                  <div className="relative aspect-square w-full overflow-hidden" style={{ background: g.tint }}>
+                  <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ background: g.tint }}>
                     <span
                       aria-hidden="true"
                       className="absolute inset-0 flex items-center justify-center font-caveat font-bold text-white/90 select-none"
@@ -225,7 +221,7 @@ export default function AboutUsPage() {
                 </div>
 
                 {/* Short blurb */}
-                <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[240px]">
+                <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[300px]">
                   {g.blurb}
                 </p>
                 {g.handle && (

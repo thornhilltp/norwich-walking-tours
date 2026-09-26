@@ -34,8 +34,8 @@ const afterSteps = [
     pin: "10 mins early",
   },
   {
-    src: "/images/tour/group-portrait-bridge.jpg",
-    alt: "Norwich Free Walking Tour group together at the end of the tour by the river",
+    src: "/images/tour/group-street-laughing.jpg",
+    alt: "Norwich Free Walking Tour guests laughing with their guide at the end of the tour",
     caption: "the happy bit",
     polaroidBg: "#F5EBDA",
     tilt: "0.8deg",
@@ -73,8 +73,8 @@ export default function BookPage() {
             emotional anchor + brand promise the homepage Hero would. */}
         <section className="relative isolate w-full overflow-hidden">
           <Image
-            src="/images/tour/group-cathedral-lawn.jpg"
-            alt="Norwich Free Walking Tour group with their guide in front of Norwich Cathedral"
+            src="/images/tour/group-street-laughing.jpg"
+            alt="Norwich Free Walking Tour guests laughing with their guide on a Norwich street"
             fill
             priority
             sizes="100vw"

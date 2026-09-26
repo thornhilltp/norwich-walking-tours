@@ -60,21 +60,32 @@ Text:           #1A1A1A
 
 ---
 
+## 3b. Photos
+
+Real tour photos live in `public/images/tour/`. Raw shoots (`public/Morrie Good Photos/`, `public/Photos New Tour/`) are gitignored and never ship.
+
+**Standard, enforced by `npm run photos:check`:** JPEG, progressive, EXIF stripped, long edge 2400px or less, file 600 KB or less.
+
+**Adding a photo:** `npm run photos -- "<raw file>" --name <slug>` writes the standard copy to `public/images/tour/<slug>.jpg`. Slugs say what and where (`tom-tombland-talk`, `group-forum-flag`). Then wire it in code with an `alt` that names the place and what is happening ("Guide telling a story in Tombland beside the Augustine Steward House"), not the filename and not "photo of". Decorative repeats (hero slideshow slides 2+) use `alt=""`.
+
+Run the check before every push. Vercel does not enforce it.
+
 ## 4. Pages
 
 ### `/` — Home
-Sections in order (rebuilt 2026-05-19 — promoted from `/home-v2` experiment after design review):
-1. **HeroV2** (`app/_components/HeroV2.tsx`) — image bg + dark overlay, value-prop H1 in Lora→Caveat split ("See Norwich with someone who lives here"), green badge with brand name, booking widget iframe right column (desktop only), trust row (rating · 2 hours · Max 15), partner logos.
-2. **WhatHowWho** (`app/_components/WhatHowWho.tsx`) — 3-column SEO insurance block: What you'll see / How it works / Who runs it. Restores keyword density below the outcome-shaped H1.
-3. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — Lora→Caveat H2, 3-benefit row, 2-polaroid card grid (An overview / A local to ask). `id="stories"`.
-4. **TestimonialsV2** (`app/_components/TestimonialsV2.tsx`) — Lora→Caveat H2, dual Google + TripAdvisor rating blocks, 2×2 review grid, dual "Read all" links. `id="reviews"`.
-5. **ThemedRouteSection** (`app/_components/ThemedRouteSection.tsx`) — Lora→Caveat H2, 3 themed groups with animated pin markers + wiggly thread + PNG route map. `id="tour-map"`.
-6. **AboutSectionV2** (`app/_components/AboutSectionV2.tsx`) — warm-sandstone bg, polaroid portrait, "Tom, mostly." first-person story, dual CTAs, Caveat signature. `id="tom"`.
-7. **BookingSectionV2** (`app/_components/BookingSectionV2.tsx`) — light-green bg, Caveat→Lora H2, 3 bullets, booking iframe. `id="book-section"`.
-8. **FAQ** (`components/FAQ.tsx`) — accordion with custom Lora→Caveat heading. `id="faq"`.
-9. **Internal-link row** — plain text links to /tour, /what-is-a-free-tour, /things-to-do/free, /explore (SEO link equity).
-10. **EmailCapture** — `components/EmailCapture.tsx`. POSTs to `/api/subscribe`.
-11. **Footer**.
+Sections in order (photo pass 2026-09-26, Tom signed off section by section):
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — single photo (`pottergate-walk.jpg`) via `HeroSlideshow` with one slide, gradient overlay (dark left under text, lighter right), value-prop H1, trust row, booking widget, partner logos.
+2. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — two polaroids: cathedral west front group ("An overview") + Tom by the river ("A local to ask", desktop only). `id="stories"`.
+3. **Testimonials** (`app/_components/Testimonials.tsx`) — review carousel. `id="reviews"`.
+4. **PhotoStrip** (`app/_components/PhotoStrip.tsx`) — "Photo gallery / Snaps from our tours." 11 polaroids mixing Morrie's evening shoot with older sunny-day phone shots. Arrows + swipe, no autoplay, tap to enlarge (full-screen viewer, Esc/arrow keys). Captions only where the place is certain; unknown places stay blank on purpose. `id="photos"`.
+5. **ThemedRouteSection** — route text + map. `id="tour-map"`.
+6. **BookingSectionV2** — copy + widget (desktop). Phones get a laughing-guests polaroid instead, since the widget is hidden there. `id="book-section"`.
+7. **FAQ**. `id="faq"`.
+8. Best in Norwich promo (hidden until `CONTENT_READY`).
+9. **EmailCapture** (`components/EmailCapture.tsx`) — re-added 2026-09-26 after FAQ.
+10. Internal-link row, **Footer**.
+
+Top-menu and footer label for `/about-us` is **"Our guides"** (2026-09-26). Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
@@ -280,11 +291,11 @@ _Technical (from April 2026 site review):_
 - [ ] **T15. Delete dead code: `components/TourMap.tsx` + `components/LeadMagnet.tsx`** — neither is imported anywhere. `TourMap.tsx` is a full Leaflet implementation but `/tour` uses a static image (`public/images/route-map.*`) which renders faster anyway; keeping the file also makes T1 (dynamic-import) a live concern when it shouldn't be. `LeadMagnet.tsx` duplicates `EmailCapture.tsx`. Deleting both also lets us remove `leaflet` + `@types/leaflet` from `package.json` and drop `*.tile.openstreetmap.org` / `unpkg.com` from the CSP in `next.config.mjs`. If we later want a Meet-the-Guide lead magnet or an interactive map, rebuild from scratch — neither current file is a good starting point.
 
 _Marketing — near-term:_
-- [ ] **M3. Replace stock photography with authentic tour photos** once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
+- [x] **M3. Replace stock photography with authentic tour photos** (homepage, /about-us, /book, /private-tours, /tour hero done 2026-09-26; /tour stop photos still to review) once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
 - [x] **M4. FAQPage JSON-LD** shipped in `components/FAQ.tsx:79-90` (built from the `faqs` array, emitted via `<script type="application/ld+json">` inside the component render). Unlocks rich FAQ accordions in Google SERP.
 - [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 2 hours · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
 - [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
-- [ ] **M12. OG image upgrade** — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
+- [x] **M12. OG image upgrade** (2026-09-26: Tom mid-story at the pink cottage, Tombland) — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
 - [ ] **M18. `/book` page — add below-widget content** — `app/book/page.tsx` is currently the iframe plus minimal surrounding copy, but it's the highest-intent page on the site. Once testimonials exist (post-launch), add below the widget: (a) 2–3 real guest quotes, (b) a "What happens after you book" 3-step explainer (confirmation email → meet at The Forum → pay what it was worth), (c) a 4-question FAQ subset pulled from `components/FAQ.tsx`: "Is it really free?", "What if it rains?", "Do I have to pay?", "Can I cancel?". Reduces pre-booking anxiety which is the #1 drop-off on free-tour booking flows. Keep the iframe itself above the fold — the new content is for users who scrolled because they're hesitating.
 - [x] **M19. End-of-tour QR review card / review acquisition** — reviews are flowing (116 Google at 4.9★ + 70 TripAdvisor at 4.9★ as of 2026-08-29). Trigger items completed: (1) `lib/testimonials.ts` populated with real Google reviews, (2) `aggregateRating` + `review` re-added to JSON-LD in `app/layout.tsx`, (3) star rating surfaced in the Hero trust row on `/home-v2`.
 

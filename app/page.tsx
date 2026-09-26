@@ -21,6 +21,8 @@ import { ThemedRouteSection } from "./_components/ThemedRouteSection";
 import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
 import { BookingSectionV2 } from "./_components/BookingSectionV2";
 import { Testimonials } from "./_components/Testimonials";
+import { PhotoStrip } from "./_components/PhotoStrip";
+import { EmailCapture } from "@/components/EmailCapture";
 import { CONTENT_READY as BIN_READY } from "@/lib/best-in-norwich";
 
 export default function HomePage() {
@@ -50,6 +52,8 @@ export default function HomePage() {
         />
         <PhotoShowcaseV2 />
         <Testimonials />
+        {/* Photo gallery: "Snaps from our tours". Arrows + tap to enlarge. */}
+        <PhotoStrip />
         <ThemedRouteSection />
         <BookingSectionV2 />
         <FAQ
@@ -125,6 +129,11 @@ export default function HomePage() {
             </div>
           </section>
         )}
+
+        {/* Email capture, back on the homepage per Tom 2026-09-04 (was
+            removed 2026-07-04). Sits after the FAQ so it never competes
+            with the booking widget above. */}
+        <EmailCapture />
 
         {/* Internal-link row — surfaces /tour, /what-is-a-free-tour, the
             content hub, and explore articles. Plain text, low visual

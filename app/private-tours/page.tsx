@@ -101,13 +101,13 @@ export default function PrivateToursPage() {
       {/* Hero */}
       <section id="top" className="relative isolate section-padding">
         <Image
-          src="/images/tour/guides-edith-cavell.jpg"
-          alt="Norwich tour guide beside the Edith Cavell memorial in Tombland"
+          src="/images/tour/group-forum-flag.jpg"
+          alt="A tour group posing with their guides and the green flag in the grounds of Norwich Cathedral"
           fill
           priority
           sizes="100vw"
           className="object-cover -z-10"
-          style={{ objectPosition: "center 20%" }}
+          style={{ objectPosition: "center 40%" }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative brand-container max-w-3xl mx-auto text-center">
