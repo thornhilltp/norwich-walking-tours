@@ -71,7 +71,7 @@ export const featuredReviews: FeaturedReview[] = [
     id: 7,
     name: "Andrew",
     role: "Seasoned city walker",
-    pullQuote: "One of the very best, **perhaps the best**, on our numerous city walking tours around Europe.",
+    pullQuote: "Holly was an absolutely brilliant guide - one of the very best, **perhaps the best**, on our numerous city walking tours around Europe.",
     sourced: "Andrew Wright, review of Holly, shared by Tom 2026-09-26 (platform unconfirmed)",
   },
   {

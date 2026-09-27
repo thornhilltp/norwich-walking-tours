@@ -108,7 +108,7 @@ const guides: Guide[] = [
     reviews: [
       {
         quote:
-          "An excellent balance of knowledgeable history, insightful information, personal anecdote and occasional opinion, all laced with good humour. **First class.**",
+          "Holly was an absolutely brilliant guide - **one of the very best, perhaps the best**, on our numerous city walking tours around Europe. First class.",
         author: "Andrew Wright",
       },
       {

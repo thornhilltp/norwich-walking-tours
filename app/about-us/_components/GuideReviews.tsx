@@ -51,7 +51,7 @@ export function GuideReviews({
   const go = (d: 1 | -1) => setI((p) => (p + d + reviews.length) % reviews.length);
 
   return (
-    <div className="w-full max-w-[260px] mt-6">
+    <div className="relative w-full max-w-[260px] mt-6">
       <article
         className="relative bg-white rounded-[4px] border border-[#EAE0D4] px-5 pt-6 pb-4 shadow-[2px_7px_17px_-10px_rgba(90,70,40,0.5)]"
         style={{ rotate: "-1.2deg" }}
@@ -92,16 +92,25 @@ export function GuideReviews({
       </article>
 
       {many && (
-        <div className="flex items-center justify-center gap-3 mt-3">
+        <>
+          {/* Arrows sit on the card's side edges, half overlapping it. */}
           <button
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous review"
-            className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
+            className="absolute top-1/2 -translate-y-1/2 -left-8 z-10 w-11 h-11 rounded-full bg-white shadow-md border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <div className="flex items-center gap-1" aria-hidden="true">
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next review"
+            className="absolute top-1/2 -translate-y-1/2 -right-8 z-10 w-11 h-11 rounded-full bg-white shadow-md border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+          <div className="flex items-center justify-center gap-1 mt-3" aria-hidden="true">
             {reviews.map((_, d) => (
               <span
                 key={d}
@@ -111,15 +120,7 @@ export function GuideReviews({
               />
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => go(1)}
-            aria-label="Next review"
-            className="w-11 h-11 rounded-full border border-brand-accent/25 flex items-center justify-center text-brand-accent hover:bg-brand-accent-light transition"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
+        </>
       )}
     </div>
   );

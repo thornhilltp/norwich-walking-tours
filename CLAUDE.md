@@ -85,7 +85,7 @@ Sections in order (photo pass 2026-09-26, Tom signed off section by section):
 9. **EmailCapture** (`components/EmailCapture.tsx`) — re-added 2026-09-26 after FAQ.
 10. Internal-link row, **Footer**.
 
-Top-menu and footer label for `/about-us` is **"Our guides"** (2026-09-26). Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
+Top-menu and footer label for `/about-us` is **"Our Guides"** (2026-09-26). Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
