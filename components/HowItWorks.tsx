@@ -12,7 +12,7 @@ const steps = [
     title: "Book your spot",
     sub: "Reserve your place online. It's free.",
     detail: "Free to book",
-    image: "/images/tour/dog-erpingham-gate.jpg",
+    image: "/images/tour/dog-cathedral-close.jpg",
     imageAlt: "A dog at a gateway into Norwich Cathedral Close. All well-behaved dogs welcome on the Norwich Free Walking Tour.",
     imagePosition: "center 75%",
   },

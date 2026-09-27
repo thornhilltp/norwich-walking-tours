@@ -101,7 +101,7 @@ export default function PrivateToursPage() {
       {/* Hero */}
       <section id="top" className="relative isolate section-padding">
         <Image
-          src="/images/tour/group-forum-flag.jpg"
+          src="/images/tour/group-cathedral-flag.jpg"
           alt="A tour group posing with their guides and the green flag in the grounds of Norwich Cathedral"
           fill
           priority

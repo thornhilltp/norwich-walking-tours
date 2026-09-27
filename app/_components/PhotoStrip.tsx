@@ -15,14 +15,14 @@ const photos = [
   { src: "/images/tour/tom-tombland-talk.jpg", alt: "Tom mid-story in Tombland with a tour group listening in front of a pink cottage", caption: "Tombland", paper: "#FFFFFF" },
   { src: "/images/tour/group-cathedral-lawn.jpg", alt: "A big tour group on the lawn in front of Norwich Cathedral on a sunny day", caption: "Cathedral Close", paper: "#E8F0E4" },
   { src: "/images/tour/holly-market.jpg", alt: "Guide finishing the tour at Norwich Market with City Hall's clock tower behind", caption: "Norwich Market", paper: "#F5EBDA" },
-  { src: "/images/tour/walking-ertherberts-arch.jpg", alt: "Tour group walking through the Ethelbert Gate into the Cathedral Close", caption: "Ethelbert Gate", paper: "#FFFFFF" },
-  { src: "/images/tour/group-forum-flag.jpg", alt: "A tour group posing with their guides and the green flag in the grounds of Norwich Cathedral", caption: "Look for the green flag", paper: "#E8F0E4" },
-  { src: "/images/tour/dog-erpingham-gate.jpg", alt: "A dog in a Walk with a Local t-shirt at a gateway into the Cathedral Close. Well-behaved dogs are welcome on the tour", caption: "Dogs welcome", paper: "#F5EBDA", position: "center 88%" },
+  { src: "/images/tour/walking-ethelbert-gate.jpg", alt: "Tour group walking through the Ethelbert Gate into the Cathedral Close", caption: "Ethelbert Gate", paper: "#FFFFFF" },
+  { src: "/images/tour/group-cathedral-flag.jpg", alt: "A tour group posing with their guides and the green flag in the grounds of Norwich Cathedral", caption: "Look for the green flag", paper: "#E8F0E4" },
+  { src: "/images/tour/dog-cathedral-close.jpg", alt: "A dog in a Walk with a Local t-shirt at a gateway into the Cathedral Close. Well-behaved dogs are welcome on the tour", caption: "Dogs welcome", paper: "#F5EBDA", position: "center 88%" },
   { src: "/images/tour/tom-tombland.jpg", alt: "Guide telling a story in Tombland beside the timber-framed Augustine Steward House", caption: "Augustine Steward House", paper: "#FFFFFF" },
   { src: "/images/tour/group-britons-arms.jpg", alt: "Tour group gathered outside the Britons Arms on Elm Hill", caption: "Elm Hill", paper: "#E8F0E4" },
   { src: "/images/tour/elm-hill-group.jpg", alt: "Guide telling a story to a tour group on the cobbles of Elm Hill", caption: "Elm Hill", paper: "#F5EBDA" },
   { src: "/images/tour/guide-norwich-market.jpg", alt: "Guide pointing out the stalls at Norwich Market to a tour group", caption: "The market", paper: "#FFFFFF" },
-  { src: "/images/tour/group-forum-standing.jpg", alt: "Tour group and guides together in the grounds of Norwich Cathedral", caption: "", paper: "#E8F0E4" },
+  { src: "/images/tour/group-cathedral-close.jpg", alt: "Tour group and guides together in the grounds of Norwich Cathedral", caption: "", paper: "#E8F0E4" },
   { src: "/images/tour/group-fye-bridge.jpg", alt: "Tour group listening to their guide by the river at Fye Bridge", caption: "Fye Bridge", paper: "#F5EBDA" },
 ] as const;
 

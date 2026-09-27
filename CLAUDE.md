@@ -66,7 +66,7 @@ Real tour photos live in `public/images/tour/`. Raw shoots (`public/Morrie Good 
 
 **Standard, enforced by `npm run photos:check`:** JPEG, progressive, EXIF stripped, long edge 2400px or less, file 600 KB or less.
 
-**Adding a photo:** `npm run photos -- "<raw file>" --name <slug>` writes the standard copy to `public/images/tour/<slug>.jpg`. Slugs say what and where (`tom-tombland-talk`, `group-forum-flag`). Then wire it in code with an `alt` that names the place and what is happening ("Guide telling a story in Tombland beside the Augustine Steward House"), not the filename and not "photo of". Decorative repeats (hero slideshow slides 2+) use `alt=""`.
+**Adding a photo:** `npm run photos -- "<raw file>" --name <slug>` writes the standard copy to `public/images/tour/<slug>.jpg`. Slugs say what and where (`tom-tombland-talk`, `group-cathedral-flag`). Then wire it in code with an `alt` that names the place and what is happening ("Guide telling a story in Tombland beside the Augustine Steward House"), not the filename and not "photo of". Decorative repeats (hero slideshow slides 2+) use `alt=""`.
 
 Run the check before every push. Vercel does not enforce it.
 

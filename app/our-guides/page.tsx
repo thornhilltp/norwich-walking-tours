@@ -78,7 +78,6 @@ const guides: Guide[] = [
     tint: "linear-gradient(150deg,#7c6cae,#463a63)",
     img: "/images/guides/joolz.png",
     focal: "34% 38%",
-    zoom: "125%",
     rotate: "1.5deg",
     blurb:
       "Norfolk born and proud. Paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
@@ -168,8 +167,9 @@ export default function AboutUsPage() {
                       boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
                     }}
                   />
-                  {/* Coloured initial behind, photo as CSS background on top;
-                      a missing file just reveals the initial (no broken icon). */}
+                  {/* Coloured initial behind, photo on top. next/image (not a CSS
+                      background) so the photo is resized + served as WebP/AVIF,
+                      lazy-loaded, and indexable with proper alt text. */}
                   <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ background: g.tint }}>
                     <span
                       aria-hidden="true"
@@ -178,14 +178,16 @@ export default function AboutUsPage() {
                     >
                       {g.initial}
                     </span>
-                    <div
-                      role="img"
-                      aria-label={`${g.name}, Norwich Walking Tours guide`}
-                      className="absolute inset-0 bg-no-repeat"
+                    <Image
+                      src={g.img}
+                      alt={`${g.name}, guide with Norwich Free Walking Tours`}
+                      fill
+                      sizes="(max-width: 640px) 90vw, 320px"
+                      className="object-cover"
                       style={{
-                        backgroundImage: `url(${g.img})`,
-                        backgroundPosition: g.focal,
-                        backgroundSize: g.zoom ?? "cover",
+                        objectPosition: g.focal,
+                        transform: g.zoom ? `scale(${parseInt(g.zoom) / 100})` : undefined,
+                        transformOrigin: g.focal,
                       }}
                     />
                   </div>
