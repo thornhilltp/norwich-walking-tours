@@ -74,6 +74,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Optional per-tour waiting-list tag. Slug-shaped only; anything
+    // else is dropped rather than rejected (the subscription itself
+    // still stands).
+    const rawInterest = sanitizeText(body.tour_interest, 64);
+    const tourInterest =
+      rawInterest && /^[a-z0-9-]+$/.test(rawInterest) ? rawInterest : null;
+
+    // Where the signup came from and whether they live locally. Both are
+    // whitelisted; anything else is dropped, never rejected.
+    const source = body.source === "updates" ? "updates" : "homepage";
+    const audience =
+      body.audience === "local" || body.audience === "visitor"
+        ? body.audience
+        : null;
+
     const timestamp = new Date().toISOString();
 
     // ── 1. Persist to Supabase ───────────────────────────────────────────────
@@ -86,7 +101,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       const { error } = await supabase
         .from("subscribers")
-        .insert({ email, source: "homepage" });
+        .insert({ email, source, ...(audience ? { audience } : {}) });
 
       if (error) {
         if (error.code === "23505") {
@@ -96,6 +111,22 @@ export async function POST(request: NextRequest) {
           return NextResponse.json(
             { error: "Something went wrong. Please try again." },
             { status: 500 }
+          );
+        }
+      }
+
+      // Per-tour waiting list. Runs for already-subscribed people too:
+      // an existing subscriber joining the ghost-tour list is exactly
+      // the signal we want. Duplicate (email, tour) rows collapse into
+      // the unique constraint; failures never break the subscription.
+      if (tourInterest) {
+        const { error: interestError } = await supabase
+          .from("subscriber_interests")
+          .insert({ email, tour_slug: tourInterest, source: "tour-page" });
+        if (interestError && interestError.code !== "23505") {
+          console.error(
+            "[Subscribe] interest insert failed:",
+            interestError
           );
         }
       }
@@ -115,11 +146,14 @@ export async function POST(request: NextRequest) {
           const info = await transporter.sendMail({
             from: `"Norwich Free Tour" <${process.env.ZOHO_EMAIL}>`,
             to: "hello@norwichfreewalkingtours.co.uk",
-            subject: `New subscriber: ${email}`,
-            text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
+            subject: tourInterest
+              ? `New waiting-list signup (${tourInterest}): ${email}`
+              : `New subscriber: ${email}`,
+            text: `New email subscription\n\nEmail: ${email}\nSource: ${source}\nAudience: ${audience ?? "not given"}\nTimestamp: ${timestamp}\nIP: ${ip}`,
             html: `
               <h2>New email subscription</h2>
               <p><strong>Email:</strong> ${safeEmail}</p>
+              <p><strong>Source:</strong> ${source} · <strong>Audience:</strong> ${audience ?? "not given"}</p>
               <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
             `,
           });

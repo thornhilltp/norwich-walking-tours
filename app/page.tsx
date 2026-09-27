@@ -132,7 +132,8 @@ export default function HomePage() {
 
         {/* Email capture, back on the homepage per Tom 2026-09-04 (was
             removed 2026-07-04). Sits after the FAQ so it never competes
-            with the booking widget above. */}
+            with the booking widget above. 2026-09-27: reframed as "new
+            tours first" with a polaroid and a local/visitor tap. */}
         <EmailCapture />
 
         {/* Internal-link row — surfaces /tour, /what-is-a-free-tour, the
