@@ -20,7 +20,7 @@ const photos = [
   { src: "/images/tour/dog-erpingham-gate.jpg", alt: "A dog in a Walk with a Local t-shirt at a gateway into the Cathedral Close. Well-behaved dogs are welcome on the tour", caption: "Dogs welcome", paper: "#F5EBDA", position: "center 88%" },
   { src: "/images/tour/tom-tombland.jpg", alt: "Guide telling a story in Tombland beside the timber-framed Augustine Steward House", caption: "Augustine Steward House", paper: "#FFFFFF" },
   { src: "/images/tour/group-britons-arms.jpg", alt: "Tour group gathered outside the Britons Arms on Elm Hill", caption: "Elm Hill", paper: "#E8F0E4" },
-  { src: "/images/tour/elm-hill-group.jpg", alt: "Guide telling a story to a tour group on a cobbled Norwich street", caption: "", paper: "#F5EBDA" },
+  { src: "/images/tour/elm-hill-group.jpg", alt: "Guide telling a story to a tour group on the cobbles of Elm Hill", caption: "Elm Hill", paper: "#F5EBDA" },
   { src: "/images/tour/guide-norwich-market.jpg", alt: "Guide pointing out the stalls at Norwich Market to a tour group", caption: "The market", paper: "#FFFFFF" },
   { src: "/images/tour/group-forum-standing.jpg", alt: "Tour group and guides together in the grounds of Norwich Cathedral", caption: "", paper: "#E8F0E4" },
   { src: "/images/tour/group-fye-bridge.jpg", alt: "Tour group listening to their guide by the river at Fye Bridge", caption: "Fye Bridge", paper: "#F5EBDA" },
