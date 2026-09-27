@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "What if it rains?",
-    a: "We run every day, rain or shine. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat, not an excuse.",
+    a: "We still go. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat, not an excuse. If the weather turns properly dangerous, we'll message you before the tour.",
   },
   {
     q: "How fast do you walk?",

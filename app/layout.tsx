@@ -109,7 +109,7 @@ const jsonLd = [
     "@type": "TouristAttraction",
     name: "Norwich Free Walking Tours",
     description:
-      "A daily pay what you want walking tour revealing the real Norwich. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market. Rain or shine.",
+      "A daily pay what you want walking tour revealing the real Norwich. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",

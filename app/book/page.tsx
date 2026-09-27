@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
-import { CheckCircle, Star, Clock, Users, CloudRain } from "lucide-react";
+import { CheckCircle, Star, Clock, Users, CalendarDays } from "lucide-react";
 import { googleReviewStats } from "@/lib/testimonials";
 import { Testimonials } from "@/app/_components/Testimonials";
 
@@ -52,7 +52,7 @@ const bookFaqs = [
   },
   {
     q: "What if it rains?",
-    a: "We run every day, rain or shine. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat.",
+    a: "We still go. Norwich was built for weather: the Lanes are covered, the Cathedral Close has cover, and half the pubs on the route have been sheltering people since the 1400s. Bring a coat. If the weather turns properly dangerous, we'll message you before the tour.",
   },
   {
     q: "Is this suitable for kids?",
@@ -140,7 +140,7 @@ export default function BookPage() {
               </span>
               <span aria-hidden="true" className="text-white/40">&bull;</span>
               <span className="inline-flex items-center gap-1">
-                <CloudRain className="h-4 w-4" aria-hidden="true" /> Daily, rain or shine
+                <CalendarDays className="h-4 w-4" aria-hidden="true" /> Daily
               </span>
             </div>
 
