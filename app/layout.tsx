@@ -36,7 +36,7 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tours | Daily, Local-Led, Free to Book",
   description:
-    "Daily 2-hour walking tour of Norwich. Free to book, tip what it was worth. Meets at The Forum, rain or shine. Local guides. Max 15 per group.",
+    "Walking tours of Norwich, led by local guides. A mix of walks for visitors and locals, running daily. Book free, tip what it was worth.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
@@ -109,7 +109,7 @@ const jsonLd = [
     "@type": "TouristAttraction",
     name: "Norwich Free Walking Tours",
     description:
-      "A daily pay what you want walking tour revealing the real Norwich. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market. Rain or shine.",
+      "A daily pay what you want walking tour revealing the real Norwich. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",
@@ -237,6 +237,34 @@ export default function RootLayout({
                 'ad_user_data': 'granted',
                 'ad_personalization': 'granted'
               });
+              // Returning visitors: apply the stored banner choice NOW, during
+              // head parse, before GTM initialises. Without this, the stored
+              // choice is only applied by CookieConsent after React hydration,
+              // so a returning accepter's first page_view still fires with
+              // consent denied (gcs=G100) — cookieless, and invisible in
+              // reports on a property this small. Reading it here means their
+              // very first event carries granted consent. New visitors are
+              // unaffected (no stored value, so the region defaults above
+              // stand until they choose in the banner). try/catch because
+              // localStorage can throw in some privacy modes.
+              try {
+                var storedConsent = localStorage.getItem('cookie-consent');
+                if (storedConsent === 'accepted') {
+                  gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'analytics_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
+                  });
+                } else if (storedConsent === 'declined') {
+                  gtag('consent', 'update', {
+                    'ad_storage': 'denied',
+                    'analytics_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied'
+                  });
+                }
+              } catch (e) {}
               gtag('js', new Date());
             `,
           }}

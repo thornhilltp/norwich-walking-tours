@@ -36,9 +36,13 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
   // Hide until user has scrolled past the Hero (Hero has dark image
   // bg, ScrollTrail labels are unreadable against it).
   const [pastHero, setPastHero] = useState(false);
+  // Phone/tablet section pill shows only while scrolling, then fades so it
+  // never sits over text someone has stopped to read (Tom, 2026-09-27).
+  const [scrolling, setScrolling] = useState(false);
 
   useEffect(() => {
     let raf = 0;
+    let idle = 0;
     const update = () => {
       raf = 0;
 
@@ -76,6 +80,9 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
       setPastHero(window.scrollY > window.innerHeight * 0.6);
     };
     const onScroll = () => {
+      setScrolling(true);
+      window.clearTimeout(idle);
+      idle = window.setTimeout(() => setScrolling(false), 1000);
       if (raf) return;
       raf = window.requestAnimationFrame(update);
     };
@@ -86,6 +93,7 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", update);
       if (raf) window.cancelAnimationFrame(raf);
+      window.clearTimeout(idle);
     };
   }, []);
 
@@ -229,7 +237,7 @@ export function ScrollTrail({ sections }: ScrollTrailProps) {
         handle the same job. */}
     <div
       className={`fixed right-4 top-1/2 z-40 lg:hidden pointer-events-none transition-opacity duration-500 ${
-        pastHero ? "opacity-100" : "opacity-0"
+        pastHero && scrolling ? "opacity-100" : "opacity-0"
       }`}
       style={{
         // ASIDE_HEIGHT / 2 = scaled-aside vertical centre offset (~100px).

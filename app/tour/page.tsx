@@ -105,13 +105,14 @@ const stopStories: Record<number, string> = {
 const stopImages: Record<number, { src: string; alt: string }> = {
   1:  { src: "/images/tour/group-the-forum.jpg",     alt: "Walking tour group meeting at The Forum, Norwich's modern glass meeting hub on Millennium Plain." },
   2:  { src: "/images/tour/guide-guildhall.jpg",     alt: "Free Walking Tour Norwich guide explaining the chequerboard flintwork facade of Norwich Guildhall." },
-  3:  { src: "/images/norwich-lane-stock.png",       alt: "The Norwich Lanes. Independent shops, cafés and hidden courtyards in Norwich city centre." },
-  5:  { src: "/images/tour/elm-hill-tour.jpg",        alt: "Elm Hill, Norwich's famous cobbled medieval street, on the Norwich Free Walking Tour" },
-  6:  { src: "/images/vamous-view-norwich.png",      alt: "View of Norwich from Fye Bridge over the River Wensum" },
+  3:  { src: "/images/tour/pottergate-walk.jpg",     alt: "Tour group walking down Pottergate in the Norwich Lanes, past the Yard sign and St Gregory's church." },
+  5:  { src: "/images/tour/elm-hill-group.jpg",       alt: "Guide telling a story to an engaged tour group on Elm Hill, Norwich's cobbled medieval street." },
+  6:  { src: "/images/tour/tom-river.jpg",           alt: "Guide talking to guests beside the River Wensum at Fye Bridge." },
+  7:  { src: "/images/tour/tom-tombland.jpg",        alt: "Guide in Tombland with a tour group beside the timber-framed Augustine Steward House." },
   8:  { src: "/images/norwich-cathedral-stock.png",  alt: "Norwich Cathedral. 900-year-old Norman cathedral with England's second-tallest spire." },
   10: { src: "/images/norwich-castle.png",           alt: "Norwich Castle, Norman fortress overlooking the city" },
   11: { src: "/images/the-arcade-stock.png",         alt: "The Arcade Norwich. Victorian shopping arcade with ornate ironwork." },
-  12: { src: "/images/norwich-market-sun-stock.png", alt: "Norwich Market. One of England's oldest and largest outdoor markets, where the tour finishes." },
+  12: { src: "/images/tour/holly-market.jpg",        alt: "Guide finishing the tour at Norwich Market with the City Hall clock tower behind." },
 };
 
 // Per-card colour for the vibe-check review notes (mid tone tape, dark name).
@@ -165,13 +166,13 @@ export default function TourPage() {
       {/* Hero */}
       <section id="top" className="relative isolate section-padding">
         <Image
-          src="/images/tour/group-cathedral-lawn.jpg"
-          alt="Tour group walking through Norwich city centre on the Norwich Free Walking Tour"
+          src="/images/tour/tom-tombland-talk.jpg"
+          alt="Tom mid-story in Tombland with a tour group listening in front of a pink cottage"
           fill
           priority
           sizes="100vw"
           className="object-cover -z-10"
-          style={{ objectPosition: "center 40%" }}
+          style={{ objectPosition: "center 55%" }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative brand-container max-w-3xl mx-auto text-center">
@@ -399,7 +400,7 @@ export default function TourPage() {
             <div className="flex-shrink-0 bg-white p-2.5 pb-8 shadow-lg border border-brand-text/5 rotate-[-2deg]">
               <div className="relative w-40 aspect-[4/5] overflow-hidden">
                 <Image
-                  src="/images/tom-portrait.jpg"
+                  src="/images/tour/tom-portrait-river.jpg"
                   alt="Tom Thornhill, founder and guide of the Norwich Free Walking Tour"
                   fill
                   className="object-cover"

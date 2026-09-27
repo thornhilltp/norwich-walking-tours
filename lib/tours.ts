@@ -30,7 +30,7 @@ export interface TourDetails {
   reviews?: { quote: string; author: string; source?: string }[];
   /** Scrollable photo strip. Swap for real tour shots as they arrive. */
   gallery?: { src: string; alt: string; caption: string }[];
-  /** The guide, presented /about-us style: polaroid + first person. */
+  /** The guide, presented /our-guides style: polaroid + first person. */
   guide?: {
     name: string;
     image: string;
@@ -71,9 +71,9 @@ export const tours: Tour[] = [
     slug: "free-walking-tour",
     name: "The Free Walking Tour",
     byline: "Led by Tom, Joolz or Holly",
-    image: "/images/tour/what-is-free-tour.jpg",
+    image: "/images/tour/tom-tombland-talk.jpg",
     imageAlt:
-      "A Norwich walking tour group standing with their guide outside The Forum",
+      "Tom telling a story to a tour group in Tombland",
     meta: ["2 hours", "Max 15", "Daily"],
     blurb:
       "The whole city centre in one walk. Castle, Market, the Lanes, Elm Hill, Tombland and the Cathedral, with the stories that tie them together.",
@@ -160,16 +160,16 @@ export const tours: Tour[] = [
         },
       ],
       gallery: [
-        { src: "/images/tour/elm-hill-tour.jpg", alt: "Elm Hill's cobbles and timber-framed houses", caption: "Elm Hill, once the lights come on" },
+        { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill, once the lights come on" },
         { src: "/images/tour/group-fye-bridge.jpg", alt: "The tour group crossing Fye Bridge", caption: "Fye Bridge, where the ducking stool stood" },
         { src: "/images/tour/group-cathedral-west-front.jpg", alt: "Norwich Cathedral west front at dusk", caption: "The Cathedral, quieter after hours" },
-        { src: "/images/tour/pottergate-st-gregorys.jpg", alt: "Pottergate and St Gregorys church", caption: "Pottergate, where the lanes go dark" },
-        { src: "/images/tour/walking-ertherberts-arch.jpg", alt: "Walking under St Ethelberts arch", caption: "Through St Ethelbert's Gate" },
+        { src: "/images/tour/pottergate-walk.jpg", alt: "Walking down Pottergate", caption: "Pottergate, where the lanes go dark" },
+        { src: "/images/tour/walking-ethelbert-gate.jpg", alt: "Walking under St Ethelbert's Gate", caption: "Through St Ethelbert's Gate" },
       ],
       guide: {
         name: "Holly",
-        image: "/images/guides/holly.png",
-        focal: "50% 28%",
+        image: "/images/tour/holly-portrait.jpg",
+        focal: "50% 15%",
         zoom: "165%",
         blurb:
           "I tell the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones. This walk is the dark ones, saved up.",

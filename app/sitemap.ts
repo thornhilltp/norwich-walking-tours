@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { CONTENT_READY } from "@/lib/best-in-norwich";
 
 // NOTE: no lastModified — the previous `new Date()` claimed every page
 // changed on every deploy, which teaches Google to distrust the sitemap.
@@ -33,7 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${base}/about-us`,
+      url: `${base}/updates`,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${base}/our-guides`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -57,6 +63,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    // /best-in-norwich stays out until the real winners land — CONTENT_READY
+    // also drives the noindex tag on the page itself.
+    ...(CONTENT_READY
+      ? [
+          {
+            url: `${base}/best-in-norwich`,
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+          },
+          {
+            url: `${base}/best-in-norwich/vote`,
+            changeFrequency: "weekly" as const,
+            priority: 0.6,
+          },
+        ]
+      : []),
     {
       url: `${base}/privacy`,
       changeFrequency: "yearly",

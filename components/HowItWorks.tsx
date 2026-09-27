@@ -12,8 +12,8 @@ const steps = [
     title: "Book your spot",
     sub: "Reserve your place online. It's free.",
     detail: "Free to book",
-    image: "/images/tour/dog-erpingham-gate.jpg",
-    imageAlt: "A dog at Erpingham Gate, Norwich. All well-behaved dogs welcome on the Norwich Free Walking Tour.",
+    image: "/images/tour/dog-cathedral-close.jpg",
+    imageAlt: "A dog at a gateway into Norwich Cathedral Close. All well-behaved dogs welcome on the Norwich Free Walking Tour.",
     imagePosition: "center 75%",
   },
   {
@@ -29,8 +29,8 @@ const steps = [
     title: "Pay what it was worth",
     sub: "Tip what it was worth. Usually between £10-£20. Our guides do this full time.",
     detail: "Pay at the end",
-    image: "/images/tour/group-portrait-bridge.jpg",
-    imageAlt: "Walking tour guests posing for a group photo at the end of the tour",
+    image: "/images/tour/group-street-laughing.jpg",
+    imageAlt: "Guests laughing with their guide at the end of the Norwich Free Walking Tour",
   },
 ];
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
+import { CONTENT_READY as BIN_READY } from "@/lib/best-in-norwich";
 
 // Brand icons — lucide-react dropped Instagram/Facebook exports for trademark
 // reasons, so we inline them (and TikTok, which was never in lucide).
@@ -53,14 +54,20 @@ const socials = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Tour", href: "/tour" },
-  { label: "About us", href: "/about-us" },
+  { label: "Our Guides", href: "/our-guides" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Book your spot (free)", href: "/book" },
   { label: "Articles", href: "/explore" },
   { label: "What is a free tour?", href: "/what-is-a-free-tour" },
   { label: "Free things to do", href: "/things-to-do/free" },
+  // Hidden until the awards page is ready to be indexed — no point linking
+  // sitewide to a noindex page.
+  ...(BIN_READY
+    ? [{ label: "Best in Norwich", href: "/best-in-norwich" }]
+    : []),
   { label: "Contact", href: "/contact" },
   { label: "FAQs", href: "/#faq" },
+  { label: "New tour updates", href: "/updates" },
 ];
 
 const legalLinks = [

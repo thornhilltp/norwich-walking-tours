@@ -5,7 +5,7 @@ import { ArrowRight, Clock, Star, Users } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
-import { GuideReviews } from "@/app/about-us/_components/GuideReviews";
+import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { PhotoCarousel } from "@/app/tours/_components/PhotoCarousel";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
@@ -35,7 +35,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 const caveat = { fontFamily: "var(--font-caveat), cursive" } as const;
 
-// **bold** markers -> semibold ink, matching /about-us renderBold.
+// **bold** markers -> semibold ink, matching /our-guides renderBold.
 function renderBold(text: string) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
     part.startsWith("**") && part.endsWith("**") ? (
@@ -323,7 +323,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* Meet your guide - /about-us language: polaroid portrait,
+      {/* Meet your guide - /our-guides language: polaroid portrait,
           first person blurb, handle. */}
       {d.guide && (
         <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
@@ -370,7 +370,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     {d.guide.handle.label}
                   </a>
                 )}
-                <a href="/about-us" className="text-brand-text/70 italic underline underline-offset-4 decoration-brand-text/30 hover:decoration-brand-text">
+                <a href="/our-guides" className="text-brand-text/70 italic underline underline-offset-4 decoration-brand-text/30 hover:decoration-brand-text">
                   or meet all of us
                 </a>
               </div>

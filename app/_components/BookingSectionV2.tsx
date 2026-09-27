@@ -17,7 +17,7 @@ const bullets = [
   // contradict the booking widget right next to it.
   {
     title: "Card or cash",
-    body: "Tip however you like at the end. We take both.",
+    body: "Tip at the end by card, Apple Pay, Google Pay or cash.",
   },
   {
     title: "£10 to £20 per person",

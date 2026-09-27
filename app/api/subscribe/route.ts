@@ -81,6 +81,9 @@ export async function POST(request: NextRequest) {
     const tourInterest =
       rawInterest && /^[a-z0-9-]+$/.test(rawInterest) ? rawInterest : null;
 
+    // Where the signup came from. Whitelisted; anything else falls back.
+    const source = body.source === "updates" ? "updates" : "homepage";
+
     const timestamp = new Date().toISOString();
 
     // ── 1. Persist to Supabase ───────────────────────────────────────────────
@@ -93,7 +96,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       const { error } = await supabase
         .from("subscribers")
-        .insert({ email, source: "homepage" });
+        .insert({ email, source });
 
       if (error) {
         if (error.code === "23505") {
@@ -141,10 +144,11 @@ export async function POST(request: NextRequest) {
             subject: tourInterest
               ? `New waiting-list signup (${tourInterest}): ${email}`
               : `New subscriber: ${email}`,
-            text: `New email subscription\n\nEmail: ${email}\nTimestamp: ${timestamp}\nIP: ${ip}`,
+            text: `New email subscription\n\nEmail: ${email}\nSource: ${source}\nTimestamp: ${timestamp}\nIP: ${ip}`,
             html: `
               <h2>New email subscription</h2>
               <p><strong>Email:</strong> ${safeEmail}</p>
+              <p><strong>Source:</strong> ${source}</p>
               <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
             `,
           });

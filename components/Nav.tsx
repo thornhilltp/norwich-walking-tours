@@ -16,11 +16,10 @@ import { trackEvent } from "@/lib/tracking";
 //   The Tour > About > What is a free tour? > Private Tours > Contact
 // 'About' was briefly removed earlier today then added back per Tom.
 const navLinks = [
-  // Free-tour nav tab removed per Tom 2026-08-31: the homepage IS the
-  // free walking tour, so the logo/home link covers it. /tour stays
-  // linked from the homepage hero + footer.
+  { label: "The Tour", href: "/tour" },
+  // Tours hub (prototype): additive tab next to the free tour.
   { label: "More Tours", href: "/tours" },
-  { label: "About", href: "/about-us" },
+  { label: "Our Guides", href: "/our-guides" },
   { label: "What Is a Free Tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Contact", href: "/contact" },

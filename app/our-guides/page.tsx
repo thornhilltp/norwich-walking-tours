@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
-import { ArrowRight, MessageCircle, UserRound, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
+import { GuideExpand } from "./_components/GuideExpand";
+import { PhilosophyCards } from "./_components/PhilosophyCards";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
 // language (cream paper, tape, tilt, Caveat captions). Short scannable
-// copy, no role labels, no badges. Live at /about-us; replaces the old
+// copy, no role labels, no badges. Live at /our-guides (was /about-us until 2026-09-27); replaces the old
 // solo-Tom /about (301 redirect in next.config.mjs).
 
 export const metadata: Metadata = {
@@ -15,13 +17,13 @@ export const metadata: Metadata = {
   description:
     "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz and Holly, the guides behind the Norwich free walking tour.",
   alternates: {
-    canonical: "https://www.norwichfreewalkingtours.co.uk/about-us",
+    canonical: "https://www.norwichfreewalkingtours.co.uk/our-guides",
   },
   openGraph: {
     title: "About Us | Norwich Free Walking Tours",
     description:
       "Meet the Norwich locals who show you round: Tom, Joolz and Holly.",
-    url: "https://www.norwichfreewalkingtours.co.uk/about-us",
+    url: "https://www.norwichfreewalkingtours.co.uk/our-guides",
     type: "website",
     images: [{ url: "/og-image.jpg", alt: "The Norwich Free Walking Tours guides." }],
   },
@@ -46,14 +48,11 @@ const guides: Guide[] = [
     name: "Tom",
     initial: "T",
     tint: "linear-gradient(150deg,#2DA96B,#1f6d47)",
-    img: "/images/tom-portrait.jpg",
-    // Group shot — crop tight to Tom (green shirt, left). Interim until a
-    // solo headshot exists.
-    focal: "50% 60%",
-    zoom: "280%",
+    img: "/images/tour/tom-portrait-river.jpg",
+    focal: "50% 20%",
     rotate: "-2deg",
     blurb:
-      "I came for a history degree and never left, that was 13 years ago. I started the tour because Norwich didn't have one and every other city did.",
+      "Came for a history degree, never left. That was 13 years ago. Picked up the free walking tour habit travelling the world, and brought it home.",
     accent: { ac: "#2DA96B", ad: "#1A6B47" },
     reviews: [
       {
@@ -80,7 +79,6 @@ const guides: Guide[] = [
     tint: "linear-gradient(150deg,#7c6cae,#463a63)",
     img: "/images/guides/joolz.png",
     focal: "34% 38%",
-    zoom: "125%",
     rotate: "1.5deg",
     blurb:
       "Norfolk born and proud. Paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
@@ -100,15 +98,19 @@ const guides: Guide[] = [
     name: "Holly",
     initial: "H",
     tint: "linear-gradient(150deg,#c8823f,#8a5220)",
-    img: "/images/guides/holly.png",
-    focal: "50% 28%",
-    zoom: "165%",
+    img: "/images/tour/holly-portrait.jpg",
+    focal: "50% 15%",
     rotate: "-1.5deg",
     blurb:
-      "I tell the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
+      "Tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
     handle: { label: "@historyhollydays", href: "https://www.instagram.com/historyhollydays" },
     accent: { ac: "#D99A2B", ad: "#8A5E10" },
     reviews: [
+      {
+        quote:
+          "Holly was an absolutely brilliant guide - **one of the very best, perhaps the best**, on our numerous city walking tours around Europe. First class.",
+        author: "Andrew Wright",
+      },
       {
         quote:
           "She kept our group totally engaged with **interesting, funny and warm-hearted stories**. Simply the best first-day activity in Norwich.",
@@ -120,38 +122,6 @@ const guides: Guide[] = [
         author: "Caroline",
       },
     ],
-  },
-];
-
-// Philosophy points — icon + heading + short line with a bolded key phrase.
-// Bold via **markers** rendered as semibold ink for emphasis on the sand band.
-function renderBold(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} className="font-semibold text-brand-text">
-        {part.slice(2, -2)}
-      </strong>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  );
-}
-
-const philosophy = [
-  {
-    Icon: MessageCircle,
-    h: "A conversation, not a lecture",
-    p: "We tell stories and ask questions, we don't reel off dates. **You'll talk to us, and to each other.** That's the bit people remember.",
-  },
-  {
-    Icon: UserRound,
-    h: "Built around you",
-    p: "We read the group. Where you're from, what you're into, how much history you actually want. **Nobody gets quite the same walk.**",
-  },
-  {
-    Icon: MapPin,
-    h: "More than history",
-    p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
   },
 ];
 
@@ -179,13 +149,13 @@ export default function AboutUsPage() {
 
         {/* The locals — polaroid grid. Leads the page (faces first) per
             Tom; the values/creed band sits below it. */}
-        <section className="brand-container max-w-4xl mx-auto px-4 sm:px-6 mt-16 text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
+        <section className="brand-container max-w-6xl mx-auto px-4 sm:px-6 mt-16 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8">
             {guides.map((g) => (
               <div key={g.name} className="flex flex-col items-center">
                 {/* Cream polaroid — matches PhotoShowcaseV2 / About */}
                 <div
-                  className="p-3 pb-12 shadow-xl border border-brand-text/5 relative w-[220px]"
+                  className="p-3 pb-12 shadow-xl border border-brand-text/5 relative w-full max-w-[320px]"
                   style={{ backgroundColor: "#F5EBDA", transform: `rotate(${g.rotate})` }}
                 >
                   <span
@@ -198,9 +168,10 @@ export default function AboutUsPage() {
                       boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
                     }}
                   />
-                  {/* Coloured initial behind, photo as CSS background on top;
-                      a missing file just reveals the initial (no broken icon). */}
-                  <div className="relative aspect-square w-full overflow-hidden" style={{ background: g.tint }}>
+                  {/* Coloured initial behind, photo on top. next/image (not a CSS
+                      background) so the photo is resized + served as WebP/AVIF,
+                      lazy-loaded, and indexable with proper alt text. */}
+                  <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ background: g.tint }}>
                     <span
                       aria-hidden="true"
                       className="absolute inset-0 flex items-center justify-center font-caveat font-bold text-white/90 select-none"
@@ -208,14 +179,16 @@ export default function AboutUsPage() {
                     >
                       {g.initial}
                     </span>
-                    <div
-                      role="img"
-                      aria-label={`${g.name}, Norwich Walking Tours guide`}
-                      className="absolute inset-0 bg-no-repeat"
+                    <Image
+                      src={g.img}
+                      alt={`${g.name}, guide with Norwich Free Walking Tours`}
+                      fill
+                      sizes="(max-width: 640px) 90vw, 320px"
+                      className="object-cover"
                       style={{
-                        backgroundImage: `url(${g.img})`,
-                        backgroundPosition: g.focal,
-                        backgroundSize: g.zoom ?? "cover",
+                        objectPosition: g.focal,
+                        transform: g.zoom ? `scale(${parseInt(g.zoom) / 100})` : undefined,
+                        transformOrigin: g.focal,
                       }}
                     />
                   </div>
@@ -225,7 +198,7 @@ export default function AboutUsPage() {
                 </div>
 
                 {/* Short blurb */}
-                <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[240px]">
+                <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[300px]">
                   {g.blurb}
                 </p>
                 {g.handle && (
@@ -239,7 +212,11 @@ export default function AboutUsPage() {
                   </a>
                 )}
 
-                {g.reviews && <GuideReviews reviews={g.reviews} accent={g.accent} />}
+                {g.reviews && (
+                  <GuideExpand name={g.name} count={g.reviews.length} accent={g.accent}>
+                    <GuideReviews reviews={g.reviews} accent={g.accent} />
+                  </GuideExpand>
+                )}
               </div>
             ))}
           </div>
@@ -248,7 +225,7 @@ export default function AboutUsPage() {
         {/* Creed — the promise is the outcome: make the most of Norwich,
             whether visiting or living here. Sits below the guides. */}
         <section className="mt-16 py-16 border-y border-brand-accent/10" style={{ backgroundColor: "#F5EBDA" }}>
-          <div className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <div className="brand-container max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <h2 className="mb-4">
               <span className="font-lora text-3xl md:text-4xl font-semibold text-brand-text">Our </span>
               <span className="font-caveat text-5xl md:text-6xl font-bold text-brand-accent">philosophy.</span>
@@ -257,21 +234,7 @@ export default function AboutUsPage() {
               However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-10 max-w-3xl mx-auto mt-12">
-              {philosophy.map(({ Icon, h, p }) => (
-                <div key={h} className="flex flex-col items-center text-center gap-3">
-                  <span className="flex-none w-12 h-12 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
-                    <Icon className="w-6 h-6" aria-hidden="true" />
-                  </span>
-                  <h3 className="font-caveat text-2xl md:text-3xl font-bold text-brand-accent leading-none">
-                    {h}
-                  </h3>
-                  <p className="font-lora text-brand-text/80 leading-relaxed max-w-[260px]">
-                    {renderBold(p)}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <PhilosophyCards />
           </div>
         </section>
 
@@ -293,28 +256,6 @@ export default function AboutUsPage() {
           </TrackedBookLink>
         </section>
 
-        {/* Recruit — for prospective guides. Sits at the very bottom, below
-            the visitor book CTA, with its own section title. */}
-        <section className="bg-brand-accent text-white py-14">
-          <div className="brand-container max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <p className="font-lora text-sm font-semibold tracking-[0.18em] uppercase mb-3 text-white/80">
-              Join the team
-            </p>
-            <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-3">
-              Guide in Norwich?
-            </h2>
-            <p className="font-lora text-white/90 leading-relaxed max-w-xl mx-auto mb-6 text-base md:text-lg">
-              Keep your own tours and your own way of doing things. We share the costs and the customers, so you actually get paid for the work.
-            </p>
-            <Link
-              href="/contact"
-              className="btn-cta inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-brand-accent-text rounded-xl font-semibold shadow-md hover:bg-white/90 transition-colors"
-            >
-              Come and do it with us
-              <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
-          </div>
-        </section>
       </main>
       <Footer />
     </>

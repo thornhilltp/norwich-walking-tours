@@ -45,7 +45,7 @@ export default function TermsPage() {
           </Section>
 
           <Section title="Tour operation">
-            <p>The tour runs every day, rain or shine. In the event of severe weather or exceptional circumstances, we reserve the right to cancel or modify the tour. We will make reasonable efforts to notify confirmed bookings in advance.</p>
+            <p>The tour runs every day, including in rain. In the event of severe weather or exceptional circumstances, we reserve the right to cancel or modify the tour. We will make reasonable efforts to notify confirmed bookings in advance.</p>
             <p>The guide reserves the right to modify the route, order of stops, or content of the tour based on conditions on the day.</p>
           </Section>
 

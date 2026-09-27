@@ -48,9 +48,9 @@ const securityHeaders = [
       // Images: self, Unsplash, data URIs, blob.
       // googletagmanager.com needed for GTM's image beacon pings (/td, /a).
       // google.com + google.co.uk for Google Ads conversion image beacons.
-      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk",
+      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.google.com https://www.google.co.uk",
       // Google Analytics + GTM + Google Ads (conversion + remarketing endpoints)
-      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://www.google.com https://googleads.g.doubleclick.net",
+      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk https://stats.g.doubleclick.net https://googleads.g.doubleclick.net",
       // Booking widget iframe
       "frame-src https://norwich-booking.vercel.app",
       "worker-src blob:",
@@ -71,9 +71,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // /about (old solo-Tom page) retired in favour of the collective
-      // /about-us. 301 preserves its indexed equity + external backlinks.
-      { source: "/about", destination: "/about-us", permanent: true },
+      // /about (old solo-Tom page) retired in favour of the collective page,
+      // which moved /about-us -> /our-guides on 2026-09-27 to match the menu
+      // label. Both old URLs 301 straight to the new one (no chain), keeping
+      // indexed equity + external backlinks.
+      { source: "/about", destination: "/our-guides", permanent: true },
+      { source: "/about-us", destination: "/our-guides", permanent: true },
     ];
   },
   async headers() {

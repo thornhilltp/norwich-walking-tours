@@ -136,7 +136,7 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
           <header className="mb-8 flex items-start gap-4">
             <div className="flex-shrink-0 relative w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
               <Image
-                src="/images/tour/guide-guildhall.jpg"
+                src="/images/tour/tom-portrait-river.jpg"
                 alt="Tom from the Norwich Free Walking Tour"
                 fill
                 sizes="56px"
