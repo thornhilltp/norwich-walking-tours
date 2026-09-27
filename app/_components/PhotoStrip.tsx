@@ -14,10 +14,10 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 const photos = [
   { src: "/images/tour/tom-tombland-talk.jpg", alt: "Tom mid-story in Tombland with a tour group listening in front of a pink cottage", caption: "Tombland", paper: "#FFFFFF" },
   { src: "/images/tour/group-cathedral-lawn.jpg", alt: "A big tour group on the lawn in front of Norwich Cathedral on a sunny day", caption: "Cathedral Close", paper: "#E8F0E4" },
-  { src: "/images/tour/holly-market.jpg", alt: "Guide finishing the tour at Norwich Market with City Hall's clock tower behind", caption: "Norwich Market, where we finish", paper: "#F5EBDA" },
-  { src: "/images/tour/walking-ertherberts-arch.jpg", alt: "Tour group walking through the Erpingham Gate into the Cathedral Close", caption: "Erpingham Gate", paper: "#FFFFFF" },
+  { src: "/images/tour/holly-market.jpg", alt: "Guide finishing the tour at Norwich Market with City Hall's clock tower behind", caption: "Norwich Market", paper: "#F5EBDA" },
+  { src: "/images/tour/walking-ertherberts-arch.jpg", alt: "Tour group walking through the Ethelbert Gate into the Cathedral Close", caption: "Ethelbert Gate", paper: "#FFFFFF" },
   { src: "/images/tour/group-forum-flag.jpg", alt: "A tour group posing with their guides and the green flag in the grounds of Norwich Cathedral", caption: "Look for the green flag", paper: "#E8F0E4" },
-  { src: "/images/tour/dog-erpingham-gate.jpg", alt: "A dog in a Walk with a Local t-shirt at the Erpingham Gate. Well-behaved dogs are welcome on the tour", caption: "Dogs welcome", paper: "#F5EBDA" },
+  { src: "/images/tour/dog-erpingham-gate.jpg", alt: "A dog in a Walk with a Local t-shirt at a gateway into the Cathedral Close. Well-behaved dogs are welcome on the tour", caption: "Dogs welcome", paper: "#F5EBDA", position: "center 88%" },
   { src: "/images/tour/tom-tombland.jpg", alt: "Guide telling a story in Tombland beside the timber-framed Augustine Steward House", caption: "Augustine Steward House", paper: "#FFFFFF" },
   { src: "/images/tour/group-britons-arms.jpg", alt: "Tour group gathered outside the Britons Arms on Elm Hill", caption: "Elm Hill", paper: "#E8F0E4" },
   { src: "/images/tour/elm-hill-group.jpg", alt: "Guide telling a story to a tour group on a cobbled Norwich street", caption: "", paper: "#F5EBDA" },
@@ -134,7 +134,7 @@ export function PhotoStrip() {
                 }}
               />
               <div className="relative aspect-[4/3] overflow-hidden">
-                <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(max-width: 640px) 76vw, 380px" />
+                <Image src={photo.src} alt={photo.alt} fill className="object-cover" style={{ objectPosition: "position" in photo ? photo.position : "center" }} sizes="(max-width: 640px) 76vw, 380px" />
               </div>
               <figcaption
                 className="absolute bottom-1.5 left-3 text-[20px] italic font-bold text-brand-text"
