@@ -226,6 +226,7 @@ Source files in `_templates/`.
 
 - Do not use dark hero backgrounds (brand bg is `#FCFAF8`)
 - Do not use em-dashes in any copy
+- Do not use "rain or shine" in copy or meta (Tom dropped it 2026-09-27)
 - Do not write AI-sounding phrases
 - Do not change nameservers until explicitly told to
 - Do not modify the booking widget repo from the main site session
@@ -293,7 +294,7 @@ _Technical (from April 2026 site review):_
 _Marketing — near-term:_
 - [x] **M3. Replace stock photography with authentic tour photos** (homepage, /about-us, /book, /private-tours, /tour hero done 2026-09-26; /tour stop photos still to review) once tours run (target June 2026 onwards). Guest shots, guide in action, weather variety. Update Hero, `PhotoShowcase`, `HowItWorks`, per-stop pages.
 - [x] **M4. FAQPage JSON-LD** shipped in `components/FAQ.tsx:79-90` (built from the `faqs` array, emitted via `<script type="application/ld+json">` inside the component render). Unlocks rich FAQ accordions in Google SERP.
-- [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 2 hours · 👥 Max 15 per tour · 🌧 Runs rain or shine` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity + weather-promise in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
+- [ ] **M8. Hero trust row (consumes original M8 "group size line")** — add a single horizontal credibility strip directly under the Hero CTAs in `components/Hero.tsx`. Content: `⏱ 2 hours · 👥 Max 15 per tour` (star rating slot added once testimonials go live). Higher visibility than burying "max 15" in `PracticalInfo`, and combines duration + scarcity in one glance. Mobile: wrap to two rows rather than shrinking. Still put the same bullets in PracticalInfo for redundancy, but the Hero version is the one that matters for bounced visitors.
 - [ ] **M10. Sticky mobile book CTA audit** — verify `<StickyBookCTA />` actually shows and doesn't lag on scroll on a real phone. Mobile = 70%+ of traffic.
 - [x] **M12. OG image upgrade** (2026-09-26: Tom mid-story at the pink cottage, Tombland) — replace generic `public/og-image.jpg` with a guide-on-Elm-Hill (or similar) shot once real tour photos exist. Dependent on M3.
 - [ ] **M18. `/book` page — add below-widget content** — `app/book/page.tsx` is currently the iframe plus minimal surrounding copy, but it's the highest-intent page on the site. Once testimonials exist (post-launch), add below the widget: (a) 2–3 real guest quotes, (b) a "What happens after you book" 3-step explainer (confirmation email → meet at The Forum → pay what it was worth), (c) a 4-question FAQ subset pulled from `components/FAQ.tsx`: "Is it really free?", "What if it rains?", "Do I have to pay?", "Can I cancel?". Reduces pre-booking anxiety which is the #1 drop-off on free-tour booking flows. Keep the iframe itself above the fold — the new content is for users who scrolled because they're hesitating.

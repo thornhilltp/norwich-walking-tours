@@ -36,7 +36,7 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tours | Daily, Local-Led, Free to Book",
   description:
-    "Free walking tours of Norwich, led by local guides. A mix of walks for visitors and locals, daily, rain or shine. Book free, tip what it was worth.",
+    "Walking tours of Norwich, led by local guides. A mix of walks for visitors and locals, running daily. Book free, tip what it was worth.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
