@@ -5,7 +5,7 @@
 
 ## 1. Project Overview
 
-Mobile-first marketing website for the **Norwich Free Walking Tour** ("The Real Norwich" Essentials Tour). Revenue model: pay-as-you-want. Goal: drive daily bookings and rank top for AI travel queries about Norwich.
+Mobile-first marketing website for the **Norwich Free Walking Tour**. Call it "the Norwich Free Walking Tour" or "the free tour", never "the Essentials Tour" (Tom dropped that name 2026-09-27). Revenue model: pay-as-you-want. Goal: drive daily bookings and rank top for AI travel queries about Norwich.
 
 **Repos:** Main site `thornhilltp/norwich-walking-tours` · Booking widget `thornhilltp/norwich-booking`
 **Hosting:** Vercel (both) · **Domain:** `norwichfreewalkingtours.co.uk` — live, DNS pointing to Vercel (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`)

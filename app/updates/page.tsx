@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { EmailCapture } from "@/components/EmailCapture";
-import { TrackedBookLink } from "@/components/TrackedBookLink";
 import { Footer } from "@/components/Footer";
 
 // Standalone sign-up page for social bio links and the end-of-tour QR
@@ -21,29 +20,9 @@ export default function UpdatesPage() {
       <EmailCapture
         source="updates"
         asPageHeading
-        photo={{
-          src: "/images/tour/tom-tombland-talk.jpg",
-          alt: "Guide telling a story to a tour group in Tombland",
-          caption: "Thanks for walking with us",
-        }}
+        visual={{ kind: "guides" }}
+        eyebrow="Thanks for walking with us"
       />
-
-      <section className="py-10 bg-brand-bg">
-        <div className="brand-container max-w-2xl mx-auto text-center">
-          <p
-            className="text-muted-foreground mb-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Not done the Essentials Tour yet? It runs every day from The Forum.
-          </p>
-          <TrackedBookLink
-            location="updates"
-            className="btn-cta inline-flex items-center justify-center h-12 px-6 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150"
-          >
-            Book a free tour
-          </TrackedBookLink>
-        </div>
-      </section>
 
       <Footer />
     </main>

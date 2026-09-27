@@ -19,17 +19,29 @@ interface EmailCaptureProps {
   tourInterest?: string;
   /** Where the form sits, stored on the subscriber row. */
   source?: "homepage" | "updates";
-  /** Polaroid beside the form. Pass null to drop it. */
-  photo?: { src: string; alt: string; caption: string } | null;
+  /** What sits with the form: a photo panel, the guides' faces, or nothing. */
+  visual?: Visual;
   /** Render as the page's H1 (standalone /updates page). */
   asPageHeading?: boolean;
 }
 
-const DEFAULT_PHOTO = {
+type Visual =
+  | { kind: "panel"; src: string; alt: string }
+  | { kind: "guides" }
+  | null;
+
+const DEFAULT_VISUAL: Visual = {
+  kind: "panel",
   src: "/images/tour/tom-tombland-talk.jpg",
   alt: "Guide telling a story to a tour group in Tombland",
-  caption: "Next walk: coming soon",
 };
+
+// Same photos and focal points as the Our Guides polaroids.
+const GUIDES = [
+  { name: "Tom", img: "/images/tour/tom-portrait-river.jpg", focal: "50% 20%", zoom: "cover" },
+  { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%", zoom: "cover" },
+  { name: "Joolz", img: "/images/guides/joolz.png", focal: "34% 38%", zoom: "125%" },
+];
 
 export function EmailCapture({
   eyebrow = "New walks, first",
@@ -37,7 +49,7 @@ export function EmailCapture({
   body = "We're adding new routes and themed walks. Join the list and you'll hear first. A few emails a year, only when there's news.",
   tourInterest,
   source = "homepage",
-  photo = DEFAULT_PHOTO,
+  visual = DEFAULT_VISUAL,
   asPageHeading = false,
 }: EmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
@@ -86,6 +98,8 @@ export function EmailCapture({
   }
 
   const Heading = asPageHeading ? "h1" : "h2";
+  // Panel layout splits the card: photo left, form right on desktop.
+  const split = visual?.kind === "panel";
 
   return (
     <section className="section-padding bg-brand-accent-light">
@@ -95,49 +109,56 @@ export function EmailCapture({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className={`mx-auto bg-white rounded-2xl border border-brand-accent/15 shadow-sm p-6 sm:p-8 md:p-10 ${
-            photo
-              ? "max-w-5xl grid gap-8 md:grid-cols-[5fr_7fr] md:gap-12 items-center"
-              : "max-w-2xl"
+          className={`mx-auto bg-white rounded-2xl border border-brand-accent/15 shadow-sm overflow-hidden ${
+            split ? "max-w-5xl grid md:grid-cols-2" : "max-w-2xl"
           }`}
         >
-          {photo && (
-            // Polaroid, same frame as the homepage stories cards: paper
-            // border, masking tape, slight tilt, Caveat caption.
-            <div className="w-full max-w-[190px] sm:max-w-[240px] md:max-w-none mx-auto pt-3">
-              <div
-                className="relative p-2.5 pb-9 md:pb-11 shadow-lg border border-brand-text/5"
-                style={{ backgroundColor: "#F5EBDA", transform: "rotate(-2deg)" }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rounded-sm shadow-sm"
-                  style={{
-                    backgroundColor: "rgba(241, 225, 161, 0.75)",
-                    borderTop: "1px solid rgba(241, 225, 161, 0.95)",
-                    borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
-                  }}
-                />
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 300px, 400px"
-                  />
-                </div>
-                <p
-                  className="absolute bottom-2 left-3 text-[17px] md:text-[21px] italic font-bold text-brand-text"
-                  style={{ fontFamily: "var(--font-caveat), cursive" }}
-                >
-                  {photo.caption}
-                </p>
-              </div>
+          {visual?.kind === "panel" && (
+            // Photo runs edge to edge: a short strip on phones, the full
+            // left half of the card on desktop.
+            <div className="relative h-44 sm:h-56 md:h-auto md:min-h-[440px]">
+              <Image
+                src={visual.src}
+                alt={visual.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 512px"
+              />
             </div>
           )}
 
-          <div className={photo ? "text-center md:text-left" : "text-center"}>
+          <div
+            className={`p-6 sm:p-8 md:p-10 ${
+              split ? "text-center md:text-left md:self-center" : "text-center"
+            }`}
+          >
+            {visual?.kind === "guides" && (
+              // A note from the people, not a form from a company.
+              <div className="flex flex-col items-center mb-5">
+                <div className="flex -space-x-3">
+                  {GUIDES.map((g) => (
+                    <span
+                      key={g.name}
+                      role="img"
+                      aria-label={`${g.name}, one of our guides`}
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-full ring-4 ring-white shadow-sm bg-brand-accent-light"
+                      style={{
+                        backgroundImage: `url(${g.img})`,
+                        backgroundPosition: g.focal,
+                        backgroundSize: g.zoom,
+                      }}
+                    />
+                  ))}
+                </div>
+                <p
+                  className="mt-2 text-xl text-brand-text"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  From Tom, Holly and Joolz
+                </p>
+              </div>
+            )}
+
             <p
               className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-2"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
@@ -149,7 +170,7 @@ export function EmailCapture({
             </Heading>
             <p
               className={`text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-md ${
-                photo ? "mx-auto md:mx-0" : "mx-auto"
+                split ? "mx-auto md:mx-0" : "mx-auto"
               }`}
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
@@ -172,7 +193,7 @@ export function EmailCapture({
               <form
                 onSubmit={handleSubmit}
                 className={`flex flex-col gap-4 max-w-md ${
-                  photo ? "mx-auto md:mx-0" : "mx-auto"
+                  split ? "mx-auto md:mx-0" : "mx-auto"
                 }`}
                 noValidate
               >
