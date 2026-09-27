@@ -134,7 +134,7 @@ export function PhotoStrip() {
                 }}
               />
               <div className="relative aspect-[4/3] overflow-hidden">
-                <Image src={photo.src} alt={photo.alt} fill className="object-cover" style={{ objectPosition: "position" in photo ? photo.position : "center" }} sizes="(max-width: 640px) 76vw, 380px" />
+                <Image src={photo.src} alt={photo.alt} fill className="object-cover" style={{ objectPosition: "position" in photo ? photo.position : "center" }} sizes="(max-width: 640px) 76vw, 380px" quality={60} />
               </div>
               <figcaption
                 className="absolute bottom-1.5 left-3 text-[20px] italic font-bold text-brand-text"
