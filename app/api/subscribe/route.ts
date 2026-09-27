@@ -81,13 +81,8 @@ export async function POST(request: NextRequest) {
     const tourInterest =
       rawInterest && /^[a-z0-9-]+$/.test(rawInterest) ? rawInterest : null;
 
-    // Where the signup came from and whether they live locally. Both are
-    // whitelisted; anything else is dropped, never rejected.
+    // Where the signup came from. Whitelisted; anything else falls back.
     const source = body.source === "updates" ? "updates" : "homepage";
-    const audience =
-      body.audience === "local" || body.audience === "visitor"
-        ? body.audience
-        : null;
 
     const timestamp = new Date().toISOString();
 
@@ -101,7 +96,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       const { error } = await supabase
         .from("subscribers")
-        .insert({ email, source, ...(audience ? { audience } : {}) });
+        .insert({ email, source });
 
       if (error) {
         if (error.code === "23505") {
@@ -149,11 +144,11 @@ export async function POST(request: NextRequest) {
             subject: tourInterest
               ? `New waiting-list signup (${tourInterest}): ${email}`
               : `New subscriber: ${email}`,
-            text: `New email subscription\n\nEmail: ${email}\nSource: ${source}\nAudience: ${audience ?? "not given"}\nTimestamp: ${timestamp}\nIP: ${ip}`,
+            text: `New email subscription\n\nEmail: ${email}\nSource: ${source}\nTimestamp: ${timestamp}\nIP: ${ip}`,
             html: `
               <h2>New email subscription</h2>
               <p><strong>Email:</strong> ${safeEmail}</p>
-              <p><strong>Source:</strong> ${source} · <strong>Audience:</strong> ${audience ?? "not given"}</p>
+              <p><strong>Source:</strong> ${source}</p>
               <p><strong>Timestamp:</strong> ${safeTimestamp}</p>
             `,
           });

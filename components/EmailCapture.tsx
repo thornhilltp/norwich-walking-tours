@@ -7,7 +7,6 @@ import { Check } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 
 type Status = "idle" | "submitting" | "success" | "already" | "error";
-type Audience = "local" | "visitor";
 
 // Copy is overridable so the same working form can sit on pages with a
 // different promise (e.g. a tour page's waiting list). Defaults are the
@@ -22,8 +21,6 @@ interface EmailCaptureProps {
   source?: "homepage" | "updates";
   /** Polaroid beside the form. Pass null to drop it. */
   photo?: { src: string; alt: string; caption: string } | null;
-  /** Optional "local or visiting" tap. */
-  askAudience?: boolean;
   /** Render as the page's H1 (standalone /updates page). */
   asPageHeading?: boolean;
 }
@@ -34,11 +31,6 @@ const DEFAULT_PHOTO = {
   caption: "Next walk: coming soon",
 };
 
-const AUDIENCE_OPTIONS: { value: Audience; label: string }[] = [
-  { value: "local", label: "I'm local" },
-  { value: "visitor", label: "Just visiting" },
-];
-
 export function EmailCapture({
   eyebrow = "New walks, first",
   heading = "Hear about new tours before anyone else",
@@ -46,12 +38,9 @@ export function EmailCapture({
   tourInterest,
   source = "homepage",
   photo = DEFAULT_PHOTO,
-  askAudience = true,
   asPageHeading = false,
 }: EmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [audience, setAudience] = useState<Audience | null>(null);
   const [trap, setTrap] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,11 +48,6 @@ export function EmailCapture({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "submitting") return;
-    if (!consent) {
-      setStatus("error");
-      setErrorMessage("Please tick the box to confirm you'd like to receive our emails.");
-      return;
-    }
     setStatus("submitting");
     setErrorMessage("");
 
@@ -73,10 +57,12 @@ export function EmailCapture({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          consent,
+          // Pressing "Keep me posted" under the consent line below is the
+          // opt-in. A standalone newsletter form needs no extra tick box
+          // (ICO consent guidance); the server still requires this flag.
+          consent: true,
           source,
           _trap: trap,
-          ...(audience ? { audience } : {}),
           ...(tourInterest ? { tour_interest: tourInterest } : {}),
         }),
       });
@@ -88,7 +74,6 @@ export function EmailCapture({
       trackEvent("subscribe_success", {
         is_new: !data.alreadySubscribed,
         source,
-        ...(audience ? { audience } : {}),
         ...(tourInterest ? { tour_interest: tourInterest } : {}),
       });
       setEmail("");
@@ -203,32 +188,6 @@ export function EmailCapture({
                   />
                 </label>
 
-                {askAudience && (
-                  // Optional. Tapping the selected option again clears it.
-                  <fieldset className="flex flex-wrap gap-2 justify-center md:justify-start">
-                    <legend className="sr-only">Where are you? (optional)</legend>
-                    {AUDIENCE_OPTIONS.map((opt) => {
-                      const selected = audience === opt.value;
-                      return (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          aria-pressed={selected}
-                          onClick={() => setAudience(selected ? null : opt.value)}
-                          disabled={status === "submitting"}
-                          className={`min-h-11 px-4 rounded-full border text-sm transition-colors duration-150 ${
-                            selected
-                              ? "bg-brand-accent border-brand-accent text-white"
-                              : "bg-white border-brand-accent/30 text-brand-text hover:bg-brand-accent-light"
-                          }`}
-                          style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                        >
-                          {opt.label}
-                        </button>
-                      );
-                    })}
-                  </fieldset>
-                )}
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <label htmlFor="subscribe-email" className="sr-only">
@@ -247,35 +206,23 @@ export function EmailCapture({
                   />
                   <button
                     type="submit"
-                    disabled={status === "submitting" || !consent}
+                    disabled={status === "submitting"}
                     className="btn-cta inline-flex items-center justify-center h-12 px-6 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {status === "submitting" ? "Sending…" : "Keep me posted"}
                   </button>
                 </div>
 
-                <label
-                  htmlFor="subscribe-consent"
-                  className="flex items-start gap-3 text-left cursor-pointer"
+                <p
+                  className="text-xs text-muted-foreground leading-relaxed text-left"
                   style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                 >
-                  <input
-                    id="subscribe-consent"
-                    type="checkbox"
-                    required
-                    checked={consent}
-                    onChange={(e) => setConsent(e.target.checked)}
-                    disabled={status === "submitting"}
-                    className="mt-1 h-4 w-4 flex-shrink-0 rounded border-brand-accent/40 text-brand-accent focus:ring-brand-accent cursor-pointer"
-                  />
-                  <span className="text-xs text-muted-foreground leading-relaxed">
-                    I&apos;d like to receive occasional marketing emails from Norwich Free Walking Tours. Unsubscribe any time. See our{" "}
-                    <a href="/privacy" className="underline hover:text-brand-accent">
-                      Privacy Policy
-                    </a>
-                    .
-                  </span>
-                </label>
+                  By joining you agree to get occasional emails from Norwich Free Walking Tours. Unsubscribe any time. See our{" "}
+                  <a href="/privacy" className="underline hover:text-brand-accent">
+                    Privacy Policy
+                  </a>
+                  .
+                </p>
               </form>
             )}
 
