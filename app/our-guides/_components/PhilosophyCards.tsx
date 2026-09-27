@@ -41,8 +41,9 @@ const points: Point[] = [
     h: "More than history",
     teaser: "Where to eat, what to see next.",
     p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
-    img: "/images/tour/holly-market.jpg",
-    alt: "Guide at Norwich Market, where the tour finishes and lunch starts",
+    img: "/images/tour/group-britons-arms.jpg",
+    alt: "Tom with a tour group outside the Britons Arms coffee house on Elm Hill",
+    focal: "50% 62%",
   },
 ];
 
@@ -102,6 +103,7 @@ export function PhilosophyCards() {
                   alt=""
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  style={{ objectPosition: x.focal ?? "50% 50%" }}
                   sizes="(max-width: 768px) 92vw, 330px"
                 />
               </motion.div>
