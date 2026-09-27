@@ -51,7 +51,7 @@ const guides: Guide[] = [
     focal: "50% 20%",
     rotate: "-2deg",
     blurb:
-      "I came for a history degree and never left, that was 13 years ago. I started the tour because Norwich didn't have one and every other city did.",
+      "Came for a history degree, never left. That was 13 years ago. Picked up the free walking tour habit travelling the world, and brought it home.",
     accent: { ac: "#2DA96B", ad: "#1A6B47" },
     reviews: [
       {
@@ -102,7 +102,7 @@ const guides: Guide[] = [
     focal: "50% 15%",
     rotate: "-1.5deg",
     blurb:
-      "I tell the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
+      "Tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
     handle: { label: "@historyhollydays", href: "https://www.instagram.com/historyhollydays" },
     accent: { ac: "#D99A2B", ad: "#8A5E10" },
     reviews: [
