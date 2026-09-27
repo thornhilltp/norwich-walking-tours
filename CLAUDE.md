@@ -82,7 +82,7 @@ Sections in order (photo pass 2026-09-26, Tom signed off section by section):
 6. **BookingSectionV2** — copy + widget (desktop only). No photo: tried on phone and desktop 2026-09-26, Tom said no. `id="book-section"`.
 7. **FAQ**. `id="faq"`.
 8. Best in Norwich promo (hidden until `CONTENT_READY`).
-9. **EmailCapture** (`components/EmailCapture.tsx`) — re-added 2026-09-26 after FAQ.
+9. **EmailCapture** (`components/EmailCapture.tsx`) — "new tours first" list after FAQ. Photo panel (Tombland photo left, form right). No tick box: pressing the button under a clear consent line is the opt-in. The same box sits alone on `/updates` (noindex, unlinked) with the guides' faces, for social bio links and the end-of-tour QR (2026-09-27). Rejected: polaroid version, local/visitor toggle, a book-a-tour section under the /updates form.
 10. Internal-link row, **Footer**.
 
 Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). URL moved from `/about-us` to `/our-guides` on 2026-09-27; `/about` and `/about-us` both 301 to it. Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
