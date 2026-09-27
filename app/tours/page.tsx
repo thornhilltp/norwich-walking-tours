@@ -111,11 +111,11 @@ export default function ToursPage() {
       {/* Notify me — target of the 'Notify me' pills on example cards.
           scroll-mt clears the fixed nav so the heading isn't hidden. */}
       <div id="notify" className="scroll-mt-28">
-        <EmailCapture
-          eyebrow="New tours"
-          heading="Know before anyone else"
-          body="We'll email you when a new Norwich tour opens for booking, plus the odd local tip. No spam, unsubscribe any time."
-        />
+        {/* Same form as /updates (same source tag, same guides visual),
+            kept inline so a visitor browsing tours never leaves the page
+            to sign up. Only the eyebrow differs: /updates speaks to people
+            who have just walked with us. */}
+        <EmailCapture source="updates" visual={{ kind: "guides" }} eyebrow="New tours" />
       </div>
 
       <Footer />
