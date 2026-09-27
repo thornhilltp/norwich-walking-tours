@@ -3,7 +3,7 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { Footer } from "@/components/Footer";
 
 // Standalone sign-up page for social bio links and the end-of-tour QR
-// code. Unlisted: no nav link, noindex, not in the sitemap.
+// code. Linked from the footer and indexable.
 export const metadata: Metadata = {
   title: "New tours first | Norwich Free Walking Tours",
   description:
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/updates",
   },
-  robots: { index: false, follow: true },
 };
 
 export default function UpdatesPage() {

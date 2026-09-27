@@ -67,6 +67,7 @@ const navLinks = [
     : []),
   { label: "Contact", href: "/contact" },
   { label: "FAQs", href: "/#faq" },
+  { label: "New tour updates", href: "/updates" },
 ];
 
 const legalLinks = [
