@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
-import { ArrowRight, MessageCircle, UserRound, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { GuideReviews, type GuideReview } from "./_components/GuideReviews";
 import { GuideExpand } from "./_components/GuideExpand";
+import { PhilosophyCards } from "./_components/PhilosophyCards";
 
 // About Us — the collective page. Image-led, matches the site's polaroid
 // language (cream paper, tape, tilt, Caveat captions). Short scannable
-// copy, no role labels, no badges. Live at /about-us; replaces the old
+// copy, no role labels, no badges. Live at /our-guides (was /about-us until 2026-09-27); replaces the old
 // solo-Tom /about (301 redirect in next.config.mjs).
 
 export const metadata: Metadata = {
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   description:
     "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz and Holly, the guides behind the Norwich free walking tour.",
   alternates: {
-    canonical: "https://www.norwichfreewalkingtours.co.uk/about-us",
+    canonical: "https://www.norwichfreewalkingtours.co.uk/our-guides",
   },
   openGraph: {
     title: "About Us | Norwich Free Walking Tours",
     description:
       "Meet the Norwich locals who show you round: Tom, Joolz and Holly.",
-    url: "https://www.norwichfreewalkingtours.co.uk/about-us",
+    url: "https://www.norwichfreewalkingtours.co.uk/our-guides",
     type: "website",
     images: [{ url: "/og-image.jpg", alt: "The Norwich Free Walking Tours guides." }],
   },
@@ -122,50 +122,6 @@ const guides: Guide[] = [
         author: "Caroline",
       },
     ],
-  },
-];
-
-// Philosophy points — icon + heading + short line with a bolded key phrase.
-// Bold via **markers** rendered as semibold ink for emphasis on the sand band.
-function renderBold(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} className="font-semibold text-brand-text">
-        {part.slice(2, -2)}
-      </strong>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  );
-}
-
-const philosophy = [
-  {
-    Icon: MessageCircle,
-    h: "A conversation, not a lecture",
-    p: "We tell stories and ask questions, we don't reel off dates. **You'll talk to us, and to each other.** That's the bit people remember.",
-    img: "/images/tour/tom-tombland-talk.jpg",
-    alt: "Tom mid-story in Tombland with a tour group listening",
-    tape: "#2DA96B",
-    tilt: "-1.2deg",
-  },
-  {
-    Icon: UserRound,
-    h: "Built around you",
-    p: "We read the group. Where you're from, what you're into, how much history you actually want. **Nobody gets quite the same walk.**",
-    img: "/images/tour/group-street-laughing.jpg",
-    alt: "Guests laughing with their guide on a Norwich street",
-    tape: "#E8734A",
-    tilt: "0.8deg",
-  },
-  {
-    Icon: MapPin,
-    h: "More than history",
-    p: "Where to eat, what to see next, what locals actually do. We want you making the most of **the whole trip**, not just the two hours with us.",
-    img: "/images/tour/holly-market.jpg",
-    alt: "Guide at Norwich Market, where the tour finishes and lunch starts",
-    tape: "#D99A2B",
-    tilt: "-0.6deg",
   },
 ];
 
@@ -275,36 +231,7 @@ export default function AboutUsPage() {
               However you find us, the goal&apos;s the same: you leave loving Norwich, and knowing what to do with it.
             </p>
 
-            {/* Three taped note cards with a photo each, matching the
-                polaroid / review-note language used across the site. */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 max-w-5xl mx-auto mt-14 text-left">
-              {philosophy.map(({ Icon, h, p, img, alt, tape, tilt }, i) => (
-                <article
-                  key={h}
-                  className="relative bg-white p-3 pb-6 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.45)] border border-[#EAE0D4]"
-                  style={{ transform: `rotate(${tilt})` }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute -top-3 left-1/2 w-20 h-5 rounded-[3px]"
-                    style={{ transform: "translateX(-50%) rotate(-2deg)", backgroundColor: tape, boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
-                  />
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image src={img} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 90vw, 320px" />
-                  </div>
-                  <div className="px-2 pt-5">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="flex-none w-8 h-8 rounded-full bg-brand-accent-light flex items-center justify-center text-brand-accent-text">
-                        <Icon className="w-4 h-4" aria-hidden="true" />
-                      </span>
-                      <span className="font-lora text-xs font-semibold tracking-[0.18em] text-brand-text/50">0{i + 1}</span>
-                    </div>
-                    <h3 className="font-caveat text-3xl font-bold text-brand-accent leading-none mb-3">{h}</h3>
-                    <p className="font-lora text-brand-text/80 leading-relaxed">{renderBold(p)}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <PhilosophyCards />
           </div>
         </section>
 

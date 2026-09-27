@@ -71,9 +71,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // /about (old solo-Tom page) retired in favour of the collective
-      // /about-us. 301 preserves its indexed equity + external backlinks.
-      { source: "/about", destination: "/about-us", permanent: true },
+      // /about (old solo-Tom page) retired in favour of the collective page,
+      // which moved /about-us -> /our-guides on 2026-09-27 to match the menu
+      // label. Both old URLs 301 straight to the new one (no chain), keeping
+      // indexed equity + external backlinks.
+      { source: "/about", destination: "/our-guides", permanent: true },
+      { source: "/about-us", destination: "/our-guides", permanent: true },
     ];
   },
   async headers() {

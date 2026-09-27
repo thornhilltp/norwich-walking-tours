@@ -85,7 +85,7 @@ Sections in order (photo pass 2026-09-26, Tom signed off section by section):
 9. **EmailCapture** (`components/EmailCapture.tsx`) — re-added 2026-09-26 after FAQ.
 10. Internal-link row, **Footer**.
 
-Top-menu and footer label for `/about-us` is **"Our Guides"** (2026-09-26). Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
+Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). URL moved from `/about-us` to `/our-guides` on 2026-09-27; `/about` and `/about-us` both 301 to it. Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
@@ -95,7 +95,7 @@ Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed ri
 ### `/book` — Book
 `<iframe src="https://norwich-booking.vercel.app/" />` — minimal surrounding page. Reinforces: "£0 to join. Pay at the end by card, Apple Pay, Google Pay or cash."
 
-### `/about-us` — About (the collective)
+### `/our-guides` — About (the collective)
 Live About page since 2026-08-09 (`f65e054`), replacing the solo `/about`. Per-guide polaroids, "Our philosophy" three-point block, recruit CTA below the book CTA. Part of the collective-brand pivot — see the `project_walking_tours_rebrand` memory.
 
 ### `/roys-plaza` — Parody petition page
