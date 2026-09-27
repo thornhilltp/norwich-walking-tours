@@ -45,3 +45,6 @@ next-env.d.ts
 /.claude/plans/
 /.scratch/
 /public/Morrie Good Photos/
+
+# Contentsquare wizard (generated)
+.cs-wizard/

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { loadContentsquare } from "@/lib/contentsquare";
 
 const CONSENT_KEY = "cookie-consent";
 
@@ -41,6 +42,7 @@ export function CookieConsent() {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === "accepted") {
       pushConsent(true);
+      loadContentsquare();
     } else if (stored === "declined") {
       pushConsent(false);
     } else {
@@ -52,6 +54,7 @@ export function CookieConsent() {
   function handleAccept() {
     localStorage.setItem(CONSENT_KEY, "accepted");
     pushConsent(true);
+    loadContentsquare();
     setVisible(false);
   }
 

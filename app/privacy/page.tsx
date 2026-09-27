@@ -92,6 +92,11 @@ export default function PrivacyPage() {
               on site, and device type. IP addresses are anonymised. No personally identifiable
               information is collected through analytics.
             </p>
+            <p>
+              <strong>Behaviour analytics:</strong> With your consent, we also use Contentsquare to see
+              how people move through our pages (clicks, scrolling, and anonymised session
+              recordings). Text you type into forms is masked and not recorded.
+            </p>
           </Section>
 
           <Section title="How we use your data">
@@ -181,8 +186,8 @@ export default function PrivacyPage() {
 
           <Section title="Cookies">
             <p>
-              We use Google Analytics, which places cookies to distinguish users and analyse site
-              usage. No other cookies are set by this website.
+              We use Google Analytics and Contentsquare, which place cookies to distinguish users
+              and analyse site usage. No other cookies are set by this website.
             </p>
             <p>
               A consent banner appears on your first visit. Analytics cookies are only placed on
@@ -211,6 +216,10 @@ export default function PrivacyPage() {
               <li>
                 <strong>Google Analytics</strong>: receives anonymised usage data if you accept
                 analytics cookies.
+              </li>
+              <li>
+                <strong>Contentsquare</strong>: receives anonymised usage data and session
+                recordings if you accept analytics cookies.
               </li>
             </ul>
             <p>No personal data is sold or shared for marketing purposes.</p>
