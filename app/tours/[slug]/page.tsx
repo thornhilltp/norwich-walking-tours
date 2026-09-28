@@ -78,8 +78,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       <div className="fixed bottom-[72px] md:bottom-0 inset-x-0 z-40 bg-brand-text">
         <div className="brand-container py-2.5">
           <p className="text-[12.5px] text-white/80 leading-snug" style={lora}>
-            <span className="font-semibold text-white">Prototype.</span> Example
-            tour page with invented names, dates and prices, to judge the template.
+            <span className="font-semibold text-white">Prototype.</span> Not live, hidden from Google. Anything in [square brackets] is waiting on real details from the guide.
           </p>
         </div>
       </div>
@@ -411,7 +410,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
             {[
               tours.find((t) => t.slug === "free-walking-tour"),
-              tours.find((t) => t.slug !== "free-walking-tour" && t.slug !== tour.slug),
+              // Live tours only: never cross-sell a placeholder product.
+              tours.find(
+                (t) =>
+                  t.status === "live" &&
+                  t.slug !== "free-walking-tour" &&
+                  t.slug !== tour.slug
+              ),
             ]
               .filter((t): t is NonNullable<typeof t> => Boolean(t))
               .map((t) => (

@@ -22,7 +22,8 @@ export interface TourDetails {
       what you'll see / where you'll go / what you leave with. */
   walk?: { eyebrow: string; headline: string; stops: string; body: string }[];
   /** What actually happens, in order. Logistics for planners. */
-  runOfShow: string[];
+  /** Retired from the page (Tom 2026-08-31); kept optional for old data. */
+  runOfShow?: string[];
   logistics: { label: string; value: string }[];
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
   availability?: { headline: string; sub: string };
@@ -187,6 +188,79 @@ export const tours: Tour[] = [
         {
           q: "What if it rains?",
           a: "It runs. Rain improves a ghost walk enormously. Bring a coat.",
+        },
+      ],
+    },
+  },
+  {
+    // REAL TOUR IN PROGRESS (Tom 2026-09-28). Confirmed facts only: it is
+    // a ghost tour and it is free to book, pay what it was worth. Every
+    // [square-bracketed] line is a content prompt for the guide, NOT copy.
+    // Do not replace a prompt with anything the guide has not confirmed.
+    slug: "norwich-ghost-tour",
+    name: "Norwich Ghost Tour",
+    byline: "[Guide TBC]",
+    image: "/images/tour/elm-hill-group.jpg",
+    imageAlt: "A tour group on the cobbles of Elm Hill",
+    meta: ["[Duration TBC]", "[Group size TBC]", "[Days TBC]"],
+    blurb: "[Guide to write: two sentences on what this walk is.]",
+    priceLine: "Free to book",
+    priceSub: "Pay what it was worth at the end",
+    ctaLabel: "See the tour",
+    ctaHref: "/tours/norwich-ghost-tour",
+    tint: "#F5EBDA",
+    status: "example",
+    details: {
+      heroTitle: ["Norwich", "ghost tour."],
+      promise:
+        "Free to book. Pay what it was worth at the end. [Guide to write a one-line promise: what happens on this walk.]",
+      story: [
+        "[Guide to write, paragraph 1: what this walk is and why it exists. Mark the key phrase with **double asterisks**.]",
+        "[Guide to write, paragraph 2: the kinds of stories and places covered. Only documented history.]",
+        "[Guide to write, paragraph 3: how the evening ends.]",
+      ],
+      walk: [
+        {
+          eyebrow: "What you'll see",
+          headline: "[Headline TBC]",
+          stops: "[Stops TBC]",
+          body: "[Guide to write: the places on the route.]",
+        },
+        {
+          eyebrow: "What you'll hear",
+          headline: "[Headline TBC]",
+          stops: "[Themes TBC]",
+          body: "[Guide to write: the kinds of stories told. Documented history only.]",
+        },
+        {
+          eyebrow: "What you leave with",
+          headline: "[Headline TBC]",
+          stops: "[TBC]",
+          body: "[Guide to write: what guests take away.]",
+        },
+      ],
+      logistics: [
+        { label: "How long", value: "[TBC]" },
+        { label: "Start", value: "[TBC]" },
+        { label: "Finish", value: "[TBC]" },
+        { label: "Price", value: "Free to book, pay what it was worth" },
+      ],
+      // Placeholder photos from our daytime shoots, captioned by place only.
+      // Swap for dusk photos of the actual route once it is set.
+      gallery: [
+        { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill" },
+        { src: "/images/tour/pottergate-walk.jpg", alt: "Walking down Pottergate", caption: "Pottergate" },
+        { src: "/images/tour/walking-ethelbert-gate.jpg", alt: "Walking under St Ethelbert's Gate", caption: "St Ethelbert's Gate" },
+        { src: "/images/tour/group-fye-bridge.jpg", alt: "The tour group crossing Fye Bridge", caption: "Fye Bridge" },
+      ],
+      faqs: [
+        {
+          q: "How much does it cost?",
+          a: "Nothing to book. At the end you pay what you think it was worth.",
+        },
+        {
+          q: "[More questions TBC]",
+          a: "[Guide to add: is it scary, is it suitable for children, what if it rains, where does it finish.]",
         },
       ],
     },

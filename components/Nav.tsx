@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 
 // 'About Tom' link swapped for 'What is a free tour?' per Tom 2026-05-19.
@@ -15,10 +15,12 @@ import { trackEvent } from "@/lib/tracking";
 // Nav order (Tom 2026-05-19, final):
 //   The Tour > About > What is a free tour? > Private Tours > Contact
 // 'About' was briefly removed earlier today then added back per Tom.
+// "Our Tours" dropdown (Tom 2026-09-28). Free Walking Tour only for now;
+// the homepage IS the free tour's page. Add a tour here only once its
+// page is real and indexable.
+const tourLinks = [{ label: "Free Walking Tour", href: "/" }];
+
 const navLinks = [
-  { label: "The Tour", href: "/tour" },
-  // Tours hub (prototype): additive tab next to the free tour.
-  { label: "More Tours", href: "/tours" },
   { label: "Our Guides", href: "/our-guides" },
   { label: "What Is a Free Tour?", href: "/what-is-a-free-tour" },
   { label: "Private Tours", href: "/private-tours" },
@@ -28,12 +30,21 @@ const navLinks = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [toursOpen, setToursOpen] = useState(false);
   const pathname = usePathname();
   // Nav is transparent at top of pages with dark image heroes (currently
   // just / — the homepage with its photo+overlay hero). Otherwise opaque
   // so nav text is legible against cream content bg.
   const hasDarkHero = pathname === "/";
   const isOpaque = scrolled || mobileOpen || !hasDarkHero;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setToursOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -85,6 +96,49 @@ export function Nav() {
               permanently revealed + brand-accent / white text. SVG uses
               currentColor so dashes inherit the link's colour. */}
           <div className="hidden md:flex items-center gap-6">
+            <div
+              className="relative"
+              onMouseEnter={() => setToursOpen(true)}
+              onMouseLeave={() => setToursOpen(false)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                  setToursOpen(false);
+                }
+              }}
+            >
+              <button
+                type="button"
+                aria-expanded={toursOpen}
+                aria-haspopup="true"
+                onClick={() => setToursOpen((v) => !v)}
+                className={`inline-flex items-center gap-1 text-sm font-medium pb-2 transition-colors duration-150 ${
+                  isOpaque
+                    ? "text-brand-text/70 hover:text-brand-accent"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                Our Tours
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-150 ${toursOpen ? "rotate-180" : ""}`}
+                  aria-hidden="true"
+                />
+              </button>
+              {/* pt-2 bridges the gap so the menu doesn't close on the way down */}
+              <div className={`absolute left-0 top-full pt-2 ${toursOpen ? "block" : "hidden"}`}>
+                <ul className="min-w-[200px] bg-white rounded-xl shadow-lg border border-brand-accent/15 py-2 m-0 list-none">
+                  {tourLinks.map((t) => (
+                    <li key={t.href}>
+                      <a
+                        href={t.href}
+                        className="block px-4 py-2.5 text-sm font-medium text-brand-text/80 hover:text-brand-accent hover:bg-brand-accent/5"
+                      >
+                        {t.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const textClass = isOpaque
@@ -155,11 +209,25 @@ export function Nav() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden bg-brand-bg border-t border-brand-accent/10 transition-all duration-200 ${
-          mobileOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+          mobileOpen ? "max-h-[34rem] opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!mobileOpen}
       >
         <div className="brand-container py-4 flex flex-col gap-1">
+          <p className="px-3 pt-1 pb-1 text-[11px] font-semibold tracking-[0.16em] uppercase text-brand-text/50">
+            Our Tours
+          </p>
+          {tourLinks.map((t) => (
+            <a
+              key={t.href}
+              href={t.href}
+              onClick={() => setMobileOpen(false)}
+              className="text-base font-medium px-3 pl-6 py-2.5 rounded-lg text-brand-text/80 hover:text-brand-accent hover:bg-brand-accent/5"
+            >
+              {t.label}
+            </a>
+          ))}
+          <div className="my-1 border-t border-brand-accent/10" />
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
