@@ -6,7 +6,8 @@ import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
-import { PhotoCarousel } from "@/app/tours/_components/PhotoCarousel";
+import { PhotoSwipe } from "@/app/tours/_components/PhotoSwipe";
+import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
@@ -240,7 +241,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       <section className="section-padding bg-white border-b border-brand-accent/10">
         <div className="brand-container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <PhotoCarousel photos={d.gallery ?? []} />
+          <PhotoSwipe photos={d.gallery ?? []} />
 
           <div>
             <SplitHeading plain="What this" script="walk is." />
@@ -317,57 +318,26 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* Meet your guide - /our-guides language: polaroid portrait,
-          first person blurb, handle. */}
+      {/* Meet your guide - Watermelon-style expandable profile card
+          (photo card, tap to open the guide's own words). */}
       {d.guide && (
         <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
           <div className="brand-container grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-center">
-            <div
-              className="relative bg-white rounded-[4px] border border-[#EAE0D4] p-3 pb-12 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.55)] max-w-[300px] mx-auto lg:mx-0 w-full"
-              style={{ rotate: "1.4deg" }}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#F5EBDA]/90 rotate-[2deg] shadow-sm"
+            <div className="flex justify-center lg:justify-start">
+              <GuideProfileCard
+                name={d.guide.name}
+                image={d.guide.image}
+                focal={d.guide.focal}
+                eyebrow="Your guide"
+                blurb={d.guide.blurb}
+                handle={d.guide.handle}
               />
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-[#EFE3D0]">
-                <Image
-                  src={d.guide.image}
-                  alt={"Portrait of " + d.guide.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 80vw, 300px"
-                  style={{ objectPosition: d.guide.focal ?? "50% 30%" }}
-                />
-              </div>
-              <p
-                className="absolute bottom-2.5 left-0 right-0 text-center text-[28px] font-bold text-brand-text/80"
-                style={caveat}
-              >
-                {d.guide.name}
-              </p>
             </div>
-
             <div>
               <SplitHeading plain="Your guide," script={d.guide.name + "."} />
-              <p className="text-[17px] text-brand-text/80 leading-relaxed max-w-[55ch] mb-5" style={lora}>
+              <p className="text-[17px] text-brand-text/80 leading-relaxed max-w-[55ch]" style={lora}>
                 &ldquo;{d.guide.blurb}&rdquo;
               </p>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2" style={lora}>
-                {d.guide.handle && (
-                  <a
-                    href={d.guide.handle.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-brand-accent font-semibold hover:underline"
-                  >
-                    {d.guide.handle.label}
-                  </a>
-                )}
-                <a href="/our-guides" className="text-brand-text/70 italic underline underline-offset-4 decoration-brand-text/30 hover:decoration-brand-text">
-                  or meet all of us
-                </a>
-              </div>
             </div>
           </div>
         </section>
