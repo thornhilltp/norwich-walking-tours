@@ -16,6 +16,14 @@ export interface TourDetails {
   heroTitle: [string, string];
   /** One-line answer to the search query that lands here. */
   promise: string;
+  /** The one named story/place that makes this walk unmissable. */
+  hook?: string;
+  /** 3-4 scannable bullets shown above the story. */
+  highlights?: string[];
+  /** Who it suits, e.g. "Ages 8+". Shown under the facts bar. */
+  suitableFor?: string;
+  /** How to spot the guide at the start point. */
+  lookFor?: string;
   /** The story sold in 2-3 short paragraphs. **bold** = semibold ink. */
   story: string[];
   /** The-walk groups, homepage ThemedRouteSection language:
@@ -212,6 +220,14 @@ export const tours: Tour[] = [
     status: "example",
     details: {
       heroTitle: ["Norwich", "ghost tour."],
+      hook: "[Guide to name the one story, place or ghost that makes this walk unmissable.]",
+      highlights: [
+        "[Highlight 1, from the guide]",
+        "[Highlight 2, from the guide]",
+        "[Highlight 3, from the guide]",
+      ],
+      suitableFor: "[TBC, e.g. ages 8+]",
+      lookFor: "[TBC, how to spot your guide]",
       promise:
         "Free to book. Pay what it was worth at the end. [Guide to write a one-line promise: what happens on this walk.]",
       story: [

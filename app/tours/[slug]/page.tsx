@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { ArrowRight, Clock, Star, Users } from "lucide-react";
+import { ArrowRight, Check, Clock, Star, Users } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
+import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { PhotoSwipe } from "@/app/tours/_components/PhotoSwipe";
@@ -132,6 +133,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               {d.promise}
             </p>
 
+            {d.hook && (
+              <p
+                className="mt-4 max-w-md mx-auto lg:mx-0 text-[22px] md:text-[26px] font-bold leading-snug"
+                style={{ ...caveat, color: "#5AE19E", textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
+              >
+                {d.hook}
+              </p>
+            )}
+
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
               <a
                 href="#notify"
@@ -182,11 +192,23 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 <Users className="h-4 w-4" aria-hidden="true" /> {tour.meta[1]}
               </span>
             </div>
+            <div className="mt-6 flex justify-center lg:justify-start">
+              <PartnerLogosInverted size="sm" label="Featured on" />
+            </div>
           </div>
 
           {/* Widget slot - the booking iframe drops in here when the
               tour is bookable. Until then, the waiting-list signup itself. */}
           <aside className="w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
+            {tour.priceLine.startsWith("Free") && (
+              <span
+                className="inline-flex items-center gap-1.5 mb-3 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-semibold"
+                style={lora}
+              >
+                <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                Free to book. Pay what it was worth.
+              </span>
+            )}
             <p
               className="text-[13px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-2"
               style={lora}
@@ -235,6 +257,23 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 </div>
               ))}
           </dl>
+          {(d.suitableFor || d.lookFor) && (
+            <p
+              className="mt-3 px-2 flex flex-wrap gap-x-6 gap-y-1 text-[14px] text-brand-text/70"
+              style={lora}
+            >
+              {d.suitableFor && (
+                <span>
+                  <span className="font-semibold text-brand-text">Suitable for:</span> {d.suitableFor}
+                </span>
+              )}
+              {d.lookFor && (
+                <span>
+                  <span className="font-semibold text-brand-text">Look for:</span> {d.lookFor}
+                </span>
+              )}
+            </p>
+          )}
         </div>
       </div>
 
@@ -245,6 +284,18 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
           <div>
             <SplitHeading plain="What this" script="walk is." />
+            {d.highlights && d.highlights.length > 0 && (
+              <ul className="m-0 mb-6 p-0 list-none flex flex-col gap-2.5">
+                {d.highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-3 text-[16.5px] font-semibold text-brand-text" style={lora}>
+                    <span className="mt-0.5 shrink-0 w-6 h-6 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center">
+                      <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                    </span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
             {d.story.map((p) => (
               <p
                 key={p.slice(0, 24)}
