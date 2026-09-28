@@ -20,6 +20,10 @@ export interface TourDetails {
   hook?: string;
   /** 3-4 scannable bullets shown above the story. */
   highlights?: string[];
+  /** Highlights as tap-to-open photo cards (Our Guides philosophy style).
+      h = headline on the photo, teaser = one line, p = the opened
+      paragraph (**bold** allowed). */
+  highlightCards?: { h: string; teaser: string; p: string; img: string; alt: string; focal?: string }[];
   /** Who it suits, e.g. "Ages 8+". Shown under the facts bar. */
   suitableFor?: string;
   /** How to spot the guide at the start point. */
@@ -221,19 +225,42 @@ export const tours: Tour[] = [
     details: {
       heroTitle: ["Norwich", "ghost tour."],
       hook: "[Guide to name the one story, place or ghost that makes this walk unmissable.]",
-      highlights: [
-        "[Highlight 1, from the guide]",
-        "[Highlight 2, from the guide]",
-        "[Highlight 3, from the guide]",
+      // VOICE for every line on this page (Tom 2026-09-28): atmospheric and
+      // sensory, led by verbs of movement ("meet", "led", "explore");
+      // name the real meeting place; one line saying what this is NOT
+      // ("not a ghost hunt, not a lecture") and what it IS. Write it
+      // fresh in the guide's words; never reuse another operator's copy.
+      highlightCards: [
+        {
+          h: "[Highlight 1]",
+          teaser: "[One line, from the guide]",
+          p: "[Guide to write: two or three sentences on this highlight.]",
+          img: "/images/tour/pottergate-walk.jpg",
+          alt: "Walking down Pottergate",
+        },
+        {
+          h: "[Highlight 2]",
+          teaser: "[One line, from the guide]",
+          p: "[Guide to write: two or three sentences on this highlight.]",
+          img: "/images/tour/walking-ethelbert-gate.jpg",
+          alt: "Walking under St Ethelbert's Gate",
+        },
+        {
+          h: "[Highlight 3]",
+          teaser: "[One line, from the guide]",
+          p: "[Guide to write: two or three sentences on this highlight.]",
+          img: "/images/tour/group-fye-bridge.jpg",
+          alt: "The tour group crossing Fye Bridge",
+        },
       ],
       suitableFor: "[TBC, e.g. ages 8+]",
       lookFor: "[TBC, how to spot your guide]",
       promise:
         "Free to book. Pay what it was worth at the end. [Guide to write a one-line promise: what happens on this walk.]",
       story: [
-        "[Guide to write, paragraph 1: what this walk is and why it exists. Mark the key phrase with **double asterisks**.]",
-        "[Guide to write, paragraph 2: the kinds of stories and places covered. Only documented history.]",
-        "[Guide to write, paragraph 3: how the evening ends.]",
+        "[Guide to write, paragraph 1: open with the atmosphere. Where you meet, where you are led, what the evening feels like. Mark the key phrase with **double asterisks**.]",
+        "[Guide to write, paragraph 2: the places and the kinds of stories. Documented history, and say where it is legend or folklore.]",
+        "[Guide to write, paragraph 3: what this is NOT (a ghost hunt? a lecture?) and what it IS, then how the evening ends.]",
       ],
       walk: [
         {

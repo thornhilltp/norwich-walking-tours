@@ -9,6 +9,7 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { PhotoSwipe } from "@/app/tours/_components/PhotoSwipe";
 import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
+import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
@@ -276,6 +277,35 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           )}
         </div>
       </div>
+
+      {/* Highlights as tap-to-open photo cards - the Our Guides
+          philosophy component, pointed at this tour's waiting list. */}
+      {d.highlightCards && d.highlightCards.length > 0 && (
+        <section className="pt-20 pb-6 md:pt-24">
+          <div className="brand-container text-center">
+            <h2 className="leading-[1.0]">
+              <span
+                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+                style={lora}
+              >
+                Why come on
+              </span>{" "}
+              <span
+                className="inline text-[clamp(40px,4.8vw,60px)] font-semibold leading-[0.95] text-brand-accent"
+                style={caveat}
+              >
+                this walk.
+              </span>
+            </h2>
+            <PhilosophyCards
+              points={d.highlightCards}
+              eyebrow={tour.name}
+              cta={{ href: "#notify", label: "Join the waiting list" }}
+              idPrefix={`hl-${tour.slug}`}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       <section className="section-padding bg-white border-b border-brand-accent/10">

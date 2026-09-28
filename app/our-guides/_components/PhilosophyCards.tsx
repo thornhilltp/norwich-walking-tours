@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Plus, X } from "lucide-react";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 
-type Point = {
+export type Point = {
   h: string;
   teaser: string;
   p: string;
@@ -22,7 +22,7 @@ type Point = {
   focal?: string;
 };
 
-const points: Point[] = [
+const defaultPoints: Point[] = [
   {
     h: "A conversation, not a lecture",
     teaser: "You'll talk to us, and to each other.",
@@ -61,7 +61,23 @@ function renderBold(text: string) {
 
 const plain = (t: string) => t.replace(/\*\*/g, "");
 
-export function PhilosophyCards() {
+interface PhilosophyCardsProps {
+  /** Cards to show. Defaults to the Our Guides philosophy. */
+  points?: Point[];
+  /** Small label above the heading in the opened panel. */
+  eyebrow?: string;
+  /** Replaces the Book button in the opened panel (e.g. a waiting list). */
+  cta?: { href: string; label: string };
+  /** Keeps animation ids unique if two sets ever share a page. */
+  idPrefix?: string;
+}
+
+export function PhilosophyCards({
+  points = defaultPoints,
+  eyebrow = "Our philosophy",
+  cta,
+  idPrefix = "ph",
+}: PhilosophyCardsProps = {}) {
   const [active, setActive] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLButtonElement | null>(null);
@@ -91,13 +107,13 @@ export function PhilosophyCards() {
           <div key={x.h}>
             <motion.button
               type="button"
-              layoutId={`ph-card-${i}`}
+              layoutId={`${idPrefix}-card-${i}`}
               onClick={(e) => { openerRef.current = e.currentTarget; setActive(i); }}
               aria-haspopup="dialog"
               className="group relative block w-full aspect-[4/3] md:aspect-[4/5] overflow-hidden rounded-2xl text-left shadow-[0_14px_30px_-18px_rgba(60,40,20,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-accent"
               style={{ borderRadius: 16 }}
             >
-              <motion.div layoutId={`ph-img-${i}`} className="absolute inset-0">
+              <motion.div layoutId={`${idPrefix}-img-${i}`} className="absolute inset-0">
                 <Image
                   src={x.img}
                   alt=""
@@ -113,7 +129,7 @@ export function PhilosophyCards() {
               />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <motion.h3
-                  layoutId={`ph-h-${i}`}
+                  layoutId={`${idPrefix}-h-${i}`}
                   className="font-caveat text-4xl font-bold text-white leading-none mb-2"
                 >
                   {x.h}
@@ -146,13 +162,13 @@ export function PhilosophyCards() {
             <motion.div
               role="dialog"
               aria-modal="true"
-              aria-labelledby={`ph-title-${active}`}
-              layoutId={`ph-card-${active}`}
+              aria-labelledby={`${idPrefix}-title-${active}`}
+              layoutId={`${idPrefix}-card-${active}`}
               className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto overflow-x-hidden bg-brand-bg shadow-2xl grid grid-cols-1 md:grid-cols-2"
               style={{ borderRadius: 16 }}
             >
               <motion.div
-                layoutId={`ph-img-${active}`}
+                layoutId={`${idPrefix}-img-${active}`}
                 className="relative aspect-[4/3] md:aspect-auto md:min-h-[440px]"
               >
                 <Image src={pt.img} alt={pt.alt} fill className="object-cover" sizes="(max-width: 768px) 92vw, 384px" />
@@ -169,11 +185,11 @@ export function PhilosophyCards() {
                   <X className="w-5 h-5" />
                 </button>
                 <p className="font-lora text-xs font-semibold tracking-[0.18em] uppercase text-brand-accent-text mb-2">
-                  Our philosophy
+                  {eyebrow}
                 </p>
                 <motion.h3
-                  id={`ph-title-${active}`}
-                  layoutId={`ph-h-${active}`}
+                  id={`${idPrefix}-title-${active}`}
+                  layoutId={`${idPrefix}-h-${active}`}
                   className="font-caveat text-4xl md:text-5xl font-bold text-brand-accent leading-none pr-10"
                 >
                   {pt.h}
@@ -187,13 +203,24 @@ export function PhilosophyCards() {
                   <div className="h-px bg-brand-text/10 my-5" />
                   <p className="font-lora text-lg text-brand-text/80 leading-relaxed">{renderBold(pt.p)}</p>
                   <div className="mt-auto pt-8">
-                    <TrackedBookLink
-                      location="about_us_philosophy"
-                      className="btn-cta inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 shadow-md"
-                    >
-                      Book your spot (free)
-                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                    </TrackedBookLink>
+                    {cta ? (
+                      <a
+                        href={cta.href}
+                        onClick={() => setActive(null)}
+                        className="btn-cta inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 shadow-md"
+                      >
+                        {cta.label}
+                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <TrackedBookLink
+                        location="about_us_philosophy"
+                        className="btn-cta inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 shadow-md"
+                      >
+                        Book your spot (free)
+                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </TrackedBookLink>
+                    )}
                   </div>
                 </motion.div>
               </div>
