@@ -24,7 +24,6 @@ import { Testimonials } from "./_components/Testimonials";
 import { PhotoStrip } from "./_components/PhotoStrip";
 import { EmailCapture } from "@/components/EmailCapture";
 import { CONTENT_READY as BIN_READY } from "@/lib/best-in-norwich";
-import { ToursTeaser } from "./_components/ToursTeaser";
 
 export default function HomePage() {
   return (
@@ -55,7 +54,6 @@ export default function HomePage() {
         <Testimonials />
         {/* Photo gallery: "Snaps from our tours". Arrows + tap to enlarge. */}
         <PhotoStrip />
-        <ToursTeaser />
         <ThemedRouteSection />
         <BookingSectionV2 />
         <FAQ
