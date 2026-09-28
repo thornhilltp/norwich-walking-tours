@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { PhotoCarousel } from "@/app/tours/_components/PhotoCarousel";
+import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
@@ -183,7 +184,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </div>
 
           {/* Widget slot - the booking iframe drops in here when the
-              tour is bookable. Until then, a compact waiting-list card. */}
+              tour is bookable. Until then, the waiting-list signup itself. */}
           <aside className="w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
             <p
               className="text-[13px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-2"
@@ -199,13 +200,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 ? d.availability.sub
                 : "The waiting list gets first pick of the first dates."}
             </p>
-            <a
-              href="#notify"
-              className="inline-flex w-full items-center justify-center h-12 px-6 rounded-xl bg-brand-accent text-white font-semibold text-[16px] hover:bg-brand-accent/90 transition-colors duration-150"
-              style={lora}
-            >
-              Join the waiting list
-            </a>
+            <HeroWaitlistForm tourInterest={tour.slug} tourName={tour.name} />
           </aside>
         </div>
       </section>

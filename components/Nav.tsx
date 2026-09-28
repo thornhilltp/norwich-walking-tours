@@ -18,7 +18,10 @@ import { trackEvent } from "@/lib/tracking";
 // "Our Tours" dropdown (Tom 2026-09-28). Free Walking Tour only for now;
 // the homepage IS the free tour's page. Add a tour here only once its
 // page is real and indexable.
-const tourLinks = [{ label: "Free Walking Tour", href: "/" }];
+const tourLinks = [
+  { label: "Free Walking Tour", href: "/" },
+  { label: "Ghost Tour", href: "/tours/norwich-ghost-tour" },
+];
 
 const navLinks = [
   { label: "Our Guides", href: "/our-guides" },
