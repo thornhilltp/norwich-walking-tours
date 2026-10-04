@@ -20,7 +20,7 @@ import { trackEvent } from "@/lib/tracking";
 // page is real and indexable.
 const tourLinks = [
   { label: "Free Walking Tour", href: "/" },
-  { label: "Ghost Tour", href: "/tours/norwich-ghost-tour" },
+  { label: "Dark History Tour", href: "/tours/dark-history-of-norwich" },
 ];
 
 const navLinks = [

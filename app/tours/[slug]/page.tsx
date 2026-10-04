@@ -30,8 +30,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const tour = tours.find((t) => t.slug === params.slug);
   if (!tour?.details) return {};
   return {
-    title: `${tour.name} (prototype) | Norwich Free Walking Tours`,
-    description: tour.details.promise,
+    title: `${tour.details.seoTitle ?? tour.name} (prototype) | Norwich Free Walking Tours`,
+    description: tour.details.seoDescription ?? tour.details.promise,
     robots: { index: false, follow: false },
   };
 }
@@ -355,6 +355,32 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           }}
           footerLink={null}
         />
+      )}
+
+      {/* Stop-by-stop route from the guides' script. Named places and
+          people double as the page's search terms. */}
+      {d.route && d.route.length > 0 && (
+        <section className="section-padding bg-white border-y border-brand-accent/10">
+          <div className="brand-container max-w-3xl">
+            <SplitHeading plain="Stop by" script="stop." />
+            <ol className="m-0 p-0 list-none">
+              {d.route.map((r, i) => (
+                <li
+                  key={r.place}
+                  className="flex gap-4 items-baseline py-3.5 border-b border-brand-text/[0.07] last:border-0"
+                >
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-bold flex items-center justify-center translate-y-1">
+                    {i + 1}
+                  </span>
+                  <span style={lora}>
+                    <span className="block text-[16.5px] font-semibold text-brand-text">{r.place}</span>
+                    <span className="block text-[15px] text-brand-text/70">{r.story}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
       )}
 
       {/* Reviews - platform rating chips + the paper-card carousel. */}

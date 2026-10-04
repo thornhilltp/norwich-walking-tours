@@ -8,7 +8,7 @@ import { trackEvent } from "@/lib/tracking";
  * Fixed bottom bar visible on mobile while scrolling.
  * Hidden on /book (user is already booking) and on desktop (nav CTA handles it).
  * On /tours/[slug] pages the action becomes that tour's waiting list —
- * a "book the free tour" bar on the ghost tour's page sells the wrong
+ * a "book the free tour" bar on another tour's page sells the wrong
  * thing. Swaps to the booking widget slot when tours go bookable.
  */
 export function StickyBookCTA() {

@@ -24,6 +24,11 @@ export interface TourDetails {
       h = headline on the photo, teaser = one line, p = the opened
       paragraph (**bold** allowed). */
   highlightCards?: { h: string; teaser: string; p: string; img: string; alt: string; focal?: string }[];
+  /** Stop-by-stop route: place + the story told there (from the guides' script). */
+  route?: { place: string; story: string }[];
+  /** Search title + description overrides (page <title> / meta). */
+  seoTitle?: string;
+  seoDescription?: string;
   /** Who it suits, e.g. "Ages 8+". Shown under the facts bar. */
   suitableFor?: string;
   /** How to spot the guide at the start point. */
@@ -205,96 +210,115 @@ export const tours: Tour[] = [
     },
   },
   {
-    // REAL TOUR IN PROGRESS (Tom 2026-09-28). Confirmed facts only: it is
-    // a ghost tour and it is free to book, pay what it was worth. Every
-    // [square-bracketed] line is a content prompt for the guide, NOT copy.
-    // Do not replace a prompt with anything the guide has not confirmed.
-    slug: "norwich-ghost-tour",
-    name: "Norwich Ghost Tour",
-    byline: "[Guide TBC]",
+    // REAL TOUR (Tom 2026-10-04). Source: "The Dark History of Norwich"
+    // route script written by Holly and Joolz. Confirmed: name, writers,
+    // free to book / pay what it was worth, start (City Hall steps),
+    // finish (Tombland Alley), and the stops with the story told at each.
+    // Everything in [square brackets] is still a prompt for the guides:
+    // do NOT fill it with anything they have not confirmed, and do not add
+    // history beyond the names in their script.
+    slug: "dark-history-of-norwich",
+    name: "The Dark History of Norwich",
+    byline: "Written by Holly and Joolz",
     image: "/images/tour/elm-hill-group.jpg",
     imageAlt: "A tour group on the cobbles of Elm Hill",
     meta: ["[Duration TBC]", "[Group size TBC]", "[Days TBC]"],
-    blurb: "[Guide to write: two sentences on what this walk is.]",
+    blurb:
+      "Riots, murders, martyrs, fire, flood and plague. From the City Hall steps to Tombland Alley.",
     priceLine: "Free to book",
     priceSub: "Pay what it was worth at the end",
     ctaLabel: "See the tour",
-    ctaHref: "/tours/norwich-ghost-tour",
+    ctaHref: "/tours/dark-history-of-norwich",
     tint: "#F5EBDA",
     status: "example",
     details: {
-      heroTitle: ["Norwich", "ghost tour."],
-      hook: "[Guide to name the one story, place or ghost that makes this walk unmissable.]",
-      // VOICE for every line on this page (Tom 2026-09-28): atmospheric and
-      // sensory, led by verbs of movement ("meet", "led", "explore");
-      // name the real meeting place; one line saying what this is NOT
-      // ("not a ghost hunt, not a lecture") and what it IS. Write it
-      // fresh in the guide's words; never reuse another operator's copy.
+      seoTitle: "Dark History Tour of Norwich | Murders, Riots & Plague Walk",
+      seoDescription:
+        "The Dark History of Norwich: a free walking tour of riots, murders, martyrs, fire, flood and plague, from City Hall steps to Tombland Alley. Free to book, pay what it was worth.",
+      heroTitle: ["The dark history", "of Norwich."],
+      promise:
+        "Riots, murders, martyrs, fire, flood and plague. From the City Hall steps to Tombland Alley. Free to book, pay what it was worth.",
+      hook: "[Holly and Joolz to name the one story that makes this walk unmissable.]",
+      // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
+      // movement; name the real meeting place; say what this is NOT and
+      // what it IS. Fresh words from Holly and Joolz, never another
+      // operator's copy.
       highlightCards: [
         {
-          h: "[Highlight 1]",
-          teaser: "[One line, from the guide]",
-          p: "[Guide to write: two or three sentences on this highlight.]",
-          img: "/images/tour/pottergate-walk.jpg",
-          alt: "Walking down Pottergate",
+          h: "Riot and rebellion",
+          teaser: "1272, John Gladman and Robert Kett.",
+          p: "[Holly and Joolz to write: two or three sentences on the riotous city stories told on the City Hall steps.]",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide talking to a tour group outside Norwich Guildhall",
         },
         {
-          h: "[Highlight 2]",
-          teaser: "[One line, from the guide]",
-          p: "[Guide to write: two or three sentences on this highlight.]",
-          img: "/images/tour/walking-ethelbert-gate.jpg",
-          alt: "Walking under St Ethelbert's Gate",
+          h: "Murder and the gallows",
+          teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
+          p: "[Holly and Joolz to write: two or three sentences on the murder stories around the Castle, the Shirehall and the Bridewell.]",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A tour group on the cobbles of Elm Hill",
         },
         {
-          h: "[Highlight 3]",
-          teaser: "[One line, from the guide]",
-          p: "[Guide to write: two or three sentences on this highlight.]",
-          img: "/images/tour/group-fye-bridge.jpg",
-          alt: "The tour group crossing Fye Bridge",
+          h: "Fire, flood and plague",
+          teaser: "Elm Hill to Tombland Alley.",
+          p: "[Holly and Joolz to write: two or three sentences on Elm Hill's fire and flood, the missing body, and the plague girl of Tombland Alley.]",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
         },
       ],
-      suitableFor: "[TBC, e.g. ages 8+]",
-      lookFor: "[TBC, how to spot your guide]",
-      promise:
-        "Free to book. Pay what it was worth at the end. [Guide to write a one-line promise: what happens on this walk.]",
+      suitableFor: "[TBC, e.g. ages 12+]",
+      lookFor: "[TBC, how to spot your guide on the City Hall steps]",
       story: [
-        "[Guide to write, paragraph 1: open with the atmosphere. Where you meet, where you are led, what the evening feels like. Mark the key phrase with **double asterisks**.]",
-        "[Guide to write, paragraph 2: the places and the kinds of stories. Documented history, and say where it is legend or folklore.]",
-        "[Guide to write, paragraph 3: what this is NOT (a ghost hunt? a lecture?) and what it IS, then how the evening ends.]",
+        "[Holly and Joolz to write, paragraph 1: open with the atmosphere. You meet on the City Hall steps; where you are led and what the walk feels like. Mark the key phrase with **double asterisks**.]",
+        "[Paragraph 2: the kinds of stories, from the 1272 riot to the plague girl. Say clearly what is documented and what is legend.]",
+        "[Paragraph 3: what this is NOT and what it IS, then how it ends in Tombland Alley.]",
       ],
       walk: [
         {
-          eyebrow: "What you'll see",
-          headline: "[Headline TBC]",
-          stops: "[Stops TBC]",
-          body: "[Guide to write: the places on the route.]",
+          eyebrow: "Riot and rebellion",
+          headline: "Norwich in revolt.",
+          stops: "City Hall steps \u00b7 the Guildhall",
+          body: "The 1272 riot, John Gladman's insurrection and Robert Kett. Then Martha Sheward, Cecily Ormes and Thomas Bilney at the Guildhall.",
         },
         {
-          eyebrow: "What you'll hear",
-          headline: "[Headline TBC]",
-          stops: "[Themes TBC]",
-          body: "[Guide to write: the kinds of stories told. Documented history only.]",
+          eyebrow: "Murder and the gallows",
+          headline: "The crimes behind the Castle.",
+          stops: "Whiffler Theatre \u00b7 Shirehall \u00b7 Opie Street \u00b7 the Bridewell",
+          body: "Martha Alden, Robert Goodale and Jane Sellers, plus Opie Street, a street of several names.",
         },
         {
-          eyebrow: "What you leave with",
-          headline: "[Headline TBC]",
-          stops: "[TBC]",
-          body: "[Guide to write: what guests take away.]",
+          eyebrow: "Fire, flood and plague",
+          headline: "Elm Hill to Tombland Alley.",
+          stops: "Elm Hill \u00b7 Wrights Court \u00b7 the Cathedral \u00b7 Tombland Alley",
+          body: "Fire and flood on Elm Hill, the missing body, Thomas Erpingham and Thomas Tunstall, Walter Eghe, and finally the plague girl.",
         },
+      ],
+      route: [
+        { place: "City Hall steps", story: "Riotous city stories: 1272, John Gladman's insurrection and Robert Kett" },
+        { place: "Bassingham Gate, the Guildhall", story: "Martha Sheward" },
+        { place: "The bottom of the Guildhall", story: "Cecily Ormes and Thomas Bilney" },
+        { place: "Whiffler Theatre, Castle Meadow", story: "Martha Alden" },
+        { place: "The Shirehall, through the castle ditches", story: "Robert Goodale" },
+        { place: "Opie Street", story: "A street of several names" },
+        { place: "Flint wall by the Museum of Norwich at the Bridewell", story: "Jane Sellers" },
+        { place: "The Strangers Club, Elm Hill", story: "Fire and flood" },
+        { place: "Wrights Court, Elm Hill", story: "The missing body" },
+        { place: "Norwich Cathedral", story: "Thomas Erpingham and Thomas Tunstall" },
+        { place: "Tombland Alley", story: "Walter Eghe, and finally the plague girl" },
       ],
       logistics: [
         { label: "How long", value: "[TBC]" },
-        { label: "Start", value: "[TBC]" },
-        { label: "Finish", value: "[TBC]" },
+        { label: "Start", value: "City Hall steps" },
+        { label: "Finish", value: "Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
-      // Placeholder photos from our daytime shoots, captioned by place only.
-      // Swap for dusk photos of the actual route once it is set.
+      // Photos of places on the route, captioned by place only. Swap for
+      // dusk shots of the actual stops when they exist.
       gallery: [
+        { src: "/images/tour/guide-guildhall.jpg", alt: "A guide talking to a tour group outside Norwich Guildhall", caption: "The Guildhall" },
         { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill" },
-        { src: "/images/tour/pottergate-walk.jpg", alt: "Walking down Pottergate", caption: "Pottergate" },
-        { src: "/images/tour/walking-ethelbert-gate.jpg", alt: "Walking under St Ethelbert's Gate", caption: "St Ethelbert's Gate" },
-        { src: "/images/tour/group-fye-bridge.jpg", alt: "The tour group crossing Fye Bridge", caption: "Fye Bridge" },
+        { src: "/images/tour/group-cathedral-west-front.jpg", alt: "A tour group at the west front of Norwich Cathedral", caption: "Norwich Cathedral" },
+        { src: "/images/tour/tom-tombland.jpg", alt: "A guide with a tour group in Tombland", caption: "Tombland" },
       ],
       faqs: [
         {
@@ -302,8 +326,16 @@ export const tours: Tour[] = [
           a: "Nothing to book. At the end you pay what you think it was worth.",
         },
         {
+          q: "Where does it start and finish?",
+          a: "It starts on the City Hall steps and finishes in Tombland Alley.",
+        },
+        {
+          q: "Is it a ghost tour?",
+          a: "[Holly and Joolz to answer: how much of this is ghost story and how much is documented dark history.]",
+        },
+        {
           q: "[More questions TBC]",
-          a: "[Guide to add: is it scary, is it suitable for children, what if it rains, where does it finish.]",
+          a: "[Holly and Joolz to add: is it suitable for children, how long is it, what if it rains.]",
         },
       ],
     },
