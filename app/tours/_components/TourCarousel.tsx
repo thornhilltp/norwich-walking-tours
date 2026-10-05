@@ -138,12 +138,14 @@ export function TourCarousel({ tours }: { tours: Tour[] }) {
               >
                 {tour.name}
               </h3>
-              <p
-                className="mt-1 text-[15px] text-muted-foreground"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                {tour.byline}
-              </p>
+              {tour.byline && (
+                <p
+                  className="mt-1 text-[15px] text-muted-foreground"
+                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                >
+                  {tour.byline}
+                </p>
+              )}
 
               <div
                 className="relative mt-5 rounded-2xl overflow-hidden aspect-[4/3]"

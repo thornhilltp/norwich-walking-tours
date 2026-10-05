@@ -219,7 +219,8 @@ export const tours: Tour[] = [
     // history beyond the names in their script.
     slug: "dark-history-of-norwich",
     name: "The Dark History of Norwich",
-    byline: "Written by Holly and Joolz",
+    // No byline badge (Tom 2026-10-05).
+    byline: "",
     image: "/images/tour/elm-hill-group.jpg",
     imageAlt: "A tour group on the cobbles of Elm Hill",
     meta: ["[Duration TBC]", "[Group size TBC]", "[Days TBC]"],

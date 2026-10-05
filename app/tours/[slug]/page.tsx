@@ -105,12 +105,14 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
         <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
-            <span
-              className="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-accent text-white text-sm font-semibold"
-              style={lora}
-            >
-              {tour.byline}
-            </span>
+            {tour.byline && (
+              <span
+                className="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-accent text-white text-sm font-semibold"
+                style={lora}
+              >
+                {tour.byline}
+              </span>
+            )}
 
             <h1 className="mt-4 leading-[0.95]" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}>
               <span
