@@ -225,7 +225,7 @@ export const tours: Tour[] = [
     imageAlt: "A tour group on the cobbles of Elm Hill",
     meta: ["[Duration TBC]", "[Group size TBC]", "[Days TBC]"],
     blurb:
-      "Riots, murders, martyrs, fire, flood and plague. From the City Hall steps to Tombland Alley.",
+      "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, from City Hall to Tombland Alley.",
     priceLine: "Free to book",
     priceSub: "Pay what it was worth at the end",
     ctaLabel: "See the tour",
@@ -233,13 +233,13 @@ export const tours: Tour[] = [
     tint: "#F5EBDA",
     status: "example",
     details: {
-      seoTitle: "Dark History Tour of Norwich | Murders, Riots & Plague Walk",
+      seoTitle: "Dark History Tour Norwich | Halloween History Walk: Murder, Riot & Plague",
       seoDescription:
-        "The Dark History of Norwich: a free walking tour of riots, murders, martyrs, fire, flood and plague, from City Hall steps to Tombland Alley. Free to book, pay what it was worth.",
-      heroTitle: ["The dark history", "of Norwich."],
+        "Norwich has a dark side. A free history walk of riot, rebellion, murder, fire, flood and plague, from City Hall steps to Tombland Alley. Not ghost stories, the real thing. Free to book.",
+      heroTitle: ["Norwich has a", "dark side."],
       promise:
-        "Riots, murders, martyrs, fire, flood and plague. From the City Hall steps to Tombland Alley. Free to book, pay what it was worth.",
-      hook: "[Holly and Joolz to name the one story that makes this walk unmissable.]",
+        "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, told where it happened. Free to book, pay what it was worth.",
+      hook: "This Halloween, skip the ghosts. The true history is darker.",
       // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
       // movement; name the real meeting place; say what this is NOT and
       // what it IS. Fresh words from Holly and Joolz, never another
@@ -248,21 +248,21 @@ export const tours: Tour[] = [
         {
           h: "Riot and rebellion",
           teaser: "1272, John Gladman and Robert Kett.",
-          p: "[Holly and Joolz to write: two or three sentences on the riotous city stories told on the City Hall steps.]",
+          p: "It starts on the **City Hall steps**, with the days Norwich turned on itself: the riot of 1272, John Gladman's insurrection and Robert Kett. Then round to the Guildhall for Martha Sheward, Cecily Ormes and Thomas Bilney.",
           img: "/images/tour/guide-guildhall.jpg",
           alt: "A guide talking to a tour group outside Norwich Guildhall",
         },
         {
           h: "Murder and the gallows",
           teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
-          p: "[Holly and Joolz to write: two or three sentences on the murder stories around the Castle, the Shirehall and the Bridewell.]",
+          p: "Up the Davey Place steps to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A tour group on the cobbles of Elm Hill",
         },
         {
           h: "Fire, flood and plague",
           teaser: "Elm Hill to Tombland Alley.",
-          p: "[Holly and Joolz to write: two or three sentences on Elm Hill's fire and flood, the missing body, and the plague girl of Tombland Alley.]",
+          p: "Over the cobbles of **Elm Hill** for fire and flood, and a body that went missing at Wrights Court. Past the Cathedral for Thomas Erpingham and Thomas Tunstall. And last, Tombland Alley: Walter Eghe, and the plague girl.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
@@ -270,9 +270,9 @@ export const tours: Tour[] = [
       suitableFor: "[TBC, e.g. ages 12+]",
       lookFor: "[TBC, how to spot your guide on the City Hall steps]",
       story: [
-        "[Holly and Joolz to write, paragraph 1: open with the atmosphere. You meet on the City Hall steps; where you are led and what the walk feels like. Mark the key phrase with **double asterisks**.]",
-        "[Paragraph 2: the kinds of stories, from the 1272 riot to the plague girl. Say clearly what is documented and what is legend.]",
-        "[Paragraph 3: what this is NOT and what it IS, then how it ends in Tombland Alley.]",
+        "Meet on the **City Hall steps** and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
+        "It isn't a ghost walk and nobody jumps out at you. It's the true dark side of Norwich, told where it happened, and it ends in **Tombland Alley** with the plague girl.",
       ],
       walk: [
         {
@@ -332,7 +332,7 @@ export const tours: Tour[] = [
         },
         {
           q: "Is it a ghost tour?",
-          a: "[Holly and Joolz to answer: how much of this is ghost story and how much is documented dark history.]",
+          a: "No. This is Norwich's real dark history, not ghost stories. The riots, rebels, murders, fire, flood and plague all come from the city's past.",
         },
         {
           q: "[More questions TBC]",
