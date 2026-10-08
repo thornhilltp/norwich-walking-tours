@@ -23,17 +23,34 @@ import { tours } from "@/lib/tours";
 // Someone googling "ghost walks norwich" lands here and never needs
 // the hub. noindex until the tour is real.
 
+// Production shows only live tours; previews also show the examples.
+const IS_PROD = process.env.VERCEL_ENV === "production";
+const isShown = (t: (typeof tours)[number]) =>
+  Boolean(t.details) && (!IS_PROD || t.status === "live");
+
+// A value still waiting on the guides ("[TBC]" etc.) never renders.
+const ready = (v?: string): v is string => Boolean(v) && !v!.includes("[");
+
+const BASE = "https://www.norwichfreewalkingtours.co.uk";
+
 export function generateStaticParams() {
-  return tours.filter((t) => t.details).map((t) => ({ slug: t.slug }));
+  return tours.filter(isShown).map((t) => ({ slug: t.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const tour = tours.find((t) => t.slug === params.slug);
-  if (!tour?.details) return {};
+  if (!tour?.details || !isShown(tour)) return {};
+  const live = tour.status === "live";
+  const title = tour.details.seoTitle ?? tour.name;
+  const description = tour.details.seoDescription ?? tour.details.promise;
+  const url = `${BASE}/tours/${tour.slug}`;
   return {
-    title: `${tour.details.seoTitle ?? tour.name} (prototype) | Norwich Free Walking Tours`,
-    description: tour.details.seoDescription ?? tour.details.promise,
-    robots: { index: false, follow: false },
+    // seoTitle already reads as a full title; the layout template adds nothing.
+    title: { absolute: live ? title : `${title} (prototype)` },
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, images: [{ url: tour.image }] },
+    ...(live ? {} : { robots: { index: false, follow: false } }),
   };
 }
 
@@ -74,12 +91,49 @@ function SplitHeading({ plain, script }: { plain: string; script: string }) {
 
 export default function TourPage({ params }: { params: { slug: string } }) {
   const tour = tours.find((t) => t.slug === params.slug);
-  if (!tour?.details) notFound();
+  if (!tour?.details || !isShown(tour)) notFound();
+  const live = tour.status === "live";
   const d = tour.details;
 
   return (
     <main className="bg-brand-bg">
-      {/* Prototype banner — remove when this tour is real. */}
+      {live && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TouristTrip",
+              name: tour.name,
+              description: d.seoDescription ?? d.promise,
+              url: `${BASE}/tours/${tour.slug}`,
+              touristType: "Walking tour",
+              provider: { "@id": `${BASE}/#localbusiness` },
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "GBP",
+                description: "Free to book. Pay what it was worth at the end.",
+              },
+              ...(d.route
+                ? {
+                    itinerary: {
+                      "@type": "ItemList",
+                      itemListElement: d.route.map((r, i) => ({
+                        "@type": "ListItem",
+                        position: i + 1,
+                        name: r.place,
+                        description: r.story,
+                      })),
+                    },
+                  }
+                : {}),
+            }),
+          }}
+        />
+      )}
+      {/* Prototype banner, example tours only. */}
+      {!live && (
       <div className="fixed bottom-[72px] md:bottom-0 inset-x-0 z-40 bg-brand-text">
         <div className="brand-container py-2.5">
           <p className="text-[12.5px] text-white/80 leading-snug" style={lora}>
@@ -87,6 +141,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </p>
         </div>
       </div>
+      )}
 
       {/* Hero — same grammar as the homepage: image bg, dark overlay,
           badge, split H1, promise, CTA row, trust row. Right column is
@@ -137,7 +192,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               {d.promise}
             </p>
 
-            {d.hook && (
+            {ready(d.hook) && (
               <p
                 className="mt-4 max-w-md mx-auto lg:mx-0 text-[22px] md:text-[26px] font-bold leading-snug"
                 style={{ ...caveat, color: "#5AE19E", textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
@@ -155,11 +210,11 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </a>
               <a
-                href="/tours"
+                href="/"
                 className="italic text-white/85 underline underline-offset-4 decoration-white/30 hover:decoration-white"
                 style={{ ...lora, textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >
-                or see all our tours
+                or see our free walking tour
               </a>
             </div>
 
@@ -188,13 +243,19 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                   <span aria-hidden="true" className="text-white/40">&middot;</span>
                 </>
               )}
-              <span className="inline-flex items-center gap-1">
-                <Clock className="h-4 w-4" aria-hidden="true" /> {tour.meta[0]}
-              </span>
-              <span aria-hidden="true" className="text-white/40">&middot;</span>
-              <span className="inline-flex items-center gap-1">
-                <Users className="h-4 w-4" aria-hidden="true" /> {tour.meta[1]}
-              </span>
+              {ready(tour.meta[0]) && (
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="h-4 w-4" aria-hidden="true" /> {tour.meta[0]}
+                </span>
+              )}
+              {ready(tour.meta[0]) && ready(tour.meta[1]) && (
+                <span aria-hidden="true" className="text-white/40">&middot;</span>
+              )}
+              {ready(tour.meta[1]) && (
+                <span className="inline-flex items-center gap-1">
+                  <Users className="h-4 w-4" aria-hidden="true" /> {tour.meta[1]}
+                </span>
+              )}
             </div>
             <div className="mt-6 flex justify-center lg:justify-start">
               <PartnerLogosInverted size="sm" label="Featured on" />
@@ -253,10 +314,11 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         <div className="brand-container">
           {/* Four facts only (Tom): How long / Start / Finish / Price.
               Each reads as two lines - small label over a bold value. */}
-          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5">
+          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5">
             {d.logistics
               .filter((row) =>
-                ["How long", "Start", "Finish", "Price"].includes(row.label)
+                ["How long", "Start", "Finish", "Price"].includes(row.label) &&
+                ready(row.value)
               )
               .map((row) => (
                 <div key={row.label}>
@@ -275,17 +337,17 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 </div>
               ))}
           </dl>
-          {(d.suitableFor || d.lookFor) && (
+          {(ready(d.suitableFor) || ready(d.lookFor)) && (
             <p
               className="mt-3 px-2 flex flex-wrap gap-x-6 gap-y-1 text-[14px] text-brand-text/70"
               style={lora}
             >
-              {d.suitableFor && (
+              {ready(d.suitableFor) && (
                 <span>
                   <span className="font-semibold text-brand-text">Suitable for:</span> {d.suitableFor}
                 </span>
               )}
-              {d.lookFor && (
+              {ready(d.lookFor) && (
                 <span>
                   <span className="font-semibold text-brand-text">Look for:</span> {d.lookFor}
                 </span>
@@ -364,12 +426,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           id="walk"
           heading={{ plain: "The walk, and", script: "what you get." }}
           groups={d.walk}
-          map={{
-            src: "/images/route-map.png",
-            alt: "Placeholder route map of Norwich city centre. This tour's own route map is being drawn.",
-            caption: "Placeholder map. This tour's route is being finalised.",
-            placeholder: true,
-          }}
+          map={null}
           footerLink={null}
         />
       )}
@@ -470,7 +527,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {/* FAQs - same accordion as the homepage, this tour's questions.
           No FAQPage schema here while the page is a noindex prototype. */}
       <FAQ
-        items={d.faqs}
+        items={d.faqs.filter((f) => ready(f.q) && ready(f.a))}
         emitSchema={false}
         customHeading={
           <h2 className="leading-[1.0]">
@@ -545,12 +602,16 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       </section>
 
       <div id="notify" className="scroll-mt-28">
-        <EmailCapture
-          eyebrow={tour.name}
-          heading="Hear when dates open"
-          body="Leave your email and you get first pick of the dates before they go on the site. Plus the odd local tip. No spam."
-          tourInterest={tour.slug}
-        />
+        {d.bookingTour ? (
+          <EmailCapture tourInterest={tour.slug} />
+        ) : (
+          <EmailCapture
+            eyebrow={tour.name}
+            heading="Hear when dates open"
+            body="Leave your email and you get first pick of the dates before they go on the site. Plus the odd local tip. No spam."
+            tourInterest={tour.slug}
+          />
+        )}
       </div>
 
       <Footer />

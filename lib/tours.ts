@@ -234,7 +234,7 @@ export const tours: Tour[] = [
     ctaLabel: "See the tour",
     ctaHref: "/tours/dark-history-of-norwich",
     tint: "#F5EBDA",
-    status: "example",
+    status: "live",
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween History Walk: Murder, Riot & Plague",
       seoDescription:

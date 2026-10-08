@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default function ToursPage() {
+  // Hub still carries example tours: preview deployments only.
+  if (process.env.VERCEL_ENV === "production") notFound();
   return (
     <main className="bg-brand-bg">
       {/* Prototype banner — remove before this route ever goes public. */}

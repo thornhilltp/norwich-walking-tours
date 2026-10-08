@@ -34,7 +34,8 @@ interface ThemedRouteSectionProps {
   eyebrow?: string;
   heading?: { plain: string; script: string };
   groups?: RouteGroup[];
-  map?: { src: string; alt: string; caption: string; placeholder?: boolean };
+  /** null = no map column (tours without their own route map yet). */
+  map?: { src: string; alt: string; caption: string; placeholder?: boolean } | null;
   /** null hides the see-every-stop link (free-tour specific). */
   footerLink?: { href: string; label: string } | null;
 }
@@ -134,7 +135,7 @@ export function ThemedRouteSection({
               vary by tour. Not safe to state as fact on the homepage. */}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-20 items-start">
+        <div className={`grid grid-cols-1 gap-12 lg:gap-20 items-start ${map ? "lg:grid-cols-[1fr_1.05fr]" : "max-w-3xl mx-auto"}`}>
           {/* Left: 3 thematic groups with wiggly thread + pin markers */}
           <div className="relative">
             {/* Wiggly dashed thread — connects the 3 pin markers vertically */}
@@ -280,6 +281,7 @@ export function ThemedRouteSection({
           </div>
 
           {/* Right: map */}
+          {map && (
           <div className="lg:sticky lg:top-24 bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden">
             <div className="px-4 pt-4 pb-2 flex items-center gap-2">
               <svg viewBox="0 0 24 24" fill="#2DA96B" className="w-4 h-4 flex-shrink-0" aria-hidden="true">
@@ -313,6 +315,7 @@ export function ThemedRouteSection({
               {map.caption}
             </p>
           </div>
+          )}
         </div>
 
         {/* Quiet link to /tour where every stop has photo + paragraph */}
