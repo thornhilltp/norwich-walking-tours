@@ -317,7 +317,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5">
             {d.logistics
               .filter((row) =>
-                ["Time", "How long", "Start", "Finish", "Price"].includes(row.label) &&
+                ["When", "Time", "How long", "Route", "Start", "Finish", "Price"].includes(row.label) &&
                 ready(row.value)
               )
               .map((row) => (
