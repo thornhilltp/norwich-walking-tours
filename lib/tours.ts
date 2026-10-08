@@ -312,9 +312,9 @@ export const tours: Tour[] = [
         { place: "Tombland Alley", story: "Walter Eghe, and finally the plague girl" },
       ],
       logistics: [
-        // From the booking system 2026-10-08: dates at 6pm and 6.30pm,
-        // 90 minutes. Update if the schedule changes.
-        { label: "Time", value: "Evenings from 6pm" },
+        // Tom 2026-10-08: starts 6pm (booking system: every date 18:00,
+        // 90 minutes). Update if the schedule changes.
+        { label: "Time", value: "6pm" },
         { label: "How long", value: "1h 30m" },
         { label: "Start", value: "City Hall steps" },
         { label: "Finish", value: "Tombland Alley" },
