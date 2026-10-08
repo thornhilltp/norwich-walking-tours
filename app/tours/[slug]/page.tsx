@@ -312,12 +312,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           the hero slot is reserved for the booking widget. */}
       <div className="relative z-10 -mt-10 md:-mt-12">
         <div className="brand-container">
-          {/* Four facts only (Tom): How long / Start / Finish / Price.
+          {/* Facts (Tom): Time / How long / Start / Finish / Price.
               Each reads as two lines - small label over a bold value. */}
           <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5">
             {d.logistics
               .filter((row) =>
-                ["How long", "Start", "Finish", "Price"].includes(row.label) &&
+                ["Time", "How long", "Start", "Finish", "Price"].includes(row.label) &&
                 ready(row.value)
               )
               .map((row) => (

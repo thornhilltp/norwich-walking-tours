@@ -226,7 +226,7 @@ export const tours: Tour[] = [
     byline: "",
     image: "/images/tour/elm-hill-group.jpg",
     imageAlt: "A tour group on the cobbles of Elm Hill",
-    meta: ["[Duration TBC]", "[Group size TBC]", "[Days TBC]"],
+    meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
     blurb:
       "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, from City Hall to Tombland Alley.",
     priceLine: "Free to book",
@@ -312,7 +312,10 @@ export const tours: Tour[] = [
         { place: "Tombland Alley", story: "Walter Eghe, and finally the plague girl" },
       ],
       logistics: [
-        { label: "How long", value: "[TBC]" },
+        // From the booking system 2026-10-08: dates at 6pm and 6.30pm,
+        // 90 minutes. Update if the schedule changes.
+        { label: "Time", value: "Evenings from 6pm" },
+        { label: "How long", value: "1h 30m" },
         { label: "Start", value: "City Hall steps" },
         { label: "Finish", value: "Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
