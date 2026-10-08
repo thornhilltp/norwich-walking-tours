@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Check, Clock, Star, Users } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
+import { BookingFrame } from "@/components/BookingFrame";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { EmailCapture } from "@/components/EmailCapture";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
@@ -147,10 +148,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
               <a
-                href="#notify"
+                href={d.bookingTour ? "#book" : "#notify"}
                 className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
               >
-                Notify me when dates open
+                {d.bookingTour ? "Book your spot (free)" : "Notify me when dates open"}
                 <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </a>
               <a
@@ -202,32 +203,46 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
           {/* Widget slot - the booking iframe drops in here when the
               tour is bookable. Until then, the waiting-list signup itself. */}
-          <aside className="w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
-            {tour.priceLine.startsWith("Free") && (
-              <span
-                className="inline-flex items-center gap-1.5 mb-3 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-semibold"
+          {d.bookingTour ? (
+            <div
+              id="book"
+              className="scroll-mt-28 w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl overflow-hidden"
+            >
+              <BookingFrame
+                tour={d.bookingTour}
+                priority
+                height={520}
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              />
+            </div>
+          ) : (
+            <aside id="book" className="scroll-mt-28 w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
+              {tour.priceLine.startsWith("Free") && (
+                <span
+                  className="inline-flex items-center gap-1.5 mb-3 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-[13px] font-semibold"
+                  style={lora}
+                >
+                  <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                  Free to book. Pay what it was worth.
+                </span>
+              )}
+              <p
+                className="text-[13px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-2"
                 style={lora}
               >
-                <Check className="w-3.5 h-3.5" aria-hidden="true" />
-                Free to book. Pay what it was worth.
-              </span>
-            )}
-            <p
-              className="text-[13px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-2"
-              style={lora}
-            >
-              Dates open soon
-            </p>
-            <p className="text-[19px] font-bold text-brand-text mb-1" style={lora}>
-              {d.availability ? d.availability.headline : `${tour.name} is nearly ready.`}
-            </p>
-            <p className="text-[14.5px] text-muted-foreground mb-5" style={lora}>
-              {d.availability
-                ? d.availability.sub
-                : "The waiting list gets first pick of the first dates."}
-            </p>
-            <HeroWaitlistForm tourInterest={tour.slug} tourName={tour.name} />
-          </aside>
+                Dates open soon
+              </p>
+              <p className="text-[19px] font-bold text-brand-text mb-1" style={lora}>
+                {d.availability ? d.availability.headline : `${tour.name} is nearly ready.`}
+              </p>
+              <p className="text-[14.5px] text-muted-foreground mb-5" style={lora}>
+                {d.availability
+                  ? d.availability.sub
+                  : "The waiting list gets first pick of the first dates."}
+              </p>
+              <HeroWaitlistForm tourInterest={tour.slug} tourName={tour.name} />
+            </aside>
+          )}
         </div>
       </section>
 

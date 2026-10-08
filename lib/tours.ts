@@ -42,6 +42,9 @@ export interface TourDetails {
   /** Retired from the page (Tom 2026-08-31); kept optional for old data. */
   runOfShow?: string[];
   logistics: { label: string; value: string }[];
+  /** Booking-app tour slug. When set, the hero slot shows the booking
+      widget for this tour instead of the waiting-list form. */
+  bookingTour?: string;
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
   availability?: { headline: string; sub: string };
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
@@ -237,6 +240,7 @@ export const tours: Tour[] = [
       seoDescription:
         "Norwich has a dark side. A free history walk of riot, rebellion, murder, fire, flood and plague, from City Hall steps to Tombland Alley. Not ghost stories, the real thing. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
+      bookingTour: "the-dark-history-of-norwich",
       promise:
         "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, told where it happened. Free to book, pay what it was worth.",
       hook: "This Halloween, skip the ghosts. The true history is darker.",

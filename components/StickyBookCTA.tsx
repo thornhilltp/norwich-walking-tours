@@ -18,8 +18,8 @@ export function StickyBookCTA() {
   if (pathname === "/book") return null;
 
   const isTourPage = /^\/tours\/.+/.test(pathname ?? "");
-  const href = isTourPage ? "#notify" : "/book";
-  const label = isTourPage ? "Join the waiting list" : "Book your spot (free)";
+  const href = isTourPage ? "#book" : "/book";
+  const label = "Book your spot (free)";
   const location = isTourPage ? "sticky_tour_waitlist" : "sticky_mobile";
 
   return (

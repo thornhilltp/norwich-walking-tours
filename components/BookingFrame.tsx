@@ -22,14 +22,22 @@ const FORWARD_KEYS = [
 ] as const;
 
 // Build the iframe src with UTMs forwarded from this page's URL + referrer.
+// Bare widget URL, optionally pinned to one tour (?tour=<booking-app slug>).
+function seedSrc(tour?: string): string {
+  return tour
+    ? `${WIDGET_ORIGIN}/?tour=${encodeURIComponent(tour)}`
+    : `${WIDGET_ORIGIN}/`;
+}
+
 // The iframe sets referrerPolicy="origin", so inside the booking widget,
 // document.referrer is always this marketing site — useless for attribution.
 // We synthesise utm_source/utm_medium from this page's own document.referrer
 // and pass it through as a URL param so the widget gets real attribution.
-function buildWidgetSrc(): string {
-  if (typeof window === "undefined") return `${WIDGET_ORIGIN}/`;
+function buildWidgetSrc(tour?: string): string {
+  if (typeof window === "undefined") return seedSrc(tour);
 
   const params = new URLSearchParams();
+  if (tour) params.set("tour", tour);
   const urlParams = new URLSearchParams(window.location.search);
 
   for (const key of FORWARD_KEYS) {
@@ -68,9 +76,11 @@ interface BookingFrameProps {
    * they keep loading="lazy" and mount lazily on scroll.
    */
   priority?: boolean;
+  /** Booking-app tour slug, e.g. "the-dark-history-of-norwich". Omit for the free tour. */
+  tour?: string;
 }
 
-export function BookingFrame({ className, height = 700, sandbox, priority = false }: BookingFrameProps) {
+export function BookingFrame({ className, height = 700, sandbox, priority = false, tour }: BookingFrameProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [currentHeight, setCurrentHeight] = useState(height);
   // Priority (above-the-fold) embed: seed with the bare widget URL so the
@@ -83,12 +93,12 @@ export function BookingFrame({ className, height = 700, sandbox, priority = fals
   // Non-priority embed: stay null until the client computes the src (old
   // deferred-mount behaviour). It's lazy anyway, so nothing is lost by waiting.
   const [iframeSrc, setIframeSrc] = useState<string | null>(
-    priority ? `${WIDGET_ORIGIN}/` : null,
+    priority ? seedSrc(tour) : null,
   );
 
   useEffect(() => {
-    setIframeSrc(buildWidgetSrc());
-  }, []);
+    setIframeSrc(buildWidgetSrc(tour));
+  }, [tour]);
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
