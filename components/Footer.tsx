@@ -54,6 +54,7 @@ const socials = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Tour", href: "/tour" },
+  { label: "Dark History of Norwich", href: "/tours/dark-history-of-norwich" },
   { label: "Our Guides", href: "/our-guides" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Book your spot (free)", href: "/book" },

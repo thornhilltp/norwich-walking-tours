@@ -151,6 +151,13 @@ export default function HomePage() {
                 The full tour
               </a>
               {" · "}
+              <a
+                href="/tours/dark-history-of-norwich"
+                className="text-brand-accent hover:underline font-semibold"
+              >
+                The Dark History of Norwich
+              </a>
+              {" · "}
               <a href="/what-is-a-free-tour" className="text-brand-accent hover:underline font-semibold">
                 What is a free tour?
               </a>

@@ -33,6 +33,33 @@ const ready = (v?: string): v is string => Boolean(v) && !v!.includes("[");
 
 const BASE = "https://www.norwichfreewalkingtours.co.uk";
 
+// Rebuild daily so past dates drop out of the Event data.
+export const revalidate = 86400;
+
+// UK offset for a date: BST (+01:00) from the last Sunday of March to the
+// last Sunday of October, otherwise GMT. Good enough for event times.
+function ukOffset(ymd: string): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  const lastSunday = (month: number) => {
+    const end = new Date(Date.UTC(y, month, 0));
+    return end.getUTCDate() - end.getUTCDay();
+  };
+  if (m > 3 && m < 10) return "+01:00";
+  if (m === 3) return d >= lastSunday(3) ? "+01:00" : "+00:00";
+  if (m === 10) return d < lastSunday(10) ? "+01:00" : "+00:00";
+  return "+00:00";
+}
+
+function eventDates(first: string, last: string): string[] {
+  const out: string[] = [];
+  const today = new Date().toISOString().slice(0, 10);
+  for (let t = Date.parse(first + "T12:00:00Z"); t <= Date.parse(last + "T12:00:00Z"); t += 86400000) {
+    const ymd = new Date(t).toISOString().slice(0, 10);
+    if (ymd >= today) out.push(ymd);
+  }
+  return out;
+}
+
 export function generateStaticParams() {
   return tours.filter(isShown).map((t) => ({ slug: t.slug }));
 }
@@ -129,6 +156,57 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                   }
                 : {}),
             }),
+          }}
+        />
+      )}
+      {live && d.schedule && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              eventDates(d.schedule.first, d.schedule.last).map((ymd) => {
+                const s = d.schedule!;
+                const off = ukOffset(ymd);
+                const [hh, mm] = s.time.split(":").map(Number);
+                const endMin = hh * 60 + mm + s.durationMin;
+                const end = `${String(Math.floor(endMin / 60)).padStart(2, "0")}:${String(endMin % 60).padStart(2, "0")}`;
+                return {
+                  "@context": "https://schema.org",
+                  "@type": "Event",
+                  name: tour.name,
+                  description: d.seoDescription ?? d.promise,
+                  startDate: `${ymd}T${s.time}:00${off}`,
+                  endDate: `${ymd}T${end}:00${off}`,
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                  location: {
+                    "@type": "Place",
+                    name: s.place.name,
+                    address: {
+                      "@type": "PostalAddress",
+                      streetAddress: s.place.street,
+                      addressLocality: "Norwich",
+                      postalCode: s.place.postcode,
+                      addressCountry: "GB",
+                    },
+                  },
+                  image: [`${BASE}${tour.image}`],
+                  organizer: {
+                    "@type": "Organization",
+                    name: "Norwich Free Walking Tours",
+                    url: BASE,
+                  },
+                  offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "GBP",
+                    availability: "https://schema.org/InStock",
+                    url: `${BASE}/tours/${tour.slug}`,
+                    validFrom: "2026-10-01",
+                  },
+                };
+              })
+            ),
           }}
         />
       )}

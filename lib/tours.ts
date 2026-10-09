@@ -26,6 +26,15 @@ export interface TourDetails {
   highlightCards?: { h: string; teaser: string; p: string; img: string; alt: string; focal?: string }[];
   /** Stop-by-stop route: place + the story told there (from the guides' script). */
   route?: { place: string; story: string }[];
+  /** Nightly run, mirrored from the booking system. Drives the Event
+      structured data (one Google event per date). Keep in sync. */
+  schedule?: {
+    first: string; // YYYY-MM-DD
+    last: string; // YYYY-MM-DD
+    time: string; // HH:MM, UK local
+    durationMin: number;
+    place: { name: string; street: string; postcode: string };
+  };
   /** Search title + description overrides (page <title> / meta). */
   seoTitle?: string;
   seoDescription?: string;
@@ -238,11 +247,19 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween History Walk: Murder, Riot & Plague",
       seoDescription:
-        "Norwich has a dark side. A free history walk of riot, rebellion, murder, fire, flood and plague, from City Hall steps to Tombland Alley. Not ghost stories, the real thing. Free to book.",
+        "Norwich has a dark side. A free history walk of riot, rebellion, murder, fire, flood and plague, from City Hall steps to Tombland Alley. Every evening at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
+      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      schedule: {
+        first: "2026-10-16",
+        last: "2026-11-06",
+        time: "18:00",
+        durationMin: 90,
+        place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
+      },
       promise:
-        "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, told where it happened. Free to book, pay what it was worth.",
+        "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, told where it happened. Every evening until 6 November. Free to book, pay what it was worth.",
       hook: "This Halloween, skip the ghosts. The true history is darker.",
       // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
       // movement; name the real meeting place; say what this is NOT and
@@ -301,7 +318,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "6pm (1h 30m)" },
+        { label: "When", value: "Every evening, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
