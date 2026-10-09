@@ -298,19 +298,6 @@ export const tours: Tour[] = [
           body: "Fire and flood on Elm Hill, the missing body, Thomas Erpingham and Thomas Tunstall, Walter Eghe, and finally the plague girl.",
         },
       ],
-      route: [
-        { place: "City Hall steps", story: "Riotous city stories: 1272, John Gladman's insurrection and Robert Kett" },
-        { place: "Bassingham Gate, the Guildhall", story: "Martha Sheward" },
-        { place: "The bottom of the Guildhall", story: "Cecily Ormes and Thomas Bilney" },
-        { place: "Whiffler Theatre, Castle Meadow", story: "Martha Alden" },
-        { place: "The Shirehall, through the castle ditches", story: "Robert Goodale" },
-        { place: "Opie Street", story: "A street of several names" },
-        { place: "Flint wall by the Museum of Norwich at the Bridewell", story: "Jane Sellers" },
-        { place: "The Strangers Club, Elm Hill", story: "Fire and flood" },
-        { place: "Wrights Court, Elm Hill", story: "The missing body" },
-        { place: "Norwich Cathedral", story: "Thomas Erpingham and Thomas Tunstall" },
-        { place: "Tombland Alley", story: "Walter Eghe, and finally the plague girl" },
-      ],
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
