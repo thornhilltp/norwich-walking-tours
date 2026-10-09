@@ -245,9 +245,9 @@ export const tours: Tour[] = [
     tint: "#F5EBDA",
     status: "live",
     details: {
-      seoTitle: "Dark History Tour Norwich | Halloween History Walk: Murder, Riot & Plague",
+      seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Norwich has a dark side. A free history walk of riot, rebellion, murder, fire, flood and plague, from City Hall steps to Tombland Alley. Every evening at 6pm until 6 November. Free to book.",
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
@@ -259,8 +259,8 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, told where it happened. Every evening until 6 November. Free to book, pay what it was worth.",
-      hook: "This Halloween, skip the ghosts. The true history is darker.",
+        "Forget ghost stories. Norwich's true history is darker: murder, riot, fire, flood and plague, told as night falls, right where it happened. Every evening at 6pm until 6 November. Free to book, pay what it was worth.",
+      hook: "Skip the ghost walk this Halloween. What really happened is scarier.",
       // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
       // movement; name the real meeting place; say what this is NOT and
       // what it IS. Fresh words from Holly and Joolz, never another
@@ -291,9 +291,9 @@ export const tours: Tour[] = [
       suitableFor: "[TBC, e.g. ages 12+]",
       lookFor: "[TBC, how to spot your guide on the City Hall steps]",
       story: [
-        "Meet on the **City Hall steps** and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
         "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
-        "It isn't a ghost walk and nobody jumps out at you. It's the true dark side of Norwich, told where it happened, and it ends in **Tombland Alley** with the plague girl.",
+        "Came looking for a ghost walk? Nobody in a cape jumps out at you here, because nothing we could invent beats what really happened. The walk ends in **Tombland Alley**, with the plague girl.",
       ],
       walk: [
         {
@@ -332,20 +332,28 @@ export const tours: Tour[] = [
       ],
       faqs: [
         {
+          q: "Is this a ghost walk?",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+        },
+        {
+          q: "Is it scary?",
+          a: "It's dark history, not jump scares. The stories are grim because they're true, but nobody leaps out of a doorway.",
+        },
+        {
           q: "How much does it cost?",
           a: "Nothing to book. At the end you pay what you think it was worth.",
         },
         {
-          q: "Where does it start and finish?",
-          a: "It starts on the City Hall steps and finishes in Tombland Alley.",
+          q: "When and where is it?",
+          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
         },
         {
-          q: "Is it a ghost tour?",
-          a: "No. This is Norwich's real dark history, not ghost stories. The riots, rebels, murders, fire, flood and plague all come from the city's past.",
+          q: "Do I need to book?",
+          a: "Yes, book a free spot so we know how many are coming. You can cancel any time before it starts.",
         },
         {
           q: "[More questions TBC]",
-          a: "[Holly and Joolz to add: is it suitable for children, how long is it, what if it rains.]",
+          a: "[Holly and Joolz to add: is it suitable for children, accessibility, dogs, what if it rains.]",
         },
       ],
     },
