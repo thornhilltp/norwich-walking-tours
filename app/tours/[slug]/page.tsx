@@ -15,6 +15,7 @@ import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
+import { Eater } from "next/font/google";
 
 // PROTOTYPE — per-tour landing page in the homepage's own language:
 // dark image hero with the Lora-to-Caveat split headline, trust row,
@@ -84,6 +85,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 const caveat = { fontFamily: "var(--font-caveat), cursive" } as const;
 
+// Halloween display face for tours that opt in (scriptFont: "eater").
+// Only the green script words in headings; body copy stays Lora.
+const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
+const eaterStyle = { fontFamily: eater.style.fontFamily, fontWeight: 400 } as const;
+
 // **bold** markers -> semibold ink, matching /our-guides renderBold.
 function renderBold(text: string) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
@@ -97,7 +103,15 @@ function renderBold(text: string) {
   );
 }
 
-function SplitHeading({ plain, script }: { plain: string; script: string }) {
+function SplitHeading({
+  plain,
+  script,
+  scriptStyle = caveat,
+}: {
+  plain: string;
+  script: string;
+  scriptStyle?: React.CSSProperties;
+}) {
   return (
     <h2 className="leading-[1.0] mb-7">
       <span
@@ -108,7 +122,7 @@ function SplitHeading({ plain, script }: { plain: string; script: string }) {
       </span>{" "}
       <span
         className="inline text-[clamp(40px,4.8vw,60px)] font-semibold leading-[0.95] text-brand-accent"
-        style={caveat}
+        style={scriptStyle}
       >
         {script}
       </span>
@@ -121,6 +135,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
   if (!tour?.details || !isShown(tour)) notFound();
   const live = tour.status === "live";
   const d = tour.details;
+  const script = d.scriptFont === "eater" ? eaterStyle : caveat;
 
   return (
     <main className="bg-brand-bg">
@@ -257,7 +272,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </span>
               <span
                 className="block text-[clamp(54px,7.2vw,88px)] font-semibold leading-[0.95]"
-                style={{ ...caveat, color: "#5AE19E" }}
+                style={{ ...script, color: "#5AE19E" }}
               >
                 {d.heroTitle[1]}
               </span>
@@ -458,7 +473,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </span>{" "}
               <span
                 className="inline text-[clamp(40px,4.8vw,60px)] font-semibold leading-[0.95] text-brand-accent"
-                style={caveat}
+                style={script}
               >
                 this walk.
               </span>
@@ -479,7 +494,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           <PhotoSwipe photos={d.gallery ?? []} />
 
           <div>
-            <SplitHeading plain="What this" script="walk is." />
+            <SplitHeading plain="What this" script="walk is." scriptStyle={script} />
             {d.highlights && d.highlights.length > 0 && (
               <ul className="m-0 mb-6 p-0 list-none flex flex-col gap-2.5">
                 {d.highlights.map((h) => (
@@ -512,6 +527,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         <ThemedRouteSection
           id="walk"
           heading={{ plain: "The walk, and", script: "what you get." }}
+          scriptStyle={d.scriptFont === "eater" ? eaterStyle : undefined}
           groups={d.walk}
           map={null}
           footerLink={null}
@@ -523,7 +539,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {d.route && d.route.length > 0 && (
         <section className="section-padding bg-white border-y border-brand-accent/10">
           <div className="brand-container max-w-3xl">
-            <SplitHeading plain="Stop by" script="stop." />
+            <SplitHeading plain="Stop by" script="stop." scriptStyle={script} />
             <ol className="m-0 p-0 list-none">
               {d.route.map((r, i) => (
                 <li
@@ -548,7 +564,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {d.reviews && d.reviews.length > 0 && (
         <section className="section-padding bg-brand-bg">
           <div className="brand-container flex flex-col items-center text-center">
-            <SplitHeading plain="What guests" script="say." />
+            <SplitHeading plain="What guests" script="say." scriptStyle={script} />
             <div
               className="-mt-2 mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] text-brand-text/80"
               style={lora}
@@ -602,7 +618,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               />
             </div>
             <div>
-              <SplitHeading plain="Your guide," script={d.guide.name + "."} />
+              <SplitHeading plain="Your guide," script={d.guide.name + "."} scriptStyle={script} />
               <p className="text-[17px] text-brand-text/80 leading-relaxed max-w-[55ch]" style={lora}>
                 &ldquo;{d.guide.blurb}&rdquo;
               </p>
@@ -626,7 +642,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             </span>{" "}
             <span
               className="inline text-[clamp(40px,4.8vw,60px)] font-semibold leading-[0.95] text-brand-accent"
-              style={caveat}
+              style={script}
             >
               every time.
             </span>
@@ -639,7 +655,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           the next tour that is not this one. */}
       <section className="section-padding bg-white border-t border-brand-accent/10">
         <div className="brand-container">
-          <SplitHeading plain="Not your kind of" script="walk?" />
+          <SplitHeading plain="Not your kind of" script="walk?" scriptStyle={script} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
             {[
               tours.find((t) => t.slug === "free-walking-tour"),

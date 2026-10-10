@@ -38,6 +38,8 @@ interface ThemedRouteSectionProps {
   map?: { src: string; alt: string; caption: string; placeholder?: boolean } | null;
   /** null hides the see-every-stop link (free-tour specific). */
   footerLink?: { href: string; label: string } | null;
+  /** Override the font of the green script words (tour pages). */
+  scriptStyle?: React.CSSProperties;
 }
 
 // Restructured per Tom's review — back to the original three
@@ -99,6 +101,7 @@ export function ThemedRouteSection({
     caption: "Map of Norwich City Centre",
   },
   footerLink = { href: "/tour", label: "See every stop, in order, with the full story" },
+  scriptStyle,
 }: ThemedRouteSectionProps = {}) {
   const items = groupsProp ?? groups;
   // Mobile-only: which group is expanded. -1 = all collapsed by default.
@@ -126,7 +129,7 @@ export function ThemedRouteSection({
             </span>{" "}
             <span
               className="inline text-[clamp(48px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent"
-              style={{ fontFamily: "var(--font-caveat), cursive" }}
+              style={scriptStyle ?? { fontFamily: "var(--font-caveat), cursive" }}
             >
               {heading.script}
             </span>

@@ -54,6 +54,8 @@ export interface TourDetails {
   /** Booking-app tour slug. When set, the hero slot shows the booking
       widget for this tour instead of the waiting-list form. */
   bookingTour?: string;
+  /** Display face for the green script words. Default Caveat. */
+  scriptFont?: "eater";
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
   availability?: { headline: string; sub: string };
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
@@ -250,6 +252,7 @@ export const tours: Tour[] = [
         "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
+      scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
       // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
       schedule: {
         first: "2026-10-16",
