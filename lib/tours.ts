@@ -238,8 +238,8 @@ export const tours: Tour[] = [
     // history beyond the names in their script.
     slug: "dark-history-of-norwich",
     name: "The Dark History of Norwich",
-    // No byline badge (Tom 2026-10-05).
-    byline: "",
+    // Hero badge = run dates (Tom 2026-10-10). No "written by" line.
+    byline: "Every evening, 16 Oct to 6 Nov",
     image: "/images/tour/elm-hill-group.jpg",
     imageAlt: "A tour group on the cobbles of Elm Hill",
     meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
@@ -359,7 +359,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 16 Oct to 6 Nov, 6pm (1h 30m)" },
+        { label: "When", value: "Every evening, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
