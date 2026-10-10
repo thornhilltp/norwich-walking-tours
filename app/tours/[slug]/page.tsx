@@ -275,7 +275,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 style={lora}
               >
                 {d.heroTitle[0]}
-              </span>
+              </span>{" "}
               <span
                 className="block text-[clamp(54px,7.2vw,88px)] font-semibold leading-[0.95]"
                 style={{ ...script, color: "#5AE19E" }}
