@@ -53,15 +53,30 @@ export function MoonDivider() {
   );
 }
 
-/** Lantern glow, paper grain and one huge faint word behind a black section. */
-export function Lantern({ word, fontFamily }: { word: string; fontFamily?: string }) {
+/** Lantern glow and paper grain behind a black section. */
+export function Lantern() {
   return (
     <>
       <div className={s.lantern} aria-hidden="true" />
       <div className={s.grain} aria-hidden="true" />
-      <div className={s.watermark} style={{ fontFamily }} aria-hidden="true">
-        {word}
-      </div>
+    </>
+  );
+}
+
+/** Small brass lantern above a story title: sways, flickers, warm glow
+    over the words (Tom 2026-10-11, lantern option 1). */
+export function StoryLantern() {
+  return (
+    <>
+      <div className={s.storyGlow} aria-hidden="true" />
+      <svg className={s.storyLantern} viewBox="0 0 46 72" aria-hidden="true">
+        <path className={s.lFrame} d="M23 0v8M17 8h12" />
+        <path className={s.lCap} d="M12 18 L23 9 L34 18Z" />
+        <rect className={s.lGlass} x="12" y="18" width="22" height="34" rx="3" />
+        <path className={s.lFrame} d="M12 18v34M34 18v34M23 18v34" />
+        <path className={s.lFlame} d="M23 30c4 5 5 9 5 11a5 5 0 0 1-10 0c0-3 2-6 5-11z" />
+        <rect className={s.lCap} x="9" y="52" width="28" height="6" rx="2" />
+      </svg>
     </>
   );
 }

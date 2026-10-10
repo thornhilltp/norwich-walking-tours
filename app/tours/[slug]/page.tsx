@@ -14,7 +14,7 @@ import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
-import { NightSkyline, Fog, MoonDivider, Lantern, TornEdge } from "@/app/tours/_components/Spooky";
+import { NightSkyline, Fog, MoonDivider, Lantern, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
@@ -549,7 +549,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className={`relative overflow-hidden py-20 md:py-28 ${storiesDark ? "" : "bg-brand-bg"}`}
                 style={storiesDark ? { backgroundColor: BLACK } : undefined}
               >
-                {d.murderBoard && storiesDark && <Lantern word="MURDER" fontFamily={script.fontFamily} />}
+                {d.murderBoard && storiesDark && <Lantern />}
                 <div className="relative brand-container">
                   <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
                     <span
@@ -605,14 +605,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                           >
                             <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 480px" />
                           </div>
-                          <div>
+                          <div className="relative">
+                            {d.murderBoard && storiesDark && <StoryLantern />}
                             <h3
-                              className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
+                              className="relative text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
                               style={{ ...script, ...accent(storiesDark) }}
                             >
                               {st.title}
                             </h3>
-                            <p className={`text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
+                            <p className={`relative text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
                               {st.text}
                             </p>
                           </div>
