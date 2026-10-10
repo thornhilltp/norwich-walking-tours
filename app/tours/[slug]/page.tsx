@@ -250,7 +250,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           className="object-cover -z-10"
           style={{ objectPosition: "center 40%" }}
         />
-        <div className="absolute inset-0 bg-black/75" />
+        <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
@@ -279,7 +279,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             </h1>
 
             <p
-              className="mt-5 max-w-md mx-auto lg:mx-0 text-lg md:text-xl text-white/90 leading-snug"
+              className="mt-5 max-w-md mx-auto lg:mx-0 text-lg md:text-xl text-white leading-snug"
               style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
             >
               {d.promise}
@@ -304,7 +304,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </a>
               <a
                 href="/"
-                className="italic text-white/85 underline underline-offset-4 decoration-white/30 hover:decoration-white"
+                className="italic text-white underline underline-offset-4 decoration-white/30 hover:decoration-white"
                 style={{ ...lora, textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >
                 or see our free walking tour
@@ -312,7 +312,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             </div>
 
             <div
-              className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm text-white/85"
+              className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm text-white"
               style={lora}
             >
               {googleReviewStats.count > 0 && (
@@ -331,7 +331,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                   >
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
                     <span className="font-semibold">{googleReviewStats.rating.toFixed(1)}</span>
-                    <span className="text-white/90">({googleReviewStats.count} reviews)</span>
+                    <span className="text-white">({googleReviewStats.count} reviews)</span>
                   </a>
                   <span aria-hidden="true" className="text-white/40">&middot;</span>
                 </>
@@ -353,7 +353,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             {/* Same price note as the homepage hero, free tours only. */}
             {tour.priceLine.startsWith("Free") && (
               <p
-                className="mt-2 text-xs text-white/85 leading-relaxed text-center lg:text-left"
+                className="mt-2 text-xs text-white leading-relaxed text-center lg:text-left"
                 style={lora}
               >
                 £0 to book &bull; Cash or Card at the end, usually £10 to £20
@@ -524,7 +524,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 480px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" aria-hidden="true" />
                   </div>
                   <div>
                     <h3
