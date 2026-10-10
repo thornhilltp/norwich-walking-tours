@@ -261,22 +261,10 @@ export const tours: Tour[] = [
       // words around them, no added history. Allude, don't give it away.
       darkStories: [
         {
-          title: "The city turns on itself",
-          text: "1272. John Gladman. Robert Kett. The days Norwich rose up, and what it cost the people who did.",
-          img: "/images/tour/guide-guildhall.jpg",
-          alt: "A guide with a group outside Norwich Guildhall",
-        },
-        {
           title: "Names Norwich would rather forget",
           text: "Martha Sheward. Martha Alden. Robert Goodale. Jane Sellers. Each one stands where something terrible happened. You'll hear why on the night.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A tour group on the cobbles of Elm Hill",
-        },
-        {
-          title: "Devil's Alley",
-          text: "Gropekunte Lane. Turpis Vicus. Devil's Alley. One Norwich street, and every name worse than the last.",
-          img: "/images/tour/pottergate-walk.jpg",
-          alt: "Walking down a Norwich lane",
         },
         {
           title: "The missing body",

@@ -489,24 +489,24 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       )}
 
       {d.darkStories && d.darkStories.length > 0 && (
-        <section className="py-20 md:py-28" style={{ backgroundColor: "#141413" }}>
+        <section className="py-20 md:py-28 bg-brand-bg">
           <div className="brand-container">
             <h2 className="text-center leading-[1.0] mb-4">
               <span
-                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
+                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
                 style={lora}
               >
                 What happened
               </span>{" "}
               <span
-                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95]"
-                style={{ ...script, color: "#5AE19E" }}
+                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                style={script}
               >
                 here.
               </span>
             </h2>
-            <p className="text-center text-white/60 text-[16px] mb-14 md:mb-16" style={lora}>
-              Five stops. Five stories. All of them true.
+            <p className="text-center text-brand-text/60 text-[16px] mb-14 md:mb-16" style={lora}>
+              Three stops. Three stories. All of them true.
             </p>
             <ol className="m-0 p-0 list-none flex flex-col gap-10 md:gap-14 max-w-5xl mx-auto">
               {d.darkStories.map((st, i) => (
@@ -516,24 +516,24 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
                   }`}
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_14px_30px_-16px_rgba(26,26,26,0.55)]">
                     <Image
                       src={st.img}
                       alt={st.alt}
                       fill
-                      className="object-cover grayscale contrast-125"
+                      className="object-cover"
                       sizes="(max-width: 768px) 100vw, 480px"
                     />
-                    <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" aria-hidden="true" />
                   </div>
                   <div>
                     <h3
-                      className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4"
-                      style={{ ...script, color: "#5AE19E" }}
+                      className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
+                      style={script}
                     >
                       {st.title}
                     </h3>
-                    <p className="text-[18px] md:text-[19px] text-white/85 leading-relaxed m-0" style={lora}>
+                    <p className="text-[18px] md:text-[19px] text-brand-text/80 leading-relaxed m-0" style={lora}>
                       {st.text}
                     </p>
                   </div>
