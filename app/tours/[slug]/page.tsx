@@ -377,7 +377,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 >
                   Tip cash or card
                 </a>{" "}
-                at the end, usually £10 to £20
+                at the end, usually £10 to £20 per person
               </p>
             )}
           </div>
