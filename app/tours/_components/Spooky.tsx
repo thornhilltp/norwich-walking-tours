@@ -52,3 +52,33 @@ export function MoonDivider() {
     </div>
   );
 }
+
+/** Lantern glow, paper grain and one huge faint word behind a black section. */
+export function Lantern({ word, fontFamily }: { word: string; fontFamily?: string }) {
+  return (
+    <>
+      <div className={s.lantern} aria-hidden="true" />
+      <div className={s.grain} aria-hidden="true" />
+      <div className={s.watermark} style={{ fontFamily }} aria-hidden="true">
+        {word}
+      </div>
+    </>
+  );
+}
+
+/** Ragged edge, filled with the neighbouring section's colour. */
+export function TornEdge({ fill, at }: { fill: string; at: "top" | "bottom" }) {
+  return (
+    <svg
+      className={`${s.torn} ${at === "top" ? s.tornTop : s.tornBottom}`}
+      viewBox="0 0 1200 28"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        fill={fill}
+        d="M0 0H1200V10L1150 22 1090 8 1020 20 950 6 880 24 800 10 720 22 640 6 560 20 480 8 400 24 320 10 240 22 160 6 80 20 0 8Z"
+      />
+    </svg>
+  );
+}

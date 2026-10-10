@@ -275,6 +275,7 @@ export const tours: Tour[] = [
         "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
+      darkVariant: "b",
       scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
       // Teasers built ONLY from Holly and Joolz's route script (Tom
       // 2026-10-10): names and topics as the script gives them, mood
@@ -304,9 +305,34 @@ export const tours: Tour[] = [
       // "As night falls" beats: route + time-of-day facts only (Tom
       // 2026-10-10: route from the guides' script; don't reveal the
       // plague girl as the finale).
+      murderBoard: true,
+      framedBand: true,
       storytellers: [
-        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
-        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+        {
+          name: "Holly",
+          img: "/images/tour/holly-portrait.jpg",
+          focal: "50% 15%",
+          blurb: "Tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
+          reviews: [
+            { quote: "Holly was an absolutely brilliant guide, **one of the very best, perhaps the best**, on our numerous city walking tours around Europe.", author: "Andrew Wright" },
+            { quote: "She kept our group totally engaged with **interesting, funny and warm-hearted stories**.", author: "OwlQueen, TripAdvisor" },
+            { quote: "Holly's tour is **fabulous**. Very fun and loads of info.", author: "Caroline" },
+            { quote: "Great couple of hours with Holly showing us parts of Norwich in an **entertaining manner**. Clearly loves Norwich and a history buff.", author: "TripAdvisor review, Sept 2026" },
+          ],
+        },
+        {
+          name: "Joolz",
+          img: "/images/guides/joolz.png",
+          focal: "50% 25%",
+          blurb: "Norfolk born and proud. Paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
+          reviews: [
+            { quote: "Joolz really **brought it to life**. She was the best thing about our trip.", author: "Andy, from Wales" },
+            { quote: "Joolz is an **absolutely superb tour guide**. Can't recommend her enough.", author: "Caroline, from Basingstoke" },
+            { quote: "Joolz brings **a passion and magic to her storytelling** which enhances her considerable knowledge and brings the history to life.", author: "Sandhauer, TripAdvisor" },
+            { quote: "Joolz was a great tour guide, with **lots of fun, stories and great explanations**.", author: "Celia L, TripAdvisor" },
+            { quote: "Joolz was excellent. **Made everyone feel welcome** and a group together.", author: "Janette M, TripAdvisor" },
+          ],
+        },
       ],
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },

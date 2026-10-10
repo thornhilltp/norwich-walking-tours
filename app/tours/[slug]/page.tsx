@@ -14,7 +14,7 @@ import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
-import { NightSkyline, Fog, MoonDivider } from "@/app/tours/_components/Spooky";
+import { NightSkyline, Fog, MoonDivider, Lantern, TornEdge } from "@/app/tours/_components/Spooky";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
@@ -535,6 +535,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         const dareDark = v === "a" || v === "c" || Boolean(d.murderBoard);
         const guidesDark = v === "a" || v === "c" || Boolean(d.murderBoard);
         const BLACK = "#121211";
+        // Tom 2026-10-11: "Dare you walk it" goes blood red with torn edges.
+        const BLOOD = "#2A0C0C";
+        const RED = "#FF8F8F";
+        const blood = Boolean(d.murderBoard) && dareDark;
         const ink = (dark: boolean) => (dark ? "text-white" : "text-brand-text");
         const body = (dark: boolean) => (dark ? "text-white" : "text-brand-text/80");
         const accent = (dark: boolean) => (dark ? { color: "#5AE19E" } : undefined);
@@ -545,7 +549,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className={`relative overflow-hidden py-20 md:py-28 ${storiesDark ? "" : "bg-brand-bg"}`}
                 style={storiesDark ? { backgroundColor: BLACK } : undefined}
               >
-                {d.murderBoard && storiesDark && <Fog />}
+                {d.murderBoard && storiesDark && <Lantern word="MURDER" fontFamily={script.fontFamily} />}
                 <div className="relative brand-container">
                   <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
                     <span
@@ -620,13 +624,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </section>
             )}
 
-            {d.murderBoard && <MoonDivider />}
+            {d.murderBoard && !blood && <MoonDivider />}
             {d.nightBeats && d.nightBeats.length > 0 && (
               <section
-                className={`py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
-                style={dareDark ? { backgroundColor: BLACK } : undefined}
+                className={`relative py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
+                style={dareDark ? { backgroundColor: blood ? BLOOD : BLACK } : undefined}
               >
-                <div className="brand-container max-w-5xl">
+                {blood && <TornEdge fill={BLACK} at="top" />}
+                {blood && <TornEdge fill={BLACK} at="bottom" />}
+                <div className="relative z-[2] brand-container max-w-5xl">
                   <h2 className="text-center leading-[1.0] mb-12 md:mb-14">
                     <span
                       className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(dareDark)}`}
@@ -636,17 +642,21 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     </span>{" "}
                     <span
                       className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
-                      style={{ ...script, ...accent(dareDark) }}
+                      style={{ ...script, ...(blood ? { color: RED } : accent(dareDark)) }}
                     >
                       walk it?
                     </span>
                   </h2>
                   <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                     {d.nightBeats.map((b) => (
-                      <li key={b.title} className="border-t-2 border-brand-accent pt-5">
+                      <li
+                        key={b.title}
+                        className="border-t-2 border-brand-accent pt-5"
+                        style={blood ? { borderColor: RED } : undefined}
+                      >
                         <p
                           className="text-[13px] uppercase tracking-[0.18em] font-semibold text-brand-accent mb-2"
-                          style={{ ...lora, ...accent(dareDark) }}
+                          style={{ ...lora, ...(blood ? { color: RED } : accent(dareDark)) }}
                         >
                           {b.when}
                         </p>
@@ -680,7 +690,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </section>
             )}
 
-            {d.murderBoard && <MoonDivider />}
+            {d.murderBoard && !blood && <MoonDivider />}
             {d.storytellers && d.storytellers.length > 0 && (
               <section
                 className={`relative overflow-hidden py-20 md:py-24 ${guidesDark ? "" : "bg-brand-bg"}`}
@@ -901,6 +911,16 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         items={d.faqs.filter((f) => ready(f.q) && ready(f.a))}
         emitSchema={false}
         customHeading={
+          d.murderBoard ? (
+            <h2 className="leading-[1.0]">
+              <span
+                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                style={{ ...script, color: "#5AE19E" }}
+              >
+                Questions?
+              </span>
+            </h2>
+          ) : (
           <h2 className="leading-[1.0]">
             <span
               className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${d.murderBoard ? "text-white" : "text-brand-text"}`}
@@ -915,6 +935,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               every time.
             </span>
           </h2>
+          )
         }
       />
 
