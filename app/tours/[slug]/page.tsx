@@ -335,6 +335,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 </span>
               )}
             </div>
+            {/* Same price note as the homepage hero, free tours only. */}
+            {tour.priceLine.startsWith("Free") && (
+              <p
+                className="mt-2 text-xs text-white/85 leading-relaxed text-center lg:text-left"
+                style={lora}
+              >
+                £0 to book &bull; Cash or Card at the end, usually £10 to £20
+              </p>
+            )}
             <div className="mt-6 flex justify-center lg:justify-start">
               <PartnerLogosInverted size="sm" label="Featured on" />
             </div>
