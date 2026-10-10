@@ -74,8 +74,9 @@
 
 /* Gothic frame for the facts band */
 .band {
-  position: relative; background: #121211; border: 3px solid #5ae19e;
-  outline: 1px solid rgba(90, 225, 158, 0.35); outline-offset: 6px;
+  position: relative; background: #121211; border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 14px 40px -14px rgba(0, 0, 0, 0.8);
 }
 .corner { position: absolute; width: 26px; height: 26px; border: 3px solid #5ae19e; }
 .tl { top: -12px; left: -12px; border-right: none; border-bottom: none; }

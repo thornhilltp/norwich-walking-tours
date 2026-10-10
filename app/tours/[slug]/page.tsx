@@ -430,7 +430,14 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {/* Logistics bar - bridges the hero and the story, overlapping
           the hero's bottom edge. The at-a-glance answers live here now
           the hero slot is reserved for the booking widget. */}
-      <div className="relative z-10 -mt-10 md:-mt-12">
+      <div
+        className="relative z-10 -mt-10 md:-mt-12"
+        style={
+          d.framedBand
+            ? { background: "linear-gradient(to bottom, transparent 0, transparent 3rem, #121211 3rem)" }
+            : undefined
+        }
+      >
         <div className="brand-container">
           {/* Facts (Tom): Time / How long / Start / Finish / Price.
               Each reads as two lines - small label over a bold value. */}
@@ -441,8 +448,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 : "bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05]"
             } px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5`}
           >
-            {d.framedBand &&
-              bandFrame.corners.map((c) => <span key={c} className={c} aria-hidden="true" />)}
+
             {d.logistics
               .filter((row) =>
                 ["When", "Time", "How long", "Route", "Start", "Finish", "Price"].includes(row.label) &&

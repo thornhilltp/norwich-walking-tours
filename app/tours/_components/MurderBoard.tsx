@@ -5,6 +5,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import s from "./murder-board.module.css";
+import { NoteCarousel } from "./NoteCarousel";
 
 export interface BoardGuide {
   name: string;
@@ -14,15 +15,6 @@ export interface BoardGuide {
   reviews?: { quote: string; author: string }[];
 }
 
-function renderQuote(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i}>{part.slice(2, -2)}</strong>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  );
-}
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" } as const;
 
@@ -65,21 +57,7 @@ export function MurderBoard({
             </p>
           )}
           {g.reviews && g.reviews.length > 0 && (
-            <div className={s.notes}>
-              {g.reviews.map((r, j) => (
-                <figure
-                  key={r.author}
-                  className={s.note}
-                  style={{ transform: `rotate(${j % 2 ? 1.2 : -1.6}deg)` }}
-                >
-                  <span className={s.pin} aria-hidden="true" />
-                  <blockquote className={s.quote} style={lora}>
-                    &ldquo;{renderQuote(r.quote)}&rdquo;
-                  </blockquote>
-                  <figcaption className={s.sig}>{r.author}</figcaption>
-                </figure>
-              ))}
-            </div>
+            <NoteCarousel name={g.name} reviews={g.reviews} />
           )}
         </li>
       ))}
