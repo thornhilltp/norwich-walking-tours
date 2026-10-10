@@ -259,7 +259,7 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget ghost stories. Norwich's true history is darker: murder, riot, fire, flood and plague, told as night falls, right where it happened. Every evening at 6pm until 6 November. Free to book, pay what it was worth.",
+        "Forget ghost stories. Norwich's true history is darker: murder, riot, fire, flood and plague, told as night falls, right where it happened.",
       hook: "Skip the ghost walk this Halloween. What really happened is scarier.",
       // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
       // movement; name the real meeting place; say what this is NOT and
