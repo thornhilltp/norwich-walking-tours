@@ -16,6 +16,8 @@ export interface TourDetails {
   heroTitle: [string, string];
   /** One-line answer to the search query that lands here. */
   promise: string;
+  /** Smaller line under the promise (hero subheading). */
+  promiseSub?: string;
   /** The one named story/place that makes this walk unmissable. */
   hook?: string;
   /** 3-4 scannable bullets shown above the story. */
@@ -239,7 +241,7 @@ export const tours: Tour[] = [
     slug: "dark-history-of-norwich",
     name: "The Dark History of Norwich",
     // Hero badge = run dates (Tom 2026-10-10). No "written by" line.
-    byline: "Every evening, 16 Oct to 6 Nov",
+    byline: "Exclusive: 16 October to 6 November",
     image: "/images/tour/elm-hill-group.jpg",
     imageAlt: "A tour group on the cobbles of Elm Hill",
     meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
@@ -300,7 +302,9 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier. Murder, death, fire, flood and plague, told as night falls, right where it happened.",
+        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+      promiseSub:
+        "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
       // Hook removed (Tom 2026-10-10).
       // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
       // movement; name the real meeting place; say what this is NOT and

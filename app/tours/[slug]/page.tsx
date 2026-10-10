@@ -284,6 +284,14 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             >
               {d.promise}
             </p>
+            {d.promiseSub && (
+              <p
+                className="mt-3 max-w-md mx-auto lg:mx-0 text-[15px] md:text-base italic text-white leading-snug"
+                style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
+              >
+                {d.promiseSub}
+              </p>
+            )}
 
             {ready(d.hook) && (
               <p
@@ -356,27 +364,36 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className="mt-2 text-xs text-white leading-relaxed text-center lg:text-left"
                 style={lora}
               >
-                £0 to book &bull; Cash or Card at the end, usually £10 to £20
+                £0 to book &bull;{" "}
+                <a
+                  href="/what-is-a-free-tour"
+                  className="underline underline-offset-2 decoration-white/50 hover:decoration-white"
+                >
+                  Tip cash or card
+                </a>{" "}
+                at the end, usually £10 to £20
               </p>
             )}
-            <div className="mt-6 flex justify-center lg:justify-start">
-              <PartnerLogosInverted size="sm" label="Featured on" />
-            </div>
           </div>
 
           {/* Widget slot - the booking iframe drops in here when the
               tour is bookable. Until then, the waiting-list signup itself. */}
           {d.bookingTour ? (
-            <div
-              id="book"
-              className="scroll-mt-28 w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl overflow-hidden"
-            >
-              <BookingFrame
-                tour={d.bookingTour}
-                priority
-                height={520}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-              />
+            <div className="w-full max-w-md mx-auto lg:mx-0">
+              <div
+                id="book"
+                className="scroll-mt-28 bg-white rounded-2xl shadow-xl overflow-hidden"
+              >
+                <BookingFrame
+                  tour={d.bookingTour}
+                  priority
+                  height={520}
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                />
+              </div>
+              <div className="mt-6 flex justify-center">
+                <PartnerLogosInverted size="sm" label="Featured on" />
+              </div>
             </div>
           ) : (
             <aside id="book" className="scroll-mt-28 w-full max-w-md mx-auto lg:mx-0 bg-white rounded-2xl shadow-xl p-6 text-center">
@@ -491,7 +508,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {d.darkStories && d.darkStories.length > 0 && (
         <section className="py-20 md:py-28 bg-brand-bg">
           <div className="brand-container">
-            <h2 className="text-center leading-[1.0] mb-4">
+            <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
               <span
                 className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
                 style={lora}
@@ -505,9 +522,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 secrets.
               </span>
             </h2>
-            <p className="text-center text-brand-text/60 text-[16px] mb-14 md:mb-16" style={lora}>
-              Three stops. Three stories. All of them true.
-            </p>
             <ol className="m-0 p-0 list-none flex flex-col gap-10 md:gap-14 max-w-5xl mx-auto">
               {d.darkStories.map((st, i) => (
                 <li
@@ -585,8 +599,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className="inline-flex flex-wrap justify-center gap-x-3 px-5 py-2 rounded-full bg-brand-text text-white text-[15px] font-semibold"
                 style={lora}
               >
-                <span>Halloween night: Sat 31 Oct</span>
-                <span aria-hidden="true" className="text-white/50">&middot;</span>
                 <span>Every evening, 16 Oct to 6 Nov</span>
               </p>
               <a
