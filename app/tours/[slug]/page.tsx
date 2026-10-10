@@ -496,13 +496,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
                 style={lora}
               >
-                What happened
+                Norwich&apos;s darkest
               </span>{" "}
               <span
                 className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
                 style={script}
               >
-                here.
+                secrets.
               </span>
             </h2>
             <p className="text-center text-brand-text/60 text-[16px] mb-14 md:mb-16" style={lora}>
