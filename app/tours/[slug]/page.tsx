@@ -13,6 +13,7 @@ import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
 import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
+import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
@@ -433,7 +434,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         <div className="brand-container">
           {/* Facts (Tom): Time / How long / Start / Finish / Price.
               Each reads as two lines - small label over a bold value. */}
-          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5">
+          <dl
+            className={`${
+              d.framedBand
+                ? bandFrame.band
+                : "bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05]"
+            } px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5`}
+          >
+            {d.framedBand &&
+              bandFrame.corners.map((c) => <span key={c} className={c} aria-hidden="true" />)}
             {d.logistics
               .filter((row) =>
                 ["When", "Time", "How long", "Route", "Start", "Finish", "Price"].includes(row.label) &&
@@ -443,12 +452,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 <div key={row.label}>
                   <dt
                     className="text-[11px] uppercase tracking-[0.16em] font-semibold text-brand-accent mb-1"
-                    style={lora}
+                    style={d.framedBand ? { ...lora, color: "#5AE19E" } : lora}
                   >
                     {row.label}
                   </dt>
                   <dd
-                    className="text-[17px] md:text-[18px] font-bold text-brand-text m-0 leading-snug"
+                    className={`text-[17px] md:text-[18px] font-bold m-0 leading-snug ${d.framedBand ? "text-white" : "text-brand-text"}`}
                     style={lora}
                   >
                     {row.value}
@@ -513,7 +522,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         const storiesDark = v === "b";
         const cardsDark = v === "c";
         const dareDark = v === "a" || v === "c";
-        const guidesDark = v === "a" || v === "c";
+        const guidesDark = v === "a" || v === "c" || Boolean(d.murderBoard);
         const BLACK = "#121211";
         const ink = (dark: boolean) => (dark ? "text-white" : "text-brand-text");
         const body = (dark: boolean) => (dark ? "text-white" : "text-brand-text/80");
@@ -678,9 +687,16 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       storytellers.
                     </span>
                   </h2>
-                  <p className={`text-[17px] leading-relaxed max-w-xl mx-auto mb-12 ${body(guidesDark)}`} style={lora}>
-                    {d.storytellersLine}
-                  </p>
+                  {d.storytellersLine ? (
+                    <p className={`text-[17px] leading-relaxed max-w-xl mx-auto mb-12 ${body(guidesDark)}`} style={lora}>
+                      {d.storytellersLine}
+                    </p>
+                  ) : (
+                    <div className="mb-12" />
+                  )}
+                  {d.murderBoard ? (
+                    <MurderBoard guides={d.storytellers} scriptStyle={script} />
+                  ) : (
                   <ul className="m-0 p-0 list-none flex flex-wrap justify-center gap-10">
                     {d.storytellers.map((g) => (
                       <li key={g.name} className="flex flex-col items-center">
@@ -704,6 +720,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       </li>
                     ))}
                   </ul>
+                  )}
                   <a
                     href="/our-guides"
                     className={`inline-block mt-10 italic underline underline-offset-4 ${

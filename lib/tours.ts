@@ -62,7 +62,16 @@ export interface TourDetails {
   /** Where black sections appear (prototype variants). */
   darkVariant?: "a" | "b" | "c";
   /** Guides who wrote/lead the tour, shown after the Dare section. */
-  storytellers?: { name: string; img: string; focal?: string }[];
+  storytellers?: {
+    name: string;
+    img: string;
+    focal?: string;
+    blurb?: string;
+    reviews?: { quote: string; author: string }[];
+  }[];
+  /** Prototype styling switches (preview variants). */
+  murderBoard?: boolean;
+  framedBand?: boolean;
   storytellersLine?: string;
   /** "As night falls" timeline beats. */
   nightBeats?: { when: string; title: string; text: string }[];
@@ -297,8 +306,6 @@ export const tours: Tour[] = [
         { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
         { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
       ],
-      storytellersLine:
-        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
@@ -477,8 +484,6 @@ export const tours: Tour[] = [
         { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
         { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
       ],
-      storytellersLine:
-        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
@@ -653,12 +658,30 @@ export const tours: Tour[] = [
       // "As night falls" beats: route + time-of-day facts only (Tom
       // 2026-10-10: route from the guides' script; don't reveal the
       // plague girl as the finale).
+      murderBoard: true,
+      framedBand: true,
       storytellers: [
-        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
-        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+        {
+          name: "Holly",
+          img: "/images/tour/holly-portrait.jpg",
+          focal: "50% 15%",
+          blurb: "Tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
+          reviews: [
+            { quote: "Holly was an absolutely brilliant guide, **one of the very best, perhaps the best**, on our numerous city walking tours around Europe.", author: "Andrew Wright" },
+            { quote: "She kept our group totally engaged with **interesting, funny and warm-hearted stories**.", author: "OwlQueen, TripAdvisor" },
+          ],
+        },
+        {
+          name: "Joolz",
+          img: "/images/guides/joolz.png",
+          focal: "50% 25%",
+          blurb: "Norfolk born and proud. Paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
+          reviews: [
+            { quote: "Joolz really **brought it to life**. She was the best thing about our trip.", author: "Andy, from Wales" },
+            { quote: "Joolz is an **absolutely superb tour guide**. Can't recommend her enough.", author: "Caroline, from Basingstoke" },
+          ],
+        },
       ],
-      storytellersLine:
-        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
@@ -837,8 +860,6 @@ export const tours: Tour[] = [
         { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
         { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
       ],
-      storytellersLine:
-        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
