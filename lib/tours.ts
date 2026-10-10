@@ -57,6 +57,8 @@ export interface TourDetails {
   /** Always-visible dark story teasers. When set, replaces the highlight
       cards, story and walk sections (Tom 2026-10-10: say it once). */
   darkStories?: { title: string; text: string; img: string; alt: string }[];
+  /** "As night falls" timeline beats. */
+  nightBeats?: { when: string; title: string; text: string }[];
   /** Display face for the green script words. Default Caveat. */
   scriptFont?: "eater";
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
@@ -262,22 +264,30 @@ export const tours: Tour[] = [
       darkStories: [
         {
           title: "Names Norwich would rather forget",
-          text: "Martha Sheward. Martha Alden. Robert Goodale. Jane Sellers. Each one stands where something terrible happened. You'll hear why on the night.",
+          text: "Martha Sheward at the Guildhall gate. Martha Alden in the shadow of the castle. Robert Goodale, through the old castle ditches to the Shirehall. Jane Sellers, at a flint wall in a lane with no name. Every name has a place. Every place has kept its secret.",
           img: "/images/tour/elm-hill-group.jpg",
-          alt: "A tour group on the cobbles of Elm Hill",
+          alt: "A guide with a group on a Norwich street",
         },
         {
           title: "The missing body",
-          text: "Somewhere off Elm Hill, a body went missing. Where it went is a story for after dark.",
+          text: "Halfway down the cobbles of Elm Hill, a narrow court slips off into the dark. Wrights Court. A body went missing here, and nobody has ever quite explained where it went.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
-          title: "The plague girl",
-          text: "The walk ends in Tombland Alley, with the plague girl. Her story is the last thing you'll hear.",
+          title: "Tombland Alley",
+          text: "Crooked, narrow and silent after dark. Walter Eghe knew this alley. So did a girl Norwich has never forgotten. Some stories are best told when the lights are low.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
+      ],
+      // "As night falls" beats: route + time-of-day facts only (Tom
+      // 2026-10-10: route from the guides' script; don't reveal the
+      // plague girl as the finale).
+      nightBeats: [
+        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
+        { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
+        { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
       ],
       // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
       schedule: {
@@ -347,7 +357,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "When", value: "Every evening, 16 Oct to 6 Nov, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],

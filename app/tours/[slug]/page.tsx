@@ -539,12 +539,61 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 </li>
               ))}
             </ol>
-            <div className="mt-14 md:mt-16 text-center">
+          </div>
+        </section>
+      )}
+
+      {/* As night falls - the evening in three beats, Halloween callout,
+          one booking CTA. Route and time facts only. */}
+      {d.nightBeats && d.nightBeats.length > 0 && (
+        <section className="py-20 md:py-24 bg-white border-y border-brand-accent/10">
+          <div className="brand-container max-w-5xl">
+            <h2 className="text-center leading-[1.0] mb-12 md:mb-14">
+              <span
+                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+                style={lora}
+              >
+                Dare you
+              </span>{" "}
+              <span
+                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                style={script}
+              >
+                walk it?
+              </span>
+            </h2>
+            <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+              {d.nightBeats.map((b) => (
+                <li key={b.title} className="border-t-2 border-brand-accent pt-5">
+                  <p
+                    className="text-[13px] uppercase tracking-[0.18em] font-semibold text-brand-accent mb-2"
+                    style={lora}
+                  >
+                    {b.when}
+                  </p>
+                  <h3 className="text-[24px] leading-tight text-brand-text mb-3" style={script}>
+                    {b.title}
+                  </h3>
+                  <p className="text-[17px] text-brand-text/80 leading-relaxed m-0" style={lora}>
+                    {b.text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-14 flex flex-col items-center gap-4 text-center">
+              <p
+                className="inline-flex flex-wrap justify-center gap-x-3 px-5 py-2 rounded-full bg-brand-text text-white text-[15px] font-semibold"
+                style={lora}
+              >
+                <span>Halloween night: Sat 31 Oct</span>
+                <span aria-hidden="true" className="text-white/50">&middot;</span>
+                <span>Every evening, 16 Oct to 6 Nov</span>
+              </p>
               <a
                 href={d.bookingTour ? "#book" : "#notify"}
                 className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
               >
-                {d.bookingTour ? "Book your spot (free)" : "Join the waiting list"}
+                {d.bookingTour ? "Book your free spot" : "Join the waiting list"}
                 <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </a>
             </div>
