@@ -181,7 +181,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(
-              eventDates(d.schedule.first, d.schedule.last).map((ymd) => {
+              (d.schedule.dates
+                ? d.schedule.dates.filter((x) => x >= new Date().toISOString().slice(0, 10))
+                : eventDates(d.schedule.first, d.schedule.last)
+              ).map((ymd) => {
                 const s = d.schedule!;
                 const off = ukOffset(ymd);
                 const [hh, mm] = s.time.split(":").map(Number);
@@ -663,7 +666,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       }`}
                       style={lora}
                     >
-                      <span>Every evening, 16 Oct to 6 Nov</span>
+                      <span>Most evenings, 16 Oct to 6 Nov</span>
                     </p>
                     <a
                       href={d.bookingTour ? "#book" : "#notify"}
@@ -973,7 +976,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
       <div id="notify" className="scroll-mt-28">
         {d.bookingTour ? (
-          <EmailCapture tourInterest={tour.slug} />
+          <EmailCapture tourInterest={tour.slug} darkSection={Boolean(d.murderBoard)} />
         ) : (
           <EmailCapture
             eyebrow={tour.name}

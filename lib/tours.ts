@@ -33,6 +33,8 @@ export interface TourDetails {
   schedule?: {
     first: string; // YYYY-MM-DD
     last: string; // YYYY-MM-DD
+    /** Exact run dates when not every night (overrides first..last). */
+    dates?: string[];
     time: string; // HH:MM, UK local
     durationMin: number;
     place: { name: string; street: string; postcode: string };
@@ -270,7 +272,7 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
@@ -311,10 +313,11 @@ export const tours: Tour[] = [
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
         { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
       ],
-      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      // Booking system 2026-10-11: 17 dates 16 Oct to 6 Nov (not 20, 24, 27, 28, 31 Oct), 18:00, 90 min. Keep `dates` in sync.
       schedule: {
         first: "2026-10-16",
         last: "2026-11-06",
+        dates: ["2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-21","2026-10-22","2026-10-23","2026-10-25","2026-10-26","2026-10-29","2026-10-30","2026-11-01","2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"],
         time: "18:00",
         durationMin: 90,
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
@@ -381,7 +384,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "When", value: "Most evenings, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
@@ -408,7 +411,7 @@ export const tours: Tour[] = [
         },
         {
           q: "When and where is it?",
-          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+          a: "Most evenings at 6pm from 16 October to 6 November. Pick a date in the booking calendar. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
         },
         {
           q: "Do I need to book?",
@@ -447,7 +450,7 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "a",
@@ -489,10 +492,11 @@ export const tours: Tour[] = [
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
         { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
       ],
-      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      // Booking system 2026-10-11: 17 dates 16 Oct to 6 Nov (not 20, 24, 27, 28, 31 Oct), 18:00, 90 min. Keep `dates` in sync.
       schedule: {
         first: "2026-10-16",
         last: "2026-11-06",
+        dates: ["2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-21","2026-10-22","2026-10-23","2026-10-25","2026-10-26","2026-10-29","2026-10-30","2026-11-01","2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"],
         time: "18:00",
         durationMin: 90,
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
@@ -559,7 +563,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "When", value: "Most evenings, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
@@ -586,7 +590,7 @@ export const tours: Tour[] = [
         },
         {
           q: "When and where is it?",
-          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+          a: "Most evenings at 6pm from 16 October to 6 November. Pick a date in the booking calendar. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
         },
         {
           q: "Do I need to book?",
@@ -625,7 +629,7 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "b",
@@ -692,10 +696,11 @@ export const tours: Tour[] = [
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
         { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
       ],
-      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      // Booking system 2026-10-11: 17 dates 16 Oct to 6 Nov (not 20, 24, 27, 28, 31 Oct), 18:00, 90 min. Keep `dates` in sync.
       schedule: {
         first: "2026-10-16",
         last: "2026-11-06",
+        dates: ["2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-21","2026-10-22","2026-10-23","2026-10-25","2026-10-26","2026-10-29","2026-10-30","2026-11-01","2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"],
         time: "18:00",
         durationMin: 90,
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
@@ -762,7 +767,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "When", value: "Most evenings, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
@@ -789,7 +794,7 @@ export const tours: Tour[] = [
         },
         {
           q: "When and where is it?",
-          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+          a: "Most evenings at 6pm from 16 October to 6 November. Pick a date in the booking calendar. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
         },
         {
           q: "Do I need to book?",
@@ -828,7 +833,7 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "c",
@@ -870,10 +875,11 @@ export const tours: Tour[] = [
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
         { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
       ],
-      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      // Booking system 2026-10-11: 17 dates 16 Oct to 6 Nov (not 20, 24, 27, 28, 31 Oct), 18:00, 90 min. Keep `dates` in sync.
       schedule: {
         first: "2026-10-16",
         last: "2026-11-06",
+        dates: ["2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-21","2026-10-22","2026-10-23","2026-10-25","2026-10-26","2026-10-29","2026-10-30","2026-11-01","2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"],
         time: "18:00",
         durationMin: 90,
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
@@ -940,7 +946,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "When", value: "Most evenings, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],
@@ -967,7 +973,7 @@ export const tours: Tour[] = [
         },
         {
           q: "When and where is it?",
-          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+          a: "Most evenings at 6pm from 16 October to 6 November. Pick a date in the booking calendar. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
         },
         {
           q: "Do I need to book?",

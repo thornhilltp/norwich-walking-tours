@@ -23,6 +23,8 @@ interface EmailCaptureProps {
   visual?: Visual;
   /** Render as the page's H1 (standalone /updates page). */
   asPageHeading?: boolean;
+  /** Black section background (Dark History page). */
+  darkSection?: boolean;
 }
 
 type Visual =
@@ -51,6 +53,7 @@ export function EmailCapture({
   source = "homepage",
   visual = DEFAULT_VISUAL,
   asPageHeading = false,
+  darkSection = false,
 }: EmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
   const [trap, setTrap] = useState("");
@@ -102,7 +105,10 @@ export function EmailCapture({
   const split = visual?.kind === "panel";
 
   return (
-    <section className="section-padding bg-brand-accent-light">
+    <section
+      className={`section-padding ${darkSection ? "" : "bg-brand-accent-light"}`}
+      style={darkSection ? { backgroundColor: "#121211" } : undefined}
+    >
       <div className="brand-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
