@@ -461,7 +461,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
       {/* Highlights as tap-to-open photo cards - the Our Guides
           philosophy component, pointed at this tour's waiting list. */}
-      {d.highlightCards && d.highlightCards.length > 0 && (
+      {!d.darkStories && d.highlightCards && d.highlightCards.length > 0 && (
         <section className="pt-20 pb-6 md:pt-24">
           <div className="brand-container text-center">
             <h2 className="leading-[1.0]">
@@ -488,7 +488,73 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
+      {d.darkStories && d.darkStories.length > 0 && (
+        <section className="py-20 md:py-28" style={{ backgroundColor: "#141413" }}>
+          <div className="brand-container">
+            <h2 className="text-center leading-[1.0] mb-4">
+              <span
+                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
+                style={lora}
+              >
+                What happened
+              </span>{" "}
+              <span
+                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95]"
+                style={{ ...script, color: "#5AE19E" }}
+              >
+                here.
+              </span>
+            </h2>
+            <p className="text-center text-white/60 text-[16px] mb-14 md:mb-16" style={lora}>
+              Five stops. Five stories. All of them true.
+            </p>
+            <ol className="m-0 p-0 list-none flex flex-col gap-10 md:gap-14 max-w-5xl mx-auto">
+              {d.darkStories.map((st, i) => (
+                <li
+                  key={st.title}
+                  className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${
+                    i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                    <Image
+                      src={st.img}
+                      alt={st.alt}
+                      fill
+                      className="object-cover grayscale contrast-125"
+                      sizes="(max-width: 768px) 100vw, 480px"
+                    />
+                    <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3
+                      className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4"
+                      style={{ ...script, color: "#5AE19E" }}
+                    >
+                      {st.title}
+                    </h3>
+                    <p className="text-[18px] md:text-[19px] text-white/85 leading-relaxed m-0" style={lora}>
+                      {st.text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-14 md:mt-16 text-center">
+              <a
+                href={d.bookingTour ? "#book" : "#notify"}
+                className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
+              >
+                {d.bookingTour ? "Book your spot (free)" : "Join the waiting list"}
+                <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Story — polaroid left, copy right, homepage showcase language. */}
+      {!d.darkStories && (
       <section className="section-padding bg-white border-b border-brand-accent/10">
         <div className="brand-container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <PhotoSwipe photos={d.gallery ?? []} />
@@ -519,11 +585,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* The walk - the homepage ThemedRouteSection itself: wiggly
           thread, pin drops, mobile accordion, sticky map. Placeholder
           map until the tour has its own. */}
-      {d.walk && d.walk.length > 0 && (
+      {!d.darkStories && d.walk && d.walk.length > 0 && (
         <ThemedRouteSection
           id="walk"
           heading={{ plain: "The walk, and", script: "what you get." }}

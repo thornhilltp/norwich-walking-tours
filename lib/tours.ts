@@ -54,6 +54,9 @@ export interface TourDetails {
   /** Booking-app tour slug. When set, the hero slot shows the booking
       widget for this tour instead of the waiting-list form. */
   bookingTour?: string;
+  /** Always-visible dark story teasers. When set, replaces the highlight
+      cards, story and walk sections (Tom 2026-10-10: say it once). */
+  darkStories?: { title: string; text: string; img: string; alt: string }[];
   /** Display face for the green script words. Default Caveat. */
   scriptFont?: "eater";
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
@@ -253,6 +256,41 @@ export const tours: Tour[] = [
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
+      // Teasers built ONLY from Holly and Joolz's route script (Tom
+      // 2026-10-10): names and topics as the script gives them, mood
+      // words around them, no added history. Allude, don't give it away.
+      darkStories: [
+        {
+          title: "The city turns on itself",
+          text: "1272. John Gladman. Robert Kett. The days Norwich rose up, and what it cost the people who did.",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide with a group outside Norwich Guildhall",
+        },
+        {
+          title: "Names Norwich would rather forget",
+          text: "Martha Sheward. Martha Alden. Robert Goodale. Jane Sellers. Each one stands where something terrible happened. You'll hear why on the night.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A tour group on the cobbles of Elm Hill",
+        },
+        {
+          title: "Devil's Alley",
+          text: "Gropekunte Lane. Turpis Vicus. Devil's Alley. One Norwich street, and every name worse than the last.",
+          img: "/images/tour/pottergate-walk.jpg",
+          alt: "Walking down a Norwich lane",
+        },
+        {
+          title: "The missing body",
+          text: "Somewhere off Elm Hill, a body went missing. Where it went is a story for after dark.",
+          img: "/images/tour/walking-ethelbert-gate.jpg",
+          alt: "Walking under St Ethelbert's Gate",
+        },
+        {
+          title: "The plague girl",
+          text: "The walk ends in Tombland Alley, with the plague girl. Her story is the last thing you'll hear.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
       // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
       schedule: {
         first: "2026-10-16",
