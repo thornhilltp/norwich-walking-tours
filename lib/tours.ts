@@ -272,7 +272,7 @@ export const tours: Tour[] = [
     details: {
       seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
       seoDescription:
-        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, most evenings at 6pm until 6 November. Free to book.",
+        "Ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire and plague, most evenings at 6pm until 6 Nov. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "b",
@@ -335,9 +335,9 @@ export const tours: Tour[] = [
         },
       ],
       nightBeats: [
-        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
-        { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
-        { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
+        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins. Then round to the Guildhall." },
+        { when: "The walk", title: "Into the dark", text: "Through Davey Place, into the old castle ditches to the Shirehall, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
+        { when: "The end", title: "The final stop", text: "Past Norwich Cathedral to Tombland Alley. By the time you get there, night has fallen. Bring a friend. You'll want one." },
       ],
       // Booking system 2026-10-11: 17 dates 16 Oct to 6 Nov (not 20, 24, 27, 28, 31 Oct), 18:00, 90 min. Keep `dates` in sync.
       schedule: {
@@ -368,7 +368,7 @@ export const tours: Tour[] = [
         {
           h: "Murder and the gallows",
           teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
-          p: "Up the Davey Place steps to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
+          p: "Through Davey Place to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A tour group on the cobbles of Elm Hill",
         },
@@ -383,7 +383,7 @@ export const tours: Tour[] = [
       suitableFor: "[TBC, e.g. ages 12+]",
       lookFor: "[TBC, how to spot your guide on the City Hall steps]",
       story: [
-        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Through Davey Place, into the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
         "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
         "Came looking for a ghost walk? Nobody in a cape jumps out at you here, because nothing we could invent beats what really happened. The walk ends in **Tombland Alley**, with the plague girl.",
       ],
@@ -424,8 +424,8 @@ export const tours: Tour[] = [
       ],
       faqs: [
         {
-          q: "Is this a ghost walk?",
-          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+          q: "Is this a ghost walk or ghost tour?",
+          a: "Not quite. If you were searching for a ghost walk or ghost tour in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
         },
         {
           q: "Is it scary?",
@@ -438,6 +438,10 @@ export const tours: Tour[] = [
         {
           q: "When and where is it?",
           a: "Most evenings at 6pm from 16 October to 6 November. Pick a date in the booking calendar. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+        },
+        {
+          q: "Is it on over Halloween?",
+          a: "Yes, most evenings from 16 October to 6 November at 6pm. There's no walk on Halloween night itself. The nearest dates are 30 October and 1 November.",
         },
         {
           q: "Do I need to book?",

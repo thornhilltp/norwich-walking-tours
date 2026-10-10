@@ -905,12 +905,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       )}
 
       {/* FAQs - same accordion as the homepage, this tour's questions.
-          No FAQPage schema here while the page is a noindex prototype. */}
+          FAQPage schema only once the tour is live (prototypes are noindex). */}
       {d.murderBoard && <MoonDivider />}
       <FAQ
         dark={Boolean(d.murderBoard)}
         items={d.faqs.filter((f) => ready(f.q) && ready(f.a))}
-        emitSchema={false}
+        emitSchema={live}
         customHeading={
           d.murderBoard ? (
             <h2 className="leading-[1.0]">

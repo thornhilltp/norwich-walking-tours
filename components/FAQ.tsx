@@ -80,10 +80,12 @@ const faqs = [
   },
 ];
 
-const faqPageSchema = {
+// Built from whichever list the page renders, so a tour page's schema
+// carries that tour's questions, not the homepage ones.
+const faqPageSchema = (list: { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: list.map((faq) => ({
     "@type": "Question",
     name: faq.q,
     acceptedAnswer: {
@@ -91,7 +93,7 @@ const faqPageSchema = {
       text: faq.a,
     },
   })),
-};
+});
 
 function FAQItem({
   q,
@@ -182,7 +184,7 @@ export function FAQ({ customHeading, items, emitSchema = true, dark = false }: F
     {emitSchema && (
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(list)) }}
       />
     )}
     <section
