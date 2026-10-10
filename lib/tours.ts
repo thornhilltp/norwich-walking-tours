@@ -262,21 +262,23 @@ export const tours: Tour[] = [
       // 2026-10-10): names and topics as the script gives them, mood
       // words around them, no added history. Allude, don't give it away.
       darkStories: [
+        // High level, no names (Tom 2026-10-10): the vibe of the script's
+        // stories, framed as true. Themes only from the script.
         {
-          title: "Names Norwich would rather forget",
-          text: "Martha Sheward at the Guildhall gate. Martha Alden in the shadow of the castle. Robert Goodale, through the old castle ditches to the Shirehall. Jane Sellers, at a flint wall in a lane with no name. Every name has a place. Every place has kept its secret.",
+          title: "Murder on these streets",
+          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
         {
-          title: "The missing body",
-          text: "Halfway down the cobbles of Elm Hill, a narrow court slips off into the dark. Wrights Court. A body went missing here, and nobody has ever quite explained where it went.",
+          title: "The dead who went missing",
+          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
-          title: "Tombland Alley",
-          text: "Crooked, narrow and silent after dark. Walter Eghe knew this alley. So did a girl Norwich has never forgotten. Some stories are best told when the lights are low.",
+          title: "The real horrors of Tombland Alley",
+          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
