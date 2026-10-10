@@ -59,6 +59,11 @@ export interface TourDetails {
   /** Always-visible dark story teasers. When set, replaces the highlight
       cards, story and walk sections (Tom 2026-10-10: say it once). */
   darkStories?: { title: string; text: string; img: string; alt: string }[];
+  /** Where black sections appear (prototype variants). */
+  darkVariant?: "a" | "b" | "c";
+  /** Guides who wrote/lead the tour, shown after the Dare section. */
+  storytellers?: { name: string; img: string; focal?: string }[];
+  storytellersLine?: string;
   /** "As night falls" timeline beats. */
   nightBeats?: { when: string; title: string; text: string }[];
   /** Display face for the green script words. Default Caveat. */
@@ -288,6 +293,552 @@ export const tours: Tour[] = [
       // "As night falls" beats: route + time-of-day facts only (Tom
       // 2026-10-10: route from the guides' script; don't reveal the
       // plague girl as the finale).
+      storytellers: [
+        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
+        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+      ],
+      storytellersLine:
+        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
+      nightBeats: [
+        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
+        { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
+        { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
+      ],
+      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      schedule: {
+        first: "2026-10-16",
+        last: "2026-11-06",
+        time: "18:00",
+        durationMin: 90,
+        place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
+      },
+      promise:
+        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+      promiseSub:
+        "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
+      // Hook removed (Tom 2026-10-10).
+      // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
+      // movement; name the real meeting place; say what this is NOT and
+      // what it IS. Fresh words from Holly and Joolz, never another
+      // operator's copy.
+      highlightCards: [
+        {
+          h: "Riot and rebellion",
+          teaser: "1272, John Gladman and Robert Kett.",
+          p: "It starts on the **City Hall steps**, with the days Norwich turned on itself: the riot of 1272, John Gladman's insurrection and Robert Kett. Then round to the Guildhall for Martha Sheward, Cecily Ormes and Thomas Bilney.",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide talking to a tour group outside Norwich Guildhall",
+        },
+        {
+          h: "Murder and the gallows",
+          teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
+          p: "Up the Davey Place steps to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A tour group on the cobbles of Elm Hill",
+        },
+        {
+          h: "Fire, flood and plague",
+          teaser: "Elm Hill to Tombland Alley.",
+          p: "Over the cobbles of **Elm Hill** for fire and flood, and a body that went missing at Wrights Court. Past the Cathedral for Thomas Erpingham and Thomas Tunstall. And last, Tombland Alley: Walter Eghe, and the plague girl.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      suitableFor: "[TBC, e.g. ages 12+]",
+      lookFor: "[TBC, how to spot your guide on the City Hall steps]",
+      story: [
+        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
+        "Came looking for a ghost walk? Nobody in a cape jumps out at you here, because nothing we could invent beats what really happened. The walk ends in **Tombland Alley**, with the plague girl.",
+      ],
+      walk: [
+        {
+          eyebrow: "Riot and rebellion",
+          headline: "Norwich in revolt.",
+          stops: "City Hall steps \u00b7 the Guildhall",
+          body: "The 1272 riot, John Gladman's insurrection and Robert Kett. Then Martha Sheward, Cecily Ormes and Thomas Bilney at the Guildhall.",
+        },
+        {
+          eyebrow: "Murder and the gallows",
+          headline: "The crimes behind the Castle.",
+          stops: "Whiffler Theatre \u00b7 Shirehall \u00b7 Opie Street \u00b7 the Bridewell",
+          body: "Martha Alden, Robert Goodale and Jane Sellers, plus Opie Street, a street of several names.",
+        },
+        {
+          eyebrow: "Fire, flood and plague",
+          headline: "Elm Hill to Tombland Alley.",
+          stops: "Elm Hill \u00b7 Wrights Court \u00b7 the Cathedral \u00b7 Tombland Alley",
+          body: "Fire and flood on Elm Hill, the missing body, Thomas Erpingham and Thomas Tunstall, Walter Eghe, and finally the plague girl.",
+        },
+      ],
+      logistics: [
+        // Tom 2026-10-08: time + length on one line, start + finish on
+        // one line. Booking system: every date 18:00, 90 minutes.
+        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "Route", value: "City Hall steps to Tombland Alley" },
+        { label: "Price", value: "Free to book, pay what it was worth" },
+      ],
+      // Photos of places on the route, captioned by place only. Swap for
+      // dusk shots of the actual stops when they exist.
+      gallery: [
+        { src: "/images/tour/guide-guildhall.jpg", alt: "A guide talking to a tour group outside Norwich Guildhall", caption: "The Guildhall" },
+        { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill" },
+        { src: "/images/tour/group-cathedral-west-front.jpg", alt: "A tour group at the west front of Norwich Cathedral", caption: "Norwich Cathedral" },
+        { src: "/images/tour/tom-tombland.jpg", alt: "A guide with a tour group in Tombland", caption: "Tombland" },
+      ],
+      faqs: [
+        {
+          q: "Is this a ghost walk?",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+        },
+        {
+          q: "Is it scary?",
+          a: "It's dark history, not jump scares. The stories are grim because they're true, but nobody leaps out of a doorway.",
+        },
+        {
+          q: "How much does it cost?",
+          a: "Nothing to book. At the end you pay what you think it was worth.",
+        },
+        {
+          q: "When and where is it?",
+          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+        },
+        {
+          q: "Do I need to book?",
+          a: "Yes, book a free spot so we know how many are coming. You can cancel any time before it starts.",
+        },
+        {
+          q: "[More questions TBC]",
+          a: "[Holly and Joolz to add: is it suitable for children, accessibility, dogs, what if it rains.]",
+        },
+      ],
+    },
+  },
+  {
+    // REAL TOUR (Tom 2026-10-04). Source: "The Dark History of Norwich"
+    // route script written by Holly and Joolz. Confirmed: name, writers,
+    // free to book / pay what it was worth, start (City Hall steps),
+    // finish (Tombland Alley), and the stops with the story told at each.
+    // Everything in [square brackets] is still a prompt for the guides:
+    // do NOT fill it with anything they have not confirmed, and do not add
+    // history beyond the names in their script.
+    slug: "dark-history-va",
+    name: "The Dark History of Norwich",
+    // Hero badge = run dates (Tom 2026-10-10). No "written by" line.
+    byline: "Exclusive: 16 October to 6 November",
+    image: "/images/tour/elm-hill-group.jpg",
+    imageAlt: "A tour group on the cobbles of Elm Hill",
+    meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
+    blurb:
+      "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, from City Hall to Tombland Alley.",
+    priceLine: "Free to book",
+    priceSub: "Pay what it was worth at the end",
+    ctaLabel: "See the tour",
+    ctaHref: "/tours/dark-history-of-norwich",
+    tint: "#F5EBDA",
+    status: "example",
+    details: {
+      seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
+      seoDescription:
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+      heroTitle: ["Norwich has a", "dark side."],
+      bookingTour: "the-dark-history-of-norwich",
+      darkVariant: "a",
+      scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
+      // Teasers built ONLY from Holly and Joolz's route script (Tom
+      // 2026-10-10): names and topics as the script gives them, mood
+      // words around them, no added history. Allude, don't give it away.
+      darkStories: [
+        // High level, no names (Tom 2026-10-10): the vibe of the script's
+        // stories, framed as true. Themes only from the script.
+        {
+          title: "Murder on these streets",
+          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A guide with a group on a Norwich street",
+        },
+        {
+          title: "The dead who went missing",
+          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          img: "/images/tour/walking-ethelbert-gate.jpg",
+          alt: "Walking under St Ethelbert's Gate",
+        },
+        {
+          title: "The real horrors of Tombland Alley",
+          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      // "As night falls" beats: route + time-of-day facts only (Tom
+      // 2026-10-10: route from the guides' script; don't reveal the
+      // plague girl as the finale).
+      storytellers: [
+        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
+        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+      ],
+      storytellersLine:
+        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
+      nightBeats: [
+        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
+        { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
+        { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
+      ],
+      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      schedule: {
+        first: "2026-10-16",
+        last: "2026-11-06",
+        time: "18:00",
+        durationMin: 90,
+        place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
+      },
+      promise:
+        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+      promiseSub:
+        "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
+      // Hook removed (Tom 2026-10-10).
+      // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
+      // movement; name the real meeting place; say what this is NOT and
+      // what it IS. Fresh words from Holly and Joolz, never another
+      // operator's copy.
+      highlightCards: [
+        {
+          h: "Riot and rebellion",
+          teaser: "1272, John Gladman and Robert Kett.",
+          p: "It starts on the **City Hall steps**, with the days Norwich turned on itself: the riot of 1272, John Gladman's insurrection and Robert Kett. Then round to the Guildhall for Martha Sheward, Cecily Ormes and Thomas Bilney.",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide talking to a tour group outside Norwich Guildhall",
+        },
+        {
+          h: "Murder and the gallows",
+          teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
+          p: "Up the Davey Place steps to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A tour group on the cobbles of Elm Hill",
+        },
+        {
+          h: "Fire, flood and plague",
+          teaser: "Elm Hill to Tombland Alley.",
+          p: "Over the cobbles of **Elm Hill** for fire and flood, and a body that went missing at Wrights Court. Past the Cathedral for Thomas Erpingham and Thomas Tunstall. And last, Tombland Alley: Walter Eghe, and the plague girl.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      suitableFor: "[TBC, e.g. ages 12+]",
+      lookFor: "[TBC, how to spot your guide on the City Hall steps]",
+      story: [
+        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
+        "Came looking for a ghost walk? Nobody in a cape jumps out at you here, because nothing we could invent beats what really happened. The walk ends in **Tombland Alley**, with the plague girl.",
+      ],
+      walk: [
+        {
+          eyebrow: "Riot and rebellion",
+          headline: "Norwich in revolt.",
+          stops: "City Hall steps \u00b7 the Guildhall",
+          body: "The 1272 riot, John Gladman's insurrection and Robert Kett. Then Martha Sheward, Cecily Ormes and Thomas Bilney at the Guildhall.",
+        },
+        {
+          eyebrow: "Murder and the gallows",
+          headline: "The crimes behind the Castle.",
+          stops: "Whiffler Theatre \u00b7 Shirehall \u00b7 Opie Street \u00b7 the Bridewell",
+          body: "Martha Alden, Robert Goodale and Jane Sellers, plus Opie Street, a street of several names.",
+        },
+        {
+          eyebrow: "Fire, flood and plague",
+          headline: "Elm Hill to Tombland Alley.",
+          stops: "Elm Hill \u00b7 Wrights Court \u00b7 the Cathedral \u00b7 Tombland Alley",
+          body: "Fire and flood on Elm Hill, the missing body, Thomas Erpingham and Thomas Tunstall, Walter Eghe, and finally the plague girl.",
+        },
+      ],
+      logistics: [
+        // Tom 2026-10-08: time + length on one line, start + finish on
+        // one line. Booking system: every date 18:00, 90 minutes.
+        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "Route", value: "City Hall steps to Tombland Alley" },
+        { label: "Price", value: "Free to book, pay what it was worth" },
+      ],
+      // Photos of places on the route, captioned by place only. Swap for
+      // dusk shots of the actual stops when they exist.
+      gallery: [
+        { src: "/images/tour/guide-guildhall.jpg", alt: "A guide talking to a tour group outside Norwich Guildhall", caption: "The Guildhall" },
+        { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill" },
+        { src: "/images/tour/group-cathedral-west-front.jpg", alt: "A tour group at the west front of Norwich Cathedral", caption: "Norwich Cathedral" },
+        { src: "/images/tour/tom-tombland.jpg", alt: "A guide with a tour group in Tombland", caption: "Tombland" },
+      ],
+      faqs: [
+        {
+          q: "Is this a ghost walk?",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+        },
+        {
+          q: "Is it scary?",
+          a: "It's dark history, not jump scares. The stories are grim because they're true, but nobody leaps out of a doorway.",
+        },
+        {
+          q: "How much does it cost?",
+          a: "Nothing to book. At the end you pay what you think it was worth.",
+        },
+        {
+          q: "When and where is it?",
+          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+        },
+        {
+          q: "Do I need to book?",
+          a: "Yes, book a free spot so we know how many are coming. You can cancel any time before it starts.",
+        },
+        {
+          q: "[More questions TBC]",
+          a: "[Holly and Joolz to add: is it suitable for children, accessibility, dogs, what if it rains.]",
+        },
+      ],
+    },
+  },
+  {
+    // REAL TOUR (Tom 2026-10-04). Source: "The Dark History of Norwich"
+    // route script written by Holly and Joolz. Confirmed: name, writers,
+    // free to book / pay what it was worth, start (City Hall steps),
+    // finish (Tombland Alley), and the stops with the story told at each.
+    // Everything in [square brackets] is still a prompt for the guides:
+    // do NOT fill it with anything they have not confirmed, and do not add
+    // history beyond the names in their script.
+    slug: "dark-history-vb",
+    name: "The Dark History of Norwich",
+    // Hero badge = run dates (Tom 2026-10-10). No "written by" line.
+    byline: "Exclusive: 16 October to 6 November",
+    image: "/images/tour/elm-hill-group.jpg",
+    imageAlt: "A tour group on the cobbles of Elm Hill",
+    meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
+    blurb:
+      "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, from City Hall to Tombland Alley.",
+    priceLine: "Free to book",
+    priceSub: "Pay what it was worth at the end",
+    ctaLabel: "See the tour",
+    ctaHref: "/tours/dark-history-of-norwich",
+    tint: "#F5EBDA",
+    status: "example",
+    details: {
+      seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
+      seoDescription:
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+      heroTitle: ["Norwich has a", "dark side."],
+      bookingTour: "the-dark-history-of-norwich",
+      darkVariant: "b",
+      scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
+      // Teasers built ONLY from Holly and Joolz's route script (Tom
+      // 2026-10-10): names and topics as the script gives them, mood
+      // words around them, no added history. Allude, don't give it away.
+      darkStories: [
+        // High level, no names (Tom 2026-10-10): the vibe of the script's
+        // stories, framed as true. Themes only from the script.
+        {
+          title: "Murder on these streets",
+          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A guide with a group on a Norwich street",
+        },
+        {
+          title: "The dead who went missing",
+          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          img: "/images/tour/walking-ethelbert-gate.jpg",
+          alt: "Walking under St Ethelbert's Gate",
+        },
+        {
+          title: "The real horrors of Tombland Alley",
+          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      // "As night falls" beats: route + time-of-day facts only (Tom
+      // 2026-10-10: route from the guides' script; don't reveal the
+      // plague girl as the finale).
+      storytellers: [
+        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
+        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+      ],
+      storytellersLine:
+        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
+      nightBeats: [
+        { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
+        { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },
+        { when: "The end", title: "The final stop", text: "By the time you reach Tombland Alley, night has fallen. Bring a friend. You'll want one." },
+      ],
+      // Booking system 2026-10-09: every evening 16 Oct to 6 Nov, 18:00, 90 min.
+      schedule: {
+        first: "2026-10-16",
+        last: "2026-11-06",
+        time: "18:00",
+        durationMin: 90,
+        place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
+      },
+      promise:
+        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+      promiseSub:
+        "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
+      // Hook removed (Tom 2026-10-10).
+      // VOICE (Tom 2026-09-28): atmospheric and sensory, led by verbs of
+      // movement; name the real meeting place; say what this is NOT and
+      // what it IS. Fresh words from Holly and Joolz, never another
+      // operator's copy.
+      highlightCards: [
+        {
+          h: "Riot and rebellion",
+          teaser: "1272, John Gladman and Robert Kett.",
+          p: "It starts on the **City Hall steps**, with the days Norwich turned on itself: the riot of 1272, John Gladman's insurrection and Robert Kett. Then round to the Guildhall for Martha Sheward, Cecily Ormes and Thomas Bilney.",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide talking to a tour group outside Norwich Guildhall",
+        },
+        {
+          h: "Murder and the gallows",
+          teaser: "Martha Alden, Robert Goodale, Jane Sellers.",
+          p: "Up the Davey Place steps to the Whiffler Theatre for Martha Alden. Through the **castle ditches** to the Shirehall for Robert Goodale. Down to a flint wall by the Bridewell for Jane Sellers. On the way, Opie Street: a street of several names, none of them polite.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A tour group on the cobbles of Elm Hill",
+        },
+        {
+          h: "Fire, flood and plague",
+          teaser: "Elm Hill to Tombland Alley.",
+          p: "Over the cobbles of **Elm Hill** for fire and flood, and a body that went missing at Wrights Court. Past the Cathedral for Thomas Erpingham and Thomas Tunstall. And last, Tombland Alley: Walter Eghe, and the plague girl.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      suitableFor: "[TBC, e.g. ages 12+]",
+      lookFor: "[TBC, how to spot your guide on the City Hall steps]",
+      story: [
+        "Meet on the **City Hall steps** as night falls and follow us into the Norwich the postcards leave out. Down the Davey Place steps, through the old castle ditches, along a lane by the Bridewell and over the cobbles of Elm Hill, stopping where the city's darkest days actually happened.",
+        "Riots that turned the city on itself. Rebellion. Murder. A street with several names, a body that went missing, fire and flood on Elm Hill. **This is real Norwich history**, the side most visitors never hear.",
+        "Came looking for a ghost walk? Nobody in a cape jumps out at you here, because nothing we could invent beats what really happened. The walk ends in **Tombland Alley**, with the plague girl.",
+      ],
+      walk: [
+        {
+          eyebrow: "Riot and rebellion",
+          headline: "Norwich in revolt.",
+          stops: "City Hall steps \u00b7 the Guildhall",
+          body: "The 1272 riot, John Gladman's insurrection and Robert Kett. Then Martha Sheward, Cecily Ormes and Thomas Bilney at the Guildhall.",
+        },
+        {
+          eyebrow: "Murder and the gallows",
+          headline: "The crimes behind the Castle.",
+          stops: "Whiffler Theatre \u00b7 Shirehall \u00b7 Opie Street \u00b7 the Bridewell",
+          body: "Martha Alden, Robert Goodale and Jane Sellers, plus Opie Street, a street of several names.",
+        },
+        {
+          eyebrow: "Fire, flood and plague",
+          headline: "Elm Hill to Tombland Alley.",
+          stops: "Elm Hill \u00b7 Wrights Court \u00b7 the Cathedral \u00b7 Tombland Alley",
+          body: "Fire and flood on Elm Hill, the missing body, Thomas Erpingham and Thomas Tunstall, Walter Eghe, and finally the plague girl.",
+        },
+      ],
+      logistics: [
+        // Tom 2026-10-08: time + length on one line, start + finish on
+        // one line. Booking system: every date 18:00, 90 minutes.
+        { label: "When", value: "Every evening, 6pm (1h 30m)" },
+        { label: "Route", value: "City Hall steps to Tombland Alley" },
+        { label: "Price", value: "Free to book, pay what it was worth" },
+      ],
+      // Photos of places on the route, captioned by place only. Swap for
+      // dusk shots of the actual stops when they exist.
+      gallery: [
+        { src: "/images/tour/guide-guildhall.jpg", alt: "A guide talking to a tour group outside Norwich Guildhall", caption: "The Guildhall" },
+        { src: "/images/tour/elm-hill-group.jpg", alt: "A tour group on the cobbles of Elm Hill", caption: "Elm Hill" },
+        { src: "/images/tour/group-cathedral-west-front.jpg", alt: "A tour group at the west front of Norwich Cathedral", caption: "Norwich Cathedral" },
+        { src: "/images/tour/tom-tombland.jpg", alt: "A guide with a tour group in Tombland", caption: "Tombland" },
+      ],
+      faqs: [
+        {
+          q: "Is this a ghost walk?",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+        },
+        {
+          q: "Is it scary?",
+          a: "It's dark history, not jump scares. The stories are grim because they're true, but nobody leaps out of a doorway.",
+        },
+        {
+          q: "How much does it cost?",
+          a: "Nothing to book. At the end you pay what you think it was worth.",
+        },
+        {
+          q: "When and where is it?",
+          a: "Every evening at 6pm until 6 November, including Halloween night. It starts on the City Hall steps on St Peter's Street and finishes in Tombland Alley, about 90 minutes later.",
+        },
+        {
+          q: "Do I need to book?",
+          a: "Yes, book a free spot so we know how many are coming. You can cancel any time before it starts.",
+        },
+        {
+          q: "[More questions TBC]",
+          a: "[Holly and Joolz to add: is it suitable for children, accessibility, dogs, what if it rains.]",
+        },
+      ],
+    },
+  },
+  {
+    // REAL TOUR (Tom 2026-10-04). Source: "The Dark History of Norwich"
+    // route script written by Holly and Joolz. Confirmed: name, writers,
+    // free to book / pay what it was worth, start (City Hall steps),
+    // finish (Tombland Alley), and the stops with the story told at each.
+    // Everything in [square brackets] is still a prompt for the guides:
+    // do NOT fill it with anything they have not confirmed, and do not add
+    // history beyond the names in their script.
+    slug: "dark-history-vc",
+    name: "The Dark History of Norwich",
+    // Hero badge = run dates (Tom 2026-10-10). No "written by" line.
+    byline: "Exclusive: 16 October to 6 November",
+    image: "/images/tour/elm-hill-group.jpg",
+    imageAlt: "A tour group on the cobbles of Elm Hill",
+    meta: ["1h 30m", "[Group size TBC]", "[Days TBC]"],
+    blurb:
+      "Not ghost stories. The real thing. Riot, rebellion, murder, fire, flood and plague, from City Hall to Tombland Alley.",
+    priceLine: "Free to book",
+    priceSub: "Pay what it was worth at the end",
+    ctaLabel: "See the tour",
+    ctaHref: "/tours/dark-history-of-norwich",
+    tint: "#F5EBDA",
+    status: "example",
+    details: {
+      seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
+      seoDescription:
+        "Looking for a ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire, flood and plague, every evening at 6pm until 6 November. Free to book.",
+      heroTitle: ["Norwich has a", "dark side."],
+      bookingTour: "the-dark-history-of-norwich",
+      darkVariant: "c",
+      scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
+      // Teasers built ONLY from Holly and Joolz's route script (Tom
+      // 2026-10-10): names and topics as the script gives them, mood
+      // words around them, no added history. Allude, don't give it away.
+      darkStories: [
+        // High level, no names (Tom 2026-10-10): the vibe of the script's
+        // stories, framed as true. Themes only from the script.
+        {
+          title: "Murder on these streets",
+          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A guide with a group on a Norwich street",
+        },
+        {
+          title: "The dead who went missing",
+          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          img: "/images/tour/walking-ethelbert-gate.jpg",
+          alt: "Walking under St Ethelbert's Gate",
+        },
+        {
+          title: "The real horrors of Tombland Alley",
+          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          img: "/images/tour/tom-tombland.jpg",
+          alt: "A guide with a tour group in Tombland",
+        },
+      ],
+      // "As night falls" beats: route + time-of-day facts only (Tom
+      // 2026-10-10: route from the guides' script; don't reveal the
+      // plague girl as the finale).
+      storytellers: [
+        { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%" },
+        { name: "Joolz", img: "/images/guides/joolz.png", focal: "50% 25%" },
+      ],
+      storytellersLine:
+        "This walk was researched and written by Holly and Joolz, two of our Norwich guides.",
       nightBeats: [
         { when: "6pm", title: "The City Hall steps", text: "Meet as the light goes. The crowd thins, the city empties, and the first story begins." },
         { when: "The walk", title: "Into the dark", text: "Down the Davey Place steps, through the old castle ditches, along a nameless lane by the Bridewell and over the cobbles of Elm Hill." },

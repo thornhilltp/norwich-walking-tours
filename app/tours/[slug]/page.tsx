@@ -505,113 +505,220 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {d.darkStories && d.darkStories.length > 0 && (
-        <section className="py-20 md:py-28 bg-brand-bg">
-          <div className="brand-container">
-            <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
-              <span
-                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
-                style={lora}
+      {/* Dark-tour sections. darkVariant picks where black appears:
+          (none) all cream | a: black "Dare you walk it" + guides |
+          b: black stories | c: black story cards + black Dare + guides. */}
+      {(() => {
+        const v = d.darkVariant;
+        const storiesDark = v === "b";
+        const cardsDark = v === "c";
+        const dareDark = v === "a" || v === "c";
+        const guidesDark = v === "a" || v === "c";
+        const BLACK = "#121211";
+        const ink = (dark: boolean) => (dark ? "text-white" : "text-brand-text");
+        const body = (dark: boolean) => (dark ? "text-white" : "text-brand-text/80");
+        const accent = (dark: boolean) => (dark ? { color: "#5AE19E" } : undefined);
+        return (
+          <>
+            {d.darkStories && d.darkStories.length > 0 && (
+              <section
+                className={`py-20 md:py-28 ${storiesDark ? "" : "bg-brand-bg"}`}
+                style={storiesDark ? { backgroundColor: BLACK } : undefined}
               >
-                Norwich&apos;s darkest
-              </span>{" "}
-              <span
-                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
-                style={script}
-              >
-                secrets.
-              </span>
-            </h2>
-            <ol className="m-0 p-0 list-none flex flex-col gap-10 md:gap-14 max-w-5xl mx-auto">
-              {d.darkStories.map((st, i) => (
-                <li
-                  key={st.title}
-                  className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${
-                    i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
-                  }`}
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_14px_30px_-16px_rgba(26,26,26,0.55)]">
-                    <Image
-                      src={st.img}
-                      alt={st.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 480px"
-                    />
-                  </div>
-                  <div>
-                    <h3
-                      className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
-                      style={script}
+                <div className="brand-container">
+                  <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
+                    <span
+                      className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(storiesDark)}`}
+                      style={lora}
                     >
-                      {st.title}
-                    </h3>
-                    <p className="text-[18px] md:text-[19px] text-brand-text/80 leading-relaxed m-0" style={lora}>
-                      {st.text}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-      )}
+                      Norwich&apos;s darkest
+                    </span>{" "}
+                    <span
+                      className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                      style={{ ...script, ...accent(storiesDark) }}
+                    >
+                      secrets.
+                    </span>
+                  </h2>
+                  {cardsDark ? (
+                    <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                      {d.darkStories.map((st) => (
+                        <li
+                          key={st.title}
+                          className="overflow-hidden rounded-2xl shadow-[0_18px_40px_-20px_rgba(0,0,0,0.7)]"
+                          style={{ backgroundColor: BLACK }}
+                        >
+                          <div className="relative aspect-[4/3]">
+                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 380px" />
+                          </div>
+                          <div className="p-6">
+                            <h3 className="text-[28px] leading-[1.05] mb-3" style={{ ...script, color: "#5AE19E" }}>
+                              {st.title}
+                            </h3>
+                            <p className="text-[16.5px] text-white leading-relaxed m-0" style={lora}>
+                              {st.text}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <ol className="m-0 p-0 list-none flex flex-col gap-10 md:gap-14 max-w-5xl mx-auto">
+                      {d.darkStories.map((st, i) => (
+                        <li
+                          key={st.title}
+                          className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${
+                            i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+                          }`}
+                        >
+                          <div
+                            className={`relative aspect-[4/3] overflow-hidden rounded-2xl ${
+                              storiesDark
+                                ? "ring-1 ring-white/10"
+                                : "shadow-[0_14px_30px_-16px_rgba(26,26,26,0.55)]"
+                            }`}
+                          >
+                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 480px" />
+                          </div>
+                          <div>
+                            <h3
+                              className="text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
+                              style={{ ...script, ...accent(storiesDark) }}
+                            >
+                              {st.title}
+                            </h3>
+                            <p className={`text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
+                              {st.text}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              </section>
+            )}
 
-      {/* As night falls - the evening in three beats, Halloween callout,
-          one booking CTA. Route and time facts only. */}
-      {d.nightBeats && d.nightBeats.length > 0 && (
-        <section className="py-20 md:py-24 bg-white border-y border-brand-accent/10">
-          <div className="brand-container max-w-5xl">
-            <h2 className="text-center leading-[1.0] mb-12 md:mb-14">
-              <span
-                className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
-                style={lora}
+            {d.nightBeats && d.nightBeats.length > 0 && (
+              <section
+                className={`py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
+                style={dareDark ? { backgroundColor: BLACK } : undefined}
               >
-                Dare you
-              </span>{" "}
-              <span
-                className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
-                style={script}
+                <div className="brand-container max-w-5xl">
+                  <h2 className="text-center leading-[1.0] mb-12 md:mb-14">
+                    <span
+                      className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(dareDark)}`}
+                      style={lora}
+                    >
+                      Dare you
+                    </span>{" "}
+                    <span
+                      className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                      style={{ ...script, ...accent(dareDark) }}
+                    >
+                      walk it?
+                    </span>
+                  </h2>
+                  <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                    {d.nightBeats.map((b) => (
+                      <li key={b.title} className="border-t-2 border-brand-accent pt-5">
+                        <p
+                          className="text-[13px] uppercase tracking-[0.18em] font-semibold text-brand-accent mb-2"
+                          style={{ ...lora, ...accent(dareDark) }}
+                        >
+                          {b.when}
+                        </p>
+                        <h3 className={`text-[24px] leading-tight mb-3 ${ink(dareDark)}`} style={script}>
+                          {b.title}
+                        </h3>
+                        <p className={`text-[17px] leading-relaxed m-0 ${body(dareDark)}`} style={lora}>
+                          {b.text}
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                  <div className="mt-14 flex flex-col items-center gap-4 text-center">
+                    <p
+                      className={`inline-flex flex-wrap justify-center gap-x-3 px-5 py-2 rounded-full text-[15px] font-semibold ${
+                        dareDark ? "bg-white text-brand-text" : "bg-brand-text text-white"
+                      }`}
+                      style={lora}
+                    >
+                      <span>Every evening, 16 Oct to 6 Nov</span>
+                    </p>
+                    <a
+                      href={d.bookingTour ? "#book" : "#notify"}
+                      className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
+                    >
+                      {d.bookingTour ? "Book your free spot" : "Join the waiting list"}
+                      <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {d.storytellers && d.storytellers.length > 0 && (
+              <section
+                className={`py-20 md:py-24 ${guidesDark ? "" : "bg-brand-bg"}`}
+                style={guidesDark ? { backgroundColor: BLACK, borderTop: "1px solid rgba(255,255,255,0.08)" } : undefined}
               >
-                walk it?
-              </span>
-            </h2>
-            <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-              {d.nightBeats.map((b) => (
-                <li key={b.title} className="border-t-2 border-brand-accent pt-5">
-                  <p
-                    className="text-[13px] uppercase tracking-[0.18em] font-semibold text-brand-accent mb-2"
+                <div className="brand-container max-w-4xl text-center">
+                  <h2 className="leading-[1.0] mb-4">
+                    <span
+                      className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(guidesDark)}`}
+                      style={lora}
+                    >
+                      Your
+                    </span>{" "}
+                    <span
+                      className="inline text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                      style={{ ...script, ...accent(guidesDark) }}
+                    >
+                      storytellers.
+                    </span>
+                  </h2>
+                  <p className={`text-[17px] leading-relaxed max-w-xl mx-auto mb-12 ${body(guidesDark)}`} style={lora}>
+                    {d.storytellersLine}
+                  </p>
+                  <ul className="m-0 p-0 list-none flex flex-wrap justify-center gap-10">
+                    {d.storytellers.map((g) => (
+                      <li key={g.name} className="flex flex-col items-center">
+                        <div
+                          className={`relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden ${
+                            guidesDark ? "ring-2 ring-[#5AE19E]" : "ring-4 ring-white shadow-lg"
+                          }`}
+                        >
+                          <Image
+                            src={g.img}
+                            alt={`Portrait of ${g.name}`}
+                            fill
+                            className="object-cover"
+                            style={{ objectPosition: g.focal ?? "50% 25%" }}
+                            sizes="192px"
+                          />
+                        </div>
+                        <p className="mt-4 text-[34px] leading-none text-brand-accent" style={{ ...script, ...accent(guidesDark) }}>
+                          {g.name}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="/our-guides"
+                    className={`inline-block mt-10 italic underline underline-offset-4 ${
+                      guidesDark ? "text-white decoration-white/40 hover:decoration-white" : "text-brand-text/80 decoration-brand-text/30 hover:decoration-brand-text"
+                    }`}
                     style={lora}
                   >
-                    {b.when}
-                  </p>
-                  <h3 className="text-[24px] leading-tight text-brand-text mb-3" style={script}>
-                    {b.title}
-                  </h3>
-                  <p className="text-[17px] text-brand-text/80 leading-relaxed m-0" style={lora}>
-                    {b.text}
-                  </p>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-14 flex flex-col items-center gap-4 text-center">
-              <p
-                className="inline-flex flex-wrap justify-center gap-x-3 px-5 py-2 rounded-full bg-brand-text text-white text-[15px] font-semibold"
-                style={lora}
-              >
-                <span>Every evening, 16 Oct to 6 Nov</span>
-              </p>
-              <a
-                href={d.bookingTour ? "#book" : "#notify"}
-                className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
-              >
-                {d.bookingTour ? "Book your free spot" : "Join the waiting list"}
-                <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
+                    Meet all our guides
+                  </a>
+                </div>
+              </section>
+            )}
+          </>
+        );
+      })()}
 
       {/* Story — polaroid left, copy right, homepage showcase language. */}
       {!d.darkStories && (
