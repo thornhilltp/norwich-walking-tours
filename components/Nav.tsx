@@ -40,6 +40,10 @@ export function Nav() {
   // so nav text is legible against cream content bg.
   const hasDarkHero = pathname === "/";
   const isOpaque = scrolled || mobileOpen || !hasDarkHero;
+  // Dark History pages: black bar with white links when scrolled (Tom
+  // 2026-10-11). lightUI = the cream bar styling everywhere else.
+  const night = (pathname ?? "").startsWith("/tours/dark-history");
+  const lightUI = isOpaque && !night;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -67,7 +71,9 @@ export function Nav() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isOpaque
-          ? "bg-brand-bg/95 backdrop-blur-sm shadow-sm border-b border-brand-accent/10"
+          ? night
+            ? "bg-[#121211]/95 backdrop-blur-sm shadow-sm border-b border-white/10"
+            : "bg-brand-bg/95 backdrop-blur-sm shadow-sm border-b border-brand-accent/10"
           : "bg-black/20 backdrop-blur-sm"
       }`}
     >
@@ -81,7 +87,7 @@ export function Nav() {
               hamburger at 375px viewports. */}
           <a href="/" aria-label="Norwich Free Walking Tours, home">
             <Image
-              src={isOpaque ? "/Logo_1.svg" : "/Logo_2.svg"}
+              src={lightUI ? "/Logo_1.svg" : "/Logo_2.svg"}
               alt="Norwich Free Walking Tours"
               width={500}
               height={500}
@@ -115,9 +121,9 @@ export function Nav() {
                 aria-haspopup="true"
                 onClick={() => setToursOpen((v) => !v)}
                 className={`inline-flex items-center gap-1 text-sm font-medium pb-2 transition-colors duration-150 ${
-                  isOpaque
+                  lightUI
                     ? "text-brand-text/70 hover:text-brand-accent"
-                    : "text-white/80 hover:text-white"
+                    : "text-white hover:text-[#5AE19E]"
                 }`}
               >
                 Our Tours
@@ -144,13 +150,15 @@ export function Nav() {
             </div>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
-              const textClass = isOpaque
+              const textClass = lightUI
                 ? isActive
                   ? "text-brand-accent"
                   : "text-brand-text/70 hover:text-brand-accent"
                 : isActive
                   ? "text-white"
-                  : "text-white/80 hover:text-white";
+                  : night
+                    ? "text-white hover:text-[#5AE19E]"
+                    : "text-white/80 hover:text-white";
               const clipClass = isActive
                 ? "[clip-path:inset(0_0_0_0)]"
                 : "[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]";
@@ -192,7 +200,7 @@ export function Nav() {
           {/* Mobile hamburger */}
           <button
             className={`md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors duration-150 focus-brand ${
-              isOpaque
+              lightUI
                 ? "text-brand-text hover:bg-brand-accent/10"
                 : "text-white hover:bg-white/15"
             }`}

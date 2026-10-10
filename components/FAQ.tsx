@@ -99,7 +99,9 @@ function FAQItem({
   index,
   isOpen,
   onToggle,
+  dark = false,
 }: {
+  dark?: boolean;
   q: string;
   a: string;
   index: number;
@@ -112,14 +114,14 @@ function FAQItem({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="border-b border-brand-accent/15 last:border-b-0"
+      className={`border-b last:border-b-0 ${dark ? "border-white/10" : "border-brand-accent/15"}`}
     >
       <button
         onClick={onToggle}
         aria-expanded={isOpen}
         className="w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 rounded"
       >
-        <h3 className="font-lora text-base md:text-lg font-semibold text-brand-text group-hover:text-brand-accent transition-colors duration-150">
+        <h3 className={`font-lora text-base md:text-lg font-semibold group-hover:text-brand-accent transition-colors duration-150 ${dark ? "text-white" : "text-brand-text"}`}>
           {q}
         </h3>
         <span className="shrink-0 w-7 h-7 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent transition-colors duration-150 group-hover:bg-brand-accent group-hover:text-white">
@@ -141,7 +143,7 @@ function FAQItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="font-lora text-muted-foreground leading-relaxed pb-5 pr-12">
+            <p className={`font-lora leading-relaxed pb-5 pr-12 ${dark ? "text-white/85" : "text-muted-foreground"}`}>
               {a}
             </p>
           </motion.div>
@@ -158,6 +160,8 @@ interface FAQProps {
   items?: { q: string; a: string }[];
   /** Emit FAQPage JSON-LD. Leave true only on ONE indexable page per URL. */
   emitSchema?: boolean;
+  /** Black section, white text (Dark History page). */
+  dark?: boolean;
 }
 
 // Number of FAQs always visible on mobile. The rest stay in the DOM
@@ -166,7 +170,7 @@ interface FAQProps {
 // unaffected — always shows all FAQs.
 const MOBILE_VISIBLE_COUNT = 8;
 
-export function FAQ({ customHeading, items, emitSchema = true }: FAQProps = {}) {
+export function FAQ({ customHeading, items, emitSchema = true, dark = false }: FAQProps = {}) {
   const list = items ?? faqs;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllMobile, setShowAllMobile] = useState(false);
@@ -181,7 +185,12 @@ export function FAQ({ customHeading, items, emitSchema = true }: FAQProps = {}) 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
     )}
-    <section ref={ref} id="faq" className="section-padding bg-brand-bg">
+    <section
+      ref={ref}
+      id="faq"
+      className={`section-padding ${dark ? "" : "bg-brand-bg"}`}
+      style={dark ? { backgroundColor: "#121211" } : undefined}
+    >
       <div className="brand-container">
         <div className="max-w-2xl mx-auto">
           {/* Heading */}
@@ -202,7 +211,12 @@ export function FAQ({ customHeading, items, emitSchema = true }: FAQProps = {}) 
           </motion.div>
 
           {/* Accordion */}
-          <div className="bg-white rounded-2xl px-6 md:px-8 border border-brand-accent/10 shadow-sm">
+          <div
+            className={`rounded-2xl px-6 md:px-8 ${
+              dark ? "border border-white/12" : "bg-white border border-brand-accent/10 shadow-sm"
+            }`}
+            style={dark ? { backgroundColor: "#1b1a18" } : undefined}
+          >
             {list.map((faq, index) => {
               // Hide the tail end on mobile until user expands. Always
               // rendered in DOM for SEO (mobile-first index sees them).
@@ -214,6 +228,7 @@ export function FAQ({ customHeading, items, emitSchema = true }: FAQProps = {}) 
                   className={isHiddenOnMobile ? "hidden md:block" : ""}
                 >
                   <FAQItem
+                    dark={dark}
                     q={faq.q}
                     a={faq.a}
                     index={index}

@@ -14,6 +14,7 @@ import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
+import { NightSkyline, Fog, MoonDivider } from "@/app/tours/_components/Spooky";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
@@ -252,6 +253,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           style={{ objectPosition: "center 40%" }}
         />
         <div className="absolute inset-0 bg-black/50" />
+        {d.murderBoard && <NightSkyline />}
 
         <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
@@ -527,7 +529,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         const v = d.darkVariant;
         const storiesDark = v === "b";
         const cardsDark = v === "c";
-        const dareDark = v === "a" || v === "c";
+        const dareDark = v === "a" || v === "c" || Boolean(d.murderBoard);
         const guidesDark = v === "a" || v === "c" || Boolean(d.murderBoard);
         const BLACK = "#121211";
         const ink = (dark: boolean) => (dark ? "text-white" : "text-brand-text");
@@ -537,10 +539,11 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           <>
             {d.darkStories && d.darkStories.length > 0 && (
               <section
-                className={`py-20 md:py-28 ${storiesDark ? "" : "bg-brand-bg"}`}
+                className={`relative overflow-hidden py-20 md:py-28 ${storiesDark ? "" : "bg-brand-bg"}`}
                 style={storiesDark ? { backgroundColor: BLACK } : undefined}
               >
-                <div className="brand-container">
+                {d.murderBoard && storiesDark && <Fog />}
+                <div className="relative brand-container">
                   <h2 className="text-center leading-[1.0] mb-14 md:mb-16">
                     <span
                       className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(storiesDark)}`}
@@ -614,6 +617,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </section>
             )}
 
+            {d.murderBoard && <MoonDivider />}
             {d.nightBeats && d.nightBeats.length > 0 && (
               <section
                 className={`py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
@@ -673,12 +677,14 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               </section>
             )}
 
+            {d.murderBoard && <MoonDivider />}
             {d.storytellers && d.storytellers.length > 0 && (
               <section
-                className={`py-20 md:py-24 ${guidesDark ? "" : "bg-brand-bg"}`}
+                className={`relative overflow-hidden py-20 md:py-24 ${guidesDark ? "" : "bg-brand-bg"}`}
                 style={guidesDark ? { backgroundColor: BLACK, borderTop: "1px solid rgba(255,255,255,0.08)" } : undefined}
               >
-                <div className="brand-container max-w-4xl text-center">
+                {d.murderBoard && <Fog />}
+                <div className="relative brand-container max-w-4xl text-center">
                   <h2 className="leading-[1.0] mb-4">
                     <span
                       className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${ink(guidesDark)}`}
@@ -886,13 +892,15 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
       {/* FAQs - same accordion as the homepage, this tour's questions.
           No FAQPage schema here while the page is a noindex prototype. */}
+      {d.murderBoard && <MoonDivider />}
       <FAQ
+        dark={Boolean(d.murderBoard)}
         items={d.faqs.filter((f) => ready(f.q) && ready(f.a))}
         emitSchema={false}
         customHeading={
           <h2 className="leading-[1.0]">
             <span
-              className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+              className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${d.murderBoard ? "text-white" : "text-brand-text"}`}
               style={lora}
             >
               Asked
@@ -910,6 +918,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {/* Cross-sell - hand the not-sold browser the next thing
           before the page runs out. Compact cards: the free tour plus
           the next tour that is not this one. */}
+      {!d.darkStories && (
       <section className="section-padding bg-white border-t border-brand-accent/10">
         <div className="brand-container">
           <SplitHeading plain="Not your kind of" script="walk?" scriptStyle={script} />
@@ -960,6 +969,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
+      )}
 
       <div id="notify" className="scroll-mt-28">
         {d.bookingTour ? (

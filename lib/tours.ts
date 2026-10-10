@@ -282,19 +282,19 @@ export const tours: Tour[] = [
         // stories, framed as true. Themes only from the script.
         {
           title: "Murder on these streets",
-          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          text: "Real murders on streets you walk past every day, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
         {
           title: "The dead who went missing",
-          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          text: "A body that vanished from Elm Hill, and a truth stranger than any ghost story.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           title: "The real horrors of Tombland Alley",
-          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
@@ -460,19 +460,19 @@ export const tours: Tour[] = [
         // stories, framed as true. Themes only from the script.
         {
           title: "Murder on these streets",
-          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          text: "Real murders on streets you walk past every day, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
         {
           title: "The dead who went missing",
-          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          text: "A body that vanished from Elm Hill, and a truth stranger than any ghost story.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           title: "The real horrors of Tombland Alley",
-          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
@@ -638,19 +638,19 @@ export const tours: Tour[] = [
         // stories, framed as true. Themes only from the script.
         {
           title: "Murder on these streets",
-          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          text: "Real murders on streets you walk past every day, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
         {
           title: "The dead who went missing",
-          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          text: "A body that vanished from Elm Hill, and a truth stranger than any ghost story.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           title: "The real horrors of Tombland Alley",
-          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
@@ -669,6 +669,8 @@ export const tours: Tour[] = [
           reviews: [
             { quote: "Holly was an absolutely brilliant guide, **one of the very best, perhaps the best**, on our numerous city walking tours around Europe.", author: "Andrew Wright" },
             { quote: "She kept our group totally engaged with **interesting, funny and warm-hearted stories**.", author: "OwlQueen, TripAdvisor" },
+            { quote: "Holly's tour is **fabulous**. Very fun and loads of info.", author: "Caroline" },
+            { quote: "Great couple of hours with Holly showing us parts of Norwich in an **entertaining manner**. Clearly loves Norwich and a history buff.", author: "TripAdvisor review, Sept 2026" },
           ],
         },
         {
@@ -679,6 +681,9 @@ export const tours: Tour[] = [
           reviews: [
             { quote: "Joolz really **brought it to life**. She was the best thing about our trip.", author: "Andy, from Wales" },
             { quote: "Joolz is an **absolutely superb tour guide**. Can't recommend her enough.", author: "Caroline, from Basingstoke" },
+            { quote: "Joolz brings **a passion and magic to her storytelling** which enhances her considerable knowledge and brings the history to life.", author: "Sandhauer, TripAdvisor" },
+            { quote: "Joolz was a great tour guide, with **lots of fun, stories and great explanations**.", author: "Celia L, TripAdvisor" },
+            { quote: "Joolz was excellent. **Made everyone feel welcome** and a group together.", author: "Janette M, TripAdvisor" },
           ],
         },
       ],
@@ -836,19 +841,19 @@ export const tours: Tour[] = [
         // stories, framed as true. Themes only from the script.
         {
           title: "Murder on these streets",
-          text: "Real murders, on streets you walk past every day. Husbands, wives, and secrets that ended in blood. And the punishments that followed were just as grim. Every word of it true.",
+          text: "Real murders on streets you walk past every day, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
         {
           title: "The dead who went missing",
-          text: "A body that vanished from Elm Hill. Bodies scattered and never laid to rest. Norwich hasn't always let its dead stay buried, and the truth is stranger than any ghost story.",
+          text: "A body that vanished from Elm Hill, and a truth stranger than any ghost story.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           title: "The real horrors of Tombland Alley",
-          text: "Plague, death and despair in one crooked alley. Not a ghost story. A true one, told in the dark, right where it happened.",
+          text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
