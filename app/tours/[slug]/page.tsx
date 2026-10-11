@@ -159,18 +159,16 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           body:has([data-dark-tour]) .sticky-book-bar a {
             font-family: ${eater.style.fontFamily};
             font-weight: 400;
-            font-size: 1.35rem;
+            font-size: 1.05rem;
             letter-spacing: 0.02em;
-            background: #5C0C0C;
-            color: #F5EBDA;
-            box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.45), 0 0 18px rgba(255, 80, 80, 0.3);
+            box-shadow: 0 0 12px rgba(90, 225, 158, 0.25);
           }
           @media (prefers-reduced-motion: no-preference) {
             body:has([data-dark-tour]) .sticky-book-bar a { animation: spooky-glow 3.2s ease-in-out infinite; }
           }
           @keyframes spooky-glow {
-            0%, 100% { box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.45), 0 0 14px rgba(255, 80, 80, 0.25); }
-            50% { box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.6), 0 0 26px rgba(255, 80, 80, 0.45); }
+            0%, 100% { box-shadow: 0 0 10px rgba(90, 225, 158, 0.2); }
+            50% { box-shadow: 0 0 22px rgba(90, 225, 158, 0.45); }
           }
         ` }} />
       )}

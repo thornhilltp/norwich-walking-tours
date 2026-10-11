@@ -20,7 +20,9 @@ export function StickyBookCTA() {
   const isTourPage = /^\/tours\/.+/.test(pathname ?? "");
   const href = isTourPage ? "#book" : "/book";
   const label = "Book your spot (free)";
-  const location = isTourPage ? "sticky_tour_waitlist" : "sticky_mobile";
+  // Tours are bookable now, so name the tour rather than "waitlist" (Tom 2026-10-11)
+  const tourSlug = isTourPage ? pathname!.split("/")[2] : "";
+  const location = isTourPage ? `sticky_tour_${tourSlug}` : "sticky_mobile";
 
   return (
     <div className="sticky-book-bar fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 safe-area-inset-bottom">
