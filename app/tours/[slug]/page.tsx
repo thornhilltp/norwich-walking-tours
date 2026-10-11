@@ -463,7 +463,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               d.framedBand
                 ? bandFrame.band
                 : "bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05]"
-            } px-6 py-6 md:px-10 md:py-7 grid grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5`}
+            } px-6 py-6 md:px-10 md:py-7 grid ${
+              // Tom 2026-10-11: dark tours stack the three facts, centred, on phones
+              d.framedBand ? "grid-cols-1 text-center md:grid-cols-2 md:text-left" : "grid-cols-2"
+            } lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5`}
           >
 
             {d.logistics
@@ -619,7 +622,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                             <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 480px" style={d.murderBoard ? photoTint : undefined} />
                             {d.murderBoard && <Vignette />}
                           </div>
-                          <div className="relative">
+                          <div className={`relative ${d.murderBoard ? "text-center md:text-left" : ""}`}>
                             {d.murderBoard && storiesDark && <StoryLantern />}
                             <h3
                               className="relative text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
@@ -666,7 +669,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     {d.nightBeats.map((b) => (
                       <li
                         key={b.title}
-                        className="border-t-2 border-brand-accent pt-5"
+                        className={`border-t-2 border-brand-accent pt-5 ${d.murderBoard ? "text-center md:text-left" : ""}`}
                         style={blood ? { borderColor: RED } : undefined}
                       >
                         <p

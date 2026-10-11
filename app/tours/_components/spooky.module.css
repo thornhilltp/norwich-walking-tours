@@ -62,5 +62,10 @@
   .storyLantern { animation: sway 5s ease-in-out infinite; }
   .lFlame { animation: flick 2.2s ease-in-out infinite; }
 }
+/* Phones: story text is centred, so the lantern and its glow centre too */
+@media (max-width: 767px) {
+  .storyLantern { margin-left: auto; margin-right: auto; }
+  .storyGlow { left: 50%; transform: translateX(-50%); }
+}
 @keyframes sway { 0%, 100% { rotate: -4deg; } 50% { rotate: 4deg; } }
 @keyframes flick { 0%, 100% { transform: scale(1, 1); } 30% { transform: scale(0.92, 1.08); } 60% { transform: scale(1.06, 0.94); } 80% { transform: scale(0.97, 1.04); } }
