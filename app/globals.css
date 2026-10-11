@@ -174,6 +174,16 @@
     }
   }
 
+  /* Dark tour pages (data-dark-tour on <main>): the sticky mobile bar and the
+     body behind it go night-black instead of cream (Tom 2026-10-11). */
+  body:has([data-dark-tour]) {
+    background-color: #121211;
+  }
+  body:has([data-dark-tour]) .sticky-book-bar {
+    background-color: rgb(18 18 17 / 0.95);
+    border-top-color: rgb(90 225 158 / 0.35);
+  }
+
   .section-padding {
     /* Mobile padding reduced from 4rem → 3rem so the page isn't
        all gap on phones (9 sections × 8rem vertical padding adds

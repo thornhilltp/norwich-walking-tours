@@ -23,7 +23,7 @@ export function StickyBookCTA() {
   const location = isTourPage ? "sticky_tour_waitlist" : "sticky_mobile";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 safe-area-inset-bottom">
+    <div className="sticky-book-bar fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 safe-area-inset-bottom">
       <a
         href={href}
         onClick={() => trackEvent("book_cta_click", { location })}

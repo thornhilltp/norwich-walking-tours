@@ -151,7 +151,29 @@ export default function TourPage({ params }: { params: { slug: string } }) {
   const script = d.scriptFont === "eater" ? eaterStyle : caveat;
 
   return (
-    <main className="bg-brand-bg">
+    <main className="bg-brand-bg" data-dark-tour={d.murderBoard ? "" : undefined}>
+      {/* Spooky sticky book button on dark tours (the bar lives in the root
+          layout, so it is styled from here where the Eater face is loaded). */}
+      {d.murderBoard && (
+        <style dangerouslySetInnerHTML={{ __html: `
+          body:has([data-dark-tour]) .sticky-book-bar a {
+            font-family: ${eater.style.fontFamily};
+            font-weight: 400;
+            font-size: 1.35rem;
+            letter-spacing: 0.02em;
+            background: #5C0C0C;
+            color: #F5EBDA;
+            box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.45), 0 0 18px rgba(255, 80, 80, 0.3);
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            body:has([data-dark-tour]) .sticky-book-bar a { animation: spooky-glow 3.2s ease-in-out infinite; }
+          }
+          @keyframes spooky-glow {
+            0%, 100% { box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.45), 0 0 14px rgba(255, 80, 80, 0.25); }
+            50% { box-shadow: inset 0 0 0 1px rgba(255, 143, 143, 0.6), 0 0 26px rgba(255, 80, 80, 0.45); }
+          }
+        ` }} />
+      )}
       {live && (
         <script
           type="application/ld+json"
@@ -448,12 +470,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           the hero's bottom edge. The at-a-glance answers live here now
           the hero slot is reserved for the booking widget. */}
       <div
-        className="relative z-10 -mt-10 md:-mt-12"
-        style={
+        // Black starts exactly where the hero ends (-mt-10 = 2.5rem on phones,
+        // -mt-12 = 3rem from md) so no cream strip shows behind the band.
+        className={`relative z-10 -mt-10 md:-mt-12 ${
           d.framedBand
-            ? { background: "linear-gradient(to bottom, transparent 0, transparent 3rem, #121211 3rem)" }
-            : undefined
-        }
+            ? "bg-[linear-gradient(to_bottom,transparent_0,transparent_2.5rem,#121211_2.5rem)] md:bg-[linear-gradient(to_bottom,transparent_0,transparent_3rem,#121211_3rem)]"
+            : ""
+        }`}
       >
         <div className="brand-container">
           {/* Facts (Tom): Time / How long / Start / Finish / Price.
