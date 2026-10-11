@@ -152,11 +152,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
   return (
     <main className="bg-brand-bg" data-dark-tour={d.murderBoard ? "" : undefined}>
-      {/* Spooky sticky book button on dark tours (the bar lives in the root
-          layout, so it is styled from here where the Eater face is loaded). */}
+      {/* Dark tours: every green booking button (hero, Dare section, nav,
+          sticky bar, email sign-up) gets Eater lettering and a soft green
+          glow (Tom 2026-10-11). Styled here because the nav and sticky bar
+          live in the root layout and this page is where Eater is loaded. */}
       {d.murderBoard && (
         <style dangerouslySetInnerHTML={{ __html: `
-          body:has([data-dark-tour]) .sticky-book-bar a {
+          body:has([data-dark-tour]) .btn-cta {
             font-family: ${eater.style.fontFamily};
             font-weight: 400;
             font-size: 1.05rem;
@@ -164,7 +166,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             box-shadow: 0 0 12px rgba(90, 225, 158, 0.25);
           }
           @media (prefers-reduced-motion: no-preference) {
-            body:has([data-dark-tour]) .sticky-book-bar a { animation: spooky-glow 3.2s ease-in-out infinite; }
+            body:has([data-dark-tour]) .btn-cta { animation: spooky-glow 3.2s ease-in-out infinite; }
           }
           @keyframes spooky-glow {
             0%, 100% { box-shadow: 0 0 10px rgba(90, 225, 158, 0.2); }
