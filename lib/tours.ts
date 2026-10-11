@@ -291,13 +291,14 @@ export const tours: Tour[] = [
         },
         {
           title: "The dead who went missing",
-          // Folklore, not documented (Tom 2026-10-11): say legend, never "true".
+          // Folklore, not documented (Tom 2026-10-11): the missing body and the
+          // plague girl are legends. Say legend, never "true".
           text: "A body that vanished from Elm Hill, and the legend that's followed it ever since.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
-          title: "The real horrors of Tombland Alley",
+          title: "The horrors of Tombland Alley",
           text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
@@ -426,11 +427,11 @@ export const tours: Tour[] = [
       faqs: [
         {
           q: "Is this a ghost walk or ghost tour?",
-          a: "Not quite. If you were searching for a ghost walk or ghost tour in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+          a: "Not quite. If you were searching for a ghost walk or ghost tour in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened, plus a couple of the city's darkest legends.",
         },
         {
           q: "Is it scary?",
-          a: "It's dark history, not jump scares. The stories are grim because they're true, but nobody leaps out of a doorway.",
+          a: "It's dark history, not jump scares. Most of it is grim because it really happened.",
         },
         {
           q: "How much does it cost?",
