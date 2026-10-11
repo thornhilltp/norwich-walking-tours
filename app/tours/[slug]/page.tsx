@@ -92,6 +92,17 @@ const caveat = { fontFamily: "var(--font-caveat), cursive" } as const;
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
 const eaterStyle = { fontFamily: eater.style.fontFamily, fontWeight: 400 } as const;
 
+// Tom 2026-10-11: murder-board tours tint their main photos like the guide
+// polaroids (same filter + vignette as murder-board.module.css .photo).
+const photoTint = { filter: "sepia(0.55) contrast(1.15) brightness(0.85) saturate(0.8)" } as const;
+const Vignette = () => (
+  <div
+    aria-hidden
+    className="pointer-events-none absolute inset-0"
+    style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10, 6, 2, 0.75) 100%)" }}
+  />
+);
+
 // **bold** markers -> semibold ink, matching /our-guides renderBold.
 function renderBold(text: string) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
@@ -253,9 +264,10 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           priority
           sizes="100vw"
           className="object-cover -z-10"
-          style={{ objectPosition: "center 40%" }}
+          style={{ objectPosition: "center 40%", ...(d.murderBoard ? photoTint : {}) }}
         />
         <div className="absolute inset-0 bg-black/50" />
+        {d.murderBoard && <Vignette />}
         {d.murderBoard && <NightSkyline />}
 
         <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
@@ -574,7 +586,8 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                           style={{ backgroundColor: BLACK }}
                         >
                           <div className="relative aspect-[4/3]">
-                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 380px" />
+                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 380px" style={d.murderBoard ? photoTint : undefined} />
+                            {d.murderBoard && <Vignette />}
                           </div>
                           <div className="p-6">
                             <h3 className="text-[28px] leading-[1.05] mb-3" style={{ ...script, color: "#5AE19E" }}>
@@ -603,7 +616,8 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                                 : "shadow-[0_14px_30px_-16px_rgba(26,26,26,0.55)]"
                             }`}
                           >
-                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 480px" />
+                            <Image src={st.img} alt={st.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 480px" style={d.murderBoard ? photoTint : undefined} />
+                            {d.murderBoard && <Vignette />}
                           </div>
                           <div className="relative">
                             {d.murderBoard && storiesDark && <StoryLantern />}
