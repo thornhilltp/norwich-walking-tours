@@ -291,7 +291,8 @@ export const tours: Tour[] = [
         },
         {
           title: "The dead who went missing",
-          text: "A body that vanished from Elm Hill, and a truth stranger than any ghost story.",
+          // Folklore, not documented (Tom 2026-10-11): say legend, never "true".
+          text: "A body that vanished from Elm Hill, and the legend that's followed it ever since.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
