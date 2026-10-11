@@ -12,7 +12,7 @@ const CANONICAL = "https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour
 export const metadata: Metadata = {
   title: "What is a free walking tour? | Norwich Free Walking Tours",
   description:
-    "Free walking tours explained: you join for free, walk for 2 hours with a local guide, and tip £10-£20 at the end if you enjoyed it. No fixed price, no pressure.",
+    "Free walking tours explained: you join for free, walk for 2 hours with a local guide, and tip £10 to £20 per person at the end if you enjoyed it. No fixed price, no pressure.",
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "What is a free walking tour?",
@@ -158,7 +158,7 @@ export default function WhatIsAFreeTourPage() {
               Book your spot (free)
             </TrackedBookLink>
             <p className="mt-4 text-sm text-white/70 font-lora">
-              £0 to reserve &bull; Most guests tip £10 to £20 &bull; Free to cancel
+              £0 to reserve &bull; Most guests tip £10 to £20 per person &bull; Free to cancel
             </p>
           </div>
         </section>

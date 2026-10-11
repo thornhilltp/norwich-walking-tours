@@ -134,7 +134,7 @@ const jsonLd = [
       price: "0",
       priceCurrency: "GBP",
       availability: "https://schema.org/InStock",
-      description: "Book free. Pay what it was worth at the end. Most guests tip £10–£20. Cards, Apple Pay, Google Pay, and cash accepted.",
+      description: "Book free. Pay what it was worth at the end. Most guests tip £10 to £20 per person. Cards, Apple Pay, Google Pay, and cash accepted.",
     },
   },
   {

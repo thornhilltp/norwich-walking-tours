@@ -27,7 +27,7 @@ const steps = [
   {
     number: "03",
     title: "Pay what it was worth",
-    sub: "Tip what it was worth. Usually between £10-£20. Our guides do this full time.",
+    sub: "Tip what it was worth. Usually £10 to £20 per person. Our guides do this full time.",
     detail: "Pay at the end",
     image: "/images/tour/group-street-laughing.jpg",
     imageAlt: "Guests laughing with their guide at the end of the Norwich Free Walking Tour",

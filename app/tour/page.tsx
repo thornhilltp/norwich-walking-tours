@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "Is it actually free?",
-    a: "Yes. You book free, walk the route, and at the end you tip what you think it was worth. If the tour was rubbish, pay nothing. Most guests tip £10 to £20.",
+    a: "Yes. You book free, walk the route, and at the end you tip what you think it was worth. If the tour was rubbish, pay nothing. Most guests tip £10 to £20 per person.",
   },
   {
     q: 'Why "merit-based" instead of "free"?',
