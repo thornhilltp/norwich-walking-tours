@@ -231,7 +231,7 @@ export function HeroV2({
             className="mt-2 text-xs text-white/85 leading-relaxed"
             style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
           >
-            £0 to book &bull; Cash or Card at the end, usually £10 to £20
+            £0 to book &bull; Cash or Card at the end, usually £10 to £20 per person
           </motion.p>
         </div>
 
