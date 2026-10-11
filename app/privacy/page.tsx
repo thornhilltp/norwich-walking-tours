@@ -124,6 +124,13 @@ export default function PrivacyPage() {
               not tick it, we will not email you at all.
             </p>
             <p>
+              <strong>New tour updates</strong> are occasional emails about new walks. We only send
+              them if you join our new tour list (on the homepage or at{" "}
+              <a href="/updates" className="text-brand-accent hover:underline">/updates</a>) by
+              pressing &quot;Keep me posted&quot;. If you have not joined, we will not send them. You
+              can unsubscribe at any time using the link in any email we send.
+            </p>
+            <p>
               <strong>Analytics data</strong> is used to improve the website experience. It is
               never sold or shared with third parties for advertising purposes.
             </p>
