@@ -115,7 +115,9 @@ export function EmailCapture({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className={`mx-auto bg-white rounded-2xl border border-brand-accent/15 shadow-sm overflow-hidden ${
+          className={`mx-auto rounded-2xl border shadow-sm overflow-hidden ${
+            darkSection ? "bg-[#1c1b19] border-white/10" : "bg-white border-brand-accent/15"
+          } ${
             split ? "max-w-5xl grid md:grid-cols-2" : "max-w-2xl"
           }`}
         >
@@ -129,7 +131,16 @@ export function EmailCapture({
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 512px"
+                // Dark tour pages: same sepia tint and vignette as the page's other photos
+                style={darkSection ? { filter: "sepia(0.55) contrast(1.15) brightness(0.85) saturate(0.8)" } : undefined}
               />
+              {darkSection && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10, 6, 2, 0.75) 100%)" }}
+                />
+              )}
             </div>
           )}
 
@@ -171,11 +182,11 @@ export function EmailCapture({
             >
               {eyebrow}
             </p>
-            <Heading className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-3 leading-tight">
+            <Heading className={`font-caveat text-4xl md:text-5xl font-bold mb-3 leading-tight ${darkSection ? "text-white" : "text-brand-text"}`}>
               {heading}
             </Heading>
             <p
-              className={`text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-md ${
+              className={`${darkSection ? "text-white/75" : "text-muted-foreground"} text-base md:text-lg leading-relaxed mb-6 max-w-md ${
                 split ? "mx-auto md:mx-0" : "mx-auto"
               }`}
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
@@ -228,7 +239,7 @@ export function EmailCapture({
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     disabled={status === "submitting"}
-                    className="flex-grow h-12 px-4 rounded-xl border border-brand-accent/25 bg-white text-brand-text placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent disabled:opacity-60"
+                    className="flex-grow min-w-0 h-12 px-4 rounded-xl border border-brand-accent/25 bg-white text-brand-text placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent disabled:opacity-60"
                     style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                   />
                   <button
@@ -241,7 +252,7 @@ export function EmailCapture({
                 </div>
 
                 <p
-                  className="text-xs text-muted-foreground leading-relaxed text-left"
+                  className={`text-xs leading-relaxed text-left ${darkSection ? "text-white/60" : "text-muted-foreground"}`}
                   style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
                 >
                   By joining you agree to get occasional emails from Norwich Free Walking Tours. Unsubscribe any time. See our{" "}

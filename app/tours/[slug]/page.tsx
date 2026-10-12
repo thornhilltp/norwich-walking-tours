@@ -15,6 +15,7 @@ import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
 import { NightSkyline, Fog, MoonDivider, Lantern, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";
+import { NightFall } from "@/app/tours/_components/NightFall";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
@@ -163,6 +164,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             font-weight: 400;
             font-size: 1.05rem;
             letter-spacing: 0.02em;
+            white-space: nowrap;
             box-shadow: 0 0 12px rgba(90, 225, 158, 0.25);
           }
           @media (prefers-reduced-motion: no-preference) {
@@ -668,9 +670,11 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             {d.murderBoard && !blood && <MoonDivider />}
             {d.nightBeats && d.nightBeats.length > 0 && (
               <section
-                className={`relative py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
+                className={`relative ${d.murderBoard ? "py-28 md:py-36" : "py-20 md:py-24"} ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
                 style={dareDark ? { backgroundColor: blood ? BLOOD : BLACK } : undefined}
               >
+                {/* The page's peak: dusk to night as you scroll through it */}
+                {d.murderBoard && <NightFall />}
                 {blood && <TornEdge fill={BLACK} at="top" />}
                 {blood && <TornEdge fill={BLACK} at="bottom" />}
                 <div className="relative z-[2] brand-container max-w-5xl">
@@ -688,7 +692,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       walk it?
                     </span>
                   </h2>
-                  <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                  <ol className={`m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 ${d.murderBoard ? "gap-14" : "gap-8"} md:gap-10`}>
                     {d.nightBeats.map((b) => (
                       <li
                         key={b.title}
@@ -1034,6 +1038,40 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
+      )}
+
+      {/* Dark tours close on the walk itself, not on the newsletter:
+          one last booking moment in the page's own words (Tom 2026-10-11). */}
+      {d.murderBoard && d.bookingTour && (
+        <section className="relative overflow-hidden py-24 md:py-32 text-center" style={{ backgroundColor: "#121211" }}>
+          <Lantern />
+          <div className="relative z-[2] brand-container flex flex-col items-center gap-8">
+            <h2 className="leading-[1.0] m-0">
+              <span
+                className="block text-[clamp(26px,3.2vw,40px)] font-semibold leading-[1.15] text-white"
+                style={lora}
+              >
+                By the time you get there,
+              </span>
+              <span className="block mt-2 text-[clamp(40px,5.4vw,68px)] leading-[0.95]" style={{ ...script, color: "#5AE19E" }}>
+                night has fallen.
+              </span>
+            </h2>
+            <p className="m-0 text-[17px] text-white/80" style={lora}>
+              Most evenings, 6pm (1h 30m). City Hall steps to Tombland Alley.
+            </p>
+            <a
+              href="#book"
+              className="btn-cta inline-flex items-center justify-center h-12 px-8 text-lg bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
+            >
+              Book your free spot
+              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+            </a>
+            <p className="m-0 text-[14px] text-white/60" style={lora}>
+              £0 to book. Tip cash or card at the end, usually £10 to £20 per person.
+            </p>
+          </div>
+        </section>
       )}
 
       <div id="notify" className="scroll-mt-28">

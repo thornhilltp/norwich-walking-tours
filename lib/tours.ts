@@ -434,6 +434,11 @@ export const tours: Tour[] = [
           a: "It's dark history, not jump scares. Most of it is grim because it really happened.",
         },
         {
+          // Holly and Joolz's answer (Tom 2026-10-11): parents' choice, no age limit.
+          q: "Is this appropriate for children?",
+          a: "It's the parents' choice. We don't advertise it to children: these are real murders and real violence that happened to real people. It depends on the child, and you know yours best.",
+        },
+        {
           q: "How much does it cost?",
           a: "Nothing to book. At the end you pay what you think it was worth.",
         },
@@ -451,7 +456,7 @@ export const tours: Tour[] = [
         },
         {
           q: "[More questions TBC]",
-          a: "[Holly and Joolz to add: is it suitable for children, accessibility, dogs, what if it rains.]",
+          a: "[Holly and Joolz to add: accessibility, dogs, what if it rains.]",
         },
       ],
     },
