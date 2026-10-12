@@ -14,9 +14,7 @@ import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
-import { NightSkyline, Fog, MoonDivider, Lantern, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";
-import { NightFall } from "@/app/tours/_components/NightFall";
-import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
+import { NightSkyline, Fog, MoonDivider, Lantern, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
 
@@ -684,11 +682,9 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             {d.murderBoard && !blood && <MoonDivider />}
             {d.nightBeats && d.nightBeats.length > 0 && (
               <section
-                className={`relative ${d.murderBoard ? "py-28 md:py-36" : "py-20 md:py-24"} ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
+                className={`relative py-20 md:py-24 ${dareDark ? "" : "bg-white border-y border-brand-accent/10"}`}
                 style={dareDark ? { backgroundColor: blood ? BLOOD : BLACK } : undefined}
               >
-                {/* The page's peak: dusk to night as you scroll through it */}
-                {d.murderBoard && <NightFall />}
                 {blood && <TornEdge fill={BLACK} at="top" />}
                 {blood && <TornEdge fill={BLACK} at="bottom" />}
                 <div className="relative z-[2] brand-container max-w-5xl">
@@ -706,7 +702,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       walk it?
                     </span>
                   </h2>
-                  <ol className={`m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 ${d.murderBoard ? "gap-14" : "gap-8"} md:gap-10`}>
+                  <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                     {d.nightBeats.map((b) => (
                       <li
                         key={b.title}
