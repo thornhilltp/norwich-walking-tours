@@ -416,6 +416,20 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 at the end, usually £10 to £20 per person
               </p>
             )}
+            {/* Dark tours: children note, linked to the FAQ answer (Tom 2026-10-12) */}
+            {d.murderBoard && (
+              <p className="mt-1 text-xs text-white leading-relaxed text-center lg:text-left" style={lora}>
+                Bringing children? It&apos;s your call. Check the{" "}
+                {/* FAQ.tsx opens the answer whose slug matches this hash */}
+                <a
+                  href="#faq-is-this-appropriate-for-children"
+                  className="underline underline-offset-2 decoration-white/50 hover:decoration-white"
+                >
+                  FAQ
+                </a>
+                .
+              </p>
+            )}
           </div>
 
           {/* Widget slot - the booking iframe drops in here when the

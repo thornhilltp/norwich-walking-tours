@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
 // Exact copy from CLAUDE.md Section 6. Do not rewrite without instruction.
@@ -95,6 +95,10 @@ const faqPageSchema = (list: { q: string; a: string }[]) => ({
   })),
 });
 
+/** Anchor id for a question: "Is this appropriate for children?" -> "faq-is-this-appropriate-for-children". */
+const faqId = (q: string) =>
+  "faq-" + q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 function FAQItem({
   q,
   a,
@@ -179,6 +183,27 @@ export function FAQ({ customHeading, items, emitSchema = true, dark = false }: F
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
+  // Deep links: #faq-<question slug> opens that answer and scrolls to it,
+  // e.g. the hero's "Check the FAQ" link on the Dark History page.
+  useEffect(() => {
+    const openFromHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const index = list.findIndex((f) => faqId(f.q) === id);
+      if (index < 0) return;
+      setShowAllMobile(true);
+      setOpenIndex(index);
+      // One direct jump once the answer has opened. A smooth scroll here
+      // fights the browser's own (smooth) hash scroll and both stall early.
+      setTimeout(
+        () => document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "center" }),
+        60
+      );
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [list]);
+
   return (
     <>
     {emitSchema && (
@@ -227,7 +252,8 @@ export function FAQ({ customHeading, items, emitSchema = true, dark = false }: F
               return (
                 <div
                   key={index}
-                  className={isHiddenOnMobile ? "hidden md:block" : ""}
+                  id={faqId(faq.q)}
+                  className={`scroll-mt-28 ${isHiddenOnMobile ? "hidden md:block" : ""}`}
                 >
                   <FAQItem
                     dark={dark}
