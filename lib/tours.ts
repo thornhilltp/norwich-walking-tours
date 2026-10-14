@@ -439,6 +439,11 @@ export const tours: Tour[] = [
           a: "It's the parents' choice. We don't advertise it to children: these are real murders and real violence that happened to real people. It depends on the child, and you know yours best.",
         },
         {
+          // Tom 2026-10-12: Elm Hill's cobbles are the issue for scooters.
+          q: "Can I bring a mobility scooter?",
+          a: "We'd love to have you along, but we'd gently suggest leaving the scooter at home if you can. The route goes over the cobbles of Elm Hill, which are pretty bumpy. Not sure? Drop us a message and we'll talk it through.",
+        },
+        {
           q: "How much does it cost?",
           a: "Nothing to book. At the end you pay what you think it was worth.",
         },
@@ -456,7 +461,7 @@ export const tours: Tour[] = [
         },
         {
           q: "[More questions TBC]",
-          a: "[Holly and Joolz to add: accessibility, dogs, what if it rains.]",
+          a: "[Holly and Joolz to add: wheelchairs and pushchairs, dogs, what if it rains.]",
         },
       ],
     },
