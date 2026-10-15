@@ -549,60 +549,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         </div>
       </div>
 
-      {/* The guide's Reel (Tom 2026-10-15, option A): straight after the
-          info bar so most visitors meet their storyteller before the stories. */}
-      {d.reel && (
-        <section className="pt-16 pb-4 md:pt-20 md:pb-6" style={{ backgroundColor: "#121211" }}>
-          <div className="brand-container flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-16">
-            <div className="text-center md:text-left md:order-2 md:max-w-[440px]">
-              <h2 className="leading-[1.0]">
-                <span
-                  className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
-                  style={lora}
-                >
-                  Your
-                </span>
-                <span
-                  className="block text-[clamp(44px,5.4vw,72px)] leading-[0.95] text-brand-accent"
-                  style={{ ...script, color: "#5AE19E" }}
-                >
-                  storyteller.
-                </span>
-              </h2>
-              <p className="mt-3 text-[16px] md:text-[19px] text-white" style={lora}>
-                {d.reel.who} · {d.reel.line}
-              </p>
-              <a
-                href="https://www.instagram.com/norwichfreewalkingtours"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
-                style={{ ...lora, color: "#5AE19E" }}
-              >
-                Watch more on Instagram @norwichfreewalkingtours
-              </a>
-            </div>
-            <div className="md:order-1">
-              <StorytellerReel
-                src={d.reel.src}
-                poster={d.reel.poster}
-                label={d.reel.label}
-                trackingLocation={`tour_reel_${tour.slug}`}
-              />
-            </div>
-            <a
-              href="https://www.instagram.com/norwichfreewalkingtours"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="md:hidden text-[14px] font-semibold"
-              style={{ ...lora, color: "#5AE19E" }}
-            >
-              Watch more on Instagram @norwichfreewalkingtours
-            </a>
-          </div>
-        </section>
-      )}
-
       {/* Highlights as tap-to-open photo cards - the Our Guides
           philosophy component, pointed at this tour's waiting list. */}
       {!d.darkStories && d.highlightCards && d.highlightCards.length > 0 && (
@@ -730,6 +676,64 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       ))}
                     </ol>
                   )}
+                </div>
+              </section>
+            )}
+
+            {/* The guide's Reel as a pinned polaroid (Tom 2026-10-15): after the
+                stories, before "Dare you walk it?", so the journey runs tease,
+                then hear it told, then book. */}
+            {d.reel && (
+              <section className="relative pt-4 pb-20 md:pt-6 md:pb-24" style={{ backgroundColor: BLACK }}>
+                <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
+                  <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
+                    <h2 className="leading-[1.0]">
+                      <span
+                        className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
+                        style={lora}
+                      >
+                        {d.reel.heading[0]}
+                      </span>
+                      <span
+                        className="block mt-1 text-[clamp(40px,4.8vw,60px)] leading-[0.95] text-brand-accent"
+                        style={{ ...script, color: "#5AE19E" }}
+                      >
+                        {d.reel.heading[1]}
+                      </span>
+                    </h2>
+                    <p className="mt-4 text-[16px] md:text-[19px] text-white" style={lora}>
+                      {d.reel.who} · {d.reel.line}
+                    </p>
+                    <a
+                      href="https://www.instagram.com/norwichfreewalkingtours"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
+                      style={{ ...lora, color: "#5AE19E" }}
+                    >
+                      Watch more on Instagram @norwichfreewalkingtours
+                    </a>
+                  </div>
+                  <div className="md:order-1">
+                    <StorytellerReel
+                      src={d.reel.src}
+                      poster={d.reel.poster}
+                      label={d.reel.label}
+                      caption={d.reel.who}
+                      captionStyle={script}
+                      tag={d.reel.tag}
+                      trackingLocation={`tour_reel_${tour.slug}`}
+                    />
+                  </div>
+                  <a
+                    href="https://www.instagram.com/norwichfreewalkingtours"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="md:hidden -mt-4 text-[14px] font-semibold"
+                    style={{ ...lora, color: "#5AE19E" }}
+                  >
+                    Watch more on Instagram @norwichfreewalkingtours
+                  </a>
                 </div>
               </section>
             )}
