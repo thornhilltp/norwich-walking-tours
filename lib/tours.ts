@@ -79,6 +79,8 @@ export interface TourDetails {
   nightBeats?: { when: string; title: string; text: string }[];
   /** Display face for the green script words. Default Caveat. */
   scriptFont?: "eater";
+  /** The guide's Reel, shown after the info bar (self-hosted, captions burned in). */
+  reel?: { src: string; poster: string; who: string; line: string; label: string };
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
   availability?: { headline: string; sub: string };
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
@@ -277,6 +279,14 @@ export const tours: Tour[] = [
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "b",
       scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
+      // Tom 2026-10-15: Holly's Reel under the info bar (option A).
+      reel: {
+        src: "/videos/holly-dark-history-reel.mp4",
+        poster: "/videos/holly-dark-history-reel-poster.jpg",
+        who: "Holly",
+        line: "Dark history. Folklore.",
+        label: "Holly, a Dark History guide, introducing the walk's stories at Tombland, St George's, the Castle and City Hall",
+      },
       // Teasers built ONLY from Holly and Joolz's route script (Tom
       // 2026-10-10): names and topics as the script gives them, mood
       // words around them, no added history. Allude, don't give it away.
