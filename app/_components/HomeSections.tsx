@@ -14,12 +14,14 @@ import { guides } from "@/lib/guides";
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
-function Heading({ eyebrow, a, b, center }: { eyebrow: string; a: string; b: string; center?: boolean }) {
+function Heading({ eyebrow, a, b, center }: { eyebrow?: string; a: string; b: string; center?: boolean }) {
   return (
     <div className={center ? "text-center" : undefined}>
-      <p className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-3" style={lora}>
-        {eyebrow}
-      </p>
+      {eyebrow && (
+        <p className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-3" style={lora}>
+          {eyebrow}
+        </p>
+      )}
       <h2 className="leading-[1.0]">
         <span
           className="inline text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
@@ -355,7 +357,7 @@ export function YourGuides() {
   return (
     <section id="guides" className="py-14 md:py-20 bg-brand-accent-light/50 border-t border-brand-accent/10">
       <div className="brand-container max-w-6xl">
-        <Heading eyebrow="Your guides" a="Locals who" b="love this city." center />
+        <Heading a="Locals who" b="love this city." center />
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8 text-center">
           {guides.map((g) => (
             <div key={g.name} className="flex flex-col items-center">

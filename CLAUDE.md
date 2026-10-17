@@ -58,6 +58,34 @@ Text:           #1A1A1A
 - Short punchy sentences. Contractions fine.
 - Always "merit-based" not "pay-what-you-want" in primary copy (PWYW only in FAQs/meta)
 
+### Messaging playbook (homepage rebuild with Tom, Oct 2026)
+How the free tour is positioned. Apply to every page, ad and post about the free tour.
+
+**Audience and promise**
+- Most guests are **tourists and visitors**. Speak to them first. Don't split the hero between locals and travellers, and don't write "new to Norwich".
+- The mission line (footer, share text) is **"Helping locals and travellers love and discover Norwich."**
+- What a free walking tour gives you, in this order: **(1) the history and best stories** (lead with this), **(2) the highlights** (Cathedral, Castle, Elm Hill, Tombland, the Lanes, the Market), **(3) life in Norwich today** (local tips: coffee, pubs, market stalls, photo spots).
+- Explain the format for people who haven't done one: "Popular across Europe. What is a free walking tour?" linking to `/what-is-a-free-tour`.
+
+**Live homepage wording (approved, reuse it)**
+- Pill: "The Norwich Free Walking Tour". H1: "England's best-kept *medieval city.*" Sub: "Two hours of our favourite Norwich history, stories and local tips, with a guide who lives here."
+- Facts card: When "Most days, 10:30am (2 hours)" · Route "The Forum to Norwich Market" · Price "Free to book, pay what it was worth".
+- Section heading: "What's on *the tour?*" Plain beats clever: Tom rejected "Norwich's best-kept secrets", "The city behind the postcard" and similar.
+
+**Words**
+- **"Our favourite", not "the best"** (guides differ, and it avoids superlative claims). Keep "best" only in idioms ("best-kept"), award names ("voted the best place to live in the UK"), search-query FAQ headings ("What's the best walking tour in Norwich?") and guest quotes.
+- **Use questions as hooks**, then one short line: "Why was Norwich England's second city? Where did all the wool money come from, and where did it go?" Tease, don't give the story away.
+- Never describe a guiding style ("with the funny bits left in"); every guide is different. Guide bios are third person ("Tom came for a history degree…").
+- Facts: **"most days", never "daily"** (the walk doesn't run every day); 10:30am; 2 hours; finish at Norwich Market. No stop counts. Don't promise a green t-shirt (not every guide wears one).
+- Every claim must be checkable. OK: Sunday Times Best Places to Live 2026 (Norwich #1). Not OK: "best place to visit in Europe" (no source found), "the only daily tour". Review numbers only from `lib/testimonials.ts`, never rounded up to 5.0.
+
+**Look**
+- Copy the Dark History page structure, phone first: hero → facts card → three points (photo, then number + title, the questions in bold, one short line) → reviews + guest videos in one block → guides → Meet / Walk / Tip → 7 or 8 FAQs → the deal ("Free to book. Tip what it was worth.") with a phone button → email.
+- Brand touches stop it looking dull: taped polaroids, Caveat handwriting for the key word, a dashed wobbly walking route (snakes between the three points; wiggly line in Meet / Walk / Tip).
+- Photos: our own tour photos only, never unconfirmed stock. Lead with Norwich Cathedral and the Lanes. No place-name captions under homepage photos. The hero stays on `pottergate-walk.jpg`: it survives the tall phone crop, which wide group shots don't.
+- Guest videos: credit "Filmed by @handle" only, no invented captions, and only with the creator's written OK.
+- One call to action per section; repeat the deal at the end, not in every heading.
+
 ---
 
 ## 3b. Photos
