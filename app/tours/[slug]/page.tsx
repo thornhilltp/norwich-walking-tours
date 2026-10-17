@@ -642,7 +642,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     href="https://www.instagram.com/norwichfreewalkingtours"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="md:hidden -mt-4 text-[14px] font-semibold"
+                    className="md:hidden -mt-4 text-center text-[14px] font-semibold"
                     style={{ ...lora, color: "#5AE19E" }}
                   >
                     Watch more on Instagram @norwichfreewalkingtours
