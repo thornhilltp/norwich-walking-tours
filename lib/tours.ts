@@ -362,7 +362,7 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+        "Love a ghost story? The true history behind them is even darker.",
       promiseSub:
         "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
       // Hook removed (Tom 2026-10-10).
@@ -438,7 +438,7 @@ export const tours: Tour[] = [
       faqs: [
         {
           q: "Is this a ghost walk or ghost tour?",
-          a: "Not quite. If you were searching for a ghost walk or ghost tour in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened, plus a couple of the city's darkest legends.",
+          a: "Not quite. If you were searching for a ghost walk or ghost tour in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague behind the city's ghost stories, told where they happened, plus a couple of the city's darkest legends.",
         },
         {
           q: "Is it scary?",
@@ -555,7 +555,7 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+        "Love a ghost story? The true history behind them is even darker.",
       promiseSub:
         "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
       // Hook removed (Tom 2026-10-10).
@@ -631,7 +631,7 @@ export const tours: Tour[] = [
       faqs: [
         {
           q: "Is this a ghost walk?",
-          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague behind the city's ghost stories, told where they happened.",
         },
         {
           q: "Is it scary?",
@@ -759,7 +759,7 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+        "Love a ghost story? The true history behind them is even darker.",
       promiseSub:
         "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
       // Hook removed (Tom 2026-10-10).
@@ -835,7 +835,7 @@ export const tours: Tour[] = [
       faqs: [
         {
           q: "Is this a ghost walk?",
-          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague behind the city's ghost stories, told where they happened.",
         },
         {
           q: "Is it scary?",
@@ -938,7 +938,7 @@ export const tours: Tour[] = [
         place: { name: "City Hall steps", street: "St Peter's Street", postcode: "NR2 1NH" },
       },
       promise:
-        "Forget the ghost stories this Halloween, Norwich's true history is much darker and scarier.",
+        "Love a ghost story? The true history behind them is even darker.",
       promiseSub:
         "Murder, death, fire, flood and plague, told as night falls, right where it happened.",
       // Hook removed (Tom 2026-10-10).
@@ -1014,7 +1014,7 @@ export const tours: Tour[] = [
       faqs: [
         {
           q: "Is this a ghost walk?",
-          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague most ghost walks only hint at, told where they happened.",
+          a: "Not quite. If you were searching for a ghost walk in Norwich, this is the true-history version: the real murders, riots, fire, flood and plague behind the city's ghost stories, told where they happened.",
         },
         {
           q: "Is it scary?",
