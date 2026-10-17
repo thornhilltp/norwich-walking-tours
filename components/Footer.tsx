@@ -92,7 +92,7 @@ export function Footer() {
               className="h-20 w-auto object-contain"
             />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              See the real Norwich with a local. Most days. Book your spot free.
+              Helping locals and travellers love and discover Norwich.
             </p>
           </div>
 

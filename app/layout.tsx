@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Norwich Free Walking Tours",
     description:
-      "See the real Norwich with a local. Most days. Book your spot free. Pay what it was worth at the end.",
+      "Helping locals and travellers love and discover Norwich. Most days. Book your spot free. Pay what it was worth at the end.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     siteName: "Norwich Free Walking Tours",
     locale: "en_GB",
@@ -75,14 +75,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Norwich Free Walking Tours. See the real Norwich with a local.",
+        alt: "Norwich Free Walking Tours. Helping locals and travellers love and discover Norwich.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Norwich Free Walking Tours",
-    description: "See the real Norwich with a local. Most days. Book free.",
+    description: "Helping locals and travellers love and discover Norwich. Book free.",
     images: ["/og-image.jpg"],
   },
   metadataBase: new URL("https://www.norwichfreewalkingtours.co.uk"),
