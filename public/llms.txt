@@ -9,7 +9,7 @@ Founder + guide: Tom Thornhill, a Norwich resident who has lived in the city for
 ## Pages
 
 - [Home](https://www.norwichfreewalkingtours.co.uk/): overview of the tour, local recommendations, reviews, FAQ, booking widget
-- [The Tour](https://www.norwichfreewalkingtours.co.uk/tour): full 12-stop itinerary with photos, route map, per-stop stories
+- [The Tour](https://www.norwichfreewalkingtours.co.uk/tour): full itinerary with photos, route map, per-stop stories
 - [What is a free walking tour?](https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour): explainer of the free-tour model, how it works, what guests typically tip
 - [Book](https://www.norwichfreewalkingtours.co.uk/book): live booking widget, free to reserve a spot, pay at the end
 - [About Tom](https://www.norwichfreewalkingtours.co.uk/about): about the guide, why he started, what to expect

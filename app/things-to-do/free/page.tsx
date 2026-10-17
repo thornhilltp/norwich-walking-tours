@@ -330,7 +330,7 @@ export default function FreeThingsToDoNorwichPage() {
             </Link>
             <span className="mx-2 text-brand-accent/40">&bull;</span>
             <Link href="/tour" className="text-brand-accent hover:underline">
-              The 12 stops on the tour
+              Stops on the tour
             </Link>
             <span className="mx-2 text-brand-accent/40">&bull;</span>
             <Link href="/private-tours" className="text-brand-accent hover:underline">

@@ -94,7 +94,7 @@ const faqPageSchema = {
       name: "What happens on a free walking tour?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "On the Norwich Free Walking Tour: you book a spot online (free, no card needed), meet your guide outside The Forum at the booked time, walk for 2 hours at a relaxed pace through 12 stops finishing at Norwich Market in the heart of the city, and tip what you thought it was worth at the end. Card, Apple Pay, Google Pay or cash all work.",
+        text: "On the Norwich Free Walking Tour: you book a spot online (free, no card needed), meet your guide outside The Forum at the booked time, walk for 2 hours at a relaxed pace, finishing at Norwich Market in the heart of the city, and tip what you thought it was worth at the end. Card, Apple Pay, Google Pay or cash all work.",
       },
     },
     {

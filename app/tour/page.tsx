@@ -8,9 +8,9 @@ import { Footer } from "@/components/Footer";
 import { ScrollTrail } from "@/components/ScrollTrail";
 
 export const metadata: Metadata = {
-  title: "Norwich Walking Tour | 12 Stops, 2 Hours",
+  title: "Norwich Walking Tour | 2 Hours with a Local Guide",
   description:
-    "12 stops through the real Norwich. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Daily from The Forum. Book your spot free.",
+    "Two hours through Norwich with a local guide. Elm Hill, Norwich Cathedral, the Lanes, the Market and more. Daily from The Forum. Book your spot free.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/tour",
   },
@@ -180,7 +180,7 @@ export default function TourPage() {
             The tour
           </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
-            The Norwich walking tour. 12 stops. 2 hours.
+            The Norwich walking tour. 2 hours. The whole city.
           </h1>
           <p className="font-lora text-lg text-white/85 leading-relaxed mb-8">
             The real Norwich, on foot, with someone who lives here.
@@ -208,12 +208,12 @@ export default function TourPage() {
             The whole city in one loop.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            Two hours, about 2.5 easy kilometres, twelve stops. We start at The Forum and finish at Norwich Market, right in time for lunch. Elm Hill, the Cathedral, the Castle, the Lanes and Tombland in between. Nothing flat-out, no big hikes.
+            Two hours, about 2.5 easy kilometres. We start at The Forum and finish at Norwich Market, right in time for lunch. Elm Hill, the Cathedral, the Castle, the Lanes and Tombland in between. Nothing flat-out, no big hikes.
           </p>
           <div className="bg-white rounded-2xl border border-brand-accent/15 shadow-md overflow-hidden">
             <Image
               src="/images/route-map.png"
-              alt="Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market."
+              alt="Route map of the Norwich Free Walking Tours showing the route, starting at The Forum and finishing at Norwich Market."
               width={1500}
               height={1155}
               className="w-full h-auto"

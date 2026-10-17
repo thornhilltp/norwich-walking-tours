@@ -99,7 +99,7 @@ function renderPullQuote(text: string) {
   });
 }
 
-export function Testimonials() {
+export function Testimonials({ showCta = true }: { showCta?: boolean } = {}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -320,6 +320,7 @@ export function Testimonials() {
         {/* Quiet post-proof CTA — catches readers at their warmest moment.
             Points at /book (works on every viewport, unlike #book-section
             whose widget is desktop-only). */}
+        {showCta && (
         <div className="text-center mt-6 lg:mt-3">
           <a
             href="/book"
@@ -330,6 +331,7 @@ export function Testimonials() {
             Fancy joining them? Book your spot (free) &rarr;
           </a>
         </div>
+        )}
       </div>
     </section>
   );

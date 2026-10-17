@@ -97,7 +97,7 @@ export function ThemedRouteSection({
   groups: groupsProp,
   map = {
     src: "/images/route-map.png",
-    alt: "Route map of the Norwich Free Walking Tours showing all 12 stops, starting at The Forum and finishing at Norwich Market.",
+    alt: "Route map of the Norwich Free Walking Tours showing the route, starting at The Forum and finishing at Norwich Market.",
     caption: "Map of Norwich City Centre",
   },
   footerLink = { href: "/tour", label: "See every stop, in order, with the full story" },

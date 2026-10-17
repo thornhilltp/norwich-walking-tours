@@ -9,6 +9,7 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { BookingFrame } from "@/components/BookingFrame";
+import { trackEvent } from "@/lib/tracking";
 
 const bullets = [
   // Bullet 1 — Tom's pick. Addresses payment-method anxiety
@@ -29,7 +30,7 @@ const bullets = [
   },
 ];
 
-export function BookingSectionV2() {
+export function BookingSectionV2({ phoneCta = false }: { phoneCta?: boolean } = {}) {
   return (
     <section
       id="book-section"
@@ -122,6 +123,18 @@ export function BookingSectionV2() {
             >
               Call it merit-based. If the tour earned it, you tip. If it didn&apos;t, you walk off. Honest deal.
             </p>
+
+            {/* Phones: the widget below is desktop-only, so give the end of
+                the page its own button (/home-next, Tom 2026-10-17). */}
+            {phoneCta && (
+              <a
+                href="/book"
+                onClick={() => trackEvent("book_cta_click", { location: "book_section_phone" })}
+                className="lg:hidden btn-cta mt-8 flex w-full items-center justify-center h-14 text-xl bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl shadow-md transition-colors duration-150"
+              >
+                Book your spot (free) &rarr;
+              </a>
+            )}
           </motion.div>
 
           {/* Right: real booking widget iframe.

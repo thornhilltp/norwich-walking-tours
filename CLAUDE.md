@@ -90,7 +90,7 @@ Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). UR
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
 ### `/tour` — The Tour
-12 stops with 2-3 sentence stories. Logistics: meeting point (The Forum), 2 hours, daily, relaxed pace, what to wear.
+Stop-by-stop stories (2-3 sentences each). Logistics: meeting point (The Forum), 2 hours, daily, relaxed pace, what to wear.
 
 ### `/book` — Book
 `<iframe src="https://norwich-booking.vercel.app/" />` — minimal surrounding page. Reinforces: "£0 to join. Pay at the end by card, Apple Pay, Google Pay or cash."
@@ -170,9 +170,11 @@ Full spec: `docs/best-in-norwich-spec.md`.
 
 ---
 
-## 5. Tour Stops (in order)
+## 5. Tour Stops (usual route, not fixed)
 
-1. The Forum (meeting point) · 2. The Guildhall · 3. The Norwich Lanes · 4. Norwich Market · 5. The Arcade · 6. London Street (first pedestrianised street in the UK) · 7. Norwich Castle · 8. St Andrews Hall · 9. Elm Hill · 10. Tombland · 11. Fye Bridge · 12. Norwich Cathedral
+**Never quote a number of stops in copy ("12 stops", "twelve stops").** The route and stop count vary by guide and day (Tom 2026-10-17). Name the places instead. Some live pages still say "12 stops" (`/tour`, `/what-is-a-free-tour`, `/things-to-do/free`, `public/llms.txt`) and need sweeping.
+
+Usual places, in rough order: 1. The Forum (meeting point) · 2. The Guildhall · 3. The Norwich Lanes · 4. Norwich Market · 5. The Arcade · 6. London Street (first pedestrianised street in the UK) · 7. Norwich Castle · 8. St Andrews Hall · 9. Elm Hill · 10. Tombland · 11. Fye Bridge · 12. Norwich Cathedral
 
 Route map is a static image (`public/images/route-map.png`, 1500x1155). No Leaflet config needed.
 
@@ -227,6 +229,7 @@ Source files in `_templates/`.
 - Do not use dark hero backgrounds (brand bg is `#FCFAF8`)
 - Do not use em-dashes in any copy
 - Do not use "rain or shine" in copy or meta (Tom dropped it 2026-09-27)
+- Do not quote a number of stops ("12 stops") in copy or meta; the route varies (Tom 2026-10-17)
 - Do not write AI-sounding phrases
 - Do not change nameservers until explicitly told to
 - Do not modify the booking widget repo from the main site session
@@ -264,6 +267,7 @@ Source files in `_templates/`.
 **Still pending — near-term (pre / at launch):**
 
 _Launch admin:_
+- [ ] **New homepage (`/home-next` prototype, Oct 2026).** Tourist-first rebuild in progress with Tom. When it replaces `/`: remove `/tour` in the same release with a 301 to `/` (Tom moves the Google Ads sitelink off /tour first), and drop every `/tour` link (Footer, StoriesTeaser, ThemedRouteSection, HeroV2 `showTourLink`, homepage, best-in-norwich, where-to-stay, things-to-do/free, sitemap, llms.txt). Do not delete /tour before then.
 - [x] **Launch badge:** removed from Hero (tours live since May 2026).
 - [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (116 reviews, 4.9 average as of 2026-08-29). TripAdvisor at 4.9 from 70 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.

@@ -36,6 +36,17 @@ interface HeroV2Props {
   buttonHref: string;
   widget?: React.ReactNode;
   className?: string;
+  /** Override the H1 (Lora line, Caveat line) and subheading. Used by the
+      /home-next prototype; the live homepage keeps the defaults. */
+  heading?: [string, string];
+  subheading?: string;
+  /** Optional smaller line under the subheading (Dark History hero pattern). */
+  subsubheading?: React.ReactNode;
+  badge?: string;
+  /** Show the "or see where we go" link to /tour (default true). */
+  showTourLink?: boolean;
+  /** Override the background photo(s); defaults to heroSlides. */
+  slides?: HeroSlide[];
 }
 
 const containerVariants = {
@@ -68,13 +79,19 @@ export function HeroV2({
   buttonHref,
   widget,
   className,
+  heading,
+  subheading,
+  subsubheading,
+  badge,
+  showTourLink = true,
+  slides,
 }: HeroV2Props) {
   return (
     <section
       id="top"
       className={cn("relative isolate w-full overflow-hidden", className)}
     >
-      <HeroSlideshow slides={heroSlides} />
+      <HeroSlideshow slides={slides ?? heroSlides} />
 
       {/* Darkened overlay, two variants. Phone: top-heavy vertical scrim
           (text sits at the top, widget is white anyway). Desktop: left
@@ -106,7 +123,7 @@ export function HeroV2({
 
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              Norwich Free Walking Tours
+              {badge ?? "Norwich Free Walking Tours"}
             </span>
           </motion.div>
 
@@ -123,13 +140,13 @@ export function HeroV2({
               className="block text-[clamp(34px,4.6vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
-              See Norwich with
+              {heading?.[0] ?? "See Norwich with"}
             </span>
             <span
               className="block text-[clamp(54px,7.2vw,88px)] font-semibold leading-[0.95]"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#5AE19E" }}
             >
-              someone who lives here.
+              {heading?.[1] ?? "someone who lives here."}
             </span>
           </motion.h1>
 
@@ -144,8 +161,20 @@ export function HeroV2({
               textShadow: "0 1px 8px rgba(0,0,0,0.5)",
             }}
           >
-            Helping locals and travellers discover and love Norwich.
+            {subheading ?? "Helping locals and travellers discover and love Norwich."}
           </motion.p>
+          {subsubheading && (
+            <motion.p
+              variants={itemVariants}
+              className="mt-3 max-w-md text-base md:text-lg text-white/80 leading-snug"
+              style={{
+                fontFamily: "var(--font-lora), Georgia, serif",
+                textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+              }}
+            >
+              {subsubheading}
+            </motion.p>
+          )}
 
           <motion.div variants={itemVariants} className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             <a
@@ -180,6 +209,8 @@ export function HeroV2({
               {buttonText}
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </a>
+            {showTourLink && (
+            <>
             {/* Secondary nav hint — links to the full /tour page (12 stops
                 with photos + per-stop stories), not the homepage anchor.
                 Tom 2026-05-19: anchored version was a teaser; /tour is
@@ -191,6 +222,8 @@ export function HeroV2({
             >
               or see where we go
             </a>
+            </>
+            )}
           </motion.div>
 
           <motion.div
