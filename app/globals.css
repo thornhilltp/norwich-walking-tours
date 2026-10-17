@@ -179,6 +179,10 @@
   body:has([data-dark-tour]) {
     background-color: #121211;
   }
+  /* <main> too, or sub-pixel gaps between black sections show a cream hairline */
+  main[data-dark-tour] {
+    background-color: #121211;
+  }
   body:has([data-dark-tour]) .sticky-book-bar {
     background-color: rgb(18 18 17 / 0.95);
     border-top-color: rgb(90 225 158 / 0.35);
