@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "How is this different from other tours?",
-    a: "Most tours run a fixed script designed for coach parties. This one is built around the stories that locals take pride in: the medieval history, the independent spirit of the city, the things that make Norwich genuinely special. It runs almost daily so you don't need to plan around a schedule.",
+    a: "Most tours run a fixed script designed for coach parties. This one is built around the stories that locals take pride in: the medieval history, the independent spirit of the city, the things that make Norwich genuinely special. It runs most days, so it's easy to fit into your trip.",
   },
   {
     q: "Where exactly do we meet?",
@@ -76,7 +76,7 @@ const faqs = [
   },
   {
     q: "What's the best walking tour in Norwich?",
-    a: "Everyone has their pick. We're biased, but this is the only daily tour in the city built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
+    a: "Everyone has their pick. We're biased, but this is the one built around the stories locals actually tell each other. You'll see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle. No scripted coach-party routine. If you're after something more specific (ghost tours, literary tours, food tours), we know a few excellent niche operators and we're happy to point you their way. If you try our tour and don't think it was worth £10 to £20, you don't pay £10 to £20.",
   },
 ];
 

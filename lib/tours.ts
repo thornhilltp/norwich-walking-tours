@@ -131,7 +131,7 @@ export const tours: Tour[] = [
     image: "/images/tour/tom-tombland-talk.jpg",
     imageAlt:
       "Tom telling a story to a tour group in Tombland",
-    meta: ["2 hours", "Max 15", "Daily"],
+    meta: ["2 hours", "Max 15", "Most days"],
     blurb:
       "The whole city centre in one walk. Castle, Market, the Lanes, Elm Hill, Tombland and the Cathedral, with the stories that tie them together.",
     priceLine: "Free to book",

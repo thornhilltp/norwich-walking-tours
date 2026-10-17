@@ -34,9 +34,9 @@ const lora = Lora({
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Norwich Free Walking Tours | Daily, Local-Led, Free to Book",
+  title: "Norwich Free Walking Tours | Local-Led, Free to Book",
   description:
-    "Walking tours of Norwich, led by local guides. A mix of walks for visitors and locals, running daily. Book free, tip what it was worth.",
+    "Walking tours of Norwich, led by local guides. A mix of walks for visitors and locals, running most days. Book free, tip what it was worth.",
   keywords: [
     "free walking tour Norwich",
     "Norwich walking tours",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Norwich Free Walking Tours",
     description:
-      "See the real Norwich with a local. Daily. Book your spot free. Pay what it was worth at the end.",
+      "See the real Norwich with a local. Most days. Book your spot free. Pay what it was worth at the end.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     siteName: "Norwich Free Walking Tours",
     locale: "en_GB",
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Norwich Free Walking Tours",
-    description: "See the real Norwich with a local. Daily. Book free.",
+    description: "See the real Norwich with a local. Most days. Book free.",
     images: ["/og-image.jpg"],
   },
   metadataBase: new URL("https://www.norwichfreewalkingtours.co.uk"),
@@ -109,7 +109,7 @@ const jsonLd = [
     "@type": "TouristAttraction",
     name: "Norwich Free Walking Tours",
     description:
-      "A daily pay what you want walking tour revealing the real Norwich. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market.",
+      "A pay what you want walking tour revealing the real Norwich, running most days. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
     inLanguage: "en",
@@ -146,7 +146,7 @@ const jsonLd = [
     name: "Tom Thornhill",
     jobTitle: "Founder and Guide",
     description:
-      "Founder and guide of Norwich Free Walking Tours. Norwich resident, lived in the city for over a decade. Runs the daily walking tour of the medieval city centre.",
+      "Founder and guide of Norwich Free Walking Tours. Norwich resident, lived in the city for over a decade. Runs the free walking tour of the medieval city centre.",
     url: "https://www.norwichfreewalkingtours.co.uk/about",
     worksFor: {
       "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
@@ -157,7 +157,7 @@ const jsonLd = [
     "@type": "LocalBusiness",
     "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness",
     name: "Norwich Free Walking Tours",
-    description: "Daily guided walking tours of Norwich. Pay what you want. English language. Meets at The Forum, Millennium Plain.",
+    description: "Guided walking tours of Norwich, most days. Pay what you want. English language. Meets at The Forum, Millennium Plain.",
     url: "https://www.norwichfreewalkingtours.co.uk",
     image: "https://www.norwichfreewalkingtours.co.uk/og-image.jpg",
     priceRange: "£0–£20",

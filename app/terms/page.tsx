@@ -36,7 +36,7 @@ export default function TermsPage() {
           <Section title="The tour">
             <p>Norwich Free Walking Tours is operated by Thomas Thornhill (sole trader), Norwich, Norfolk, UK. Contact: <a href="mailto:hello@norwichfreewalkingtours.co.uk" className="text-brand-accent hover:underline">hello@norwichfreewalkingtours.co.uk</a>.</p>
             <p>Norwich Free Walking Tours is a pay what you want walking tour. Joining the tour is free. At the end, participants are invited to tip the guide based on their experience. There is no minimum or maximum tip amount.</p>
-            <p>The tour runs daily, starting outside The Forum on Millennium Plain, Norwich city centre NR2 1TF. The tour lasts approximately 2 hours and finishes at Norwich Market.</p>
+            <p>The tour runs most days, starting outside The Forum on Millennium Plain, Norwich city centre NR2 1TF. The tour lasts approximately 2 hours and finishes at Norwich Market.</p>
           </Section>
 
           <Section title="Booking">
@@ -45,7 +45,7 @@ export default function TermsPage() {
           </Section>
 
           <Section title="Tour operation">
-            <p>The tour runs every day, including in rain. In the event of severe weather or exceptional circumstances, we reserve the right to cancel or modify the tour. We will make reasonable efforts to notify confirmed bookings in advance.</p>
+            <p>The tour runs most days, including in rain. The booking calendar shows which days it runs. In the event of severe weather or exceptional circumstances, we reserve the right to cancel or modify the tour. We will make reasonable efforts to notify confirmed bookings in advance.</p>
             <p>The guide reserves the right to modify the route, order of stops, or content of the tour based on conditions on the day.</p>
           </Section>
 

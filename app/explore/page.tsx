@@ -198,7 +198,7 @@ export default function ExplorePage() {
             <TrackedBookLink location="explore" className="text-brand-accent hover:underline font-semibold">
               come on the tour
             </TrackedBookLink>
-            . Daily from The Forum, free to book.
+            . Most days from The Forum, free to book.
           </p>
         </section>
       </main>

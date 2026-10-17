@@ -150,7 +150,7 @@ export default function AboutUsPage() {
             <span className="font-caveat text-4xl md:text-5xl font-bold text-brand-accent">meet us.</span>
           </h2>
           <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-            The free walking tour runs daily from The Forum. Free to book. Pay what it was worth at the end.
+            The free walking tour runs most days from The Forum. Free to book. Pay what it was worth at the end.
           </p>
           <TrackedBookLink
             location="about_us"

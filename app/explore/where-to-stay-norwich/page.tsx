@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: "/images/pottergate-stock.png",
-        alt: "Pottergate, a quiet street in Norwich city centre.",
+        url: "/images/tour/pottergate-walk.jpg",
+        alt: "Tour group walking down Pottergate in the Norwich Lanes with their guide.",
       },
     ],
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Where to Stay in Norwich | A Local's Guide",
     description:
       "Five Norwich neighbourhoods, who they suit, and how close they are to the city centre.",
-    images: ["/images/pottergate-stock.png"],
+    images: ["/images/tour/pottergate-walk.jpg"],
   },
 };
 
@@ -246,7 +246,7 @@ export default function WhereToStayPage() {
               Get your bearings on day one
             </h2>
             <p className="font-lora text-base text-muted-foreground leading-relaxed mb-6 max-w-md mx-auto">
-              The free walking tour leaves The Forum daily. 2 hours, mostly flat, one local guide and a group of 15 max, finishing at Norwich Market in time for lunch. It&apos;s the fastest way to learn the city you&apos;re staying in.
+              The free walking tour leaves The Forum most days. 2 hours, mostly flat, one local guide and a group of 15 max, finishing at Norwich Market in time for lunch. It&apos;s the fastest way to learn the city you&apos;re staying in.
             </p>
             <TrackedBookLink
               location="where_to_stay"

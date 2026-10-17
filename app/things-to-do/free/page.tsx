@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: "/images/pottergate-stock.png",
-        alt: "Pottergate, a quiet street in Norwich city centre.",
+        url: "/images/tour/pottergate-walk.jpg",
+        alt: "Tour group walking down Pottergate in the Norwich Lanes with their guide.",
       },
     ],
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Free Things to Do in Norwich | A Local's Guide",
     description:
       "Ten free things in Norwich a local would actually recommend.",
-    images: ["/images/pottergate-stock.png"],
+    images: ["/images/tour/pottergate-walk.jpg"],
   },
 };
 
@@ -78,7 +78,7 @@ const items: FreeThingItem[] = [
     body: (
       <>
         <p>
-          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It&apos;s the only daily free walking tour in Norwich. 2 hours, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
+          Yes, this is our list, and yes, our tour is on it. We&apos;d still put it here even if it weren&apos;t. It runs most days from The Forum. 2 hours, a local guide, and the stories that didn&apos;t make it onto any blue plaque. Free to book, tip what you think it was worth at the end. Most guests pay £10 to £20 per person. If it wasn&apos;t worth it, you don&apos;t pay.
         </p>
         <p>
           We start at The Forum and finish at Norwich Market, right in the heart of the city and perfectly placed for lunch, taking in Elm Hill, the Lanes, the Cathedral and Norwich Castle along the way. Group capped at 15 so you can actually hear the guide.
@@ -94,8 +94,8 @@ const items: FreeThingItem[] = [
   {
     n: "02",
     title: "Walk into Norwich Cathedral",
-    image: "/images/norwich-cathedral-stock.png",
-    imageAlt: "Norwich Cathedral, the 900-year-old Norman cathedral with England's second-tallest spire.",
+    image: "/images/tour/cathedral-spire-lawn.jpg",
+    imageAlt: "Norwich Cathedral and its spire seen from the lawn of the Cathedral Close.",
     body: (
       <>
         <p>
@@ -118,8 +118,8 @@ const items: FreeThingItem[] = [
   {
     n: "03",
     title: "Wander Elm Hill",
-    image: "/images/elm-hill-stock.png",
-    imageAlt: "Elm Hill, Norwich's most photographed cobbled medieval street.",
+    image: "/images/tour/elm-hill-group.jpg",
+    imageAlt: "A tour group on the cobbles of Elm Hill as the street lights come on.",
     body: (
       <>
         <p>
@@ -134,8 +134,8 @@ const items: FreeThingItem[] = [
   {
     n: "04",
     title: "Browse Norwich Market",
-    image: "/images/norwich-market-sun-stock.png",
-    imageAlt: "Norwich Market in the sun, one of the oldest and largest open-air markets in Britain.",
+    image: "/images/tour/guide-norwich-market.jpg",
+    imageAlt: "A guide telling a tour group about the stalls at Norwich Market.",
     body: (
       <p>
         One of the oldest open-air markets in Britain. 900 years of trading on the same patch. Wander the stalls under the colourful roof. Talk to the people who&apos;ve been there for decades. You don&apos;t have to buy anything. Lunch from a stall is one of the best-value meals in the city if you do.
@@ -198,8 +198,8 @@ const items: FreeThingItem[] = [
   {
     n: "09",
     title: "Get lost in the Norwich Lanes",
-    image: "/images/norwich-lane-stock.png",
-    imageAlt: "The Norwich Lanes, independent shops and cafes in Norwich city centre.",
+    image: "/images/tour/pottergate-st-gregorys.jpg",
+    imageAlt: "A tour group on the cobbles of Pottergate outside St Gregory's church in the Norwich Lanes.",
     body: (
       <p>
         Independent shops, hidden coffee spots, courtyards behind courtyards. No chain coffee, no brand names you&apos;d recognise. Walking here is free and accidental window-shopping is the whole point. Pop into Jarrolds for the rooftop view, then disappear into the back streets behind it.
@@ -245,8 +245,8 @@ export default function FreeThingsToDoNorwichPage() {
           {/* Hero image */}
           <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-md mb-10 border border-brand-accent/15">
             <Image
-              src="/images/pottergate-stock.png"
-              alt="Pottergate, a quiet street in Norwich city centre, lined with independent shops and old buildings."
+              src="/images/tour/pottergate-walk.jpg"
+              alt="Tour group walking down Pottergate in the Norwich Lanes with their guide."
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
