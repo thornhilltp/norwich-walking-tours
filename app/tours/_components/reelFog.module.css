@@ -1,0 +1,22 @@
+/* Cold light: blue-grey night air, mist drifting through */
+.cold { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 30% 15%, rgba(140, 170, 205, 0.28), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 80% 60%, rgba(120, 150, 185, 0.18), transparent 70%);
+}
+.mistTop, .mistLow {
+  position: absolute; left: -25%; right: -25%; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 30% 50% at 20% 50%, rgba(200, 212, 225, 0.22), transparent 70%),
+    radial-gradient(ellipse 28% 45% at 55% 60%, rgba(200, 212, 225, 0.18), transparent 70%),
+    radial-gradient(ellipse 26% 50% at 85% 45%, rgba(200, 212, 225, 0.20), transparent 70%);
+}
+.mistTop { top: 18%; height: 260px; animation: driftR 40s ease-in-out infinite alternate; }
+.mistLow { bottom: -40px; height: 320px; animation: driftL 52s ease-in-out infinite alternate; }
+.mistFront { z-index: 3; opacity: 0.8; }
+@keyframes driftR { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
+@keyframes driftL { from { transform: translateX(6%); } to { transform: translateX(-6%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mistTop, .mistLow { animation: none; }
+}

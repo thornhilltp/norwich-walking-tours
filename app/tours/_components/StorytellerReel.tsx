@@ -31,7 +31,7 @@ export function StorytellerReel({
   label: string;
   caption: string;
   captionStyle?: React.CSSProperties;
-  tag: string;
+  tag?: string;
   trackingLocation: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -84,9 +84,11 @@ export function StorytellerReel({
     <div className="relative w-[290px] md:w-[330px] rotate-[-1.5deg]">
       <span className={s.nail} aria-hidden />
       <div className={s.pol} style={{ width: "100%", margin: 0 }}>
-        <span className={s.tag} aria-hidden>
-          {tag}
-        </span>
+        {tag && (
+          <span className={s.tag} aria-hidden>
+            {tag}
+          </span>
+        )}
         <div className="relative overflow-hidden aspect-[9/16] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.4)] bg-[#121211]">
           <video
             ref={videoRef}

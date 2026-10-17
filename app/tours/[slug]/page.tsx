@@ -14,6 +14,7 @@ import { PhilosophyCards } from "@/app/our-guides/_components/PhilosophyCards";
 import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { StorytellerReel } from "@/app/tours/_components/StorytellerReel";
+import { ReelFogBack, ReelFogFront } from "@/app/tours/_components/ReelFog";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
 import { NightSkyline, Fog, MoonDivider, Lantern, Grain, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
@@ -598,14 +599,19 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         return (
           <>
             {/* The guide's Reel as a pinned polaroid (Tom 2026-10-17): straight
-                after the info bar, above "Norwich's darkest secrets". */}
+                after the info bar, above "Norwich's darkest secrets", in cold
+                fog so it reads apart from the lantern-lit stories. */}
             {d.reel && (
-              <section className="relative pt-16 pb-4 md:pt-20 md:pb-6" style={{ backgroundColor: BLACK }}>
-                {d.murderBoard && <Grain />}
+              <section className="relative overflow-hidden pt-16 pb-6 md:pt-24 md:pb-10" style={{ backgroundColor: BLACK }}>
+                {d.murderBoard && (
+                  <>
+                    <Grain />
+                    <ReelFogBack />
+                  </>
+                )}
                 <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
                   <div className="relative text-center md:text-left md:order-2 md:max-w-[460px]">
-                    {d.murderBoard && <StoryLantern />}
-                    <h2 className="relative leading-[1.0]">
+                    <h2 className="leading-[1.0]">
                       <span
                         className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
                         style={lora}
@@ -623,7 +629,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       href="https://www.instagram.com/norwichfreewalkingtours"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative mt-4 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
+                      className="mt-4 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
                       style={{ ...lora, color: "#5AE19E" }}
                     >
                       Watch more on Instagram @norwichfreewalkingtours
@@ -635,7 +641,8 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       poster={d.reel.poster}
                       label={d.reel.label}
                       caption={d.reel.who}
-                      captionStyle={script}
+                      // Her handle, so mixed case: handwritten Caveat, not all-caps Eater.
+                      captionStyle={{ ...caveat, fontWeight: 700, fontSize: "clamp(30px, 8.5vw, 36px)", bottom: 14 }}
                       tag={d.reel.tag}
                       trackingLocation={`tour_reel_${tour.slug}`}
                     />
@@ -650,6 +657,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     Watch more on Instagram @norwichfreewalkingtours
                   </a>
                 </div>
+                {d.murderBoard && <ReelFogFront />}
               </section>
             )}
 
