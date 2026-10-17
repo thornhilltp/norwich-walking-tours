@@ -81,12 +81,12 @@ const secrets: { title: string; questions: string; text: string; photos: Photo[]
     title: "All of Norwich's highlights",
     questions: "Why does one small city have so many medieval churches? How did Elm Hill survive?",
     text: "Norwich Cathedral, the Castle, Elm Hill, Tombland, the Lanes and the Market, in one easy walk.",
-    // Collage of the highlights, the Cathedral first and biggest (Tom's picks, 2026-10-17).
+    // Collage of the highlights, the Cathedral first and biggest. Tom's own tour
+    // photos only (2026-10-17): the *-stock.png images were pulled, source unknown.
     photos: [
-      { src: "/images/norwich-cathedral-stock.png", alt: "The spire of Norwich Cathedral" },
-      { src: "/images/vamous-view-norwich.png", alt: "Colourful riverside houses on the Wensum with the Cathedral spire behind" },
-      { src: "/images/norwich-castle.png", alt: "Norwich Castle keep above the city centre" },
-      { src: "/images/norwich-market-sun-stock.png", alt: "Stalls at Norwich Market in the sun" },
+      { src: "/images/tour/cathedral-spire-lawn.jpg", alt: "Norwich Cathedral and its spire from the lawn of the Close" },
+      { src: "/images/tour/guide-guildhall.jpg", alt: "A guide talking to a tour group outside Norwich Guildhall" },
+      { src: "/images/tour/group-britons-arms.jpg", alt: "Tom with a tour group outside the Britons Arms coffee house on Elm Hill" },
     ],
   },
   {
@@ -133,7 +133,7 @@ const phoneSnake =
 
 export function WhatYouGet() {
   return (
-    <section id="what-you-get" className="relative overflow-hidden py-16 md:py-28 bg-brand-bg">
+    <section id="tour-map" className="relative overflow-hidden py-16 md:py-28 bg-brand-bg">
       <div className="relative brand-container">
         <h2 className="text-center leading-[1.0] mb-12 md:mb-16">
           <span className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
@@ -419,7 +419,7 @@ export function YourGuides() {
 export const homeFaqs = [
   {
     q: "What's the best walking tour in Norwich?",
-    a: "We're biased, but this is the only daily tour in the city, led by locals. In two hours you see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle, with the stories behind them. If it wasn't worth £10 to £20, you don't pay £10 to £20.",
+    a: "We're biased, but it's the one led by locals who live here. In two hours you see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle, with the stories behind them. If it wasn't worth £10 to £20, you don't pay £10 to £20.",
   },
   {
     q: "How does a free walking tour work, and how much should I tip?",

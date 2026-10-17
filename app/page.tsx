@@ -32,7 +32,7 @@ export default function HomePage() {
       <ScrollTrail
         sections={[
           { id: "top", label: "Hello" },
-          { id: "what-you-get", label: "The tour" },
+          { id: "tour-map", label: "The tour" },
           { id: "reviews", label: "Reviews" },
           { id: "guides", label: "Guides" },
           { id: "the-walk", label: "How it works" },

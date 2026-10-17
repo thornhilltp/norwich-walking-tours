@@ -76,7 +76,7 @@ Run the check before every push. Vercel does not enforce it.
 Tourist-first rebuild, live 2026-10-17 (built as the `/home-next` prototype with Tom, modelled on the Dark History tour page, phone first). Page: `app/page.tsx`; sections in `app/_components/HomeSections.tsx`. Sections in order:
 1. **HeroV2** (`app/_components/HeroV2.tsx`) — pill "The Norwich Free Walking Tour", H1 "England's best-kept medieval city.", Pottergate photo (`pottergate-walk.jpg`), trust row, booking widget. `id="top"`.
 2. **InfoBar** — When / Route / Price card.
-3. **WhatYouGet** — "What's on the tour?": three points (history and stories / highlights collage / life in Norwich today) on a dashed snaking route. `id="what-you-get"`.
+3. **WhatYouGet** — "What's on the tour?": three points (history and stories / highlights collage / life in Norwich today) on a dashed snaking route. Highlights collage is Tom's own photos (Cathedral, Guildhall, Britons Arms). `id="tour-map"` (a Google Ads sitelink lands on `/#tour-map`; `#faq` and `#reviews` too, keep all three ids).
 4. **Testimonials** + **ProofVideos** — reviews and guest videos as one block. Guest videos (`components/GuestReels.tsx`, data in `lib/guestReels.ts`) are by @miniinnorwich and @slow_you_down_buh, who agreed in writing; `CREATORS_OK = false` pulls them. `id="reviews"`.
 5. **YourGuides** — Our Guides polaroid cards, third-person bios. Guide list lives in `lib/guides.ts`, shared with `/our-guides`. `id="guides"`.
 6. **TheWalk** — Meet / Walk / Tip. `id="the-walk"`.
@@ -85,7 +85,7 @@ Tourist-first rebuild, live 2026-10-17 (built as the `/home-next` prototype with
 9. **EmailCapture** (`components/EmailCapture.tsx`) — "new tours first" list. Photo panel (Tombland photo left, form right). No tick box: pressing the button under a clear consent line is the opt-in. The same box sits alone on `/updates` (footer link "New tour updates", indexed, in sitemap) with the guides' faces, for social bio links and the end-of-tour QR (2026-09-27). Rejected: polaroid version, local/visitor toggle, a book-a-tour section under the /updates form.
 10. Best in Norwich promo (hidden until `CONTENT_READY`), internal-link row, **Footer**.
 
-Highlight photos named `public/images/*-stock.png` are Tom's own or licensed (confirmed 2026-10-17). The previous homepage (PhotoShowcaseV2, PhotoStrip gallery, ThemedRouteSection route map) is in git history; ThemedRouteSection still powers the tour pages.
+Do not use the `public/images/*-stock.png` photos: source unconfirmed (2026-10-17). The previous homepage (PhotoShowcaseV2, PhotoStrip gallery, ThemedRouteSection route map) is in git history; ThemedRouteSection still powers the tour pages.
 
 Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). URL moved from `/about-us` to `/our-guides` on 2026-09-27; `/about` and `/about-us` both 301 to it. Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
