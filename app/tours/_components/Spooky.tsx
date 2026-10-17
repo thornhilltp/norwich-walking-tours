@@ -63,6 +63,11 @@ export function Lantern() {
   );
 }
 
+/** Paper grain only, for a black section that sits next to a Lantern one. */
+export function Grain() {
+  return <div className={s.grain} aria-hidden="true" />;
+}
+
 /** Small brass lantern above a story title: sways, flickers, warm glow
     over the words (Tom 2026-10-11, lantern option 1). */
 export function StoryLantern() {

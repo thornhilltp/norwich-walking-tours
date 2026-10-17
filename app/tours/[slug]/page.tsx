@@ -15,7 +15,7 @@ import { HeroWaitlistForm } from "@/app/tours/_components/HeroWaitlistForm";
 import { ThemedRouteSection } from "@/app/_components/ThemedRouteSection";
 import { StorytellerReel } from "@/app/tours/_components/StorytellerReel";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
-import { NightSkyline, Fog, MoonDivider, Lantern, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
+import { NightSkyline, Fog, MoonDivider, Lantern, Grain, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { Eater } from "next/font/google";
 
@@ -601,6 +601,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 after the info bar, above "Norwich's darkest secrets". */}
             {d.reel && (
               <section className="relative pt-16 pb-4 md:pt-20 md:pb-6" style={{ backgroundColor: BLACK }}>
+                {d.murderBoard && <Grain />}
                 <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
                   <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
                     <h2 className="leading-[1.0]">
