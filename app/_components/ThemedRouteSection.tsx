@@ -100,7 +100,7 @@ export function ThemedRouteSection({
     alt: "Route map of the Norwich Free Walking Tours showing the route, starting at The Forum and finishing at Norwich Market.",
     caption: "Map of Norwich City Centre",
   },
-  footerLink = { href: "/tour", label: "See every stop, in order, with the full story" },
+  footerLink = null,
   scriptStyle,
 }: ThemedRouteSectionProps = {}) {
   const items = groupsProp ?? groups;
@@ -321,7 +321,7 @@ export function ThemedRouteSection({
           )}
         </div>
 
-        {/* Quiet link to /tour where every stop has photo + paragraph */}
+        {/* Optional quiet link under the map */}
         {footerLink && (
           <div className="mt-12 text-center">
             <a

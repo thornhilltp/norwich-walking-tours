@@ -314,23 +314,12 @@ export default function FreeThingsToDoNorwichPage() {
               Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
             </TrackedBookLink>
-            <p className="font-lora text-sm text-muted-foreground mt-4">
-              Or{" "}
-              <Link href="/tour" className="text-brand-accent hover:underline font-semibold">
-                see the full route first
-              </Link>
-              .
-            </p>
           </section>
 
           {/* Light cross-links */}
           <nav aria-label="Related" className="mt-10 text-center font-lora text-sm text-muted-foreground">
             <Link href="/" className="text-brand-accent hover:underline">
               Back to home
-            </Link>
-            <span className="mx-2 text-brand-accent/40">&bull;</span>
-            <Link href="/tour" className="text-brand-accent hover:underline">
-              Stops on the tour
             </Link>
             <span className="mx-2 text-brand-accent/40">&bull;</span>
             <Link href="/private-tours" className="text-brand-accent hover:underline">

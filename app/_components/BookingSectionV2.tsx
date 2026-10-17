@@ -125,7 +125,7 @@ export function BookingSectionV2({ phoneCta = false }: { phoneCta?: boolean } = 
             </p>
 
             {/* Phones: the widget below is desktop-only, so give the end of
-                the page its own button (/home-next, Tom 2026-10-17). */}
+                the page its own button (homepage, Tom 2026-10-17). */}
             {phoneCta && (
               <a
                 href="/book"

@@ -73,24 +73,26 @@ Run the check before every push. Vercel does not enforce it.
 ## 4. Pages
 
 ### `/` — Home
-Sections in order (photo pass 2026-09-26, Tom signed off section by section):
-1. **HeroV2** (`app/_components/HeroV2.tsx`) — single photo (`pottergate-walk.jpg`) via `HeroSlideshow` with one slide, gradient overlay (dark left under text, lighter right), value-prop H1, trust row, booking widget, partner logos.
-2. **PhotoShowcaseV2** (`app/_components/PhotoShowcaseV2.tsx`) — two polaroids: cathedral west front group ("An overview") + Tom by the river ("A local to ask", desktop only). `id="stories"`.
-3. **Testimonials** (`app/_components/Testimonials.tsx`) — review carousel. `id="reviews"`.
-4. **PhotoStrip** (`app/_components/PhotoStrip.tsx`) — "Photo gallery / Snaps from our tours." 12 polaroids mixing Morrie's evening shoot with older sunny-day phone shots. Bottom navigator bar (prev/next, thumbnails or dots on phones, n / total), swipe, no autoplay, tap to enlarge (full-screen viewer, Esc/arrow keys). Captions only where the place is certain; unknown places stay blank on purpose. `id="photos"`.
-5. **ThemedRouteSection** — route text + map. `id="tour-map"`.
-6. **BookingSectionV2** — copy + widget (desktop only). No photo: tried on phone and desktop 2026-09-26, Tom said no. `id="book-section"`.
-7. **FAQ**. `id="faq"`.
-8. Best in Norwich promo (hidden until `CONTENT_READY`).
-9. **EmailCapture** (`components/EmailCapture.tsx`) — "new tours first" list after FAQ. Photo panel (Tombland photo left, form right). No tick box: pressing the button under a clear consent line is the opt-in. The same box sits alone on `/updates` (footer link "New tour updates", indexed, in sitemap) with the guides' faces, for social bio links and the end-of-tour QR (2026-09-27). Rejected: polaroid version, local/visitor toggle, a book-a-tour section under the /updates form.
-10. Internal-link row, **Footer**.
+Tourist-first rebuild, live 2026-10-17 (built as the `/home-next` prototype with Tom, modelled on the Dark History tour page, phone first). Page: `app/page.tsx`; sections in `app/_components/HomeSections.tsx`. Sections in order:
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — pill "The Norwich Free Walking Tour", H1 "England's best-kept medieval city.", Pottergate photo (`pottergate-walk.jpg`), trust row, booking widget. `id="top"`.
+2. **InfoBar** — When / Route / Price card.
+3. **WhatYouGet** — "What's on the tour?": three points (history and stories / highlights collage / life in Norwich today) on a dashed snaking route. `id="what-you-get"`.
+4. **Testimonials** + **ProofVideos** — reviews and guest videos as one block. Guest videos (`components/GuestReels.tsx`, data in `lib/guestReels.ts`) are by @miniinnorwich and @slow_you_down_buh, who agreed in writing; `CREATORS_OK = false` pulls them. `id="reviews"`.
+5. **YourGuides** — Our Guides polaroid cards, third-person bios. Guide list lives in `lib/guides.ts`, shared with `/our-guides`. `id="guides"`.
+6. **TheWalk** — Meet / Walk / Tip. `id="the-walk"`.
+7. **FAQ** with 8 visitor FAQs (`homeFaqs`), "Before you book." `id="faq"`.
+8. **BookingSectionV2** (`phoneCta`) — "Free to book, tip what it was worth", widget on desktop, button on phones. `id="book-section"`.
+9. **EmailCapture** (`components/EmailCapture.tsx`) — "new tours first" list. Photo panel (Tombland photo left, form right). No tick box: pressing the button under a clear consent line is the opt-in. The same box sits alone on `/updates` (footer link "New tour updates", indexed, in sitemap) with the guides' faces, for social bio links and the end-of-tour QR (2026-09-27). Rejected: polaroid version, local/visitor toggle, a book-a-tour section under the /updates form.
+10. Best in Norwich promo (hidden until `CONTENT_READY`), internal-link row, **Footer**.
+
+Highlight photos named `public/images/*-stock.png` are Tom's own or licensed (confirmed 2026-10-17). The previous homepage (PhotoShowcaseV2, PhotoStrip gallery, ThemedRouteSection route map) is in git history; ThemedRouteSection still powers the tour pages.
 
 Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). URL moved from `/about-us` to `/our-guides` on 2026-09-27; `/about` and `/about-us` both 301 to it. Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
-Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots, dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
+Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots (Hello, The tour, Reviews, Guides, How it works, FAQs, Book), dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
-### `/tour` — The Tour
-Stop-by-stop stories (2-3 sentences each). Logistics: meeting point (The Forum), 2 hours, daily, relaxed pace, what to wear.
+### `/tour` — retired
+Removed 2026-10-17 when the new homepage went live. 301s to `/` (`next.config.mjs`). Tom moved the Google Ads sitelink off it first. Do not link to `/tour`.
 
 ### `/book` — Book
 `<iframe src="https://norwich-booking.vercel.app/" />` — minimal surrounding page. Reinforces: "£0 to join. Pay at the end by card, Apple Pay, Google Pay or cash."
@@ -172,7 +174,7 @@ Full spec: `docs/best-in-norwich-spec.md`.
 
 ## 5. Tour Stops (usual route, not fixed)
 
-**Never quote a number of stops in copy ("12 stops", "twelve stops").** The route and stop count vary by guide and day (Tom 2026-10-17). Name the places instead. Some live pages still say "12 stops" (`/tour`, `/what-is-a-free-tour`, `/things-to-do/free`, `public/llms.txt`) and need sweeping.
+**Never quote a number of stops in copy ("12 stops", "twelve stops").** The route and stop count vary by guide and day (Tom 2026-10-17). Name the places instead. Swept from live pages and `public/llms.txt` 2026-10-17.
 
 Usual places, in rough order: 1. The Forum (meeting point) · 2. The Guildhall · 3. The Norwich Lanes · 4. Norwich Market · 5. The Arcade · 6. London Street (first pedestrianised street in the UK) · 7. Norwich Castle · 8. St Andrews Hall · 9. Elm Hill · 10. Tombland · 11. Fye Bridge · 12. Norwich Cathedral
 
@@ -267,7 +269,6 @@ Source files in `_templates/`.
 **Still pending — near-term (pre / at launch):**
 
 _Launch admin:_
-- [ ] **New homepage (`/home-next` prototype, Oct 2026).** Tourist-first rebuild in progress with Tom. When it replaces `/`: remove `/tour` in the same release with a 301 to `/` (Tom moves the Google Ads sitelink off /tour first), and drop every `/tour` link (Footer, StoriesTeaser, ThemedRouteSection, HeroV2 `showTourLink`, homepage, best-in-norwich, where-to-stay, things-to-do/free, sitemap, llms.txt). Do not delete /tour before then.
 - [x] **Launch badge:** removed from Hero (tours live since May 2026).
 - [x] **Testimonials:** real Google reviews populated in `lib/testimonials.ts` (116 reviews, 4.9 average as of 2026-08-29). TripAdvisor at 4.9 from 70 reviews. `aggregateRating` + `review` objects re-added to JSON-LD in `app/layout.tsx` (conditional on `googleReviewStats.count > 0`).
 - [ ] **Private Tours pricing:** add "From £X" anchor on `/private-tours` once pricing decided.

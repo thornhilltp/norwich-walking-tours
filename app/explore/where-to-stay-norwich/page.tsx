@@ -255,13 +255,6 @@ export default function WhereToStayPage() {
               Book your spot (free)
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
             </TrackedBookLink>
-            <p className="font-lora text-sm text-muted-foreground mt-4">
-              Or{" "}
-              <Link href="/tour" className="text-brand-accent hover:underline font-semibold">
-                see the route first
-              </Link>
-              .
-            </p>
           </section>
 
           {/* Cross-links */}

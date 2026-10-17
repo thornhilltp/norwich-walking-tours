@@ -80,6 +80,9 @@ const nextConfig = {
       // indexed equity + external backlinks.
       { source: "/about", destination: "/our-guides", permanent: true },
       { source: "/about-us", destination: "/our-guides", permanent: true },
+      // /tour retired 2026-10-17 when the tourist-first homepage replaced /.
+      // The homepage now carries what's on the tour, so send it there.
+      { source: "/tour", destination: "/", permanent: true },
     ];
   },
   async headers() {

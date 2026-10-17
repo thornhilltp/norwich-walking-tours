@@ -14,11 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${base}/tour`,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
       url: `${base}/what-is-a-free-tour`,
       changeFrequency: "monthly",
       priority: 0.8,

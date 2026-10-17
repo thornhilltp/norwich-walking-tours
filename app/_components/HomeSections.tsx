@@ -1,16 +1,15 @@
-// Sections for the /home-next prototype (Tom 2026-10-17): a tourist-first
-// homepage built the same way as the Dark History page: hero, info card,
-// three points with photos, proof, meet/walk/tip, guides, FAQs, then book.
-// Phone first.
-//
-// Guide data is copied from /our-guides for now. If this ships, move it to
-// lib/ so both pages read one list.
+// Homepage sections (built as /home-next, live on / since 2026-10-17): a
+// tourist-first homepage built the same way as the Dark History page: hero,
+// info card, three points with photos, proof, meet/walk/tip, guides, FAQs,
+// then book. Phone first. Guides come from lib/guides.ts, shared with
+// /our-guides.
 
 import Image from "next/image";
 import { TrackedBookLink } from "@/components/TrackedBookLink";
 import type { ReactNode } from "react";
 import { GuideExpand } from "@/app/our-guides/_components/GuideExpand";
-import { GuideReviews, type GuideReview } from "@/app/our-guides/_components/GuideReviews";
+import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
+import { guides } from "@/lib/guides";
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
@@ -246,7 +245,7 @@ export function ProofVideos({ children }: { children: ReactNode }) {
         {/* One CTA for the whole proof block, after the videos. */}
         <p className="text-center mt-2">
           <TrackedBookLink
-            location="home_next_proof"
+            location="home_proof"
             className="inline-block italic text-lg text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent"
           >
             Fancy joining them? Book your spot (free) &rarr;
@@ -352,80 +351,6 @@ export function TheWalk() {
 
 /* ── Your guides: the Our Guides cards, reviews behind a toggle ───────── */
 
-type Guide = {
-  name: string;
-  initial: string;
-  tint: string;
-  img: string;
-  focal: string;
-  rotate: string;
-  blurb: string;
-  accent: { ac: string; ad: string };
-  reviews: GuideReview[];
-};
-
-// Copied from /our-guides, blurbs in the third person (Tom 2026-10-17).
-const guides: Guide[] = [
-  {
-    name: "Tom",
-    initial: "T",
-    tint: "linear-gradient(150deg,#2DA96B,#1f6d47)",
-    img: "/images/tour/tom-portrait-river.jpg",
-    focal: "50% 20%",
-    rotate: "-2deg",
-    blurb:
-      "Tom came for a history degree and never left. That was 13 years ago. He picked up the free walking tour habit travelling the world, and brought it home.",
-    accent: { ac: "#2DA96B", ad: "#1A6B47" },
-    reviews: [
-      { quote: "We're always sceptical of historical tours. But **Tom is the real thing**.", author: "Vina", source: "Google" },
-      {
-        quote: "Our guide Tom offered up lots of information on other places to go, as well as **food and drink recommendations**.",
-        author: "Claire",
-        source: "Google",
-      },
-      { quote: "Tom pointed out the **independent shops, restaurants and bars**.", author: "Lisa", source: "TripAdvisor" },
-    ],
-  },
-  {
-    name: "Joolz",
-    initial: "J",
-    tint: "linear-gradient(150deg,#7c6cae,#463a63)",
-    img: "/images/guides/joolz.png",
-    focal: "34% 38%",
-    rotate: "1.5deg",
-    blurb: "Norfolk born and proud. Joolz is a paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
-    accent: { ac: "#E8734A", ad: "#B44A28" },
-    reviews: [
-      { quote: "Joolz really **brought it to life**. She was the best thing about our trip.", author: "Andy, from Wales" },
-      { quote: "Joolz is an **absolutely superb tour guide**. Can't recommend her enough.", author: "Caroline, from Basingstoke" },
-    ],
-  },
-  {
-    name: "Holly",
-    initial: "H",
-    tint: "linear-gradient(150deg,#c8823f,#8a5220)",
-    img: "/images/tour/holly-portrait.jpg",
-    focal: "50% 15%",
-    rotate: "-1.5deg",
-    blurb: "Holly tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
-    accent: { ac: "#D99A2B", ad: "#8A5E10" },
-    reviews: [
-      {
-        quote:
-          "She kept our group totally engaged with **interesting, funny and warm-hearted stories**. Simply the best first-day activity in Norwich.",
-        author: "OwlQueen",
-        source: "TripAdvisor",
-      },
-      {
-        quote:
-          "Holly was an absolutely brilliant guide, **one of the very best, perhaps the best**, on our numerous city walking tours around Europe.",
-        author: "Andrew Wright",
-      },
-      { quote: "Holly's tour is **fabulous**. Very fun and loads of info. What an amazing intro to historic Norwich.", author: "Caroline" },
-    ],
-  },
-];
-
 export function YourGuides() {
   return (
     <section id="guides" className="py-14 md:py-20 bg-brand-accent-light/50 border-t border-brand-accent/10">
@@ -491,7 +416,7 @@ export function YourGuides() {
 
 /* ── FAQs: eight, aimed at visitors ───────────────────────────────────── */
 
-export const homeNextFaqs = [
+export const homeFaqs = [
   {
     q: "What's the best walking tour in Norwich?",
     a: "We're biased, but this is the only daily tour in the city, led by locals. In two hours you see Elm Hill, Norwich Cathedral, the Lanes, Norwich Market and Norwich Castle, with the stories behind them. If it wasn't worth £10 to £20, you don't pay £10 to £20.",

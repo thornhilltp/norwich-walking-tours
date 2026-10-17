@@ -399,13 +399,6 @@ export default async function BestInNorwichPage() {
                     Book the walking tour
                   </span>
                 </TrackedBookLink>
-                <Link
-                  href="/tour"
-                  className="text-lg font-semibold text-brand-accent underline-offset-4 hover:underline"
-                  style={lora}
-                >
-                  See the route
-                </Link>
               </div>
             </div>
           </div>

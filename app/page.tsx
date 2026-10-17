@@ -1,29 +1,30 @@
-// Homepage — promoted from /home-v2 to / on 2026-05-19 after experimental
-// rebuild stabilised. Old homepage lives in git history; significant
-// sections removed in this promotion:
-//   - WhatIsFreeTour → moved to /what-is-a-free-tour
-//   - StoriesTeaser → folded into /tour
-//   - HowItWorks → /what-is-a-free-tour + /book
-//   - TipAnchor → /what-is-a-free-tour (and Hero footer line + FAQ)
-//   - PracticalInfo → covered by FAQ + Footer meeting-point + Hero trust row
-//   - LocalGuidesTeaser → replaced by the smaller internal-link row below
-//
-// Surviving sections in order: Hero, WhatHowWho (SEO insurance block),
-// PhotoShowcase, Testimonials, ThemedRoute, About, Booking, FAQ,
-// internal-link row, Footer.
+// Homepage. Tourist-first rebuild, built as the /home-next prototype and
+// promoted to / on 2026-10-17 (Tom). Modelled on the Dark History tour page,
+// phone first: hero, When/Route/Price card, "What's on the tour?", reviews +
+// guest videos, guides, Meet / Walk / Tip, FAQs, book, email signup. /tour
+// was retired in the same release (301 to /). The previous homepage
+// (PhotoShowcase, PhotoStrip, route map) lives in git history.
 
-import { FAQ } from "@/components/FAQ";
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { BookingFrame } from "@/components/BookingFrame";
 import { ScrollTrail } from "@/components/ScrollTrail";
-import { HeroV2 } from "./_components/HeroV2";
-import { ThemedRouteSection } from "./_components/ThemedRouteSection";
-import { PhotoShowcaseV2 } from "./_components/PhotoShowcaseV2";
-import { BookingSectionV2 } from "./_components/BookingSectionV2";
-import { Testimonials } from "./_components/Testimonials";
-import { PhotoStrip } from "./_components/PhotoStrip";
+import { FAQ } from "@/components/FAQ";
 import { EmailCapture } from "@/components/EmailCapture";
+import { GuestReels } from "@/components/GuestReels";
+import { guestReels, showGuestReels } from "@/lib/guestReels";
 import { CONTENT_READY as BIN_READY } from "@/lib/best-in-norwich";
+import { HeroV2 } from "./_components/HeroV2";
+import { Testimonials } from "./_components/Testimonials";
+import { BookingSectionV2 } from "./_components/BookingSectionV2";
+import { InfoBar, WhatYouGet, ProofVideos, TheWalk, YourGuides, homeFaqs } from "./_components/HomeSections";
+
+export const metadata: Metadata = {
+  // The H1 is about the city, so the title + description carry the search words.
+  title: "Free Walking Tour Norwich | History, Highlights and Local Tips",
+  description:
+    "The Norwich Free Walking Tour: two hours of Norwich's best history, stories and local tips with a guide who lives here. Most days at 10:30am from The Forum. Free to book.",
+};
 
 export default function HomePage() {
   return (
@@ -31,15 +32,27 @@ export default function HomePage() {
       <ScrollTrail
         sections={[
           { id: "top", label: "Hello" },
-          { id: "stories", label: "Stories" },
+          { id: "what-you-get", label: "The tour" },
           { id: "reviews", label: "Reviews" },
-          { id: "tour-map", label: "The walk" },
-          { id: "book-section", label: "Book" },
+          { id: "guides", label: "Guides" },
+          { id: "the-walk", label: "How it works" },
           { id: "faq", label: "FAQs" },
+          { id: "book-section", label: "Book" },
         ]}
       />
       <div>
         <HeroV2
+          badge="The Norwich Free Walking Tour"
+          heading={["England's best-kept", "medieval city."]}
+          subheading="Two hours of Norwich's best history, stories and local tips, with a guide who lives here."
+          subsubheading={
+            <>
+              Popular across Europe.{" "}
+              <a href="/what-is-a-free-tour" className="underline underline-offset-4 decoration-white/40 hover:decoration-white">
+                What is a free walking tour?
+              </a>
+            </>
+          }
           buttonText="Book your spot (free)"
           buttonHref="#book-section"
           widget={
@@ -50,30 +63,37 @@ export default function HomePage() {
             />
           }
         />
-        <PhotoShowcaseV2 />
-        <Testimonials />
-        {/* Photo gallery: "Snaps from our tours". Arrows + tap to enlarge. */}
-        <PhotoStrip />
-        <ThemedRouteSection />
-        <BookingSectionV2 />
+        <InfoBar />
+        <WhatYouGet />
+        <Testimonials showCta={false} />
+        <ProofVideos>
+          {showGuestReels && <GuestReels reels={guestReels} trackingLocation="home_guest" compact />}
+        </ProofVideos>
+        <YourGuides />
+        <TheWalk />
         <FAQ
+          items={homeFaqs}
           customHeading={
             <h2 className="leading-[1.0]">
               <span
                 className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
                 style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
               >
-                Everything you
+                Before you
               </span>{" "}
               <span
                 className="inline text-[clamp(48px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                need to know.
+                book.
               </span>
             </h2>
           }
         />
+        {/* Close on the deal, after the questions (Dark History pattern). */}
+        <BookingSectionV2 phoneCta />
+        <EmailCapture />
+
         {/* Best in Norwich promo. Sits after the FAQ on purpose: the booking
             widget above it is what pays for the tour, and a vote CTA higher up
             would compete with it. Deliberately a link, not the ballot itself —
@@ -130,13 +150,7 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Email capture, back on the homepage per Tom 2026-09-04 (was
-            removed 2026-07-04). Sits after the FAQ so it never competes
-            with the booking widget above. 2026-09-27: reframed as "new
-            tours first" with a polaroid and a local/visitor tap. */}
-        <EmailCapture />
-
-        {/* Internal-link row — surfaces /tour, /what-is-a-free-tour, the
+        {/* Internal-link row — surfaces Dark History, /what-is-a-free-tour, the
             content hub, and explore articles. Plain text, low visual
             weight; Google sees the anchors. Replaces the larger
             LocalGuidesTeaser card grid from the previous homepage. */}
@@ -147,10 +161,6 @@ export default function HomePage() {
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               More on Norwich:{" "}
-              <a href="/tour" className="text-brand-accent hover:underline font-semibold">
-                The full tour
-              </a>
-              {" · "}
               <a
                 href="/tours/dark-history-of-norwich"
                 className="text-brand-accent hover:underline font-semibold"
@@ -183,8 +193,8 @@ export default function HomePage() {
             </p>
           </div>
         </section>
-        <Footer />
       </div>
+      <Footer />
     </main>
   );
 }

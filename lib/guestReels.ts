@@ -1,10 +1,10 @@
-// Videos creators made on the free tour (Tom 2026-10-16, prototype).
+// Videos creators made on the free tour (Tom 2026-10-16), on the homepage.
 // Self-hosted copies: only ship a video once the creator's OK is on record.
 
-// Flip to true once both creators have said yes in writing. Until then the
-// videos only render on a local dev server, never on the live site, and the
-// .mp4 files stay out of git.
-export const CREATORS_OK = false;
+// Both creators agreed in writing (Tom confirmed 2026-10-17). Set back to
+// false to pull the videos from the live site; they still show on a local
+// dev server.
+export const CREATORS_OK = true;
 export const showGuestReels = CREATORS_OK || process.env.NODE_ENV === "development";
 
 export type GuestReel = {
