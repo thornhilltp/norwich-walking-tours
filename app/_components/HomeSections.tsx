@@ -74,7 +74,7 @@ const secrets: { title: string; questions: string; text: string; photos: Photo[]
   {
     title: "Our favourite history and stories",
     questions: "Why was Norwich England's second city? Where did all the wool money come from, and where did it go?",
-    text: "The best of 900 years, told on the streets where it happened.",
+    text: "Our pick of 900 years, told on the streets where it happened.",
     photos: [{ src: "/images/tour/tom-river.jpg", alt: "Tom telling a story to the group by the river" }],
   },
   {

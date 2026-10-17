@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   // The H1 is about the city, so the title + description carry the search words.
   title: "Free Walking Tour Norwich | History, Highlights and Local Tips",
   description:
-    "The Norwich Free Walking Tour: two hours of Norwich's best history, stories and local tips with a guide who lives here. Most days at 10:30am from The Forum. Free to book.",
+    "The Norwich Free Walking Tour: two hours of our favourite Norwich history, stories and local tips, with a guide who lives here. Most days at 10:30am from The Forum. Free to book.",
 };
 
 export default function HomePage() {
@@ -44,7 +44,7 @@ export default function HomePage() {
         <HeroV2
           badge="The Norwich Free Walking Tour"
           heading={["England's best-kept", "medieval city."]}
-          subheading="Two hours of Norwich's best history, stories and local tips, with a guide who lives here."
+          subheading="Two hours of our favourite Norwich history, stories and local tips, with a guide who lives here."
           subsubheading={
             <>
               Popular across Europe.{" "}
