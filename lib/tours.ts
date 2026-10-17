@@ -79,8 +79,8 @@ export interface TourDetails {
   nightBeats?: { when: string; title: string; text: string }[];
   /** Display face for the green script words. Default Caveat. */
   scriptFont?: "eater";
-  /** The guide's Reel, after the stories as a pinned polaroid (self-hosted, captions burned in). */
-  reel?: { src: string; poster: string; who: string; line: string; label: string; heading: [string, string]; tag: string };
+  /** The guide's Reel, above the stories as a pinned polaroid (self-hosted, captions burned in). */
+  reel?: { src: string; poster: string; who: string; label: string; heading: [string, string]; tag: string };
   /** Hero card: the scarcity/dates line that replaces a duplicate CTA. */
   availability?: { headline: string; sub: string };
   /** Real quotes about the guide (until the tour has its own). **bold** = Caveat highlight. */
@@ -279,15 +279,14 @@ export const tours: Tour[] = [
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "b",
       scriptFont: "eater", // Tom 2026-10-10: Halloween splatter face
-      // Tom 2026-10-15: Holly's Reel, after the stories and before "Dare you
-      // walk it?" (tease, then hear it, then book). Heading from her video.
+      // Tom 2026-10-17: Holly's Reel, above "Norwich's darkest secrets".
+      // Heading from her video.
       reel: {
         heading: ["Hear the truth behind", "the ghost stories."],
         tag: "Exhibit C",
         src: "/videos/holly-dark-history-reel.mp4",
         poster: "/videos/holly-dark-history-reel-poster.jpg",
         who: "Holly",
-        line: "Dark history. Folklore.",
         label: "Holly, a Dark History guide, introducing the walk's stories at Tombland, St George's, the Castle and City Hall",
       },
       // Teasers built ONLY from Holly and Joolz's route script (Tom
