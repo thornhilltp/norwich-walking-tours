@@ -603,8 +603,9 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               <section className="relative pt-16 pb-4 md:pt-20 md:pb-6" style={{ backgroundColor: BLACK }}>
                 {d.murderBoard && <Grain />}
                 <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
-                  <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
-                    <h2 className="leading-[1.0]">
+                  <div className="relative text-center md:text-left md:order-2 md:max-w-[460px]">
+                    {d.murderBoard && <StoryLantern />}
+                    <h2 className="relative leading-[1.0]">
                       <span
                         className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
                         style={lora}
@@ -622,7 +623,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       href="https://www.instagram.com/norwichfreewalkingtours"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
+                      className="relative mt-4 hidden md:inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
                       style={{ ...lora, color: "#5AE19E" }}
                     >
                       Watch more on Instagram @norwichfreewalkingtours
