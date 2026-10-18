@@ -17,7 +17,6 @@ import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
-import { GuideCards } from "./GuideCards";
 import { TourCards } from "./TourVariants";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
@@ -292,36 +291,6 @@ export function WhatIsFree() {
 
 export function BrandBookingSheet() {
   return <BookingSheet tabs={bookingTabs()} eaterFamily={eater.style.fontFamily} />;
-}
-
-/* ── 5. Our locals: the guides ─────────────────────────────────────────── */
-
-// Job: put faces to "led by locals" (Tom 2026-10-18). Taped polaroids;
-// hover pops one out, click opens the full guide card (GuideCards).
-// The philosophy cards stay on /our-guides.
-export function OurLocals() {
-  return (
-    <section id="guides" className="py-16 md:py-24 bg-white border-t border-brand-accent/10">
-      <div className="brand-container max-w-5xl">
-        <div className="text-center">
-          <h2 className="leading-[1.0]">
-            <span className="block text-[clamp(30px,3.6vw,46px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
-              A few Norwich locals
-            </span>
-            <span className="block text-[clamp(44px,5.2vw,68px)] leading-[0.95] text-brand-accent" style={caveat}>
-              <WalkUnderline>who love showing it off.</WalkUnderline>
-            </span>
-          </h2>
-        </div>
-        <GuideCards />
-        <p className="mt-10 text-center" style={lora}>
-          <WalkLink href="/our-guides" className="text-brand-accent-text">
-            Meet our guides →
-          </WalkLink>
-        </p>
-      </div>
-    </section>
-  );
 }
 
 /* ── 6. FAQs across every tour ────────────────────────────────────────── */

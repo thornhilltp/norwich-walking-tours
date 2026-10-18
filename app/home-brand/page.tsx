@@ -8,10 +8,10 @@ import { ScrollTrail } from "@/components/ScrollTrail";
 import { EmailCapture } from "@/components/EmailCapture";
 import { FAQ } from "@/components/FAQ";
 import { Testimonials } from "../_components/Testimonials";
+import { YourGuides } from "../_components/HomeSections";
 import {
   BrandBookingSheet,
   BrandHero,
-  OurLocals,
   WhatIsFree,
   OurTours,
   brandFaqs,
@@ -44,7 +44,7 @@ export default async function BrandHomePrototype() {
           { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
           { id: "free-tours", label: "Free tours" },
-          { id: "guides", label: "Our locals" },
+          { id: "guides", label: "Guides" },
           { id: "faq", label: "FAQs" },
         ]}
       />
@@ -53,7 +53,8 @@ export default async function BrandHomePrototype() {
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <WhatIsFree />
-      <OurLocals />
+      {/* The live homepage's guides section, as is (Tom 2026-10-18). */}
+      <YourGuides />
       <FAQ
         items={brandFaqs}
         emitSchema={false}
