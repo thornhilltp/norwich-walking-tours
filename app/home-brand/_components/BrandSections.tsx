@@ -11,14 +11,14 @@
 // /tours/free-walking-tour.
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { Eater } from "next/font/google";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
-import { guides } from "@/lib/guides";
 import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, TourCards, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
+import { Grain } from "@/app/tours/_components/Spooky";
+import { GuideCards } from "./GuideCards";
 
 // Dark History's Halloween face, for its card and its booking theme.
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
@@ -45,8 +45,10 @@ function tourCards(): TourCardData[] {
       key: "free",
       vibe: "History & stories",
       name: "The Norwich Free Walking Tour",
-      meta: "Most days, 10:30am · 2 hours",
-      hook: "Why was Norwich England's second city?",
+      meta: "Most days, 10:30am · 2 hours · Free to book",
+      // Approved homepage sub (CLAUDE.md messaging playbook).
+      hook: "Two hours of our favourite Norwich history, stories and local tips.",
+      perfectFor: "first-time visitors",
       action: "Book free",
       href: "/book",
       details: FREE_TOUR_HREF,
@@ -57,9 +59,10 @@ function tourCards(): TourCardData[] {
       key: "dark",
       vibe: "Dark and true",
       name: dark.name,
-      meta: "Most evenings, 6pm · until 6 Nov",
+      meta: "Most evenings, 6pm · until 6 Nov · Free to book",
       // Live Dark History wording.
-      hook: "Not ghost stories. The real thing.",
+      hook: "Love a ghost story? The true history behind them is even darker.",
+      perfectFor: "a night out with a difference",
       action: "Book free",
       href: `${dark.ctaHref}#book`,
       details: dark.ctaHref,
@@ -71,7 +74,8 @@ function tourCards(): TourCardData[] {
       vibe: "Just your group",
       name: "Private & Group Tours",
       meta: "Any day · Price on request",
-      hook: "Birthday, work day or family visit? We build the walk around you.",
+      hook: "Your date, your route. We build the walk around what your group wants to see.",
+      perfectFor: "birthdays, work days and family visits",
       action: "Ask us",
       href: priv.ctaHref,
       badge: "Your group",
@@ -208,31 +212,26 @@ export function OurTours() {
 // his words, then why we do it: so anyone can come. One link, no steps.
 export function WhatIsFree() {
   return (
-    <section id="free-tours" className="py-16 md:py-24 bg-brand-bg border-t border-brand-accent/10">
-      <div className="brand-container max-w-5xl grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-center">
-        <figure
-          className="relative m-0 mx-auto w-[86%] md:w-full bg-white border border-[#EAE0D4] p-3 pb-10 shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)]"
-          style={{ transform: "rotate(-2deg)" }}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute -top-[11px] left-1/2 w-24 h-6 rounded-[2px] z-10"
-            style={{ transform: "translateX(-50%) rotate(-3deg)", backgroundColor: "#9FD6B8", boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
-          />
-          <div className="relative aspect-[4/3] overflow-hidden bg-brand-accent-light">
-            <Image
-              src="/images/tour/group-cathedral-lawn.jpg"
-              alt="A tour group with their guides on the lawn in front of Norwich Cathedral"
-              fill
-              sizes="(max-width: 768px) 80vw, 440px"
-              className="object-cover"
-            />
-          </div>
-          <figcaption className="absolute bottom-2 left-0 right-0 text-center text-[24px] font-bold text-brand-text/80" style={caveat}>
-            Everyone&apos;s welcome
-          </figcaption>
-        </figure>
-        <div>
+    <section id="free-tours" className="relative bg-brand-bg border-t border-brand-accent/10 lg:min-h-[640px]">
+      {/* Photo takes the left half, edge to edge (phones: full width on
+          top). Warm film look + grain, handwritten note on the photo. */}
+      <div className="relative aspect-[4/3] lg:aspect-auto lg:absolute lg:inset-y-0 lg:left-0 lg:w-1/2 overflow-hidden">
+        <Image
+          src="/images/tour/group-cathedral-lawn.jpg"
+          alt="A tour group with their guides on the lawn in front of Norwich Cathedral"
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover"
+          style={{ objectPosition: "center 45%", filter: "sepia(0.18) saturate(1.12) contrast(1.06) brightness(1.02)" }}
+        />
+        <Grain />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.45), transparent)" }} />
+        <p className="absolute bottom-4 left-5 text-[34px] font-bold leading-none text-white" style={{ ...caveat, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+          Everyone&apos;s welcome
+        </p>
+      </div>
+      <div className="brand-container max-w-6xl">
+        <div className="lg:ml-[50%] lg:pl-14 py-12 lg:py-24">
           <h2 className="leading-[1.0]">
             <span className="inline text-[clamp(30px,3.6vw,46px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
               What&apos;s a free
@@ -272,7 +271,7 @@ export function BrandBookingSheet() {
 /* ── 5. Our locals: the guides ─────────────────────────────────────────── */
 
 // Job: put faces to "led by locals" (Tom 2026-10-18). Taped polaroids;
-// hover pops one out and shows the bio (phones: the bio is just there).
+// hover pops one out, click opens the full guide card (GuideCards).
 // The philosophy cards stay on /our-guides.
 export function OurLocals() {
   return (
@@ -288,31 +287,7 @@ export function OurLocals() {
             </span>
           </h2>
         </div>
-        <ul className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 list-none p-0 m-0">
-          {guides.map((g) => (
-            <li key={g.name} className="group flex flex-col items-center text-center">
-              <div
-                className="relative w-full max-w-[280px] bg-[#F5EBDA] p-2.5 pb-12 shadow-lg border border-brand-text/5 transition-transform duration-300 ease-out [transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)_translateY(-10px)_scale(1.06)] group-hover:shadow-2xl"
-                style={{ ["--r" as string]: g.rotate } as CSSProperties}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute -top-3 left-1/2 w-20 h-6 rounded-[2px]"
-                  style={{ transform: "translateX(-50%) rotate(-2deg)", backgroundColor: g.accent.ac, boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
-                />
-                <div className="relative aspect-[4/5] overflow-hidden" style={{ background: g.tint }}>
-                  <Image src={g.img} alt={`${g.name}, guide with Norwich Free Walking Tours`} fill sizes="(max-width: 640px) 80vw, 280px" className="object-cover" style={{ objectPosition: g.focal }} />
-                </div>
-                <p className="absolute bottom-3 left-0 right-0 text-[32px] font-bold leading-none text-brand-text" style={caveat}>
-                  {g.name}
-                </p>
-              </div>
-              <p className="mt-5 max-w-[280px] text-[15px] leading-snug text-brand-text/75 sm:opacity-0 sm:translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 transition duration-300" style={lora}>
-                {g.blurb}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <GuideCards />
         <p className="mt-10 text-center" style={lora}>
           <a href="/our-guides" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
             Meet our guides →

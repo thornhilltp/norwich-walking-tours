@@ -45,7 +45,9 @@ export type TourCardData = {
   /** No-JS fallback for bookable tours; the real link for the others. */
   href: string;
   details?: string;
-  /** Small label on the photo: "Most days", "Until 6 Nov", "Coming soon". */
+  /** Who it suits, the card's subheading: "Perfect for …". */
+  perfectFor?: string;
+  /** Stop name on the route: "By day", "After dark", "Coming soon". */
   badge?: string;
   image?: { src: string; alt: string };
 };
@@ -78,6 +80,16 @@ function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean
   // stop opens that tour's page. Booking straight from the homepage is the
   // sticky bar (phones) and the menu button (desktop).
   const href = c.details ?? c.href;
+  // Hover in each tour's own mood (Tom 2026-10-18): the free tour's
+  // polaroid lifts off the page; Dark History doesn't move, it glows and the
+  // grey girl steps in; the invitation straightens; the mystery sharpens.
+  const hover = dark
+    ? "[transform:rotate(var(--r))] group-hover:shadow-[0_0_38px_rgba(90,225,158,0.45)]"
+    : soon
+      ? "[transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)]"
+      : c.key === "private"
+        ? "[transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)_translateY(-6px)]"
+        : "[transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)_translateY(-10px)_scale(1.05)] group-hover:shadow-[4px_22px_36px_-14px_rgba(60,40,20,0.7)]";
   return (
     <li className="relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center">
       {/* Route to the next stop: starts and ends on the pins. */}
@@ -117,7 +129,7 @@ function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean
         </div>
         {/* The polaroid pops out on hover. */}
         <figure
-          className="relative m-0 p-2.5 pb-4 border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-transform duration-300 ease-out [transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)_translateY(-8px)_scale(1.04)] group-hover:shadow-[4px_22px_36px_-14px_rgba(60,40,20,0.7)]"
+          className={`relative m-0 p-2.5 pb-4 border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out ${hover}`}
           style={{
             ["--r" as string]: `${rot}deg`,
             backgroundColor: dark ? "#1B1A18" : "#FFFFFF",
@@ -145,8 +157,8 @@ function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean
                 alt={c.image.alt}
                 fill
                 sizes="(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"
-                className="object-cover"
-                style={dark ? sepia : soon ? { filter: "grayscale(1) blur(3px)", transform: "scale(1.08)" } : undefined}
+                className={`object-cover transition-[filter] duration-700 ${dark ? "group-hover:brightness-75" : ""} ${soon ? "[filter:grayscale(1)_blur(4px)] group-hover:[filter:grayscale(1)_blur(1.5px)] scale-[1.08]" : ""}`}
+                style={dark ? sepia : undefined}
                 priority={i === 0}
               />
             )}
@@ -154,11 +166,13 @@ function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean
               <>
                 <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)" }} />
                 {/* The grey girl from Holly's reel, peeking in. */}
-                <LetterGirl className="absolute -bottom-2 right-1 h-[62%] w-auto" />
+                <span className="absolute -bottom-2 right-1 h-[62%] transition-all duration-700 ease-out translate-x-[35%] opacity-50 group-hover:translate-x-0 group-hover:opacity-100">
+                  <LetterGirl className="h-full w-auto" />
+                </span>
               </>
             )}
             {soon && (
-              <span className="absolute inset-0 flex items-center justify-center text-[110px] leading-none text-white/90" style={caveat} aria-hidden>
+              <span className="absolute inset-0 flex items-center justify-center text-[110px] leading-none text-white/90 transition-transform duration-500 group-hover:scale-75 group-hover:rotate-12" style={caveat} aria-hidden>
                 ?
               </span>
             )}
@@ -170,12 +184,17 @@ function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean
           </figcaption>
         </figure>
         <div className="pt-4 px-1">
+          {c.perfectFor && (
+            <p className="text-[22px] font-bold leading-tight text-brand-accent" style={caveat}>
+              Perfect for {c.perfectFor}
+            </p>
+          )}
           {c.meta && (
-            <p className="text-[14px] font-semibold text-brand-accent-text" style={lora}>
+            <p className="mt-1 text-[14px] font-semibold text-brand-text/60" style={lora}>
               {c.meta}
             </p>
           )}
-          <p className="mt-1.5 text-[16px] font-semibold leading-snug text-brand-text group-hover:text-brand-accent-text transition-colors" style={lora}>
+          <p className="mt-1.5 text-[16px] leading-snug text-brand-text/85" style={lora}>
             {c.hook}
           </p>
         </div>
