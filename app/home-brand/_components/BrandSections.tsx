@@ -57,8 +57,8 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       href: "/book",
       details: FREE_TOUR_HREF,
       badge: "By day",
-      // History, the brand shirt and Norwich in one frame (Tom 2026-10-18).
-      image: { src: "/images/tour/tom-erpingham-gate.jpg", alt: "Tom, in a Walk with a Local t-shirt, walking through the Erpingham Gate towards Norwich Cathedral" },
+      // Tom's pick (2026-10-18): a story in Tombland Alley.
+      image: { src: "/images/tour/tom-tombland-story.jpg", alt: "Tom telling a tour group a story in Tombland Alley, beside the Augustine Steward House" },
     },
     {
       key: "dark",
@@ -101,7 +101,7 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       action: "Tell me first",
       href: "#updates",
       badge: "Coming soon",
-      image: { src: "/images/tour/elm-hill-lane.jpg", alt: "" },
+      image: { src: "/images/tour/group-cobbled-lane.jpg", alt: "" },
     },
   ];
   return darkIsOn() ? list : list.filter((c) => c.key !== "dark");
@@ -133,7 +133,8 @@ const HERO_SLIDES: HeroSlide[] = [
   },
   { src: "/images/tour/cathedral-west-front-wide.jpg", alt: "", position: "center 55%" },
   { src: "/images/tour/group-street-laughing.jpg", alt: "", position: "40% 40%" },
-  { src: "/images/tour/elm-hill-shadows.jpg", alt: "", position: "center 60%" },
+  { src: "/images/tour/tom-erpingham-gate.jpg", alt: "", position: "center 45%" },
+  { src: "/images/tour/elm-hill-lane.jpg", alt: "", position: "center 60%" },
 ]
 
 function Ratings() {
@@ -201,10 +202,6 @@ export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWa
               <WalkUnderline>walk.</WalkUnderline>
             </span>
           </h2>
-          {/* The ask, said plainly (Tom 2026-10-18: it wasn't obvious). */}
-          <p className="mt-3 text-[17px] text-brand-text/70" style={lora}>
-            Tap a tour to see dates and book.
-          </p>
         </div>
         <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} />
         <p className="mt-6 text-center" style={lora}>
@@ -255,10 +252,12 @@ function FreeCopy({ center }: { center?: boolean }) {
 // Morrie's photos (2026-10-18): sharper and warmer than the phone shots.
 // (group-cathedral-flag.jpg and group-cathedral-close.jpg are Morrie's
 // market shots despite their file names.)
+// The strip follows the promise (Tom 2026-10-18): history, stories,
+// local tips.
 const MORRIE = {
-  golden: { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" },
-  walk: { src: "/images/tour/group-cobbled-lane.jpg", alt: "A tour group walking down a cobbled Norwich street" },
-  alley: { src: "/images/tour/group-alley-walk.jpg", alt: "A tour group walking down a narrow Norwich lane" },
+  golden: { src: "/images/tour/nelson-statue-cathedral-close.jpg", alt: "The statue of Nelson in Norwich Cathedral Close" },
+  walk: { src: "/images/tour/tom-ducking-stool-drawing.jpg", alt: "Tom holding up a drawing of Norwich's ducking stool during the tour" },
+  alley: { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" },
 };
 
 /* A film strip of three of Morrie's photos, words centred underneath
@@ -313,9 +312,6 @@ export function OurLocals() {
               <WalkUnderline>who love showing it off.</WalkUnderline>
             </span>
           </h2>
-          <p className="mt-3 text-[16px] text-brand-text/60" style={lora}>
-            Tap a photo to meet them.
-          </p>
         </div>
         <GuideCards />
         <p className="mt-10 text-center" style={lora}>

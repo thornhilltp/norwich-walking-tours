@@ -6,7 +6,7 @@
 // the pop-up-book pieces from Holly's reel (Cathedral, Castle, grey girl).
 // The free tour gets its own touch, built from its promise ("our favourite
 // Norwich history, stories and local tips", Tom 2026-10-18): Norwich
-// Market's striped awning over a warm orange polaroid, and three scrapbook
+// Market's striped awning over a polaroid in the awning's own orange, and three scrapbook
 // stickers (Doodles.tsx): Cathedral spire (history), canary (stories),
 // coffee cup (local tips).
 // Each card shows the next bookable walk, read live from the booking app.
@@ -120,7 +120,7 @@ function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: C
   return (
     <figure
       className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
-      style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : free ? "#F8C98E" : "#FFFFFF", borderColor: dark ? "#2A2724" : free ? "#E9AE66" : "#EAE0D4" } as CSSProperties}
+      style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : free ? "#F4C26B" : "#FFFFFF", borderColor: dark ? "#2A2724" : free ? "#E3AE4F" : "#EAE0D4" } as CSSProperties}
     >
       {dark && !small && (
         <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">

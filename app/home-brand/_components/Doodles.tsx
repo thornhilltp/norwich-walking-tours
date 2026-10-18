@@ -68,7 +68,7 @@ export function CupSticker({ className = "h-12 w-12" }: { className?: string }) 
 export function StickerLabel({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={`inline-block whitespace-nowrap bg-[#FFFDF7] px-1.5 py-0.5 text-[17px] font-bold leading-none text-[#1A6B47] shadow-[0_2px_4px_rgba(60,40,20,0.25)] ${className}`}
+      className={`inline-block whitespace-nowrap rounded-md bg-[#FFFDF7] px-2 py-0.5 text-[17px] font-bold leading-none text-[#1A6B47] shadow-[0_2px_4px_rgba(60,40,20,0.25)] ${className}`}
       style={caveat}
     >
       {children}
