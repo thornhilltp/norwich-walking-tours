@@ -255,7 +255,7 @@ function FreeCopy({ center }: { center?: boolean }) {
 const STRIP = [
   { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" },
   { src: "/images/tour/tom-ducking-stool-drawing.jpg", alt: "Tom, by the river, holding up a drawing of Norwich's ducking stool" },
-  { src: "/images/tour/group-britons-arms-looking-up.jpg", alt: "A tour group looking up at the Britons Arms on Elm Hill as Tom tells its story" },
+  { src: "/images/tour/group-market-sunset.jpg", alt: "A tour group gathered round Holly at Norwich Market as the sun sets behind City Hall", position: "30% center" },
 ];
 
 /* A film strip of three photos, words centred underneath. */
@@ -265,7 +265,7 @@ function FilmStrip() {
       <div className="grid grid-cols-3 gap-1.5 md:gap-2 px-1.5 md:px-2">
         {STRIP.map((p, i) => (
           <div key={p.src} className={`relative overflow-hidden aspect-[3/4] ${i === 1 ? "" : "md:mt-10"}`}>
-            <Image src={p.src} alt={p.alt} fill sizes="33vw" className="object-cover" />
+            <Image src={p.src} alt={p.alt} fill sizes="33vw" className="object-cover" style={{ objectPosition: "position" in p ? p.position : undefined }} />
           </div>
         ))}
       </div>
