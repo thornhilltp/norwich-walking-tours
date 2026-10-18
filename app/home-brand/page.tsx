@@ -12,8 +12,8 @@ import {
   BookAnyTour,
   BrandBookingSheet,
   BrandHero,
-  FreeTourExplainer,
-  GuidesStrip,
+  WhoWeAre,
+  WhyFree,
   OurTours,
   brandFaqs,
 } from "./_components/BrandSections";
@@ -37,8 +37,8 @@ export default function BrandHomePrototype() {
           { id: "top", label: "Book" },
           { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
-          { id: "free-tours", label: "Free tours" },
-          { id: "guides", label: "Guides" },
+          { id: "free-tours", label: "Why free?" },
+          { id: "guides", label: "About us" },
           { id: "faq", label: "FAQs" },
         ]}
       />
@@ -46,9 +46,9 @@ export default function BrandHomePrototype() {
       <OurTours />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
-      <FreeTourExplainer />
+      <WhyFree />
       <BookAnyTour />
-      <GuidesStrip />
+      <WhoWeAre />
       <FAQ
         items={brandFaqs}
         emitSchema={false}
