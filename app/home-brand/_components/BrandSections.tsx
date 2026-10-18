@@ -7,10 +7,14 @@
 // key word, a dashed wobbly walking route. Own photos only.
 
 import Image from "next/image";
+import { Eater } from "next/font/google";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { guides } from "@/lib/guides";
 import { tours } from "@/lib/tours";
-import { BookingTabs, VibePicker, type BookableKey, type BookingTab, type Vibe } from "./BrandBooking";
+import { BookingSection, VibePicker, type BookableKey, type BookingTab, type Vibe } from "./BrandBooking";
+
+// Dark History's Halloween face, for its card and its booking-box theme.
+const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
@@ -76,7 +80,7 @@ function vibes(): Vibe[] {
     },
     {
       key: "dark",
-      vibe: "Dark & true",
+      vibe: "Dark and true",
       name: dark.name,
       meta: "Evenings until 6 Nov · Free to book",
       action: "Book free",
@@ -144,7 +148,7 @@ export function BrandHero() {
         </div>
         <div className="relative mt-9 md:mt-12">
           <Wobble d="M0 50 C 14 10, 30 90, 50 50 S 86 10, 100 50" className="hidden lg:block -left-4 -right-4 top-[38%] h-24 w-[calc(100%+2rem)]" />
-          <VibePicker vibes={vibes()} bookable={tabs.map((t) => t.key as BookableKey)} />
+          <VibePicker vibes={vibes()} bookable={tabs.map((t) => t.key as BookableKey)} eaterFamily={eater.style.fontFamily} />
         </div>
       </div>
     </section>
@@ -200,25 +204,10 @@ export function FreeTourExplainer() {
   );
 }
 
-/* ── 4. One booking box for every bookable tour ───────────────────────── */
+/* ── 4. One booking box for every bookable tour, themed to the pick ─── */
 
 export function BookAnyTour() {
-  return (
-    <section id="book-section" className="py-14 md:py-20 bg-brand-accent-light/40 border-t border-brand-accent/10">
-      <div className="brand-container max-w-5xl">
-        <Heading a="Book your" b="walk." sub="Free to book. Tip what it was worth at the end, by card or cash." />
-        <div id="book" className="scroll-mt-24 mt-8 md:mt-10">
-          <BookingTabs tabs={bookingTabs()} />
-        </div>
-        <p className="mt-6 text-center text-[16px] text-brand-text/75" style={lora}>
-          Private group?{" "}
-          <a href="/private-tours" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
-            Ask us about a date →
-          </a>
-        </p>
-      </div>
-    </section>
-  );
+  return <BookingSection tabs={bookingTabs()} eaterFamily={eater.style.fontFamily} />;
 }
 
 /* ── 5. Guides: a short strip of faces ────────────────────────────────── */
