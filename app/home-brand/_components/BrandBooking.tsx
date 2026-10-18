@@ -17,7 +17,6 @@ import { trackEvent } from "@/lib/tracking";
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat: CSSProperties = { fontFamily: "var(--font-caveat), cursive" };
-const mono: CSSProperties = { fontFamily: "ui-monospace, 'Courier New', monospace" };
 const OPEN = "brand:open-booking";
 
 // Dark History palette, from its own page.
@@ -45,6 +44,8 @@ export type TourCardData = {
   /** No-JS fallback for bookable tours; the real link for the others. */
   href: string;
   details?: string;
+  /** Small label on the photo: "Most days", "Until 6 Nov", "Coming soon". */
+  badge?: string;
   image?: { src: string; alt: string };
 };
 
@@ -84,217 +85,150 @@ function BookButton({
   );
 }
 
-/* ── Tour cards, one look per tour ────────────────────────────────────── */
+/* ── Tour cards: one shared frame, each tour's own flavour ─────────────── */
 
-function Photo({ c, style, priority }: { c: TourCardData; style?: CSSProperties; priority?: boolean }) {
-  if (!c.image) return null;
-  return (
-    <Image
-      src={c.image.src}
-      alt={c.image.alt}
-      fill
-      sizes="(max-width: 640px) 40vw, (max-width: 1024px) 45vw, 280px"
-      className="object-cover"
-      style={style}
-      priority={priority}
-    />
-  );
+// Same card for every tour, like Shoebox / Sandemans: real photo on top (or
+// left on phones), name, facts, one question, Book. Each tour shows through
+// its photo treatment, its title lettering and its colour, not the card shape.
+type Look = {
+  bg: string;
+  text: string;
+  sub: string;
+  title: CSSProperties;
+  photo?: CSSProperties;
+  overlay?: string;
+  chip: string;
+  button: string;
+  buttonStyle?: CSSProperties;
+  link: string;
+};
+
+function looks(eater: CSSProperties): Record<TourCardData["key"], Look> {
+  return {
+    free: {
+      bg: "bg-white",
+      text: "text-brand-text",
+      sub: "text-brand-text/65",
+      title: { ...caveat, fontWeight: 700, color: "#2DA96B", fontSize: 32, lineHeight: 0.95 },
+      chip: "bg-brand-accent text-white",
+      button: "bg-brand-accent text-white hover:opacity-90",
+      buttonStyle: { ...caveat, fontSize: 22, fontWeight: 700 },
+      link: "text-brand-accent-text decoration-brand-accent/40",
+    },
+    dark: {
+      bg: "",
+      text: "text-white",
+      sub: "text-white/60",
+      title: { ...eater, color: GLOW, fontSize: 25, lineHeight: 1.05, textShadow: "0 0 14px rgba(90,225,158,0.4)" },
+      photo: sepia,
+      overlay: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)",
+      chip: "bg-black/80 text-[#5AE19E] border border-[#5AE19E]/50",
+      button: "border-2 border-[#5AE19E]/70 text-[#5AE19E] shadow-[0_0_14px_rgba(90,225,158,0.3)] hover:bg-white/5",
+      buttonStyle: { ...eater, fontSize: 17 },
+      link: "text-white/85 decoration-white/40",
+    },
+    private: {
+      bg: "bg-white",
+      text: "text-brand-text",
+      sub: "text-brand-text/65",
+      title: { ...lora, fontStyle: "italic", fontWeight: 600, color: "#1A1A1A", fontSize: 26, lineHeight: 1.05 },
+      chip: "bg-white/90 text-brand-text",
+      button: "border-2 border-brand-text/80 text-brand-text hover:bg-brand-text/5",
+      buttonStyle: { ...lora, fontSize: 16, fontWeight: 600 },
+      link: "text-brand-text/80 decoration-brand-text/30",
+    },
+    soon: {
+      bg: "bg-[#F4EFE6]",
+      text: "text-brand-text",
+      sub: "text-brand-text/65",
+      title: { ...lora, fontWeight: 700, color: "#1A1A1A", fontSize: 24, lineHeight: 1.05 },
+      photo: { filter: "grayscale(1) blur(3px) brightness(1.05)", transform: "scale(1.08)" },
+      overlay: "linear-gradient(rgba(244,239,230,0.35), rgba(244,239,230,0.35))",
+      chip: "bg-brand-text text-white",
+      button: "border-2 border-brand-text/80 text-brand-text hover:bg-brand-text/5",
+      buttonStyle: { ...lora, fontSize: 16, fontWeight: 600 },
+      link: "text-brand-text/80 decoration-brand-text/30",
+    },
+  };
 }
 
-// Phones: photo left, words right, so all four fit in about one screen.
-// Desktop: four equal columns.
-const shell = "grid grid-cols-[38%_1fr] lg:grid-cols-1 lg:grid-rows-[auto_1fr] h-full";
-
-function FreeCard({ c }: { c: TourCardData }) {
+function TourCard({ c, look }: { c: TourCardData; look: Look }) {
+  const bookable = c.key === "free" || c.key === "dark";
+  const btnClass = `inline-flex items-center justify-center rounded-full px-5 min-h-[44px] transition ${look.button}`;
   return (
     <article
-      className={`relative ${shell} gap-3 lg:gap-0 bg-white border border-[#EAE0D4] rounded-[4px] p-2.5 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.55)]`}
-      style={{ transform: "rotate(-1deg)" }}
+      className={`relative h-full overflow-hidden rounded-2xl border border-black/[0.06] shadow-[0_12px_30px_-16px_rgba(26,26,26,0.45)] grid grid-cols-[40%_1fr] lg:grid-cols-1 lg:grid-rows-[auto_1fr] ${look.bg}`}
+      style={c.key === "dark" ? { backgroundColor: NIGHT } : undefined}
     >
-      <span
-        aria-hidden="true"
-        className="absolute -top-[9px] left-[19%] lg:left-1/2 w-14 h-5 rounded-[3px] z-10"
-        style={{ transform: "translateX(-50%) rotate(-3deg)", backgroundColor: "#F4C26B", boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
-      />
-      <div className="relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-[2px] bg-brand-accent-light self-start">
-        <Photo c={c} priority />
+      <div className="relative min-h-[200px] lg:min-h-0 lg:aspect-[4/3] overflow-hidden bg-brand-accent-light">
+        {c.image && (
+          <Image
+            src={c.image.src}
+            alt={c.image.alt}
+            fill
+            sizes="(max-width: 1024px) 40vw, 300px"
+            className="object-cover"
+            style={look.photo}
+            priority={c.key === "free"}
+          />
+        )}
+        {look.overlay && <div aria-hidden className="absolute inset-0" style={{ background: look.overlay }} />}
+        {c.badge && (
+          <span className={`absolute left-2.5 top-2.5 rounded-full px-2.5 py-1 text-[12px] font-semibold ${look.chip}`} style={lora}>
+            {c.badge}
+          </span>
+        )}
       </div>
-      <div className="flex flex-col lg:px-1 lg:pt-3">
-        <p className="text-[30px] lg:text-[34px] font-bold leading-[0.95] text-brand-accent" style={caveat}>
+      {c.key === "dark" && <Fog />}
+      <div className="relative flex flex-col p-3.5 lg:p-5">
+        <p className={`text-[11.5px] uppercase tracking-[0.16em] font-semibold ${look.sub}`} style={lora}>
           {c.vibe}
         </p>
-        <Words c={c} />
-        <div className="mt-auto pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-          <BookButton
-            tour="free"
-            location="brand_card_free"
-            href={c.href}
-            className="inline-flex items-center justify-center rounded-full bg-brand-accent px-5 min-h-[44px] text-[22px] font-bold text-white shadow-md hover:opacity-90"
-            style={caveat}
-          >
-            {c.action}
-          </BookButton>
-          {c.details && <DetailsLink href={c.details} className="text-brand-accent-text decoration-brand-accent/40" />}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function DarkCard({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
-  return (
-    <article
-      className={`relative ${shell} gap-3 lg:gap-0 overflow-hidden rounded-[4px] p-2.5 lg:p-0 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.7)]`}
-      style={{ backgroundColor: NIGHT }}
-    >
-      <div className="relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-[2px] lg:rounded-none self-start">
-        <Photo c={c} style={sepia} priority />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: `radial-gradient(ellipse at center, transparent 40%, rgba(10,6,2,0.8) 100%), linear-gradient(to bottom, transparent 60%, ${NIGHT} 100%)` }}
-        />
-      </div>
-      <Fog />
-      <div className="relative flex flex-col lg:px-3.5 lg:pb-3.5 lg:-mt-4">
-        <p className="text-[24px] lg:text-[28px] leading-[1.0]" style={{ ...eater, color: GLOW, textShadow: "0 0 14px rgba(90,225,158,0.45)" }}>
-          {c.vibe}
+        <h3 className="mt-1" style={look.title}>
+          {c.name}
+        </h3>
+        {c.meta && (
+          <p className={`mt-1.5 text-[14px] leading-snug ${look.sub}`} style={lora}>
+            {c.meta}
+          </p>
+        )}
+        <p className={`mt-2 text-[15px] font-semibold leading-snug ${look.text}`} style={lora}>
+          {c.hook}
         </p>
-        <Words c={c} dark />
-        <div className="mt-auto pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-          <BookButton
-            tour="dark"
-            location="brand_card_dark"
-            href={c.href}
-            className="inline-flex items-center justify-center rounded-full border-2 px-5 min-h-[44px] text-[17px] shadow-[0_0_14px_rgba(90,225,158,0.3)] hover:bg-white/5"
-            style={{ ...eater, color: GLOW, borderColor: "rgba(90,225,158,0.7)" }}
-          >
-            {c.action}
-          </BookButton>
-          {c.details && <DetailsLink href={c.details} className="text-white/85 decoration-white/40" />}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/** Private tours: an invitation. (No look of their own yet; a first idea.) */
-function PrivateCard({ c }: { c: TourCardData }) {
-  return (
-    <article className="relative h-full rounded-[4px] bg-[#FFFDF7] p-2 shadow-[0_10px_24px_-14px_rgba(26,26,26,0.45)] border border-brand-text/10">
-      <div className={`${shell} gap-3 lg:gap-0 border border-brand-accent/50 rounded-[2px] p-2`}>
-        <div className="relative aspect-[4/5] lg:aspect-[4/3] overflow-hidden rounded-t-[999px] bg-brand-accent-light self-start">
-          <Photo c={c} />
-        </div>
-        <div className="flex flex-col lg:pt-3 lg:text-center">
-          <p className="text-[11.5px] uppercase tracking-[0.22em] text-brand-accent-text font-semibold" style={lora}>
-            You&apos;re invited
-          </p>
-          <p className="mt-1 text-[24px] lg:text-[26px] italic leading-[1.05] text-brand-text" style={lora}>
-            {c.vibe}
-          </p>
-          <Words c={c} />
-          <div className="mt-auto pt-3">
+        <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-4 gap-y-1">
+          {bookable ? (
+            <BookButton tour={c.key as BookableKey} location={`brand_card_${c.key}`} href={c.href} className={btnClass} style={look.buttonStyle}>
+              {c.action}
+            </BookButton>
+          ) : (
             <a
               href={c.href}
-              onClick={() => trackEvent("book_cta_click", { location: "brand_card_private" })}
-              className="inline-flex items-center justify-center rounded-full border-2 border-brand-accent px-5 min-h-[44px] text-[16px] font-semibold italic text-brand-accent-text hover:bg-brand-accent-light"
-              style={lora}
+              onClick={() => trackEvent("book_cta_click", { location: `brand_card_${c.key}` })}
+              className={btnClass}
+              style={look.buttonStyle}
             >
               {c.action}
             </a>
-          </div>
+          )}
+          {c.details && (
+            <a href={c.details} className={`text-[15px] font-semibold underline underline-offset-4 min-h-[44px] inline-flex items-center ${look.link}`} style={lora}>
+              What&apos;s it like?
+            </a>
+          )}
         </div>
       </div>
     </article>
-  );
-}
-
-/** Coming soon: kraft paper, a stamped question mark, still under wraps. */
-function SoonCard({ c }: { c: TourCardData }) {
-  return (
-    <article
-      className={`relative ${shell} gap-3 lg:gap-0 rounded-[3px] p-2.5 lg:p-3 shadow-[2px_10px_24px_-12px_rgba(90,70,40,0.55)]`}
-      style={{
-        backgroundColor: "#D9C29C",
-        backgroundImage: "repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 6px)",
-        transform: "rotate(1deg)",
-      }}
-    >
-      <div className="relative aspect-[4/5] lg:aspect-square flex items-center justify-center rounded-[2px] border-2 border-dashed border-[#7A5C33]/50 self-start">
-        <span className="text-[72px] lg:text-[84px] leading-none text-[#7A5C33]/70" style={mono} aria-hidden="true">
-          ?
-        </span>
-        <span
-          className="absolute bottom-3 left-1/2 rounded-[3px] border-[3px] border-[#B3392F] px-1.5 py-0.5 text-[11px] lg:text-[13px] font-bold uppercase tracking-[0.1em] text-[#B3392F] whitespace-nowrap"
-          style={{ ...mono, transform: "translateX(-50%) rotate(-12deg)", opacity: 0.85 }}
-        >
-          Coming soon
-        </span>
-      </div>
-      <div className="flex flex-col lg:pt-3">
-        <p className="text-[21px] lg:text-[23px] font-bold leading-[1.05] text-[#3B2A14]" style={mono}>
-          {c.vibe}
-        </p>
-        <p className="mt-2 text-[15px] leading-snug text-[#3B2A14]/85" style={mono}>
-          {c.hook}
-        </p>
-        <div className="mt-auto pt-3">
-          <a
-            href={c.href}
-            className="inline-flex items-center justify-center rounded-[3px] border-2 border-[#3B2A14] px-4 min-h-[44px] text-[15px] font-bold text-[#3B2A14] hover:bg-[#3B2A14]/10"
-            style={mono}
-          >
-            {c.action}
-          </a>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function Words({ c, dark }: { c: TourCardData; dark?: boolean }) {
-  return (
-    <>
-      <p className={`mt-1.5 text-[16px] font-bold leading-snug ${dark ? "text-white" : "text-brand-text"}`} style={lora}>
-        {c.name}
-      </p>
-      <p className={`mt-0.5 text-[14px] leading-snug ${dark ? "text-white/65" : "text-brand-text/65"}`} style={lora}>
-        {c.meta}
-      </p>
-      <p className={`mt-2 text-[15px] font-semibold leading-snug ${dark ? "text-white/90" : "text-brand-text"}`} style={lora}>
-        {c.hook}
-      </p>
-    </>
-  );
-}
-
-function DetailsLink({ href, className }: { href: string; className: string }) {
-  return (
-    <a href={href} className={`text-[15px] font-semibold underline underline-offset-4 min-h-[44px] inline-flex items-center ${className}`} style={lora}>
-      What&apos;s it like?
-    </a>
   );
 }
 
 export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eaterFamily: string }) {
-  const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-  const card = (c: TourCardData) => {
-    switch (c.key) {
-      case "free":
-        return <FreeCard c={c} />;
-      case "dark":
-        return <DarkCard c={c} eater={eater} />;
-      case "private":
-        return <PrivateCard c={c} />;
-      default:
-        return <SoonCard c={c} />;
-    }
-  };
+  const l = looks({ fontFamily: eaterFamily, fontWeight: 400 });
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 list-none p-0 m-0">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 list-none p-0 m-0">
       {cards.map((c) => (
-        <li key={c.key}>{card(c)}</li>
+        <li key={c.key}>
+          <TourCard c={c} look={l[c.key]} />
+        </li>
       ))}
     </ul>
   );
