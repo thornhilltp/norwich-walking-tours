@@ -6,9 +6,8 @@
 // the pop-up-book pieces from Holly's reel (Cathedral, Castle, grey girl).
 // The free tour gets its own touch, built from its promise ("our favourite
 // Norwich history, stories and local tips", Tom 2026-10-18): Norwich
-// Market's striped awning over the photo, and on hover three hand-drawn
-// doodles pop out round the polaroid like notes in a guide's notebook: a
-// Cathedral spire (history), a "Did you know?" bubble (stories) and a
+// Market's striped awning over a warm orange polaroid, and three scrapbook
+// stickers (Doodles.tsx): Cathedral spire (history), canary (stories),
 // coffee cup (local tips).
 // Each card shows the next bookable walk, read live from the booking app.
 //   Desktop: polaroid + one line + button.  Phones: a list with arrows.
@@ -18,6 +17,7 @@ import type { CSSProperties } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
+import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "./Doodles";
 import type { TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 
@@ -78,41 +78,24 @@ function AwningTouch({ small }: { small?: boolean }) {
   );
 }
 
-/** History, stories, local tips: doodles that pop out on hover (always
-    out on touch screens). */
+/** History, stories, local tips: scrapbook stickers stuck on the free
+    tour's polaroid (Tom 2026-10-18), kept inside its edges so they don't
+    clash with the cards either side. Pop on hover; always out on touch. */
 function Doodles() {
-  const ink = { fill: "#FFFDF7", stroke: GREEN, strokeWidth: 2.5, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
-  const label = "absolute whitespace-nowrap text-[20px] font-bold leading-none text-brand-accent-text";
+  const sticker = `${s.doodle} absolute z-20 flex flex-col items-center gap-0.5`;
   return (
     <>
-      {/* history: the Cathedral spire */}
-      <span className={`${s.doodle} absolute -left-8 top-10 z-20 block`} style={{ ["--d" as string]: "0ms", ["--r" as string]: "-10deg" } as CSSProperties}>
-        <svg viewBox="0 0 40 70" className="h-16 w-9" aria-hidden>
-          <path {...ink} d="M20 3 L27 40 L13 40 Z" />
-          <path {...ink} d="M10 40 H30 V66 H10 Z" />
-          <path {...ink} d="M17 66 V55 Q20 50 23 55 V66" />
-          <path d="M20 3 V-2" stroke={GREEN} strokeWidth="2.5" strokeLinecap="round" />
-        </svg>
-        <span className={`${label} -left-2 -bottom-5 -rotate-6`} style={caveat}>history</span>
+      <span className={`${sticker} -left-3 top-12`} style={{ ["--d" as string]: "0ms", ["--r" as string]: "-8deg" } as CSSProperties}>
+        <SpireSticker className="h-14 w-8" />
+        <StickerLabel className="-rotate-6">history</StickerLabel>
       </span>
-      {/* stories: a speech bubble */}
-      <span className={`${s.doodle} absolute -right-10 -top-7 z-20 block`} style={{ ["--d" as string]: "120ms", ["--r" as string]: "8deg" } as CSSProperties}>
-        <svg viewBox="0 0 96 60" className="h-[54px] w-[86px]" aria-hidden>
-          <path {...ink} d="M8 6 H88 Q92 6 92 10 V38 Q92 42 88 42 H34 L20 56 L22 42 H8 Q4 42 4 38 V10 Q4 6 8 6 Z" />
-          <text x="48" y="30" textAnchor="middle" fontSize="15" fontWeight={700} fill={GREEN} style={caveat}>
-            Did you know?
-          </text>
-        </svg>
-        <span className={`${label} right-0 -bottom-4 rotate-3`} style={caveat}>stories</span>
+      <span className={`${sticker} -right-4 top-[38%]`} style={{ ["--d" as string]: "120ms", ["--r" as string]: "7deg" } as CSSProperties}>
+        <CanarySticker className="h-11 w-[52px]" />
+        <StickerLabel className="rotate-3">stories</StickerLabel>
       </span>
-      {/* local tips: a coffee cup */}
-      <span className={`${s.doodle} absolute -right-9 bottom-24 z-20 block`} style={{ ["--d" as string]: "240ms", ["--r" as string]: "6deg" } as CSSProperties}>
-        <svg viewBox="0 0 56 56" className="h-12 w-12" aria-hidden>
-          <path {...ink} d="M8 20 H40 V40 Q40 50 30 50 H18 Q8 50 8 40 Z" />
-          <path {...ink} fill="none" d="M40 25 Q50 25 50 32 Q50 39 40 39" />
-          <path d="M18 14 Q15 9 18 5 M26 14 Q23 9 26 5 M34 14 Q31 9 34 5" fill="none" stroke={GREEN} strokeWidth="2" strokeLinecap="round" />
-        </svg>
-        <span className={`${label} -right-3 -bottom-5 -rotate-3`} style={caveat}>local tips</span>
+      <span className={`${sticker} left-[8%] bottom-[96px]`} style={{ ["--d" as string]: "240ms", ["--r" as string]: "-4deg" } as CSSProperties}>
+        <CupSticker className="h-10 w-10" />
+        <StickerLabel className="-rotate-2">local tips</StickerLabel>
       </span>
     </>
   );
@@ -132,12 +115,12 @@ function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: C
   const free = c.key === "free";
   const caption: CSSProperties = dark
     ? { ...eater, color: GLOW, fontSize: small ? 15 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
-    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : GREEN };
+    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : GREEN };
   const showTape = !free;
   return (
     <figure
       className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
-      style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : "#FFFFFF", borderColor: dark ? "#2A2724" : "#EAE0D4" } as CSSProperties}
+      style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : free ? "#F8C98E" : "#FFFFFF", borderColor: dark ? "#2A2724" : free ? "#E9AE66" : "#EAE0D4" } as CSSProperties}
     >
       {dark && !small && (
         <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">

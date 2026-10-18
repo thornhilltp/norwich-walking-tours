@@ -19,6 +19,7 @@ import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 import { GuideCards } from "./GuideCards";
 import { TourCards } from "./TourVariants";
+import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
 
 // Dark History's Halloween face, for its card and its booking theme.
@@ -197,7 +198,7 @@ export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWa
               Pick your
             </span>{" "}
             <span className="inline text-[clamp(42px,5vw,64px)] leading-[0.95] text-brand-accent" style={caveat}>
-              walk.
+              <WalkUnderline>walk.</WalkUnderline>
             </span>
           </h2>
           {/* The ask, said plainly (Tom 2026-10-18: it wasn't obvious). */}
@@ -207,9 +208,9 @@ export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWa
         </div>
         <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} />
         <p className="mt-6 text-center" style={lora}>
-          <a href="/tours" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
+          <WalkLink href="/tours" className="text-brand-accent-text">
             All tours &amp; experiences →
-          </a>
+          </WalkLink>
         </p>
       </div>
     </section>
@@ -228,7 +229,7 @@ function FreeCopy({ center }: { center?: boolean }) {
           What&apos;s a free
         </span>{" "}
         <span className="inline text-[clamp(44px,5.2vw,68px)] leading-[0.95] text-brand-accent" style={caveat}>
-          walking tour?
+          <WalkUnderline>walking tour?</WalkUnderline>
         </span>
       </h2>
       <p className={`mt-5 text-[18px] md:text-[20px] leading-relaxed text-brand-text ${center ? "max-w-2xl mx-auto" : ""}`} style={lora}>
@@ -243,9 +244,9 @@ function FreeCopy({ center }: { center?: boolean }) {
         all for years.
       </p>
       <p className="mt-5" style={lora}>
-        <a href="/what-is-a-free-tour" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
+        <WalkLink href="/what-is-a-free-tour" className="text-brand-accent-text">
           More about free tours →
-        </a>
+        </WalkLink>
       </p>
     </>
   );
@@ -309,7 +310,7 @@ export function OurLocals() {
               A few Norwich locals
             </span>
             <span className="block text-[clamp(44px,5.2vw,68px)] leading-[0.95] text-brand-accent" style={caveat}>
-              who love showing it off.
+              <WalkUnderline>who love showing it off.</WalkUnderline>
             </span>
           </h2>
           <p className="mt-3 text-[16px] text-brand-text/60" style={lora}>
@@ -318,9 +319,9 @@ export function OurLocals() {
         </div>
         <GuideCards />
         <p className="mt-10 text-center" style={lora}>
-          <a href="/our-guides" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
+          <WalkLink href="/our-guides" className="text-brand-accent-text">
             Meet our guides →
-          </a>
+          </WalkLink>
         </p>
       </div>
     </section>
