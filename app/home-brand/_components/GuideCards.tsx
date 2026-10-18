@@ -64,6 +64,7 @@ export function GuideCards() {
             <button
               type="button"
               aria-haspopup="dialog"
+              aria-label={`Meet ${g.name}`}
               onClick={() => {
                 setOpen(g);
                 trackEvent("guide_card_open", { guide: g.name });
@@ -75,9 +76,6 @@ export function GuideCards() {
                 style={{ ["--r" as string]: g.rotate } as CSSProperties}
               >
                 <Polaroid g={g} />
-              </span>
-              <span className="mt-4 inline-block text-[22px] font-bold text-brand-accent-text group-hover:underline underline-offset-4" style={caveat}>
-                Meet {g.name} →
               </span>
             </button>
           </li>

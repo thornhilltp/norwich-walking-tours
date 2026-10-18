@@ -1,14 +1,13 @@
 "use client";
 
-// Tours and experiences, three versions to compare (Tom 2026-10-18: too
-// much text, the ask wasn't obvious). All three: the walking route runs
+// Tours and experiences (Tom 2026-10-18: less text, an obvious ask). The
+// walking route runs
 // BEHIND the polaroids, properly wobbly; one tap target per tour; each
 // tour's hover in its own mood. Dark History's polaroid has the pop-up-book
 // pieces from Holly's reel: paper cut-out Cathedral and Castle hinge up
 // from the bottom, and the grey girl steps in.
-//   A  Polaroid + one line + "See dates"
-//   B  Polaroid + a luggage tag with the facts
-//   C  A list: small polaroid, name, who it's for, arrow
+//   Desktop: polaroid + one line + "See dates & book" (was version A)
+//   Phones: a list, small polaroid, name, who it's for, arrow (version C)
 
 import Image from "next/image";
 import type { CSSProperties } from "react";
@@ -16,8 +15,6 @@ import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
 import type { TourCardData } from "./BrandBooking";
-
-export type TourVariant = "a" | "b" | "c";
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat: CSSProperties = { fontFamily: "var(--font-caveat), cursive" };
@@ -144,7 +141,7 @@ function Arrow({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
   );
 }
 
-/* ── A: polaroid + one line + See dates ───────────────────────────────── */
+/* ── Desktop: polaroid + one line + See dates ─────────────────────────── */
 
 function VariantA({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
   return (
@@ -153,7 +150,7 @@ function VariantA({ cards, eater }: { cards: TourCardData[]; eater: CSSPropertie
         <Route className="left-0 top-[18%] h-40 w-[calc(var(--n)*82%)] sm:w-[calc(var(--n)*48%)] lg:w-full" />
         {cards.map((c, i) => (
           <li key={c.key} className="relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center">
-            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, v: "a" })} className="group block">
+            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key })} className="group block">
               <Polaroid c={c} i={i} eater={eater} />
               <div className="relative z-10 pt-4 px-1">
                 {c.perfectFor && (
@@ -173,55 +170,7 @@ function VariantA({ cards, eater }: { cards: TourCardData[]; eater: CSSPropertie
   );
 }
 
-/* ── B: polaroid + a luggage tag with the facts ───────────────────────── */
-
-function Tag({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
-  const lines = c.tag ?? [];
-  return (
-    <div className="relative z-10 mx-auto mt-1 w-[86%]">
-      {/* the string */}
-      <svg aria-hidden viewBox="0 0 40 30" className="mx-auto h-7 w-10">
-        <path d="M20 0 C 12 10, 28 18, 20 30" fill="none" stroke="#8A7A64" strokeWidth="1.5" />
-      </svg>
-      <div
-        className="relative bg-[#F3E6CC] px-4 pt-5 pb-4 shadow-[1px_6px_14px_-8px_rgba(60,40,20,0.6)] transition-transform duration-500 group-hover:rotate-[-3deg] origin-top"
-        style={{ clipPath: "polygon(12% 0, 88% 0, 100% 14%, 100% 100%, 0 100%, 0 14%)" }}
-      >
-        <span aria-hidden className="absolute left-1/2 top-2 h-3 w-3 -translate-x-1/2 rounded-full bg-brand-bg ring-1 ring-[#8A7A64]/50" />
-        <ul className="list-none p-0 m-0 space-y-0.5">
-          {lines.map((l) => (
-            <li key={l} className="text-[15px] font-semibold leading-snug text-brand-text/85" style={lora}>
-              {l}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-2.5">
-          <Arrow c={c} eater={eater} />
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function VariantB({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
-  return (
-    <div className="relative -mx-4 lg:mx-0">
-      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-14 pb-6 list-none m-0 [scrollbar-width:none]" style={{ ["--n" as string]: cards.length } as CSSProperties}>
-        <Route className="left-0 top-[14%] h-40 w-[calc(var(--n)*82%)] sm:w-[calc(var(--n)*48%)] lg:w-full" />
-        {cards.map((c, i) => (
-          <li key={c.key} className="relative shrink-0 w-[74%] sm:w-[46%] lg:w-auto snap-center">
-            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, v: "b" })} className="group block">
-              <Polaroid c={c} i={i} eater={eater} />
-              <Tag c={c} eater={eater} />
-            </a>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-/* ── C: a list, everything visible at once ────────────────────────────── */
+/* ── Phones: a list, everything visible at once ───────────────────────── */
 
 function VariantC({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
   return (
@@ -233,7 +182,7 @@ function VariantC({ cards, eater }: { cards: TourCardData[]; eater: CSSPropertie
           <li key={c.key} className="relative">
             <a
               href={hrefOf(c)}
-              onClick={() => trackEvent("tour_card_click", { tour: c.key, v: "c" })}
+              onClick={() => trackEvent("tour_card_click", { tour: c.key })}
               className={`group relative z-10 flex items-center gap-4 sm:gap-6 rounded-sm px-2 py-3 transition-colors ${dark ? "hover:bg-[#121211]/[0.04]" : "hover:bg-brand-accent-light/40"}`}
             >
               <div className="w-[104px] sm:w-[132px] shrink-0">
@@ -269,9 +218,18 @@ function VariantC({ cards, eater }: { cards: TourCardData[]; eater: CSSPropertie
   );
 }
 
-export function TourVariants({ cards, eaterFamily, variant }: { cards: TourCardData[]; eaterFamily: string; variant: TourVariant }) {
+// Tom 2026-10-18: phones get the list (all four at a glance, each row
+// obviously tappable); desktop gets the polaroids along the route.
+export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eaterFamily: string }) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-  if (variant === "b") return <VariantB cards={cards} eater={eater} />;
-  if (variant === "c") return <VariantC cards={cards} eater={eater} />;
-  return <VariantA cards={cards} eater={eater} />;
+  return (
+    <>
+      <div className="lg:hidden">
+        <VariantC cards={cards} eater={eater} />
+      </div>
+      <div className="hidden lg:block">
+        <VariantA cards={cards} eater={eater} />
+      </div>
+    </>
+  );
 }

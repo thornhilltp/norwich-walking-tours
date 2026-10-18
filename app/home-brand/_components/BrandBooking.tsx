@@ -42,8 +42,6 @@ export type TourCardData = {
   /** No-JS fallback for bookable tours; the real link for the others. */
   href: string;
   details?: string;
-  /** Three short facts for the luggage-tag version. */
-  tag?: string[];
   /** Who it suits, the card's subheading: "Perfect for …". */
   perfectFor?: string;
   /** Stop name on the route: "By day", "After dark", "Coming soon". */
