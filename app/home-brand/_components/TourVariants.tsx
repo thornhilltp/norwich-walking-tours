@@ -4,10 +4,12 @@
 // walking route runs BEHIND the polaroids, properly wobbly; one tap target
 // per tour; each tour's hover in its own mood. Dark History's polaroid has
 // the pop-up-book pieces from Holly's reel (Cathedral, Castle, grey girl).
-// The free tour gets its own touch, three options to compare:
-//   pin     the logo's map pin drops onto the photo, the route draws itself
-//   awning  Norwich Market's striped awning over the photo, swaying
-//   flag    the guide's green flag, waving
+// The free tour gets its own touch, built from its promise ("our favourite
+// Norwich history, stories and local tips", Tom 2026-10-18): Norwich
+// Market's striped awning over the photo, and on hover three hand-drawn
+// doodles pop out round the polaroid like notes in a guide's notebook: a
+// Cathedral spire (history), a "Did you know?" bubble (stories) and a
+// coffee cup (local tips).
 // Each card shows the next bookable walk, read live from the booking app.
 //   Desktop: polaroid + one line + button.  Phones: a list with arrows.
 
@@ -19,8 +21,6 @@ import { LetterGirl } from "./LetterGirl";
 import type { TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 
-export type FreeLook = "pin" | "awning" | "flag";
-export type SubVariant = "a" | "b" | "c";
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat: CSSProperties = { fontFamily: "var(--font-caveat), cursive" };
@@ -63,20 +63,6 @@ function PopUp() {
 
 /* Free tour touches. */
 
-function PinTouch() {
-  return (
-    <>
-      <svg aria-hidden viewBox="0 0 200 60" preserveAspectRatio="none" className="absolute inset-x-0 bottom-3 h-14 w-full">
-        <path className={s.route} d="M-5 40 C 30 10, 60 60, 100 35 S 160 5, 205 30" fill="none" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="9 9" strokeLinecap="round" />
-      </svg>
-      <svg aria-hidden viewBox="-14 -38 28 40" className={`${s.pin} absolute right-[14%] top-[16%] h-14 w-11 drop-shadow-[0_6px_8px_rgba(0,0,0,0.45)]`}>
-        <path d="M0 0 C -8 -10 -13 -16 -13 -24 A 13 13 0 1 1 13 -24 C 13 -16 8 -10 0 0 Z" fill={GREEN} />
-        <circle cx="0" cy="-24" r="5" fill="#FCFAF8" />
-      </svg>
-    </>
-  );
-}
-
 function AwningTouch({ small }: { small?: boolean }) {
   // Market-roof stripes: green, white, yellow, as on Norwich Market.
   const stripes = ["#2DA96B", "#FFFFFF", "#F4C26B", "#FFFFFF"];
@@ -92,42 +78,65 @@ function AwningTouch({ small }: { small?: boolean }) {
   );
 }
 
-function FlagTouch() {
+/** History, stories, local tips: doodles that pop out on hover (always
+    out on touch screens). */
+function Doodles() {
+  const ink = { fill: "#FFFDF7", stroke: GREEN, strokeWidth: 2.5, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
+  const label = "absolute whitespace-nowrap text-[20px] font-bold leading-none text-brand-accent-text";
   return (
-    <span aria-hidden className="absolute -top-14 right-4 z-20 block">
-      <svg viewBox="0 0 70 80" className="h-24 w-[84px] overflow-visible">
-        <rect x="2" y="0" width="3" height="80" rx="1.5" fill="#8A6A32" />
-        <g className={s.flag}>
-          <path d="M5 4 L66 18 L5 34 Z" fill={GREEN} />
-          <text x="12" y="23" fontSize="10" fill="#FFFFFF" fontWeight={700} style={caveat}>
-            Walk with a Local
+    <>
+      {/* history: the Cathedral spire */}
+      <span className={`${s.doodle} absolute -left-8 top-10 z-20 block`} style={{ ["--d" as string]: "0ms", ["--r" as string]: "-10deg" } as CSSProperties}>
+        <svg viewBox="0 0 40 70" className="h-16 w-9" aria-hidden>
+          <path {...ink} d="M20 3 L27 40 L13 40 Z" />
+          <path {...ink} d="M10 40 H30 V66 H10 Z" />
+          <path {...ink} d="M17 66 V55 Q20 50 23 55 V66" />
+          <path d="M20 3 V-2" stroke={GREEN} strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+        <span className={`${label} -left-2 -bottom-5 -rotate-6`} style={caveat}>history</span>
+      </span>
+      {/* stories: a speech bubble */}
+      <span className={`${s.doodle} absolute -right-10 -top-7 z-20 block`} style={{ ["--d" as string]: "120ms", ["--r" as string]: "8deg" } as CSSProperties}>
+        <svg viewBox="0 0 96 60" className="h-[54px] w-[86px]" aria-hidden>
+          <path {...ink} d="M8 6 H88 Q92 6 92 10 V38 Q92 42 88 42 H34 L20 56 L22 42 H8 Q4 42 4 38 V10 Q4 6 8 6 Z" />
+          <text x="48" y="30" textAnchor="middle" fontSize="15" fontWeight={700} fill={GREEN} style={caveat}>
+            Did you know?
           </text>
-        </g>
-      </svg>
-    </span>
+        </svg>
+        <span className={`${label} right-0 -bottom-4 rotate-3`} style={caveat}>stories</span>
+      </span>
+      {/* local tips: a coffee cup */}
+      <span className={`${s.doodle} absolute -right-9 bottom-24 z-20 block`} style={{ ["--d" as string]: "240ms", ["--r" as string]: "6deg" } as CSSProperties}>
+        <svg viewBox="0 0 56 56" className="h-12 w-12" aria-hidden>
+          <path {...ink} d="M8 20 H40 V40 Q40 50 30 50 H18 Q8 50 8 40 Z" />
+          <path {...ink} fill="none" d="M40 25 Q50 25 50 32 Q50 39 40 39" />
+          <path d="M18 14 Q15 9 18 5 M26 14 Q23 9 26 5 M34 14 Q31 9 34 5" fill="none" stroke={GREEN} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+        <span className={`${label} -right-3 -bottom-5 -rotate-3`} style={caveat}>local tips</span>
+      </span>
+    </>
   );
 }
 
-function hoverFor(key: TourCardData["key"], look: FreeLook) {
+function hoverFor(key: TourCardData["key"]) {
   if (key === "dark") return "group-hover:shadow-[0_0_40px_rgba(90,225,158,0.45)]";
   if (key === "soon") return "group-hover:[transform:rotate(0deg)]";
   if (key === "private") return "group-hover:[transform:rotate(0deg)_translateY(-6px)]";
-  if (look === "flag") return "group-hover:[transform:rotate(0deg)] group-hover:shadow-[4px_22px_36px_-14px_rgba(60,40,20,0.7)]";
   return "group-hover:[transform:rotate(0deg)_translateY(-10px)_scale(1.05)] group-hover:shadow-[4px_22px_36px_-14px_rgba(60,40,20,0.7)]";
 }
 
 /** The polaroid itself: same shape for every tour, each in its own light. */
-function Polaroid({ c, i, eater, small, look }: { c: TourCardData; i: number; eater: CSSProperties; small?: boolean; look: FreeLook }) {
+function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: CSSProperties; small?: boolean }) {
   const dark = c.key === "dark";
   const soon = c.key === "soon";
   const free = c.key === "free";
   const caption: CSSProperties = dark
     ? { ...eater, color: GLOW, fontSize: small ? 15 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
     : { ...caveat, fontWeight: 700, fontSize: small ? 20 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : GREEN };
-  const showTape = !(free && look === "awning");
+  const showTape = !free;
   return (
     <figure
-      className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key, look)}`}
+      className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
       style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : "#FFFFFF", borderColor: dark ? "#2A2724" : "#EAE0D4" } as CSSProperties}
     >
       {dark && !small && (
@@ -135,8 +144,8 @@ function Polaroid({ c, i, eater, small, look }: { c: TourCardData; i: number; ea
           <StoryLantern />
         </span>
       )}
-      {free && look === "flag" && !small && <FlagTouch />}
-      {free && look === "awning" && <AwningTouch small={small} />}
+      {free && <AwningTouch small={small} />}
+      {free && !small && <Doodles />}
       {showTape && (
         <span
           aria-hidden="true"
@@ -162,7 +171,6 @@ function Polaroid({ c, i, eater, small, look }: { c: TourCardData; i: number; ea
             {!small && <PopUp />}
           </>
         )}
-        {free && look === "pin" && !small && <PinTouch />}
         {soon && (
           <span className={`absolute inset-0 flex items-center justify-center ${small ? "text-[56px]" : "text-[110px]"} leading-none text-white/90 transition-transform duration-500 group-hover:scale-75 group-hover:rotate-12`} style={caveat} aria-hidden>
             ?
@@ -229,18 +237,18 @@ function NextLine({ c }: { c: TourCardData }) {
 
 /* ── Desktop: polaroid + one line + button ────────────────────────────── */
 
-function Row({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSProperties; look: FreeLook; sub: SubVariant }) {
+function Row({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
   return (
     <div className="relative -mx-4 lg:mx-0">
-      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-16 pb-6 list-none m-0 [scrollbar-width:none]" style={{ ["--n" as string]: cards.length } as CSSProperties}>
+      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-12 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-16 pb-6 list-none m-0 [scrollbar-width:none]" style={{ ["--n" as string]: cards.length } as CSSProperties}>
         <Route className="left-0 top-[18%] h-40 w-[calc(var(--n)*82%)] sm:w-[calc(var(--n)*48%)] lg:w-full" />
         {cards.map((c, i) => (
-          <li key={c.key} className="relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center">
+          <li key={c.key} className={`relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center ${c.key === "free" ? "z-20" : ""}`}>
             <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key })} className="group flex h-full flex-col">
-              <Polaroid c={c} i={i} eater={eater} look={look} />
+              <Polaroid c={c} i={i} eater={eater} />
               <div className="relative z-10 flex flex-1 flex-col pt-4 px-1">
                 <p className="text-[16px] leading-snug text-brand-text/85" style={lora}>
-                  {c.subs[sub]}
+                  {c.sub}
                 </p>
                 <NextLine c={c} />
                 <p className="mt-auto pt-3">
@@ -257,7 +265,7 @@ function Row({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSPro
 
 /* ── Phones: a list, everything visible at once ───────────────────────── */
 
-function List({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSProperties; look: FreeLook; sub: SubVariant }) {
+function List({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
   return (
     <ol className="relative mx-auto max-w-3xl list-none p-0 m-0 flex flex-col gap-5">
       <Route vertical className="left-[22px] sm:left-[34px] top-6 bottom-6 h-[calc(100%-3rem)] w-20" />
@@ -271,7 +279,7 @@ function List({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSPr
               className={`group relative z-10 flex items-center gap-4 sm:gap-6 rounded-sm px-2 py-3 transition-colors ${dark ? "hover:bg-[#121211]/[0.04]" : "hover:bg-brand-accent-light/40"}`}
             >
               <div className="w-[104px] sm:w-[132px] shrink-0">
-                <Polaroid c={c} i={i} eater={eater} look={look} small />
+                <Polaroid c={c} i={i} eater={eater} small />
               </div>
               <div className="flex-1 min-w-0">
                 <p
@@ -281,7 +289,7 @@ function List({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSPr
                   {c.name}
                 </p>
                 <p className="mt-1 text-[15px] leading-snug text-brand-text/75" style={lora}>
-                  {c.subs[sub]}
+                  {c.sub}
                 </p>
                 <NextLine c={c} />
               </div>
@@ -301,15 +309,15 @@ function List({ cards, eater, look, sub }: { cards: TourCardData[]; eater: CSSPr
 
 // Tom 2026-10-18: phones get the list (all four at a glance, each row
 // obviously tappable); desktop gets the polaroids along the route.
-export function TourCards({ cards, eaterFamily, look, sub }: { cards: TourCardData[]; eaterFamily: string; look: FreeLook; sub: SubVariant }) {
+export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eaterFamily: string }) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
   return (
     <>
       <div className="lg:hidden">
-        <List cards={cards} eater={eater} look={look} sub={sub} />
+        <List cards={cards} eater={eater} />
       </div>
       <div className="hidden lg:block">
-        <Row cards={cards} eater={eater} look={look} sub={sub} />
+        <Row cards={cards} eater={eater} />
       </div>
     </>
   );

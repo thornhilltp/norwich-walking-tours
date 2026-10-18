@@ -42,8 +42,8 @@ export type TourCardData = {
   /** No-JS fallback for bookable tours; the real link for the others. */
   href: string;
   details?: string;
-  /** Card subheading, three wordings to compare (a / b / c). */
-  subs: { a: string; b: string; c: string };
+  /** Card subheading: the tour's promise. */
+  sub: string;
   /** Next bookable walk, live from the booking app. */
   next?: { label: string; spotsLeft: number } | null;
   /** Who it suits, the card's subheading: "Perfect for …". */

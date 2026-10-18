@@ -18,7 +18,7 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 import { GuideCards } from "./GuideCards";
-import { TourCards, type FreeLook, type SubVariant } from "./TourVariants";
+import { TourCards } from "./TourVariants";
 import type { NextWalk } from "@/lib/nextWalks";
 
 // Dark History's Halloween face, for its card and its booking theme.
@@ -50,18 +50,14 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       // Approved homepage sub (CLAUDE.md messaging playbook).
       hook: "Two hours of our favourite Norwich history, stories and local tips.",
       perfectFor: "first-time visitors",
-      subs: {
-        a: "Two hours of our favourite Norwich history, stories and local tips.",
-        b: "Perfect for your first day in Norwich.",
-        c: "Norwich in two hours, told by a local.",
-      },
+      sub: "Two hours of our favourite Norwich history, stories and local tips.",
       next: next.free,
       action: "Book free",
       href: "/book",
       details: FREE_TOUR_HREF,
       badge: "By day",
-      // Morrie's shot: Tom mid-story in Tombland, the group hanging on it.
-      image: { src: "/images/tour/tom-tombland-talk.jpg", alt: "Tom telling a story to a tour group in Tombland" },
+      // History, the brand shirt and Norwich in one frame (Tom 2026-10-18).
+      image: { src: "/images/tour/tom-erpingham-gate.jpg", alt: "Tom, in a Walk with a Local t-shirt, walking through the Erpingham Gate towards Norwich Cathedral" },
     },
     {
       key: "dark",
@@ -71,11 +67,7 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       // Live Dark History wording.
       hook: "Love a ghost story? The true history behind them is even darker.",
       perfectFor: "a night out with a difference",
-      subs: {
-        a: "Love a ghost story? The true history behind them is even darker.",
-        b: "Perfect for a Halloween night out.",
-        c: "Not ghost stories. The real thing.",
-      },
+      sub: "Love a ghost story? The true history behind them is even darker.",
       next: next.dark,
       action: "Book free",
       href: `${dark.ctaHref}#book`,
@@ -90,11 +82,7 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       meta: "Any day · Price on request",
       hook: "Your date, your route. We build the walk around what your group wants to see.",
       perfectFor: "birthdays, work days and family visits",
-      subs: {
-        a: "Your date, your route, built around your group.",
-        b: "Perfect for birthdays, work teams and family visits.",
-        c: "Your group. Your date. Your route.",
-      },
+      sub: "Your date, your route, built around your group.",
       action: "Ask us",
       href: priv.ctaHref,
       // Morrie's photo, not the phone shot in lib/tours.ts.
@@ -108,15 +96,11 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       meta: "",
       hook: "A new way to see Norwich is coming. Hear about it first.",
       perfectFor: "being first to hear",
-      subs: {
-        a: "A new way to see Norwich is on the way.",
-        b: "Perfect if you've done the rest.",
-        c: "Coming soon. Hear it first.",
-      },
+      sub: "A new way to see Norwich is on the way.",
       action: "Tell me first",
       href: "#updates",
       badge: "Coming soon",
-      image: { src: "/images/tour/group-alley-walk.jpg", alt: "" },
+      image: { src: "/images/tour/elm-hill-lane.jpg", alt: "" },
     },
   ];
   return darkIsOn() ? list : list.filter((c) => c.key !== "dark");
@@ -139,17 +123,16 @@ function bookingTabs(): BookingTab[] {
 // line, one button, all centred. Tom 2026-10-18: no booking card or faces
 // up here (it looked AI-made); the photos cycle; "Featured on" and the
 // ratings sit under the button. The tours section below does the choosing.
-// Morrie's shoot only (Tom 2026-10-18: good-quality photos only).
+// Pro shoots only (Tom 2026-10-18), wide Norwich shots mixed with groups.
 const HERO_SLIDES: HeroSlide[] = [
   {
-    src: "/images/tour/group-street-laughing.jpg",
-    alt: "A guide in a Walk with a Local t-shirt making a tour group laugh on a Norwich street",
-    position: "40% 40%",
+    src: "/images/tour/group-city-hall-walk.jpg",
+    alt: "A tour group walking across the square below Norwich City Hall in the evening sun",
+    position: "center 55%",
   },
-  { src: "/images/tour/group-cathedral-flag.jpg", alt: "", position: "center 50%" },
-  { src: "/images/tour/pottergate-walk.jpg", alt: "", position: "center 55%" },
-  { src: "/images/tour/elm-hill-group.jpg", alt: "", position: "60% 40%" },
-  { src: "/images/tour/guide-market-walk.jpg", alt: "", position: "center 45%" },
+  { src: "/images/tour/cathedral-west-front-wide.jpg", alt: "", position: "center 55%" },
+  { src: "/images/tour/group-street-laughing.jpg", alt: "", position: "40% 40%" },
+  { src: "/images/tour/elm-hill-shadows.jpg", alt: "", position: "center 60%" },
 ]
 
 function Ratings() {
@@ -204,14 +187,10 @@ export function BrandHero() {
 
 /* ── 2. The tours, each in its own look ───────────────────────────────── */
 
-export function OurTours({ look, sub, next }: { look: FreeLook; sub: SubVariant; next: { free: NextWalk | null; dark: NextWalk | null } }) {
+export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
   return (
     <section id="tours" className="scroll-mt-16 py-14 md:py-20 bg-white border-t border-brand-accent/10">
       <div className="brand-container max-w-6xl">
-        <div className="mb-8 flex flex-col items-center gap-2">
-          <Switch label="Free tour card" param="look" current={look} other={{ sub }} options={[["pin", "Map pin"], ["awning", "Market awning"], ["flag", "Green flag"]]} />
-          <Switch label="Subheadings" param="sub" current={sub} other={{ look }} options={[["a", "Promise"], ["b", "Perfect for"], ["c", "Short & punchy"]]} />
-        </div>
         <div className="text-center mb-4 md:mb-6">
           <h2 className="leading-[1.0]">
             <span className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
@@ -226,7 +205,7 @@ export function OurTours({ look, sub, next }: { look: FreeLook; sub: SubVariant;
             Tap a tour to see dates and book.
           </p>
         </div>
-        <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} look={look} sub={sub} />
+        <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} />
         <p className="mt-6 text-center" style={lora}>
           <a href="/tours" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
             All tours &amp; experiences →
@@ -234,41 +213,6 @@ export function OurTours({ look, sub, next }: { look: FreeLook; sub: SubVariant;
         </p>
       </div>
     </section>
-  );
-}
-
-/* ── Prototype-only: flip between options ─────────────────────────────── */
-
-function Switch({
-  label,
-  param,
-  current,
-  other,
-  options,
-}: {
-  label: string;
-  param: string;
-  current: string;
-  other: Record<string, string>;
-  options: [string, string][];
-}) {
-  return (
-    <div className="flex flex-wrap items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-[#E8A33A]/70 bg-[#FFF8EA] px-2.5 py-1.5 text-[12px] sm:text-[13px]" style={lora}>
-      <span className="font-semibold text-brand-text/70">{label}:</span>
-      {options.map(([v, name], k) => {
-        const q = new URLSearchParams({ ...other, [param]: v }).toString();
-        const on = v === current;
-        return (
-          <a
-            key={v}
-            href={`?${q}#tours`}
-            className={`rounded-full px-3 py-1 font-semibold ${on ? "bg-brand-text text-white" : "bg-white text-brand-text/80 border border-brand-text/15"}`}
-          >
-            {String.fromCharCode(65 + k)} · {name}
-          </a>
-        );
-      })}
-    </div>
   );
 }
 
@@ -311,8 +255,8 @@ function FreeCopy({ center }: { center?: boolean }) {
 // (group-cathedral-flag.jpg and group-cathedral-close.jpg are Morrie's
 // market shots despite their file names.)
 const MORRIE = {
-  golden: { src: "/images/tour/group-cathedral-flag.jpg", alt: "A tour group with their guides at Norwich Market in the evening sun" },
-  walk: { src: "/images/tour/guide-market-walk.jpg", alt: "A guide walking a guest through Norwich Market" },
+  golden: { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" },
+  walk: { src: "/images/tour/group-cobbled-lane.jpg", alt: "A tour group walking down a cobbled Norwich street" },
   alley: { src: "/images/tour/group-alley-walk.jpg", alt: "A tour group walking down a narrow Norwich lane" },
 };
 
