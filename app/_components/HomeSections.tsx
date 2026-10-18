@@ -133,7 +133,9 @@ function PointPhotos({ photos }: { photos: Photo[] }) {
 const phoneSnake =
   "M50 0 C 80 2, 94 10, 92 24 S 88 42, 94 52 S 30 80, 10 104 S 4 128, 9 140 S 12 152, 7 160 S 70 180, 90 205 S 96 230, 91 245 S 85 262, 70 280 S 54 296, 50 300";
 
-export function WhatYouGet() {
+// `stickers` (optional): scrapbook stickers stuck on each point's polaroid,
+// one slot per point. The live homepage passes none.
+export function WhatYouGet({ stickers }: { stickers?: ReactNode[] } = {}) {
   return (
     <section id="tour-map" className="relative overflow-hidden py-16 md:py-28 bg-brand-bg">
       <div className="relative brand-container">
@@ -207,6 +209,7 @@ export function WhatYouGet() {
                   }}
                 />
                 <PointPhotos photos={st.photos} />
+                {stickers?.[i]}
               </figure>
               {/* Hierarchy: number + title, then the questions, then one line. */}
               <div className="relative text-left rounded-2xl bg-brand-bg/90 px-1 py-1 md:px-4 md:py-3">
@@ -314,7 +317,8 @@ function Route({ vertical }: { vertical?: boolean }) {
   );
 }
 
-export function TheWalk() {
+// `stickers` (optional): one per beat, stuck on its photo circle.
+export function TheWalk({ stickers }: { stickers?: ReactNode[] } = {}) {
   return (
     <section id="the-walk" className="py-14 md:py-20 bg-white border-t border-brand-accent/10">
       <div className="brand-container max-w-5xl">
@@ -322,7 +326,7 @@ export function TheWalk() {
         <ol className="relative mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
           <Route />
           <Route vertical />
-          {beats.map((b) => (
+          {beats.map((b, bi) => (
             <li key={b.n} className="relative flex md:flex-col items-center gap-5 md:gap-4 md:text-center">
               <div className="relative shrink-0">
                 <div className="relative h-[110px] w-[110px] md:h-[140px] md:w-[140px] overflow-hidden rounded-full border-4 border-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.35)] bg-brand-accent-light">
@@ -334,6 +338,7 @@ export function TheWalk() {
                 >
                   {b.n}
                 </span>
+                {stickers?.[bi]}
               </div>
               <div>
                 <h3 className="text-[38px] font-bold leading-none text-brand-text" style={caveat}>
@@ -353,11 +358,17 @@ export function TheWalk() {
 
 /* ── Your guides: the Our Guides cards, reviews behind a toggle ───────── */
 
-export function YourGuides() {
+// `intro` (optional): a line under the heading (brand homepage).
+export function YourGuides({ intro }: { intro?: ReactNode } = {}) {
   return (
     <section id="guides" className="py-14 md:py-20 bg-brand-accent-light/50 border-t border-brand-accent/10">
       <div className="brand-container max-w-6xl">
         <Heading a="Locals who" b="love this city." center />
+        {intro && (
+          <p className="mt-4 text-center text-[17px] md:text-lg leading-relaxed text-brand-text/75 max-w-xl mx-auto" style={lora}>
+            {intro}
+          </p>
+        )}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8 text-center">
           {guides.map((g) => (
             <div key={g.name} className="flex flex-col items-center">

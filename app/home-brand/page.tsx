@@ -53,8 +53,8 @@ export default async function BrandHomePrototype() {
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <WhatIsFree />
-      {/* The live homepage's guides section, as is (Tom 2026-10-18). */}
-      <YourGuides />
+      {/* The live homepage's guides section, with the About us line (Tom 2026-10-18). */}
+      <YourGuides intro="We show people round the city we actually live in. It started with one free tour, and it's grown from there." />
       <FAQ
         items={brandFaqs}
         emitSchema={false}
