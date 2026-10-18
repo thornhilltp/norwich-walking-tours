@@ -9,9 +9,20 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { FAQ } from "@/components/FAQ";
 import { GuestReels } from "@/components/GuestReels";
 import { guestReels, showGuestReels } from "@/lib/guestReels";
+import { tours } from "@/lib/tours";
 import { Testimonials } from "../_components/Testimonials";
 import { ProofVideos } from "../_components/HomeSections";
-import { BookAnyTour, BrandHero, FreeTourExplainer, GuidesStrip, brandFaqs } from "./_components/BrandSections";
+import {
+  BookAnyTour,
+  BrandBookingSheet,
+  BrandHero,
+  FeaturedOn,
+  FreeTourExplainer,
+  GuidesStrip,
+  OurTours,
+  brandFaqs,
+} from "./_components/BrandSections";
+import { BrandStickyBar } from "./_components/BrandBooking";
 
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tours | Local Guides, Free and Private Tours",
@@ -20,24 +31,46 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Holly's own Dark History video sits with the guests' free-tour videos, so
+// both tours carry proof.
+const darkReel = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.reel;
+const reels = darkReel
+  ? [
+      ...guestReels,
+      {
+        id: "holly-dark",
+        src: darkReel.src,
+        poster: darkReel.poster,
+        handle: "@historyhollydays",
+        profile: "https://www.instagram.com/historyhollydays",
+        label: darkReel.label,
+      },
+    ]
+  : guestReels;
+
 export default function BrandHomePrototype() {
   return (
-    <main className="relative" style={{ paddingTop: 0 }}>
+    <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
+      {/* This page has its own "Book a tour" bar; hide the site-wide
+          free-tour one. */}
+      <style dangerouslySetInnerHTML={{ __html: "body:has([data-brand-home]) .sticky-book-bar{display:none}" }} />
       <ScrollTrail
         sections={[
-          { id: "top", label: "Pick a tour" },
+          { id: "top", label: "Hello" },
+          { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
           { id: "free-tours", label: "Free tours" },
           { id: "book-section", label: "Book" },
           { id: "guides", label: "Guides" },
           { id: "faq", label: "FAQs" },
-          { id: "updates", label: "New tours" },
         ]}
       />
       <BrandHero />
+      <OurTours />
       <Testimonials showCta={false} />
       <ProofVideos>
-        {showGuestReels && <GuestReels reels={guestReels} trackingLocation="brand_guest" compact />}
+        {showGuestReels && <GuestReels reels={reels} trackingLocation="brand_guest" />}
+        <FeaturedOn />
       </ProofVideos>
       <FreeTourExplainer />
       <BookAnyTour />
@@ -65,7 +98,14 @@ export default function BrandHomePrototype() {
       <div id="updates">
         <EmailCapture />
       </div>
-      <Footer />
+      <Footer
+        meetingPoints={[
+          { name: "Free Walking Tour: outside The Forum", lines: ["Millennium Plain", "Norwich, NR2 1TF"] },
+          { name: "Dark History: City Hall steps", lines: ["St Peter's Street", "Norwich, NR2 1NH"] },
+        ]}
+      />
+      <BrandBookingSheet />
+      <BrandStickyBar />
     </main>
   );
 }

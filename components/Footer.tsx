@@ -75,7 +75,12 @@ const legalLinks = [
   { label: "Terms", href: "/terms" },
 ];
 
-export function Footer() {
+// Pages with more than one tour (the brand homepage prototype) pass every
+// meeting point; everywhere else shows The Forum.
+type MeetingPoint = { name: string; lines: string[] };
+const FORUM: MeetingPoint[] = [{ name: "Outside The Forum", lines: ["Millennium Plain", "Norwich, NR2 1TF"] }];
+
+export function Footer({ meetingPoints = FORUM }: { meetingPoints?: MeetingPoint[] } = {}) {
   return (
     <footer className="bg-brand-text text-white">
       <div className="brand-container py-14 md:py-16">
@@ -127,16 +132,22 @@ export function Footer() {
           {/* Meeting point + social */}
           <div>
             <p className="font-lora text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
-              Meeting point
+              {meetingPoints.length > 1 ? "Where we meet" : "Meeting point"}
             </p>
-            <div className="flex items-start gap-2 mb-6">
-              <MapPin className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" aria-hidden="true" />
-              <address className="font-lora text-sm text-white/70 not-italic leading-relaxed">
-                Outside The Forum<br />
-                Millennium Plain<br />
-                Norwich, NR2 1TF
-              </address>
-            </div>
+            {meetingPoints.map((m, i) => (
+              <div key={m.name} className={`flex items-start gap-2 ${i === meetingPoints.length - 1 ? "mb-6" : "mb-3"}`}>
+                <MapPin className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" aria-hidden="true" />
+                <address className="font-lora text-sm text-white/70 not-italic leading-relaxed">
+                  {m.name}
+                  {m.lines.map((l) => (
+                    <span key={l}>
+                      <br />
+                      {l}
+                    </span>
+                  ))}
+                </address>
+              </div>
+            ))}
 
             <p className="font-lora text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">
               Follow along
