@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { BookingFrame } from "@/components/BookingFrame";
-import { Fog } from "@/app/tours/_components/Spooky";
+import { Fog, StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
@@ -85,152 +85,158 @@ function BookButton({
   );
 }
 
-/* ── Tour cards: one shared frame, each tour's own flavour ─────────────── */
+/* ── Tours as stops on a walking route ─────────────────────────────────── */
 
-// Same card for every tour, like Shoebox / Sandemans: real photo on top (or
-// left on phones), name, facts, one question, Book. Each tour shows through
-// its photo treatment, its title lettering and its colour, not the card shape.
-type Look = {
-  bg: string;
-  text: string;
-  sub: string;
-  title: CSSProperties;
-  photo?: CSSProperties;
-  overlay?: string;
-  chip: string;
-  button: string;
-  buttonStyle?: CSSProperties;
-  link: string;
-};
+// Tom 2026-10-18: the brand is the walk. The free tour's language (cream
+// paper, taped polaroids, Caveat, the green dashed route) is the crew's
+// language; each tour keeps its own touch inside it. Dark History gets a
+// night polaroid: sepia photo, Eater caption, a hanging lantern. No glass,
+// no glossy cards, no pill chips. Phones swipe along the route; desktop
+// shows every stop in a row.
 
-function looks(eater: CSSProperties): Record<TourCardData["key"], Look> {
-  return {
-    free: {
-      bg: "bg-white",
-      text: "text-brand-text",
-      sub: "text-brand-text/65",
-      title: { ...caveat, fontWeight: 700, color: "#2DA96B", fontSize: 32, lineHeight: 0.95 },
-      chip: "bg-brand-accent text-white",
-      button: "bg-brand-accent text-white hover:opacity-90",
-      buttonStyle: { ...caveat, fontSize: 22, fontWeight: 700 },
-      link: "text-brand-accent-text decoration-brand-accent/40",
-    },
-    dark: {
-      bg: "",
-      text: "text-white",
-      sub: "text-white/60",
-      title: { ...eater, color: GLOW, fontSize: 25, lineHeight: 1.05, textShadow: "0 0 14px rgba(90,225,158,0.4)" },
-      photo: sepia,
-      overlay: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)",
-      chip: "bg-black/80 text-[#5AE19E] border border-[#5AE19E]/50",
-      button: "border-2 border-[#5AE19E]/70 text-[#5AE19E] shadow-[0_0_14px_rgba(90,225,158,0.3)] hover:bg-white/5",
-      buttonStyle: { ...eater, fontSize: 17 },
-      link: "text-white/85 decoration-white/40",
-    },
-    private: {
-      bg: "bg-white",
-      text: "text-brand-text",
-      sub: "text-brand-text/65",
-      title: { ...lora, fontStyle: "italic", fontWeight: 600, color: "#1A1A1A", fontSize: 26, lineHeight: 1.05 },
-      chip: "bg-white/90 text-brand-text",
-      button: "border-2 border-brand-text/80 text-brand-text hover:bg-brand-text/5",
-      buttonStyle: { ...lora, fontSize: 16, fontWeight: 600 },
-      link: "text-brand-text/80 decoration-brand-text/30",
-    },
-    soon: {
-      bg: "bg-[#F4EFE6]",
-      text: "text-brand-text",
-      sub: "text-brand-text/65",
-      title: { ...lora, fontWeight: 700, color: "#1A1A1A", fontSize: 24, lineHeight: 1.05 },
-      photo: { filter: "grayscale(1) blur(3px) brightness(1.05)", transform: "scale(1.08)" },
-      overlay: "linear-gradient(rgba(244,239,230,0.35), rgba(244,239,230,0.35))",
-      chip: "bg-brand-text text-white",
-      button: "border-2 border-brand-text/80 text-brand-text hover:bg-brand-text/5",
-      buttonStyle: { ...lora, fontSize: 16, fontWeight: 600 },
-      link: "text-brand-text/80 decoration-brand-text/30",
-    },
-  };
-}
+const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
 
-function TourCard({ c, look }: { c: TourCardData; look: Look }) {
+function Stop({ c, i, eater }: { c: TourCardData; i: number; eater: CSSProperties }) {
+  const dark = c.key === "dark";
+  const soon = c.key === "soon";
   const bookable = c.key === "free" || c.key === "dark";
-  const btnClass = `inline-flex items-center justify-center rounded-full px-5 min-h-[44px] transition ${look.button}`;
+  const rot = i % 2 === 0 ? -2 : 2;
+  const caption: CSSProperties = dark
+    ? { ...eater, color: GLOW, fontSize: 22, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
+    : { ...caveat, fontWeight: 700, fontSize: 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : "#2DA96B" };
   return (
-    <article
-      className={`relative h-full overflow-hidden rounded-2xl border border-black/[0.06] shadow-[0_12px_30px_-16px_rgba(26,26,26,0.45)] grid grid-cols-[40%_1fr] lg:grid-cols-1 lg:grid-rows-[auto_1fr] ${look.bg}`}
-      style={c.key === "dark" ? { backgroundColor: NIGHT } : undefined}
-    >
-      <div className="relative min-h-[200px] lg:min-h-0 lg:aspect-[4/3] overflow-hidden bg-brand-accent-light">
-        {c.image && (
-          <Image
-            src={c.image.src}
-            alt={c.image.alt}
-            fill
-            sizes="(max-width: 1024px) 40vw, 300px"
-            className="object-cover"
-            style={look.photo}
-            priority={c.key === "free"}
-          />
-        )}
-        {look.overlay && <div aria-hidden className="absolute inset-0" style={{ background: look.overlay }} />}
-        {c.badge && (
-          <span className={`absolute left-2.5 top-2.5 rounded-full px-2.5 py-1 text-[12px] font-semibold ${look.chip}`} style={lora}>
-            {c.badge}
+    <li className={`relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center ${i % 2 === 1 ? "lg:mt-14" : ""}`}>
+      {/* Map pin + stop number, sitting on the route line. */}
+      <div className="relative z-10 flex items-center gap-2 mb-3 pl-2">
+        <svg viewBox="-14 -38 28 40" className="h-10 w-8 shrink-0" aria-hidden="true">
+          <path d="M0 0 C -8 -10 -13 -16 -13 -24 A 13 13 0 1 1 13 -24 C 13 -16 8 -10 0 0 Z" fill={dark ? NIGHT : "#2DA96B"} />
+          <circle cx="0" cy="-24" r="5" fill="#FCFAF8" />
+        </svg>
+        <span className="text-[24px] font-bold leading-none text-brand-text/80" style={caveat}>
+          {c.badge}
+        </span>
+      </div>
+      {/* The polaroid: same shape for every tour, each in its own light. */}
+      <figure
+        className="relative m-0 p-2.5 pb-4 border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)]"
+        style={{
+          transform: `rotate(${rot}deg)`,
+          backgroundColor: dark ? "#1B1A18" : "#FFFFFF",
+          borderColor: dark ? "#2A2724" : "#EAE0D4",
+        }}
+      >
+        {dark && (
+          <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">
+            <StoryLantern />
           </span>
         )}
-      </div>
-      {c.key === "dark" && <Fog />}
-      <div className="relative flex flex-col p-3.5 lg:p-5">
-        <p className={`text-[11.5px] uppercase tracking-[0.16em] font-semibold ${look.sub}`} style={lora}>
-          {c.vibe}
-        </p>
-        <h3 className="mt-1" style={look.title}>
-          {c.name}
-        </h3>
+        <span
+          aria-hidden="true"
+          className="absolute -top-[11px] left-1/2 w-20 h-6 rounded-[2px] z-10"
+          style={{
+            transform: "translateX(-50%) rotate(-3deg)",
+            backgroundColor: dark ? "#3A3530" : tapes[i % tapes.length],
+            boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+          }}
+        />
+        <div className="relative aspect-square overflow-hidden bg-brand-accent-light">
+          {c.image && (
+            <Image
+              src={c.image.src}
+              alt={c.image.alt}
+              fill
+              sizes="(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"
+              className="object-cover"
+              style={dark ? sepia : soon ? { filter: "grayscale(1) blur(3px)", transform: "scale(1.08)" } : undefined}
+              priority={i === 0}
+            />
+          )}
+          {dark && (
+            <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)" }} />
+          )}
+          {soon && (
+            <span className="absolute inset-0 flex items-center justify-center text-[110px] leading-none text-white/90" style={caveat} aria-hidden>
+              ?
+            </span>
+          )}
+        </div>
+        <figcaption className="relative pt-3 px-1 min-h-[64px]">
+          <span className="block" style={caption}>
+            {c.name}
+          </span>
+        </figcaption>
+      </figure>
+      {/* The words, on the paper under the photo. */}
+      <div className="pt-4 px-1">
         {c.meta && (
-          <p className={`mt-1.5 text-[14px] leading-snug ${look.sub}`} style={lora}>
+          <p className="text-[14px] font-semibold text-brand-accent-text" style={lora}>
             {c.meta}
           </p>
         )}
-        <p className={`mt-2 text-[15px] font-semibold leading-snug ${look.text}`} style={lora}>
+        <p className="mt-1.5 text-[16px] font-semibold leading-snug text-brand-text" style={lora}>
           {c.hook}
         </p>
-        <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
           {bookable ? (
-            <BookButton tour={c.key as BookableKey} location={`brand_card_${c.key}`} href={c.href} className={btnClass} style={look.buttonStyle}>
+            <BookButton
+              tour={c.key as BookableKey}
+              location={`brand_stop_${c.key}`}
+              href={c.href}
+              className={`inline-flex items-center justify-center rounded-full px-5 min-h-[44px] ${dark ? "text-[#5AE19E]" : "bg-brand-accent text-white"}`}
+              style={dark ? { ...eater, fontSize: 16, backgroundColor: NIGHT } : { ...caveat, fontSize: 22, fontWeight: 700 }}
+            >
               {c.action}
             </BookButton>
           ) : (
             <a
               href={c.href}
-              onClick={() => trackEvent("book_cta_click", { location: `brand_card_${c.key}` })}
-              className={btnClass}
-              style={look.buttonStyle}
+              onClick={() => trackEvent("book_cta_click", { location: `brand_stop_${c.key}` })}
+              className="inline-flex items-center justify-center rounded-full border-2 border-brand-accent px-5 min-h-[44px] text-brand-accent-text"
+              style={{ ...caveat, fontSize: 22, fontWeight: 700 }}
             >
               {c.action}
             </a>
           )}
           {c.details && (
-            <a href={c.details} className={`text-[15px] font-semibold underline underline-offset-4 min-h-[44px] inline-flex items-center ${look.link}`} style={lora}>
+            <a href={c.details} className="text-[15px] font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 min-h-[44px] inline-flex items-center" style={lora}>
               What&apos;s it like?
             </a>
           )}
         </div>
       </div>
-    </article>
+    </li>
   );
 }
 
 export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eaterFamily: string }) {
-  const l = looks({ fontFamily: eaterFamily, fontWeight: 400 });
+  const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 list-none p-0 m-0">
-      {cards.map((c) => (
-        <li key={c.key}>
-          <TourCard c={c} look={l[c.key]} />
-        </li>
-      ))}
-    </ul>
+    <div className="relative -mx-4 lg:mx-0">
+      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-2 pb-6 list-none m-0 [scrollbar-width:none]">
+        {/* The walking route the stops sit on: one dashed, wobbly line. */}
+        <svg
+          aria-hidden
+          viewBox="0 0 400 20"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute left-0 top-[22px] h-6 w-[calc(var(--stops)*82%)] sm:w-[calc(var(--stops)*48%)] lg:w-full"
+          style={{ ["--stops" as string]: cards.length } as CSSProperties}
+        >
+          <path
+            d="M0 10 C 30 0, 60 20, 100 10 S 170 0, 200 10 S 270 20, 300 10 S 370 0, 400 10"
+            fill="none"
+            stroke="#2DA96B"
+            strokeOpacity="0.55"
+            strokeWidth="3"
+            strokeDasharray="7 8"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+        {cards.map((c, i) => (
+          <Stop key={c.key} c={c} i={i} eater={eater} />
+        ))}
+      </ol>
+    </div>
   );
 }
 

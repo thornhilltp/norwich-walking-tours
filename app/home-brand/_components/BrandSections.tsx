@@ -50,7 +50,7 @@ function tourCards(): TourCardData[] {
       action: "Book free",
       href: "/book",
       details: FREE_TOUR_HREF,
-      badge: "Most popular",
+      badge: "By day",
       image: { src: "/images/tour/pottergate-walk.jpg", alt: "A guide leading a tour group down Pottergate in the Norwich Lanes" },
     },
     {
@@ -63,7 +63,7 @@ function tourCards(): TourCardData[] {
       action: "Book free",
       href: `${dark.ctaHref}#book`,
       details: dark.ctaHref,
-      badge: "Until 6 November",
+      badge: "After dark",
       image: { src: dark.image, alt: dark.imageAlt },
     },
     {
@@ -74,7 +74,7 @@ function tourCards(): TourCardData[] {
       hook: "Birthday, work day or family visit? We build the walk around you.",
       action: "Ask us",
       href: priv.ctaHref,
-      badge: "Your date",
+      badge: "Your group",
       image: { src: priv.image, alt: priv.imageAlt },
     },
     {
@@ -205,74 +205,108 @@ export function OurTours() {
   );
 }
 
-/* ── 3. Why free? The idea, and why we do it ─────────────────────────── */
+/* ── 3. Why free? On paper: a taped photo, the steps on the route ─────── */
 
-// Tom 2026-10-18: say what a free tour is AND why we do it: so the tours
-// are open to anyone, whatever their budget. A full-bleed real photo band,
-// not another text section.
+// Tom 2026-10-18: what a free tour is AND why we do it (so anyone can come).
+// The free tour's own language: taped polaroid, Caveat, wiggly dashed route
+// between the steps (as in Meet / Walk / Tip). No glass boxes.
 const freeSteps = [
-  { n: "1", title: "Book free", text: "£0 to reserve your spot." },
-  { n: "2", title: "Walk with a local", text: "A guide who lives here." },
-  { n: "3", title: "Tip what it was worth", text: "Most guests tip £10 to £20." },
+  { n: "1", title: "Book free", text: "£0 to reserve your spot.", img: "/images/tour/group-the-forum.jpg", alt: "A tour group gathering outside The Forum" },
+  { n: "2", title: "Walk with a local", text: "A guide who lives here.", img: "/images/tour/tom-tombland-talk.jpg", alt: "Tom telling a story to a tour group in Tombland" },
+  { n: "3", title: "Tip what it was worth", text: "Most guests tip £10 to £20.", img: "/images/tour/group-cathedral-flag.jpg", alt: "Guides and guests smiling together at Norwich Cathedral" },
 ];
+
+function Wiggle({ vertical }: { vertical?: boolean }) {
+  const d = vertical
+    ? "M10 0 C 22 40, -2 80, 10 120 S 22 200, 10 240 S -2 320, 10 360 S 22 440, 10 480"
+    : "M0 10 C 40 -2, 80 22, 120 10 S 200 -2, 240 10 S 320 22, 360 10 S 440 -2, 480 10";
+  return (
+    <svg
+      aria-hidden
+      viewBox={vertical ? "0 0 20 480" : "0 0 480 20"}
+      preserveAspectRatio="none"
+      className={vertical ? "md:hidden absolute left-[45px] top-8 bottom-8 h-[calc(100%-4rem)] w-5" : "hidden md:block absolute left-[16%] right-[16%] top-[60px] h-5 w-[68%]"}
+    >
+      <path d={d} fill="none" stroke="#2DA96B" strokeOpacity="0.55" strokeWidth="3" strokeDasharray="7 8" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
 
 export function WhyFree() {
   return (
-    <section id="free-tours" className="relative isolate overflow-hidden" style={{ backgroundColor: "#121211" }}>
-      <Image
-        src="/images/tour/group-cathedral-lawn.jpg"
-        alt="A tour group with their guides on the lawn in front of Norwich Cathedral"
-        fill
-        sizes="100vw"
-        className="object-cover -z-10"
-        style={{ objectPosition: "center 40%" }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-[5]"
-        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.85) 100%)" }}
-      />
-      <div className="brand-container max-w-5xl py-20 md:py-28 text-white">
-        <div className="max-w-2xl">
-          <h2 className="leading-[1.0]">
-            <span className="inline text-[clamp(30px,3.6vw,46px)] font-semibold leading-[1.05] tracking-[-0.01em]" style={lora}>
-              Why are our tours
-            </span>{" "}
-            <span className="inline text-[clamp(44px,5.2vw,68px)] leading-[0.95] text-[#7BE0AC]" style={caveat}>
-              free?
-            </span>
-          </h2>
-          <p className="mt-5 text-[18px] md:text-[20px] leading-relaxed text-white/90" style={lora}>
-            So anyone can come. No ticket price means nobody is priced out: students, families, backpackers, and locals
-            who have walked past it all for years.
-          </p>
-          <p className="mt-3 text-[17px] md:text-[18px] leading-relaxed text-white/75" style={lora}>
-            Free tours are popular across Europe. You book for £0, and at the end you pay what it was worth to you.
-            That keeps us honest: the guide earns it on the day.
-          </p>
+    <section id="free-tours" className="py-16 md:py-24 bg-brand-bg border-t border-brand-accent/10">
+      <div className="brand-container max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-center">
+          <figure
+            className="relative m-0 mx-auto w-[86%] md:w-full bg-white border border-[#EAE0D4] p-3 pb-10 shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)]"
+            style={{ transform: "rotate(-2deg)" }}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute -top-[11px] left-1/2 w-24 h-6 rounded-[2px] z-10"
+              style={{ transform: "translateX(-50%) rotate(-3deg)", backgroundColor: "#9FD6B8", boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
+            />
+            <div className="relative aspect-[4/3] overflow-hidden bg-brand-accent-light">
+              <Image
+                src="/images/tour/group-cathedral-lawn.jpg"
+                alt="A tour group with their guides on the lawn in front of Norwich Cathedral"
+                fill
+                sizes="(max-width: 768px) 80vw, 440px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="absolute bottom-2 left-0 right-0 text-center text-[24px] font-bold text-brand-text/80" style={caveat}>
+              Everyone&apos;s welcome
+            </figcaption>
+          </figure>
+          <div>
+            <h2 className="leading-[1.0]">
+              <span className="inline text-[clamp(30px,3.6vw,46px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
+                Why are our tours
+              </span>{" "}
+              <span className="inline text-[clamp(44px,5.2vw,68px)] leading-[0.95] text-brand-accent" style={caveat}>
+                free?
+              </span>
+            </h2>
+            <p className="mt-5 text-[18px] md:text-[20px] font-semibold leading-snug text-brand-text" style={lora}>
+              So anyone can come. No ticket price means nobody is priced out: students, families, backpackers, and locals
+              who have walked past it all for years.
+            </p>
+            <p className="mt-3 text-[17px] leading-relaxed text-brand-text/70" style={lora}>
+              Free tours are popular across Europe. You book for £0, and at the end you pay what it was worth to you. That
+              keeps us honest: the guide earns it on the day.
+            </p>
+            <p className="mt-4" style={lora}>
+              <a href="/what-is-a-free-tour" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
+                What is a free walking tour? →
+              </a>
+            </p>
+          </div>
         </div>
-        <ol className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 list-none p-0">
+        <ol className="relative mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 list-none p-0">
+          <Wiggle />
+          <Wiggle vertical />
           {freeSteps.map((st) => (
-            <li key={st.n} className="flex items-center gap-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 px-4 py-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-accent text-white text-[22px] font-bold" style={caveat}>
-                {st.n}
-              </span>
-              <span>
-                <span className="block text-[26px] font-bold leading-none" style={caveat}>
+            <li key={st.n} className="relative flex md:flex-col items-center gap-5 md:gap-4 md:text-center">
+              <div className="relative shrink-0">
+                <div className="relative h-[110px] w-[110px] md:h-[140px] md:w-[140px] overflow-hidden rounded-full border-4 border-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.35)] bg-brand-accent-light">
+                  <Image src={st.img} alt={st.alt} fill sizes="140px" className="object-cover" />
+                </div>
+                <span className="absolute -top-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-accent text-white text-[20px] font-bold shadow" style={caveat}>
+                  {st.n}
+                </span>
+              </div>
+              <div>
+                <h3 className="text-[34px] font-bold leading-none text-brand-text" style={caveat}>
                   {st.title}
-                </span>
-                <span className="block mt-1 text-[14px] text-white/75" style={lora}>
+                </h3>
+                <p className="mt-1.5 text-base text-brand-text/70 leading-relaxed" style={lora}>
                   {st.text}
-                </span>
-              </span>
+                </p>
+              </div>
             </li>
           ))}
         </ol>
-        <p className="mt-8" style={lora}>
-          <a href="/what-is-a-free-tour" className="font-semibold text-white underline underline-offset-4 decoration-white/50 hover:decoration-white">
-            What is a free walking tour? →
-          </a>
-        </p>
       </div>
     </section>
   );
@@ -291,8 +325,8 @@ export function BrandBookingSheet() {
 /* ── 5. Who we are: About us, the guides, our philosophy ──────────────── */
 
 // Tom 2026-10-18: bring the About us page into the homepage. Wording from
-// /our-guides (live). Real portraits, not polaroids; the philosophy cards
-// are the same component as /our-guides (tap to open).
+// /our-guides (live), taped polaroid portraits like that page; the
+// philosophy cards are the same component as /our-guides (tap to open).
 export function WhoWeAre() {
   return (
     <section id="guides" className="py-16 md:py-24 bg-brand-bg border-t border-brand-accent/10">
@@ -320,20 +354,28 @@ export function WhoWeAre() {
               </a>
             </p>
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 list-none p-0 m-0">
+          <ul className="grid grid-cols-3 gap-3 sm:gap-6 list-none p-0 m-0 pt-3">
             {guides.map((g) => (
-              <li key={g.name} className="flex sm:flex-col gap-4 sm:gap-0 items-center sm:items-stretch rounded-2xl bg-white sm:bg-transparent p-3 sm:p-0 shadow-sm sm:shadow-none">
-                <div className="relative h-24 w-24 sm:h-auto sm:w-full sm:aspect-[4/5] shrink-0 overflow-hidden rounded-full sm:rounded-2xl shadow-[0_12px_28px_-16px_rgba(26,26,26,0.6)]" style={{ background: g.tint }}>
-                  <Image src={g.img} alt={`${g.name}, guide with Norwich Free Walking Tours`} fill sizes="(max-width: 640px) 96px, 240px" className="object-cover" style={{ objectPosition: g.focal }} />
-                </div>
-                <div className="sm:pt-3">
-                  <p className="text-[30px] font-bold leading-none text-brand-text" style={caveat}>
+              <li key={g.name} className="flex flex-col items-center text-center">
+                <div
+                  className="relative w-full bg-[#F5EBDA] p-1.5 pb-9 sm:p-2.5 sm:pb-12 shadow-lg border border-brand-text/5"
+                  style={{ transform: `rotate(${g.rotate})` }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-2.5 left-1/2 w-14 sm:w-20 h-5 sm:h-6 rounded-[2px]"
+                    style={{ transform: "translateX(-50%) rotate(-2deg)", backgroundColor: g.accent.ac, boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
+                  />
+                  <div className="relative aspect-[4/5] overflow-hidden" style={{ background: g.tint }}>
+                    <Image src={g.img} alt={`${g.name}, guide with Norwich Free Walking Tours`} fill sizes="(max-width: 640px) 30vw, 220px" className="object-cover" style={{ objectPosition: g.focal }} />
+                  </div>
+                  <p className="absolute bottom-1.5 sm:bottom-3 left-0 right-0 text-[24px] sm:text-[30px] font-bold leading-none text-brand-text" style={caveat}>
                     {g.name}
                   </p>
-                  <p className="mt-1.5 text-[14.5px] leading-snug text-brand-text/75" style={lora}>
-                    {g.blurb}
-                  </p>
                 </div>
+                <p className="hidden sm:block mt-4 text-[14.5px] leading-snug text-brand-text/75" style={lora}>
+                  {g.blurb}
+                </p>
               </li>
             ))}
           </ul>
