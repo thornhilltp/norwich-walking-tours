@@ -11,6 +11,7 @@ import { Testimonials } from "../_components/Testimonials";
 import {
   BrandBookingSheet,
   BrandHero,
+  HeroSwitch,
   OurLocals,
   WhatIsFree,
   OurTours,
@@ -25,7 +26,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function BrandHomePrototype() {
+const pick = <T extends string>(v: string | string[] | undefined, allowed: readonly T[], fallback: T): T =>
+  typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
+
+export default function BrandHomePrototype({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
+  // Prototype: ?hero=, ?tours= and ?free= (a|b|c) flip between section versions.
+  const tours = pick(searchParams.tours, ["a", "b", "c"] as const, "a");
+  const free = pick(searchParams.free, ["a", "b", "c"] as const, "a");
+  const hero = pick(searchParams.hero, ["a", "b", "c"] as const, "a");
   return (
     <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
       {/* This page has its own "Book a tour" bar; hide the site-wide
@@ -41,11 +49,12 @@ export default function BrandHomePrototype() {
           { id: "faq", label: "FAQs" },
         ]}
       />
-      <BrandHero />
-      <OurTours />
+      <HeroSwitch current={hero} other={{ tours, free }} />
+      <BrandHero variant={hero} />
+      <OurTours variant={tours} free={free} hero={hero} />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
-      <WhatIsFree />
+      <WhatIsFree variant={free} tours={tours} hero={hero} />
       <OurLocals />
       <FAQ
         items={brandFaqs}
