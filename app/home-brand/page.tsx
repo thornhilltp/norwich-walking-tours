@@ -29,7 +29,9 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-export default async function BrandHomePrototype() {
+export default async function BrandHomePrototype({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
+  // Prototype: ?strip=a|b|c compares photo sets in the free-tour strip.
+  const strip = (["a", "b", "c"] as const).find((k) => k === searchParams.strip) ?? "a";
   // Next walks, read live from the booking app (refreshed every 5 minutes).
   const darkSlug = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.bookingTour;
   const next = await getNextWalks(darkSlug);
@@ -52,7 +54,7 @@ export default async function BrandHomePrototype() {
       <OurTours next={next} />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
-      <WhatIsFree />
+      <WhatIsFree set={strip} />
       {/* The live homepage's guides section, as is (Tom 2026-10-18). */}
       <YourGuides />
       <FAQ

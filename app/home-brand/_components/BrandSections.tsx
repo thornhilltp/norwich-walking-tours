@@ -251,26 +251,93 @@ function FreeCopy({ center }: { center?: boolean }) {
 // Morrie's photos (2026-10-18): sharper and warmer than the phone shots.
 // (group-cathedral-flag.jpg and group-cathedral-close.jpg are Morrie's
 // market shots despite their file names.)
-// The strip follows the promise (Tom 2026-10-18): history, stories,
-// local tips.
-const MORRIE = {
-  golden: { src: "/images/tour/nelson-statue-cathedral-close.jpg", alt: "The statue of Nelson in Norwich Cathedral Close" },
-  walk: { src: "/images/tour/tom-ducking-stool-drawing.jpg", alt: "Tom holding up a drawing of Norwich's ducking stool during the tour" },
-  alley: { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" },
+// The strip: people on the walk, all from the pro shoots (Tom 2026-10-18:
+// Holly at the market stays, the other two should have people too). Three
+// sets to compare via ?strip=a|b|c.
+const MARKET = { src: "/images/tour/holly-market-stalls.jpg", alt: "Holly pointing something out at Norwich Market while a guest films it" };
+type StripPhoto = { src: string; alt: string };
+export type StripSet = "a" | "b" | "c";
+const STRIPS: Record<StripSet, { name: string; photos: [StripPhoto, StripPhoto, StripPhoto] }> = {
+  a: {
+    name: "Market, shirt, Britons Arms",
+    photos: [
+      MARKET,
+      { src: "/images/tour/tom-walk-with-a-local-shirt.jpg", alt: "Tom, in a Walk with a Local t-shirt, making a tour group laugh" },
+      { src: "/images/tour/group-britons-arms-looking-up.jpg", alt: "A tour group looking up at the Britons Arms on Elm Hill as Tom tells its story" },
+    ],
+  },
+  b: {
+    name: "Market, Elm Hill smiles, the Lanes",
+    photos: [
+      MARKET,
+      { src: "/images/tour/holly-elm-hill-group-smiles.jpg", alt: "Holly and a smiling tour group on the cobbles of Elm Hill" },
+      { src: "/images/tour/group-lanes-street-art.jpg", alt: "A tour group walking through the Norwich Lanes past street art" },
+    ],
+  },
+  c: {
+    name: "Market, pointing up, Elm Hill",
+    photos: [
+      MARKET,
+      { src: "/images/tour/tom-pointing-up-flint.jpg", alt: "Tom pointing up at a medieval flint church wall" },
+      { src: "/images/tour/group-elm-hill-listening.jpg", alt: "A tour group listening to Holly on Elm Hill" },
+    ],
+  },
 };
 
-/* A film strip of three of Morrie's photos, words centred underneath
-   (Tom 2026-10-18). */
-function FilmStrip() {
-  const strip = [MORRIE.golden, MORRIE.walk, MORRIE.alley];
+/** The walking route across the strip: a dashed white path with a map pin
+    on each photo, footprints where it starts (Tom 2026-10-18). */
+function StripRoute() {
+  const pins = [
+    { left: "16.7%", top: "78%" },
+    { left: "50%", top: "70%" },
+    { left: "83.3%", top: "78%" },
+  ];
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
+      <svg viewBox="0 0 300 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.55)]">
+        <path
+          d="M-5 86 C 15 96, 35 70, 50 78 S 105 96, 150 70 S 215 96, 250 78 S 290 68, 305 84"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth="3.5"
+          strokeDasharray="8 9"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+      {/* footprints where the walk starts */}
+      <svg viewBox="0 0 40 30" className="absolute left-[2%] top-[83%] h-6 w-8 -translate-y-1/2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+        <ellipse cx="10" cy="20" rx="4" ry="6.5" fill="#FFFFFF" transform="rotate(-15 10 20)" />
+        <ellipse cx="24" cy="10" rx="4" ry="6.5" fill="#FFFFFF" transform="rotate(-15 24 10)" />
+      </svg>
+      {pins.map((p, i) => (
+        <svg
+          key={i}
+          viewBox="-14 -38 28 40"
+          className="absolute h-10 w-8 -translate-x-1/2 -translate-y-full drop-shadow-[0_3px_4px_rgba(0,0,0,0.5)] md:h-12 md:w-10"
+          style={{ left: p.left, top: p.top }}
+        >
+          <path d="M0 0 C -8 -10 -13 -16 -13 -24 A 13 13 0 1 1 13 -24 C 13 -16 8 -10 0 0 Z" fill="#2DA96B" />
+          <circle cx="0" cy="-24" r="5" fill="#FCFAF8" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+/* A film strip of three photos with the route walking across it, words
+   centred underneath (Tom 2026-10-18). */
+function FilmStrip({ set }: { set: StripSet }) {
+  const strip = STRIPS[set].photos;
   return (
     <div className="py-14 md:py-20">
-      <div className="grid grid-cols-3 gap-1.5 md:gap-2 px-1.5 md:px-2">
+      <div className="relative grid grid-cols-3 gap-1.5 md:gap-2 px-1.5 md:px-2">
         {strip.map((p, i) => (
-          <div key={p.src} className={`relative overflow-hidden ${i === 1 ? "aspect-[3/4]" : "aspect-[3/4] md:mt-10"}`}>
+          <div key={p.src} className={`relative overflow-hidden aspect-[3/4] ${i === 1 ? "" : "md:mt-10"}`}>
             <Image src={p.src} alt={p.alt} fill sizes="33vw" className="object-cover" />
           </div>
         ))}
+        <StripRoute />
       </div>
       <div className="brand-container max-w-4xl text-center pt-12">
         <FreeCopy center />
@@ -279,10 +346,23 @@ function FilmStrip() {
   );
 }
 
-export function WhatIsFree() {
+export function WhatIsFree({ set }: { set: StripSet }) {
   return (
     <section id="free-tours" className="relative bg-brand-bg border-t border-brand-accent/10">
-      <FilmStrip />
+      {/* Prototype-only: compare photo sets. */}
+      <div className="brand-container pt-6 flex flex-wrap items-center justify-center gap-1.5 text-[12px] sm:text-[13px]" style={lora}>
+        <span className="font-semibold text-brand-text/70">Strip photos:</span>
+        {(Object.keys(STRIPS) as StripSet[]).map((k) => (
+          <a
+            key={k}
+            href={`?strip=${k}#free-tours`}
+            className={`rounded-full px-3 py-1 font-semibold border-2 border-dashed ${k === set ? "bg-brand-text text-white border-brand-text" : "bg-[#FFF8EA] border-[#E8A33A]/70 text-brand-text/80"}`}
+          >
+            {k.toUpperCase()} · {STRIPS[k].name}
+          </a>
+        ))}
+      </div>
+      <FilmStrip set={set} />
     </section>
   );
 }
