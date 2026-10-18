@@ -437,3 +437,12 @@ export function BrandStickyBar() {
     </div>
   );
 }
+
+/** "Book the free tour" as a link: one tap to its booking sheet. */
+export function BookFreeLink({ className, children }: { className: string; children: ReactNode }) {
+  return (
+    <BookButton tour="free" location="brand_hero" href="/book" className={className}>
+      {children}
+    </BookButton>
+  );
+}

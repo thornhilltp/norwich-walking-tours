@@ -16,8 +16,8 @@ import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { guides } from "@/lib/guides";
 import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
-import { BookingSection, BookingSheet, TourCards, type BookingTab, type TourCardData } from "./BrandBooking";
-import { BrandHeroClient, type HeroOption } from "./BrandHeroClient";
+import { BookFreeLink, BookingSection, BookingSheet, TourCards, type BookingTab, type TourCardData } from "./BrandBooking";
+import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 
 // Dark History's Halloween face, for its card and its booking theme.
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
@@ -125,77 +125,74 @@ function Heading({ a, b, sub }: { a: string; b: string; sub?: string }) {
 
 /* ── 1. Header: a real photo, who we are, one button ───────────────────── */
 
-// Pattern from Shoebox, Sandemans and Free Tours by Foot: one real photo,
-// one line, trust, then straight to booking. "Featured on" sits at the very
-// top for instant credibility (Tom 2026-10-18). No uppercase label above
-// the headline.
-
-function Trust({ light }: { light?: boolean }) {
-  return (
-    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${light ? "text-white/90" : "text-brand-text/80 justify-center"}`}>
-      <div className="flex items-center">
-        <div className="flex -space-x-3">
-          {guides.map((g) => (
-            <span key={g.name} className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white shadow" style={{ background: g.tint }}>
-              <Image src={g.img} alt="" fill sizes="40px" className="object-cover" style={{ objectPosition: g.focal }} />
-            </span>
-          ))}
-        </div>
-        <span className="ml-3 text-[15px]" style={lora}>
-          {guides.map((g) => g.name).join(", ").replace(/, ([^,]*)$/, " and $1")}
-        </span>
-      </div>
-      <span className="text-[14px]" style={lora}>
-        <span aria-hidden="true" className="text-[#F4B400]">★★★★★</span> <strong>{googleReviewStats.rating.toFixed(1)}</strong> Google ({googleReviewStats.count}) ·{" "}
-        <strong>{tripAdvisorStats.rating.toFixed(1)}</strong> TripAdvisor ({tripAdvisorStats.count})
-      </span>
-    </div>
-  );
-}
-
-function HeroWords({ light, trust = true }: { light?: boolean; trust?: boolean }) {
-  return (
-    <>
-      {/* Mission line as the headline (Tom 2026-10-18). */}
-      <h1 className="leading-[1.0]">
-        <span className={`block text-[clamp(28px,4.2vw,54px)] font-semibold leading-[1.08] tracking-[-0.02em] ${light ? "text-white" : "text-brand-text"}`} style={lora}>
-          Helping locals and travellers
-        </span>
-        <span className={`block text-[clamp(40px,6vw,84px)] font-semibold leading-[0.95] ${light ? "text-[#7BE0AC]" : "text-brand-accent"}`} style={caveat}>
-          love and discover Norwich.
-        </span>
-      </h1>
-      <p className={`mt-3 text-[16px] md:text-[20px] leading-relaxed max-w-xl ${light ? "text-white/90" : "text-brand-text/80 mx-auto"}`} style={lora}>
-        Walking tours and experiences, led by guides who live here.
-      </p>
-      {trust && (
-        <div className="mt-5">
-          <Trust light={light} />
-        </div>
-      )}
-    </>
-  );
-}
-
-function heroOptions(): HeroOption[] {
-  const dark = bySlug("dark-history-of-norwich");
-  const list: HeroOption[] = [
-    { key: "free", when: "By day", name: "The Norwich Free Walking Tour", times: "Most days, 10:30am · 2 hours", href: "/book" },
-    { key: "dark", when: "After dark", name: "The Dark History of Norwich", times: "Most evenings, 6pm · until 6 Nov", href: `${dark.ctaHref}#book` },
-  ];
-  return darkIsOn() ? list : list.filter((o) => o.key !== "dark");
-}
+// Pattern from Shoebox, Sandemans and Free Tours by Foot: real photos, one
+// line, one button. Tom 2026-10-18: no booking card or faces up here (it
+// looked AI-made); the photos cycle; "Featured on" and the ratings sit
+// under the buttons. The tours section below does the choosing.
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    src: "/images/tour/group-street-laughing.jpg",
+    alt: "A guide in a Walk with a Local t-shirt making a tour group laugh on a Norwich street",
+    position: "40% 40%",
+  },
+  { src: "/images/tour/group-cathedral-flag.jpg", alt: "", position: "center 45%" },
+  { src: "/images/tour/elm-hill-group.jpg", alt: "", position: "60% 40%" },
+  { src: "/images/tour/tom-tombland-talk.jpg", alt: "", position: "center 40%" },
+  { src: "/images/tour/group-portrait-bridge.jpg", alt: "", position: "center 45%" },
+];
 
 export function BrandHero() {
   return (
-    <BrandHeroClient
-      options={heroOptions()}
-      eaterFamily={eater.style.fontFamily}
-      wordsLight={<HeroWords light />}
-      wordsDark={<HeroWords trust={false} />}
-      trust={<Trust />}
-      featured={<PartnerLogosInverted size="sm" label="Featured on" />}
-    />
+    <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: "#121211" }}>
+      <HeroSlideshow slides={HERO_SLIDES} />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-[5] lg:hidden"
+        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.82) 100%)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-[5] hidden lg:block"
+        style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.15) 80%)" }}
+      />
+      <div className="brand-container max-w-6xl flex min-h-[86svh] lg:min-h-[90vh] items-end lg:items-center pt-28 pb-10 lg:pb-16">
+        <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+          {/* Mission line as the headline (Tom 2026-10-18). */}
+          <h1 className="leading-[1.0]">
+            <span className="block text-[clamp(30px,4.2vw,56px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
+              Helping locals and travellers
+            </span>
+            <span className="block text-[clamp(44px,6vw,88px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
+              love and discover Norwich.
+            </span>
+          </h1>
+          <p className="mt-4 text-[17px] md:text-[20px] leading-relaxed text-white/90 max-w-xl mx-auto lg:mx-0" style={lora}>
+            Walking tours and experiences, led by guides who live here.
+          </p>
+          <div className="mt-7 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-6">
+            <a
+              href="#tours"
+              className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 min-h-[54px] text-[24px] font-bold text-white shadow-lg hover:opacity-90 w-full sm:w-auto"
+              style={caveat}
+            >
+              Explore tours &amp; experiences
+            </a>
+            <BookFreeLink className="text-[18px] font-semibold text-white underline underline-offset-4 decoration-white/50 hover:decoration-white min-h-[44px] inline-flex items-center">
+              or book the free tour
+            </BookFreeLink>
+          </div>
+          {/* Credibility, under the buttons: listings + review scores. */}
+          <div className="mt-9 pt-6 border-t border-white/20 flex flex-col gap-4">
+            <PartnerLogosInverted size="sm" label="Featured on" className="[&_p]:lg:text-left [&_ul]:lg:justify-start" />
+            <p className="text-[14px] text-white/85" style={lora}>
+              <span aria-hidden="true" className="text-[#F4B400]">★★★★★</span>{" "}
+              <strong className="text-white">{googleReviewStats.rating.toFixed(1)}</strong> Google ({googleReviewStats.count}) ·{" "}
+              <strong className="text-white">{tripAdvisorStats.rating.toFixed(1)}</strong> TripAdvisor ({tripAdvisorStats.count})
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
