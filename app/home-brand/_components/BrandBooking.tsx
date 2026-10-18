@@ -437,12 +437,3 @@ export function BrandStickyBar() {
     </div>
   );
 }
-
-/** Hero button for the free tour: one tap to its booking sheet. */
-export function HeroBookFree({ className, children }: { className: string; children: ReactNode }) {
-  return (
-    <BookButton tour="free" location="brand_hero" href="/book" className={className} style={caveat}>
-      {children}
-    </BookButton>
-  );
-}

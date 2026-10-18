@@ -7,16 +7,11 @@ import { Footer } from "@/components/Footer";
 import { ScrollTrail } from "@/components/ScrollTrail";
 import { EmailCapture } from "@/components/EmailCapture";
 import { FAQ } from "@/components/FAQ";
-import { GuestReels } from "@/components/GuestReels";
-import { guestReels, showGuestReels } from "@/lib/guestReels";
-import { tours } from "@/lib/tours";
 import { Testimonials } from "../_components/Testimonials";
-import { ProofVideos } from "../_components/HomeSections";
 import {
   BookAnyTour,
   BrandBookingSheet,
   BrandHero,
-  FeaturedOn,
   FreeTourExplainer,
   GuidesStrip,
   OurTours,
@@ -31,23 +26,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// Holly's own Dark History video sits with the guests' free-tour videos, so
-// both tours carry proof.
-const darkReel = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.reel;
-const reels = darkReel
-  ? [
-      ...guestReels,
-      {
-        id: "holly-dark",
-        src: darkReel.src,
-        poster: darkReel.poster,
-        handle: "@historyhollydays",
-        profile: "https://www.instagram.com/historyhollydays",
-        label: darkReel.label,
-      },
-    ]
-  : guestReels;
-
 export default function BrandHomePrototype() {
   return (
     <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
@@ -56,11 +34,10 @@ export default function BrandHomePrototype() {
       <style dangerouslySetInnerHTML={{ __html: "body:has([data-brand-home]) .sticky-book-bar{display:none}" }} />
       <ScrollTrail
         sections={[
-          { id: "top", label: "Hello" },
+          { id: "top", label: "Book" },
           { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
           { id: "free-tours", label: "Free tours" },
-          { id: "book-section", label: "Book" },
           { id: "guides", label: "Guides" },
           { id: "faq", label: "FAQs" },
         ]}
@@ -68,10 +45,7 @@ export default function BrandHomePrototype() {
       <BrandHero />
       <OurTours />
       <Testimonials showCta={false} />
-      <ProofVideos>
-        {showGuestReels && <GuestReels reels={reels} trackingLocation="brand_guest" />}
-        <FeaturedOn />
-      </ProofVideos>
+      {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <FreeTourExplainer />
       <BookAnyTour />
       <GuidesStrip />

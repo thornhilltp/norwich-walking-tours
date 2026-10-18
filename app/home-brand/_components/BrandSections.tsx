@@ -14,9 +14,10 @@ import Image from "next/image";
 import { Eater } from "next/font/google";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { guides } from "@/lib/guides";
-import { partners } from "@/lib/partners";
 import { tours } from "@/lib/tours";
-import { BookingSection, BookingSheet, HeroBookFree, TourCards, type BookingTab, type TourCardData } from "./BrandBooking";
+import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
+import { BookingSection, BookingSheet, TourCards, type BookingTab, type TourCardData } from "./BrandBooking";
+import { BrandHeroClient, type HeroOption } from "./BrandHeroClient";
 
 // Dark History's Halloween face, for its card and its booking theme.
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
@@ -125,15 +126,13 @@ function Heading({ a, b, sub }: { a: string; b: string; sub?: string }) {
 /* ── 1. Header: a real photo, who we are, one button ───────────────────── */
 
 // Pattern from Shoebox, Sandemans and Free Tours by Foot: one real photo,
-// one line about the place, trust, one button, then the tours.
-const HERO = {
-  src: "/images/tour/group-street-laughing.jpg",
-  alt: "A guide in a Walk with a Local t-shirt making a tour group laugh on a Norwich street",
-};
+// one line, trust, then straight to booking. "Featured on" sits at the very
+// top for instant credibility (Tom 2026-10-18). No uppercase label above
+// the headline.
 
 function Trust({ light }: { light?: boolean }) {
   return (
-    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${light ? "text-white/90" : "text-brand-text/80"}`}>
+    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${light ? "text-white/90" : "text-brand-text/80 justify-center"}`}>
       <div className="flex items-center">
         <div className="flex -space-x-3">
           {guides.map((g) => (
@@ -154,70 +153,49 @@ function Trust({ light }: { light?: boolean }) {
   );
 }
 
-function HeroWords({ light }: { light?: boolean }) {
+function HeroWords({ light, trust = true }: { light?: boolean; trust?: boolean }) {
   return (
     <>
-      <p className={`text-xs font-semibold tracking-[0.18em] uppercase mb-3 ${light ? "text-white/85" : "text-brand-accent-text"}`} style={lora}>
-        Norwich Free Walking Tours
-      </p>
       {/* Mission line as the headline (Tom 2026-10-18). */}
       <h1 className="leading-[1.0]">
-        <span className={`block text-[clamp(32px,4.2vw,54px)] font-semibold leading-[1.08] tracking-[-0.02em] ${light ? "text-white" : "text-brand-text"}`} style={lora}>
+        <span className={`block text-[clamp(28px,4.2vw,54px)] font-semibold leading-[1.08] tracking-[-0.02em] ${light ? "text-white" : "text-brand-text"}`} style={lora}>
           Helping locals and travellers
         </span>
-        <span className={`block text-[clamp(46px,6vw,84px)] font-semibold leading-[0.95] ${light ? "text-[#7BE0AC]" : "text-brand-accent"}`} style={caveat}>
+        <span className={`block text-[clamp(40px,6vw,84px)] font-semibold leading-[0.95] ${light ? "text-[#7BE0AC]" : "text-brand-accent"}`} style={caveat}>
           love and discover Norwich.
         </span>
       </h1>
-      <p className={`mt-4 text-[17px] md:text-[20px] leading-relaxed max-w-xl ${light ? "text-white/90" : "text-brand-text/80"}`} style={lora}>
+      <p className={`mt-3 text-[16px] md:text-[20px] leading-relaxed max-w-xl ${light ? "text-white/90" : "text-brand-text/80 mx-auto"}`} style={lora}>
         Walking tours and experiences, led by guides who live here.
       </p>
-      <div className="mt-5">
-        <Trust light={light} />
-      </div>
-      <div className="mt-6 flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
-        <a
-          href="/tours"
-          className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 min-h-[54px] text-[24px] font-bold text-white shadow-lg hover:opacity-90 w-full sm:w-auto"
-          style={caveat}
-        >
-          See all tours &amp; experiences
-        </a>
-        <HeroBookFree
-          className={`text-[19px] font-bold underline underline-offset-4 min-h-[44px] inline-flex items-center ${
-            light ? "text-white decoration-white/50 hover:decoration-white" : "text-brand-accent-text decoration-brand-accent/40"
-          }`}
-        >
-          or book the free tour
-        </HeroBookFree>
-      </div>
+      {trust && (
+        <div className="mt-5">
+          <Trust light={light} />
+        </div>
+      )}
     </>
   );
 }
 
+function heroOptions(): HeroOption[] {
+  const dark = bySlug("dark-history-of-norwich");
+  const list: HeroOption[] = [
+    { key: "free", when: "By day", name: "The Norwich Free Walking Tour", times: "Most days, 10:30am · 2 hours", href: "/book" },
+    { key: "dark", when: "After dark", name: "The Dark History of Norwich", times: "Most evenings, 6pm · until 6 Nov", href: `${dark.ctaHref}#book` },
+  ];
+  return darkIsOn() ? list : list.filter((o) => o.key !== "dark");
+}
+
 export function BrandHero() {
   return (
-    <section id="top" className="relative bg-brand-bg">
-      {/* Phones: the photo, then the words on cream (no tall crop). */}
-      <div className="lg:hidden pt-[72px]">
-        <div className="relative aspect-[4/3] w-full">
-          <Image src={HERO.src} alt={HERO.alt} fill priority sizes="100vw" className="object-cover" style={{ objectPosition: "45% 40%" }} />
-        </div>
-        <div className="brand-container pt-6 pb-10 text-center [&_div]:justify-center [&_p]:mx-auto">
-          <HeroWords />
-        </div>
-      </div>
-      {/* Desktop: full-bleed photo, words on the left. */}
-      <div className="hidden lg:block relative min-h-[88vh]">
-        <Image src={HERO.src} alt={HERO.alt} fill priority sizes="100vw" className="object-cover" style={{ objectPosition: "60% 40%" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.1) 75%)" }} />
-        <div className="relative brand-container max-w-6xl flex min-h-[88vh] items-center pt-24 pb-16">
-          <div className="max-w-xl" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.35)" }}>
-            <HeroWords light />
-          </div>
-        </div>
-      </div>
-    </section>
+    <BrandHeroClient
+      options={heroOptions()}
+      eaterFamily={eater.style.fontFamily}
+      wordsLight={<HeroWords light />}
+      wordsDark={<HeroWords trust={false} />}
+      trust={<Trust />}
+      featured={<PartnerLogosInverted size="sm" label="Featured on" />}
+    />
   );
 }
 
@@ -247,27 +225,6 @@ export function OurTours() {
         <TourCards cards={tourCards()} eaterFamily={eater.style.fontFamily} />
       </div>
     </section>
-  );
-}
-
-/* ── Featured on: the listings we're on ───────────────────────────────── */
-
-export function FeaturedOn() {
-  return (
-    <div className="pt-2 pb-10">
-      <p className="text-center text-[11px] font-semibold tracking-[0.18em] uppercase text-brand-text/50 mb-4" style={lora}>
-        Find us on
-      </p>
-      <ul className="flex flex-wrap items-center justify-center gap-x-9 gap-y-4 list-none p-0 m-0">
-        {partners.map((p) => (
-          <li key={p.name}>
-            <a href={p.href} target="_blank" rel="noopener noreferrer" aria-label={`Our listing on ${p.name} (opens in a new tab)`} className="block opacity-70 grayscale hover:opacity-100 hover:grayscale-0 transition">
-              <Image src={p.src} alt={`${p.name} logo`} width={p.width} height={p.height} className={p.name === "VisitNorwich" ? "h-7 w-auto" : "h-4 w-auto"} />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 
