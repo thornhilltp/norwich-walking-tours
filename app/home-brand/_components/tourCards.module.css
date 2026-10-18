@@ -1,0 +1,42 @@
+/* Free tour card touches (Tom 2026-10-18: give it the brand feel the Dark
+   History lantern gives that tour). Motion stops under reduced motion. */
+
+/* Option A: map pin drops onto the photo, the route draws itself. */
+.pin { transform: translateY(-34px); opacity: 0; transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.2s; }
+.route { stroke-dashoffset: 260; transition: stroke-dashoffset 1.1s ease-out; }
+:global(.group):hover .pin { transform: translateY(0); opacity: 1; }
+:global(.group):hover .route { stroke-dashoffset: 0; }
+@media (hover: none) {
+  .pin { transform: none; opacity: 1; }
+  .route { stroke-dashoffset: 0; }
+}
+
+/* Option B: Norwich Market's striped awning sways. */
+.awning { transform-origin: 50% 0; }
+@media (prefers-reduced-motion: no-preference) {
+  :global(.group):hover .awning { animation: sway 1.6s ease-in-out infinite; }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1.4deg); }
+  75% { transform: rotate(-1.4deg); }
+}
+
+/* Option C: the green flag waves. */
+.flag { transform-origin: 0 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .flag { animation: wave 3.2s ease-in-out infinite; }
+  :global(.group):hover .flag { animation-duration: 1.1s; }
+}
+@keyframes wave {
+  0%, 100% { transform: skewY(0deg) scaleX(1); }
+  50% { transform: skewY(-5deg) scaleX(0.94); }
+}
+
+/* "Next walk" dot. */
+.dot { animation: pulse 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}

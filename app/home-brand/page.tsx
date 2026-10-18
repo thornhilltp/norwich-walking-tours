@@ -17,6 +17,8 @@ import {
   brandFaqs,
 } from "./_components/BrandSections";
 import { BrandStickyBar } from "./_components/BrandBooking";
+import { tours } from "@/lib/tours";
+import { getNextWalks } from "@/lib/nextWalks";
 
 export const metadata: Metadata = {
   title: "Norwich Free Walking Tours | Local Guides, Free and Private Tours",
@@ -25,7 +27,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function BrandHomePrototype() {
+const pick = <T extends string>(v: string | string[] | undefined, allowed: readonly T[], fallback: T): T =>
+  typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
+
+export default async function BrandHomePrototype({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
+  // Prototype: ?look=pin|awning|flag and ?sub=a|b|c compare free-card and
+  // subheading options. The next walks are read live from the booking app.
+  const look = pick(searchParams.look, ["pin", "awning", "flag"] as const, "pin");
+  const sub = pick(searchParams.sub, ["a", "b", "c"] as const, "a");
+  const darkSlug = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.bookingTour;
+  const next = await getNextWalks(darkSlug);
   return (
     <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
       {/* This page has its own "Book a tour" bar; hide the site-wide
@@ -42,7 +53,7 @@ export default function BrandHomePrototype() {
         ]}
       />
       <BrandHero />
-      <OurTours />
+      <OurTours look={look} sub={sub} next={next} />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <WhatIsFree />

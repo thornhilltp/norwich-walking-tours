@@ -18,7 +18,8 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 import { GuideCards } from "./GuideCards";
-import { TourCards } from "./TourVariants";
+import { TourCards, type FreeLook, type SubVariant } from "./TourVariants";
+import type { NextWalk } from "@/lib/nextWalks";
 
 // Dark History's Halloween face, for its card and its booking theme.
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
@@ -37,7 +38,7 @@ const DARK_HISTORY_ENDS = new Date("2026-11-07T00:00:00Z");
 const darkIsOn = () => Date.now() < DARK_HISTORY_ENDS.getTime();
 const bySlug = (slug: string) => tours.find((t) => t.slug === slug)!;
 
-function tourCards(): TourCardData[] {
+function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): TourCardData[] {
   const dark = bySlug("dark-history-of-norwich");
   const priv = bySlug("private-tours");
   const list: TourCardData[] = [
@@ -49,11 +50,18 @@ function tourCards(): TourCardData[] {
       // Approved homepage sub (CLAUDE.md messaging playbook).
       hook: "Two hours of our favourite Norwich history, stories and local tips.",
       perfectFor: "first-time visitors",
+      subs: {
+        a: "Two hours of our favourite Norwich history, stories and local tips.",
+        b: "Perfect for your first day in Norwich.",
+        c: "Norwich in two hours, told by a local.",
+      },
+      next: next.free,
       action: "Book free",
       href: "/book",
       details: FREE_TOUR_HREF,
       badge: "By day",
-      image: { src: "/images/tour/pottergate-walk.jpg", alt: "A guide leading a tour group down Pottergate in the Norwich Lanes" },
+      // Morrie's shot: Tom mid-story in Tombland, the group hanging on it.
+      image: { src: "/images/tour/tom-tombland-talk.jpg", alt: "Tom telling a story to a tour group in Tombland" },
     },
     {
       key: "dark",
@@ -63,6 +71,12 @@ function tourCards(): TourCardData[] {
       // Live Dark History wording.
       hook: "Love a ghost story? The true history behind them is even darker.",
       perfectFor: "a night out with a difference",
+      subs: {
+        a: "Love a ghost story? The true history behind them is even darker.",
+        b: "Perfect for a Halloween night out.",
+        c: "Not ghost stories. The real thing.",
+      },
+      next: next.dark,
       action: "Book free",
       href: `${dark.ctaHref}#book`,
       details: dark.ctaHref,
@@ -76,6 +90,11 @@ function tourCards(): TourCardData[] {
       meta: "Any day · Price on request",
       hook: "Your date, your route. We build the walk around what your group wants to see.",
       perfectFor: "birthdays, work days and family visits",
+      subs: {
+        a: "Your date, your route, built around your group.",
+        b: "Perfect for birthdays, work teams and family visits.",
+        c: "Your group. Your date. Your route.",
+      },
       action: "Ask us",
       href: priv.ctaHref,
       // Morrie's photo, not the phone shot in lib/tours.ts.
@@ -89,6 +108,11 @@ function tourCards(): TourCardData[] {
       meta: "",
       hook: "A new way to see Norwich is coming. Hear about it first.",
       perfectFor: "being first to hear",
+      subs: {
+        a: "A new way to see Norwich is on the way.",
+        b: "Perfect if you've done the rest.",
+        c: "Coming soon. Hear it first.",
+      },
       action: "Tell me first",
       href: "#updates",
       badge: "Coming soon",
@@ -125,7 +149,6 @@ const HERO_SLIDES: HeroSlide[] = [
   { src: "/images/tour/group-cathedral-flag.jpg", alt: "", position: "center 50%" },
   { src: "/images/tour/pottergate-walk.jpg", alt: "", position: "center 55%" },
   { src: "/images/tour/elm-hill-group.jpg", alt: "", position: "60% 40%" },
-  { src: "/images/tour/tom-tombland-talk.jpg", alt: "", position: "center 40%" },
   { src: "/images/tour/guide-market-walk.jpg", alt: "", position: "center 45%" },
 ]
 
@@ -181,10 +204,14 @@ export function BrandHero() {
 
 /* ── 2. The tours, each in its own look ───────────────────────────────── */
 
-export function OurTours() {
+export function OurTours({ look, sub, next }: { look: FreeLook; sub: SubVariant; next: { free: NextWalk | null; dark: NextWalk | null } }) {
   return (
     <section id="tours" className="scroll-mt-16 py-14 md:py-20 bg-white border-t border-brand-accent/10">
       <div className="brand-container max-w-6xl">
+        <div className="mb-8 flex flex-col items-center gap-2">
+          <Switch label="Free tour card" param="look" current={look} other={{ sub }} options={[["pin", "Map pin"], ["awning", "Market awning"], ["flag", "Green flag"]]} />
+          <Switch label="Subheadings" param="sub" current={sub} other={{ look }} options={[["a", "Promise"], ["b", "Perfect for"], ["c", "Short & punchy"]]} />
+        </div>
         <div className="text-center mb-4 md:mb-6">
           <h2 className="leading-[1.0]">
             <span className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
@@ -199,7 +226,7 @@ export function OurTours() {
             Tap a tour to see dates and book.
           </p>
         </div>
-        <TourCards cards={tourCards()} eaterFamily={eater.style.fontFamily} />
+        <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} look={look} sub={sub} />
         <p className="mt-6 text-center" style={lora}>
           <a href="/tours" className="font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 hover:decoration-brand-accent">
             All tours &amp; experiences →
@@ -207,6 +234,41 @@ export function OurTours() {
         </p>
       </div>
     </section>
+  );
+}
+
+/* ── Prototype-only: flip between options ─────────────────────────────── */
+
+function Switch({
+  label,
+  param,
+  current,
+  other,
+  options,
+}: {
+  label: string;
+  param: string;
+  current: string;
+  other: Record<string, string>;
+  options: [string, string][];
+}) {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-[#E8A33A]/70 bg-[#FFF8EA] px-2.5 py-1.5 text-[12px] sm:text-[13px]" style={lora}>
+      <span className="font-semibold text-brand-text/70">{label}:</span>
+      {options.map(([v, name], k) => {
+        const q = new URLSearchParams({ ...other, [param]: v }).toString();
+        const on = v === current;
+        return (
+          <a
+            key={v}
+            href={`?${q}#tours`}
+            className={`rounded-full px-3 py-1 font-semibold ${on ? "bg-brand-text text-white" : "bg-white text-brand-text/80 border border-brand-text/15"}`}
+          >
+            {String.fromCharCode(65 + k)} · {name}
+          </a>
+        );
+      })}
+    </div>
   );
 }
 
