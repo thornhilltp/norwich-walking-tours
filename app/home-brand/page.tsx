@@ -9,11 +9,10 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { FAQ } from "@/components/FAQ";
 import { Testimonials } from "../_components/Testimonials";
 import {
-  BookAnyTour,
   BrandBookingSheet,
   BrandHero,
-  WhoWeAre,
-  WhyFree,
+  OurLocals,
+  WhatIsFree,
   OurTours,
   brandFaqs,
 } from "./_components/BrandSections";
@@ -34,11 +33,11 @@ export default function BrandHomePrototype() {
       <style dangerouslySetInnerHTML={{ __html: "body:has([data-brand-home]) .sticky-book-bar{display:none}" }} />
       <ScrollTrail
         sections={[
-          { id: "top", label: "Book" },
+          { id: "top", label: "Hello" },
           { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
-          { id: "free-tours", label: "Why free?" },
-          { id: "guides", label: "About us" },
+          { id: "free-tours", label: "Free tours" },
+          { id: "guides", label: "Our locals" },
           { id: "faq", label: "FAQs" },
         ]}
       />
@@ -46,9 +45,8 @@ export default function BrandHomePrototype() {
       <OurTours />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
-      <WhyFree />
-      <BookAnyTour />
-      <WhoWeAre />
+      <WhatIsFree />
+      <OurLocals />
       <FAQ
         items={brandFaqs}
         emitSchema={false}

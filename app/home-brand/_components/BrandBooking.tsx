@@ -9,10 +9,11 @@
 // are plain links (/book, the Dark History page).
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { X } from "lucide-react";
 import { BookingFrame } from "@/components/BookingFrame";
 import { Fog, StoryLantern } from "@/app/tours/_components/Spooky";
+import { LetterGirl } from "./LetterGirl";
 import { trackEvent } from "@/lib/tracking";
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
@@ -55,36 +56,6 @@ export function openBooking(key: BookableKey, location: string) {
   window.dispatchEvent(new CustomEvent(OPEN, { detail: key }));
 }
 
-function BookButton({
-  tour,
-  location,
-  className,
-  style,
-  href,
-  children,
-}: {
-  tour: BookableKey;
-  location: string;
-  className: string;
-  style?: CSSProperties;
-  href: string;
-  children: ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      className={className}
-      style={style}
-      onClick={(e) => {
-        e.preventDefault();
-        openBooking(tour, location);
-      }}
-    >
-      {children}
-    </a>
-  );
-}
-
 /* ── Tours as stops on a walking route ─────────────────────────────────── */
 
 // Tom 2026-10-18: the brand is the walk. The free tour's language (cream
@@ -96,114 +67,119 @@ function BookButton({
 
 const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
 
-function Stop({ c, i, eater }: { c: TourCardData; i: number; eater: CSSProperties }) {
+function Stop({ c, i, last, eater }: { c: TourCardData; i: number; last: boolean; eater: CSSProperties }) {
   const dark = c.key === "dark";
   const soon = c.key === "soon";
-  const bookable = c.key === "free" || c.key === "dark";
   const rot = i % 2 === 0 ? -2 : 2;
   const caption: CSSProperties = dark
     ? { ...eater, color: GLOW, fontSize: 22, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
     : { ...caveat, fontWeight: 700, fontSize: 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : "#2DA96B" };
+  // One tap target per tour (Tom 2026-10-18: too many buttons): the whole
+  // stop opens that tour's page. Booking straight from the homepage is the
+  // sticky bar (phones) and the menu button (desktop).
+  const href = c.details ?? c.href;
   return (
-    <li className={`relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center ${i % 2 === 1 ? "lg:mt-14" : ""}`}>
-      {/* Map pin + stop number, sitting on the route line. */}
-      <div className="relative z-10 flex items-center gap-2 mb-3 pl-2">
-        <svg viewBox="-14 -38 28 40" className="h-10 w-8 shrink-0" aria-hidden="true">
-          <path d="M0 0 C -8 -10 -13 -16 -13 -24 A 13 13 0 1 1 13 -24 C 13 -16 8 -10 0 0 Z" fill={dark ? NIGHT : "#2DA96B"} />
-          <circle cx="0" cy="-24" r="5" fill="#FCFAF8" />
+    <li className="relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center">
+      {/* Route to the next stop: starts and ends on the pins. */}
+      {!last && (
+        <svg
+          aria-hidden
+          viewBox="0 0 100 20"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute left-[26px] top-[14px] h-5 w-[calc(100%+1.5rem)] lg:w-[calc(100%+2rem)]"
+        >
+          <path
+            d="M0 10 C 12 2, 22 18, 34 10 S 56 2, 67 10 S 88 18, 100 10"
+            fill="none"
+            stroke="#2DA96B"
+            strokeOpacity="0.6"
+            strokeWidth="3"
+            strokeDasharray="7 8"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
         </svg>
-        <span className="text-[24px] font-bold leading-none text-brand-text/80" style={caveat}>
-          {c.badge}
-        </span>
-      </div>
-      {/* The polaroid: same shape for every tour, each in its own light. */}
-      <figure
-        className="relative m-0 p-2.5 pb-4 border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)]"
-        style={{
-          transform: `rotate(${rot}deg)`,
-          backgroundColor: dark ? "#1B1A18" : "#FFFFFF",
-          borderColor: dark ? "#2A2724" : "#EAE0D4",
-        }}
+      )}
+      <a
+        href={href}
+        onClick={() => trackEvent("tour_card_click", { tour: c.key })}
+        className="group block rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-accent"
       >
-        {dark && (
-          <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">
-            <StoryLantern />
+        {/* Map pin + stop name, on the route line. */}
+        <div className="relative z-10 flex items-center gap-2 mb-3 pl-2.5">
+          <svg viewBox="-14 -38 28 40" className="h-10 w-8 shrink-0" aria-hidden="true">
+            <path d="M0 0 C -8 -10 -13 -16 -13 -24 A 13 13 0 1 1 13 -24 C 13 -16 8 -10 0 0 Z" fill={dark ? NIGHT : "#2DA96B"} />
+            <circle cx="0" cy="-24" r="5" fill="#FCFAF8" />
+          </svg>
+          <span className="text-[24px] font-bold leading-none text-brand-text/80" style={caveat}>
+            {c.badge}
           </span>
-        )}
-        <span
-          aria-hidden="true"
-          className="absolute -top-[11px] left-1/2 w-20 h-6 rounded-[2px] z-10"
+        </div>
+        {/* The polaroid pops out on hover. */}
+        <figure
+          className="relative m-0 p-2.5 pb-4 border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-transform duration-300 ease-out [transform:rotate(var(--r))] group-hover:[transform:rotate(0deg)_translateY(-8px)_scale(1.04)] group-hover:shadow-[4px_22px_36px_-14px_rgba(60,40,20,0.7)]"
           style={{
-            transform: "translateX(-50%) rotate(-3deg)",
-            backgroundColor: dark ? "#3A3530" : tapes[i % tapes.length],
-            boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
-          }}
-        />
-        <div className="relative aspect-square overflow-hidden bg-brand-accent-light">
-          {c.image && (
-            <Image
-              src={c.image.src}
-              alt={c.image.alt}
-              fill
-              sizes="(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"
-              className="object-cover"
-              style={dark ? sepia : soon ? { filter: "grayscale(1) blur(3px)", transform: "scale(1.08)" } : undefined}
-              priority={i === 0}
-            />
-          )}
+            ["--r" as string]: `${rot}deg`,
+            backgroundColor: dark ? "#1B1A18" : "#FFFFFF",
+            borderColor: dark ? "#2A2724" : "#EAE0D4",
+          } as CSSProperties}
+        >
           {dark && (
-            <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)" }} />
-          )}
-          {soon && (
-            <span className="absolute inset-0 flex items-center justify-center text-[110px] leading-none text-white/90" style={caveat} aria-hidden>
-              ?
+            <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">
+              <StoryLantern />
             </span>
           )}
-        </div>
-        <figcaption className="relative pt-3 px-1 min-h-[64px]">
-          <span className="block" style={caption}>
-            {c.name}
-          </span>
-        </figcaption>
-      </figure>
-      {/* The words, on the paper under the photo. */}
-      <div className="pt-4 px-1">
-        {c.meta && (
-          <p className="text-[14px] font-semibold text-brand-accent-text" style={lora}>
-            {c.meta}
+          <span
+            aria-hidden="true"
+            className="absolute -top-[11px] left-1/2 w-20 h-6 rounded-[2px] z-10"
+            style={{
+              transform: "translateX(-50%) rotate(-3deg)",
+              backgroundColor: dark ? "#3A3530" : tapes[i % tapes.length],
+              boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+            }}
+          />
+          <div className="relative aspect-square overflow-hidden bg-brand-accent-light">
+            {c.image && (
+              <Image
+                src={c.image.src}
+                alt={c.image.alt}
+                fill
+                sizes="(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"
+                className="object-cover"
+                style={dark ? sepia : soon ? { filter: "grayscale(1) blur(3px)", transform: "scale(1.08)" } : undefined}
+                priority={i === 0}
+              />
+            )}
+            {dark && (
+              <>
+                <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)" }} />
+                {/* The grey girl from Holly's reel, peeking in. */}
+                <LetterGirl className="absolute -bottom-2 right-1 h-[62%] w-auto" />
+              </>
+            )}
+            {soon && (
+              <span className="absolute inset-0 flex items-center justify-center text-[110px] leading-none text-white/90" style={caveat} aria-hidden>
+                ?
+              </span>
+            )}
+          </div>
+          <figcaption className="relative pt-3 px-1 min-h-[64px]">
+            <span className="block" style={caption}>
+              {c.name}
+            </span>
+          </figcaption>
+        </figure>
+        <div className="pt-4 px-1">
+          {c.meta && (
+            <p className="text-[14px] font-semibold text-brand-accent-text" style={lora}>
+              {c.meta}
+            </p>
+          )}
+          <p className="mt-1.5 text-[16px] font-semibold leading-snug text-brand-text group-hover:text-brand-accent-text transition-colors" style={lora}>
+            {c.hook}
           </p>
-        )}
-        <p className="mt-1.5 text-[16px] font-semibold leading-snug text-brand-text" style={lora}>
-          {c.hook}
-        </p>
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-          {bookable ? (
-            <BookButton
-              tour={c.key as BookableKey}
-              location={`brand_stop_${c.key}`}
-              href={c.href}
-              className={`inline-flex items-center justify-center rounded-full px-5 min-h-[44px] ${dark ? "text-[#5AE19E]" : "bg-brand-accent text-white"}`}
-              style={dark ? { ...eater, fontSize: 16, backgroundColor: NIGHT } : { ...caveat, fontSize: 22, fontWeight: 700 }}
-            >
-              {c.action}
-            </BookButton>
-          ) : (
-            <a
-              href={c.href}
-              onClick={() => trackEvent("book_cta_click", { location: `brand_stop_${c.key}` })}
-              className="inline-flex items-center justify-center rounded-full border-2 border-brand-accent px-5 min-h-[44px] text-brand-accent-text"
-              style={{ ...caveat, fontSize: 22, fontWeight: 700 }}
-            >
-              {c.action}
-            </a>
-          )}
-          {c.details && (
-            <a href={c.details} className="text-[15px] font-semibold text-brand-accent-text underline underline-offset-4 decoration-brand-accent/40 min-h-[44px] inline-flex items-center" style={lora}>
-              What&apos;s it like?
-            </a>
-          )}
         </div>
-      </div>
+      </a>
     </li>
   );
 }
@@ -212,28 +188,9 @@ export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eater
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
   return (
     <div className="relative -mx-4 lg:mx-0">
-      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-2 pb-6 list-none m-0 [scrollbar-width:none]">
-        {/* The walking route the stops sit on: one dashed, wobbly line. */}
-        <svg
-          aria-hidden
-          viewBox="0 0 400 20"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute left-0 top-[22px] h-6 w-[calc(var(--stops)*82%)] sm:w-[calc(var(--stops)*48%)] lg:w-full"
-          style={{ ["--stops" as string]: cards.length } as CSSProperties}
-        >
-          <path
-            d="M0 10 C 30 0, 60 20, 100 10 S 170 0, 200 10 S 270 20, 300 10 S 370 0, 400 10"
-            fill="none"
-            stroke="#2DA96B"
-            strokeOpacity="0.55"
-            strokeWidth="3"
-            strokeDasharray="7 8"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-14 pb-6 list-none m-0 [scrollbar-width:none]">
         {cards.map((c, i) => (
-          <Stop key={c.key} c={c} i={i} eater={eater} />
+          <Stop key={c.key} c={c} i={i} last={i === cards.length - 1} eater={eater} />
         ))}
       </ol>
     </div>
@@ -312,43 +269,6 @@ function BookingHeading({ dark, eater, small }: { dark: boolean; eater: CSSPrope
         </span>
       )}
     </h2>
-  );
-}
-
-/** The in-page booking box, further down the page. */
-export function BookingSection({ tabs, eaterFamily }: { tabs: BookingTab[]; eaterFamily: string }) {
-  const [active, setActive] = useState<BookableKey>(tabs[0].key);
-  const dark = active === "dark";
-  const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-
-  return (
-    <section
-      id="book-section"
-      className={`relative overflow-hidden py-14 md:py-20 border-t transition-colors duration-500 ${dark ? "border-transparent" : "bg-brand-accent-light/40 border-brand-accent/10"}`}
-      style={dark ? { backgroundColor: NIGHT } : undefined}
-    >
-      {dark && <Fog />}
-      <div className="relative brand-container max-w-5xl">
-        <div className="text-center">
-          <BookingHeading dark={dark} eater={eater} />
-          <p className={`mt-4 text-[17px] md:text-lg leading-relaxed max-w-xl mx-auto ${dark ? "text-white/70" : "text-brand-text/70"}`} style={lora}>
-            Free to book. Tip what it was worth at the end, by card or cash.
-          </p>
-        </div>
-        <div id="book" className="scroll-mt-24 mt-8 md:mt-10 w-full max-w-xl mx-auto">
-          <BookingPanel tabs={tabs} active={active} onPick={setActive} eater={eater} />
-        </div>
-        <p className={`mt-6 text-center text-[16px] ${dark ? "text-white/60" : "text-brand-text/75"}`} style={lora}>
-          Private group?{" "}
-          <a
-            href="/private-tours"
-            className={`font-semibold underline underline-offset-4 ${dark ? "text-white decoration-white/40" : "text-brand-accent-text decoration-brand-accent/40 hover:decoration-brand-accent"}`}
-          >
-            Ask us about a date →
-          </a>
-        </p>
-      </div>
-    </section>
   );
 }
 
@@ -441,14 +361,5 @@ export function BrandStickyBar() {
         Book a tour (free)
       </a>
     </div>
-  );
-}
-
-/** "Book the free tour" as a link: one tap to its booking sheet. */
-export function BookFreeLink({ className, children }: { className: string; children: ReactNode }) {
-  return (
-    <BookButton tour="free" location="brand_hero" href="/book" className={className}>
-      {children}
-    </BookButton>
   );
 }

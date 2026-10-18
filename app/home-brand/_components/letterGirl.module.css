@@ -1,0 +1,11 @@
+.girl {
+  filter: drop-shadow(4px 8px 8px rgba(10, 8, 6, 0.55));
+  opacity: 0.95;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .girl { animation: drift 7s ease-in-out infinite alternate; }
+}
+@keyframes drift {
+  0% { transform: translateX(6px); opacity: 0.75; }
+  100% { transform: translateX(-4px); opacity: 1; }
+}
