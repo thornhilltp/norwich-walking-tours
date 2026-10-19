@@ -80,9 +80,10 @@ const nextConfig = {
       // indexed equity + external backlinks.
       { source: "/about", destination: "/our-guides", permanent: true },
       { source: "/about-us", destination: "/our-guides", permanent: true },
-      // /tour retired 2026-10-17 when the tourist-first homepage replaced /.
-      // The homepage now carries what's on the tour, so send it there.
-      { source: "/tour", destination: "/", permanent: true },
+      // The free tour's page moved off / to its own URL when the brand
+      // homepage went live. One hop straight to it, never via /.
+      { source: "/tour", destination: "/tours/free-walking-tour", permanent: true },
+      { source: "/free-walking-tour", destination: "/tours/free-walking-tour", permanent: true },
     ];
   },
   async headers() {

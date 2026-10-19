@@ -322,6 +322,10 @@ export default function FreeThingsToDoNorwichPage() {
               Back to home
             </Link>
             <span className="mx-2 text-brand-accent/40">&bull;</span>
+            <Link href="/tours/free-walking-tour" className="text-brand-accent hover:underline">
+              The Norwich Free Walking Tour
+            </Link>
+            <span className="mx-2 text-brand-accent/40">&bull;</span>
             <Link href="/private-tours" className="text-brand-accent hover:underline">
               Private tours
             </Link>

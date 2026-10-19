@@ -137,7 +137,7 @@ export const tours: Tour[] = [
     priceLine: "Free to book",
     priceSub: "Pay what it was worth at the end",
     ctaLabel: "Book",
-    ctaHref: "/",
+    ctaHref: "/tours/free-walking-tour",
     tint: "#E8F8F1",
     status: "live",
   },

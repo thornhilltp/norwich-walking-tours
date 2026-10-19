@@ -166,6 +166,9 @@ interface FAQProps {
   items?: { q: string; a: string }[];
   /** Emit FAQPage JSON-LD. Leave true only on ONE indexable page per URL. */
   emitSchema?: boolean;
+  /** Questions to put in the FAQPage JSON-LD, if not all of them. Lets a page
+      show a question another page already marks up without marking it twice. */
+  schemaItems?: { q: string; a: string }[];
   /** Black section, white text (Dark History page). */
   dark?: boolean;
 }
@@ -176,7 +179,7 @@ interface FAQProps {
 // unaffected — always shows all FAQs.
 const MOBILE_VISIBLE_COUNT = 8;
 
-export function FAQ({ customHeading, items, emitSchema = true, dark = false }: FAQProps = {}) {
+export function FAQ({ customHeading, items, emitSchema = true, schemaItems, dark = false }: FAQProps = {}) {
   const list = items ?? faqs;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllMobile, setShowAllMobile] = useState(false);
@@ -209,7 +212,7 @@ export function FAQ({ customHeading, items, emitSchema = true, dark = false }: F
     {emitSchema && (
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(list)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(schemaItems ?? list)) }}
       />
     )}
     <section

@@ -104,39 +104,8 @@ const jsonLd = [
     inLanguage: "en-GB",
     publisher: { "@id": "https://www.norwichfreewalkingtours.co.uk/#localbusiness" },
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "TouristAttraction",
-    name: "Norwich Free Walking Tours",
-    description:
-      "A pay what you want walking tour revealing the real Norwich, running most days. 2 hours, about 2.5 km. English language. Starts at The Forum, finishes at Norwich Market.",
-    url: "https://www.norwichfreewalkingtours.co.uk",
-    audienceType: ["Culture Seekers", "History Buffs", "Independent Travellers"],
-    inLanguage: "en",
-    location: {
-      "@type": "Place",
-      name: "The Forum, Norwich",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Millennium Plain",
-        addressLocality: "Norwich",
-        postalCode: "NR2 1TF",
-        addressCountry: "GB",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 52.6278,
-        longitude: 1.2983,
-      },
-    },
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "GBP",
-      availability: "https://schema.org/InStock",
-      description: "Book free. Pay what it was worth at the end. Most guests tip £10 to £20 per person. Cards, Apple Pay, Google Pay, and cash accepted.",
-    },
-  },
+  // The free tour's TouristTrip lives on its own page
+  // (app/tours/free-walking-tour/page.tsx), not on every page.
   {
     "@context": "https://schema.org",
     "@type": "Person",

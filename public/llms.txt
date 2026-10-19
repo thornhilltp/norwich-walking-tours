@@ -8,7 +8,9 @@ Founder + guide: Tom Thornhill, a Norwich resident who has lived in the city for
 
 ## Pages
 
-- [Home](https://www.norwichfreewalkingtours.co.uk/): the Norwich Free Walking Tour: what's on it, reviews, guest videos, the guides, how it works, FAQ, booking widget
+- [Home](https://www.norwichfreewalkingtours.co.uk/): all our tours and experiences: the Norwich Free Walking Tour, the Dark History of Norwich, private tours; reviews, the guides, FAQ
+- [The Norwich Free Walking Tour](https://www.norwichfreewalkingtours.co.uk/tours/free-walking-tour): the free tour's own page: what's on it, reviews, guest videos, the guides, how it works, FAQ, booking widget
+- [The Dark History of Norwich](https://www.norwichfreewalkingtours.co.uk/tours/dark-history-of-norwich): evening walk through the true dark history of Norwich
 - [What is a free walking tour?](https://www.norwichfreewalkingtours.co.uk/what-is-a-free-tour): explainer of the free-tour model, how it works, what guests typically tip
 - [Book](https://www.norwichfreewalkingtours.co.uk/book): live booking widget, free to reserve a spot, pay at the end
 - [Our Guides](https://www.norwichfreewalkingtours.co.uk/our-guides): the local guides who run the walks

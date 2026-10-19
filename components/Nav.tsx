@@ -15,11 +15,11 @@ import { trackEvent } from "@/lib/tracking";
 // Nav order (Tom 2026-05-19, final):
 //   The Tour > About > What is a free tour? > Private Tours > Contact
 // 'About' was briefly removed earlier today then added back per Tom.
-// "Our Tours" dropdown (Tom 2026-09-28). Free Walking Tour only for now;
-// the homepage IS the free tour's page. Add a tour here only once its
-// page is real and indexable.
+// "Our Tours" dropdown (Tom 2026-09-28). The free tour has its own page
+// since the brand homepage went live. Add a tour here only once its page
+// is real and indexable.
 const tourLinks = [
-  { label: "Free Walking Tour", href: "/" },
+  { label: "Free Walking Tour", href: "/tours/free-walking-tour" },
   { label: "Dark History Tour", href: "/tours/dark-history-of-norwich" },
 ];
 
@@ -193,7 +193,7 @@ export function Nav() {
               onClick={() => trackEvent("book_cta_click", { location: "nav_desktop" })}
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
-              Book your spot (free)
+              Book a tour
             </a>
           </div>
 
@@ -266,7 +266,7 @@ export function Nav() {
               }}
               className="btn-cta flex items-center justify-center w-full h-11 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-base"
             >
-              Book your spot (free)
+              Book a tour
             </a>
           </div>
         </div>

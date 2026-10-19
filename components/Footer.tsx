@@ -53,6 +53,7 @@ const socials = [
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Norwich Free Walking Tour", href: "/tours/free-walking-tour" },
   { label: "Dark History of Norwich", href: "/tours/dark-history-of-norwich" },
   { label: "Our Guides", href: "/our-guides" },
   { label: "Private Tours", href: "/private-tours" },
@@ -66,7 +67,7 @@ const navLinks = [
     ? [{ label: "Best in Norwich", href: "/best-in-norwich" }]
     : []),
   { label: "Contact", href: "/contact" },
-  { label: "FAQs", href: "/#faq" },
+  { label: "FAQs", href: "/tours/free-walking-tour#faq" },
   { label: "New tour updates", href: "/updates" },
 ];
 

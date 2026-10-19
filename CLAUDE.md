@@ -67,7 +67,7 @@ How the free tour is positioned. Apply to every page, ad and post about the free
 - What a free walking tour gives you, in this order: **(1) the history and best stories** (lead with this), **(2) the highlights** (Cathedral, Castle, Elm Hill, Tombland, the Lanes, the Market), **(3) life in Norwich today** (local tips: coffee, pubs, market stalls, photo spots).
 - Explain the format for people who haven't done one: "Popular across Europe. What is a free walking tour?" linking to `/what-is-a-free-tour`.
 
-**Live homepage wording (approved, reuse it)**
+**Free tour page wording (approved, reuse it; this was the homepage until the brand homepage move)**
 - Pill: "The Norwich Free Walking Tour". H1: "England's best-kept *medieval city.*" Sub: "Two hours of our favourite Norwich history, stories and local tips, with a guide who lives here."
 - Facts card: When "Most days, 10:30am (2 hours)" · Route "The Forum to Norwich Market" · Price "Free to book, pay what it was worth".
 - Section heading: "What's on *the tour?*" Plain beats clever: Tom rejected "Norwich's best-kept secrets", "The city behind the postcard" and similar.
@@ -100,27 +100,37 @@ Run the check before every push. Vercel does not enforce it.
 
 ## 4. Pages
 
-### `/` — Home
-Tourist-first rebuild, live 2026-10-17 (built as the `/home-next` prototype with Tom, modelled on the Dark History tour page, phone first). Page: `app/page.tsx`; sections in `app/_components/HomeSections.tsx`. Sections in order:
-1. **HeroV2** (`app/_components/HeroV2.tsx`) — pill "The Norwich Free Walking Tour", H1 "England's best-kept medieval city.", Pottergate photo (`pottergate-walk.jpg`), trust row, booking widget. `id="top"`.
+### `/` — Home (the brand homepage)
+The collective's front door: every tour and experience, not one tour's page. Built as the `/home-brand` prototype with Tom and moved to `/` in the brand homepage move (2026-10-19, `docs/brand-homepage-move-plan.md`; check git log for the deploy date). Page: `app/page.tsx`; sections in `app/_components/BrandSections.tsx` (tour cards in `TourVariants.tsx`, booking pop-up and phone "Book a tour (free)" bar in `BrandBooking.tsx`). Sections in order:
+1. **BrandHero** — cycling pro photos, H1 is the mission line "Helping locals and travellers love and discover Norwich.", sub line with the search words (free walking tours, dark history while it runs, private walks), "Explore tours & experiences" button to `#tours`, Featured on + ratings. `id="top"`.
+2. **OurTours** — "Pick your walk.": a card per tour with live "Next walk" lines (`lib/nextWalks.ts`, reads the booking app with the public key). The free tour card links to `/tours/free-walking-tour`. Dark History card and booking tab drop off after 6 Nov 2026. `id="tours"`. The "All tours & experiences" link stays off (`TOURS_HUB_READY`) until `/tours` is built.
+3. **Testimonials** `id="reviews"` · 4. **WhatIsFree** film strip + "What's a free walking tour?" `id="free-tours"` · 5. **YourGuides** with the About us line `id="guides"` · 6. **FAQ** "Good questions." (`brandFaqs`) `id="faq"` · 7. **EmailCapture** `id="updates"` · **Footer** with both meeting points.
+
+Rules: the homepage talks about all tours and must not copy the free tour page's title, text or FAQs (the two would compete in Google). Four homepage FAQ questions match the free tour page's, so only the business-wide ones go in the homepage's FAQPage markup (`schemaItems`). JSON-LD: an `ItemList` of the tours. The site-wide free-tour sticky bar is hidden here (this page has its own).
+
+### `/tours/free-walking-tour` — the Norwich Free Walking Tour
+Was the homepage until the brand homepage move (tourist-first rebuild, live at `/` 2026-10-17, modelled on the Dark History tour page, phone first). Every word, heading, photo description and FAQ moved across unchanged; keep it that way so its rankings follow. Page: `app/tours/free-walking-tour/page.tsx` (a static folder, beats `app/tours/[slug]`); sections in `app/_components/HomeSections.tsx`. Indexable, self canonical, title "Free Walking Tour Norwich | History, Highlights and Local Tips", its own share card, `TouristTrip` JSON-LD (moved off `app/layout.tsx`), FAQPage JSON-LD, breadcrumbs (Home › Norwich Free Walking Tour, at the foot; add "Tours" once `/tours` is built). `/tour` and `/free-walking-tour` 301 here in one hop. Scrapbook stickers on the photos (art in `components/Doodles.tsx`, `components/MoreDoodles.tsx`, `components/ScrollSticker.tsx`). Sections in order:
+1. **HeroV2** (`app/_components/HeroV2.tsx`) — pill "The Norwich Free Walking Tour", H1 "England's best-kept medieval city.", cycling photos starting on Pottergate (`pottergate-walk.jpg`), own photo band on phones, trust row, booking widget. `id="top"`.
 2. **InfoBar** — When / Route / Price card.
-3. **WhatYouGet** — "What's on the tour?": three points (history and stories / highlights collage / life in Norwich today) on a dashed snaking route. Highlights collage is Tom's own photos (Cathedral, Guildhall, Britons Arms). `id="tour-map"` (a Google Ads sitelink lands on `/#tour-map`; `#faq` and `#reviews` too, keep all three ids).
+3. **WhatYouGet** — "What's on the tour?": three points (history and stories / highlights collage / life in Norwich today) on a dashed snaking route. Highlights collage is Tom's own photos (Cathedral, Guildhall, Britons Arms). `id="tour-map"` (Google Ads sitelinks land on `/tours/free-walking-tour#tour-map`, `#faq` and `#reviews`; keep all three ids).
 4. **Testimonials** + **ProofVideos** — reviews and guest videos as one block. Guest videos (`components/GuestReels.tsx`, data in `lib/guestReels.ts`) are by @miniinnorwich and @slow_you_down_buh, who agreed in writing; `CREATORS_OK = false` pulls them. `id="reviews"`.
 5. **YourGuides** — Our Guides polaroid cards, third-person bios. Guide list lives in `lib/guides.ts`, shared with `/our-guides`. `id="guides"`.
 6. **TheWalk** — Meet / Walk / Tip. `id="the-walk"`.
-7. **FAQ** with 8 visitor FAQs (`homeFaqs`), "Before you book." `id="faq"`.
+7. **FAQ** with 8 visitor FAQs (`homeFaqs`), "Before you book." `id="faq"`. Footer "FAQs", `/book` and `/what-is-a-free-tour` link here.
 8. **BookingSectionV2** (`phoneCta`) — "Free to book, tip what it was worth", widget on desktop, button on phones. `id="book-section"`.
 9. **EmailCapture** (`components/EmailCapture.tsx`) — "new tours first" list. Photo panel (Tombland photo left, form right). No tick box: pressing the button under a clear consent line is the opt-in. The same box sits alone on `/updates` (footer link "New tour updates", indexed, in sitemap) with the guides' faces, for social bio links and the end-of-tour QR (2026-09-27). Rejected: polaroid version, local/visitor toggle, a book-a-tour section under the /updates form.
-10. Best in Norwich promo (hidden until `CONTENT_READY`), internal-link row, **Footer**.
+10. Internal-link row, breadcrumbs, **Footer**.
 
-Do not use the `public/images/*-stock.png` photos: source unconfirmed (2026-10-17). The previous homepage (PhotoShowcaseV2, PhotoStrip gallery, ThemedRouteSection route map) is in git history; ThemedRouteSection still powers the tour pages.
+Links that mean "the free tour" go straight to `/tours/free-walking-tour` (nav "Free Walking Tour", footer "Norwich Free Walking Tour", `lib/tours.ts`, the Dark History page, the Free things to do and Where to stay articles), never via `/tour`. Logo, footer "Home" and the 404 page stay on `/`. Nav button reads "Book a tour" and goes to `/book`.
+
+Do not use the `public/images/*-stock.png` photos: source unconfirmed (2026-10-17). Older homepages (PhotoShowcaseV2, PhotoStrip gallery, ThemedRouteSection route map) are in git history; ThemedRouteSection still powers the tour pages. The Best in Norwich promo block that sat on the old homepage was not carried over (it was hidden behind `CONTENT_READY` anyway); find it in git history when the awards go live.
 
 Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). URL moved from `/about-us` to `/our-guides` on 2026-09-27; `/about` and `/about-us` both 301 to it. Cookie banner is a floating card with equal-weight Decline/Accept (UK guidance: reject as easy as accept).
 
-Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation with 7 dots (Hello, The tour, Reviews, Guides, How it works, FAQs, Book), dashed wiggly thread, animated travelling map-pin. Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
+Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation, dashed wiggly thread, animated travelling map-pin. Free tour page: 7 dots (Hello, The tour, Reviews, Guides, How it works, FAQs, Book); homepage: 6 (Hello, Our tours, Reviews, Free tours, Guides, FAQs). Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
 ### `/tour` — retired
-Removed 2026-10-17 when the new homepage went live. 301s to `/` (`next.config.mjs`). Tom moved the Google Ads sitelink off it first. Do not link to `/tour`.
+Removed 2026-10-17. 301s straight to `/tours/free-walking-tour` since the brand homepage move (`next.config.mjs`), as does `/free-walking-tour`. Do not link to `/tour`.
 
 ### `/book` — Book
 `<iframe src="https://norwich-booking.vercel.app/" />` — minimal surrounding page. Reinforces: "£0 to join. Pay at the end by card, Apple Pay, Google Pay or cash."

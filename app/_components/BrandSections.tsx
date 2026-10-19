@@ -1,4 +1,4 @@
-// Brand homepage prototype (/home-brand). The homepage becomes the
+// Homepage sections (built as the /home-brand prototype). The homepage is the
 // collective's front door, not one tour's page. Order (Tom 2026-10-18):
 // the crew's own header (map, tagline, faces, the deal), then the four tours
 // as their own section, each in its tour's look, then reviews and videos,
@@ -7,8 +7,7 @@
 // Real photos everywhere (Tom 2026-10-18: the drawn map looked AI-made).
 // Tour cards share one frame; each tour shows through its own photo
 // treatment, title lettering and colour.
-// The free tour's own page (today's /) is planned to move to
-// /tours/free-walking-tour.
+// The free tour has its own page at /tours/free-walking-tour.
 
 import Image from "next/image";
 import { Eater } from "next/font/google";
@@ -27,8 +26,12 @@ const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
-// Becomes /tours/free-walking-tour when the free tour moves.
-const FREE_TOUR_HREF = "/";
+const FREE_TOUR_HREF = "/tours/free-walking-tour";
+
+// /tours ("All tours & experiences") is still a hidden prototype. Until it is
+// built, the link under the tour cards stays off (the hero button already
+// jumps to #tours, where the cards are).
+const TOURS_HUB_READY = false;
 
 /* ── Tour data for this page ───────────────────────────────────────────── */
 
@@ -164,8 +167,11 @@ export function BrandHero() {
               love and discover Norwich.
             </span>
           </h1>
+          {/* The search words sit in the line under the mission (move plan §9). */}
           <p className="mt-4 text-[17px] md:text-[20px] leading-relaxed text-white/90 max-w-xl" style={lora}>
-            Walking tours and experiences, led by guides who live here.
+            {darkIsOn()
+              ? "Free walking tours, dark history and private walks, led by guides who live here."
+              : "Free walking tours and private walks, led by guides who live here."}
           </p>
           <div className="mt-7">
             <a
@@ -203,11 +209,13 @@ export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWa
           </h2>
         </div>
         <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} />
-        <p className="mt-6 text-center" style={lora}>
-          <WalkLink href="/tours" className="text-brand-accent-text">
-            All tours &amp; experiences →
-          </WalkLink>
-        </p>
+        {TOURS_HUB_READY && (
+          <p className="mt-6 text-center" style={lora}>
+            <WalkLink href="/tours" className="text-brand-accent-text">
+              All tours &amp; experiences →
+            </WalkLink>
+          </p>
+        )}
       </div>
     </section>
   );

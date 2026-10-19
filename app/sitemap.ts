@@ -14,6 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${base}/tours/free-walking-tour`,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${base}/what-is-a-free-tour`,
       changeFrequency: "monthly",
       priority: 0.8,

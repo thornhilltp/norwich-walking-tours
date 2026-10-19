@@ -353,7 +353,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                 <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </a>
               <a
-                href="/"
+                href="/tours/free-walking-tour"
                 className="italic text-white underline underline-offset-4 decoration-white/30 hover:decoration-white"
                 style={{ ...lora, textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >

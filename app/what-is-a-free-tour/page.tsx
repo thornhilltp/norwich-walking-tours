@@ -193,10 +193,10 @@ export default function WhatIsAFreeTourPage() {
             >
               Got more questions?{" "}
               <a
-                href="/#faq"
+                href="/tours/free-walking-tour#faq"
                 className="text-brand-accent hover:underline font-semibold"
               >
-                See the full FAQ &rarr;
+                See the Norwich Free Walking Tour FAQs &rarr;
               </a>
             </p>
           </div>

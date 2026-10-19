@@ -1,5 +1,6 @@
-// Homepage sections (built as /home-next, live on / since 2026-10-17): a
-// tourist-first homepage built the same way as the Dark History page: hero,
+// Free tour page sections (built as /home-next, the homepage from 2026-10-17
+// until the brand homepage move; now /tours/free-walking-tour). Tourist-first,
+// built the same way as the Dark History page: hero,
 // info card, three points with photos, proof, meet/walk/tip, guides, FAQs,
 // then book. Phone first. Guides come from lib/guides.ts, shared with
 // /our-guides.

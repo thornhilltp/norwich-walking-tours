@@ -17,7 +17,7 @@ import type { CSSProperties } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
-import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "./Doodles";
+import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "@/components/Doodles";
 import type { TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 

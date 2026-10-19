@@ -284,7 +284,7 @@ export default function BookPage() {
             </div>
             <p className="text-center mt-8 text-sm text-muted-foreground" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
               Got a different question?{" "}
-              <a href="/#faq" className="text-brand-accent hover:underline font-semibold">
+              <a href="/tours/free-walking-tour#faq" className="text-brand-accent hover:underline font-semibold">
                 See the full FAQ
               </a>
               {" "}or{" "}
