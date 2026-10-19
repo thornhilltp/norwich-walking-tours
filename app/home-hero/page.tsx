@@ -56,7 +56,7 @@ export default async function HomeHeroPreview({ searchParams }: { searchParams: 
       )}
       <Testimonials showCta={false} />
       <BrandBookingSheet />
-      <BrandStickyBar />
+      <BrandStickyBar revealAfter={polaroids ? "tours" : undefined} />
     </main>
   );
 }

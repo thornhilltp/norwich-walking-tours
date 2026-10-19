@@ -208,15 +208,37 @@ export function BookingSheet({ tabs, eaterFamily }: { tabs: BookingTab[]; eaterF
 
 /** Phones: this page's own sticky bar, "Book a tour", which opens the sheet.
     The site-wide free-tour bar is hidden on this page. */
-export function BrandStickyBar() {
+// `revealAfter` (an element id): the bar stays hidden while that element is
+// on screen or below, and slides in once the visitor has scrolled past it.
+// Used when the header has its own booking buttons (Tom 2026-10-19), so the
+// first screen doesn't show four of them.
+export function BrandStickyBar({ revealAfter }: { revealAfter?: string } = {}) {
+  const [shown, setShown] = useState(!revealAfter);
+  useEffect(() => {
+    if (!revealAfter) return;
+    const el = document.getElementById(revealAfter);
+    if (!el) {
+      setShown(true);
+      return;
+    }
+    const io = new IntersectionObserver(([entry]) => {
+      setShown(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [revealAfter]);
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3">
+    <div
+      aria-hidden={!shown}
+      className={`fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 transition-transform duration-300 ease-out motion-reduce:transition-none ${shown ? "translate-y-0" : "pointer-events-none translate-y-full"}`}
+    >
       <a
         href="#book-section"
         onClick={(e) => {
           e.preventDefault();
           openBooking("free", "brand_sticky");
         }}
+        tabIndex={shown ? undefined : -1}
         className="flex items-center justify-center w-full h-12 bg-brand-accent text-white rounded-xl text-[22px] font-bold"
         style={caveat}
       >
