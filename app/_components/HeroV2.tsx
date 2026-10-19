@@ -45,8 +45,6 @@ interface HeroV2Props {
   badge?: string;
   /** Override the background photo(s); defaults to heroSlides. */
   slides?: HeroSlide[];
-  /** Optional scrapbook sticker beside the headline (free tour page). */
-  sticker?: React.ReactNode;
 }
 
 const containerVariants = {
@@ -84,7 +82,6 @@ export function HeroV2({
   subsubheading,
   badge,
   slides,
-  sticker,
 }: HeroV2Props) {
   return (
     <section
@@ -119,8 +116,7 @@ export function HeroV2({
         variants={containerVariants}
       >
         {/* Left: Text */}
-        <div className="relative flex flex-col items-center text-center lg:items-start lg:text-left lg:w-1/2">
-          {sticker}
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:w-1/2">
 
           <motion.div variants={itemVariants} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>

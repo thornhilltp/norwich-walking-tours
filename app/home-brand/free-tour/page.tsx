@@ -1,16 +1,14 @@
 // Free tour page with scrapbook stickers: a hidden test copy of today's
 // homepage (the free tour's page, planned to move to
-// /tours/free-walking-tour). Tom 2026-10-19: stickers stuck ON the photos,
-// only the best ones, plus one in the hero for "voted the best place to
-// live in the UK". Each pops on as it scrolls into view, with its
-// handwritten question. Noindex, unlinked.
-//   Hero               Fine City sign: best place to live
-//   History & stories  Cathedral + Snap the dragon
-//   Highlights         Castle
-//   Life today         Lanes shopfront
-//   Tip                £ coin
-// (Elm Hill and the churches are left out: the section copy already asks
-// those questions.)
+// /tours/free-walking-tour). Round 3 (Tom 2026-10-19, after a UX review):
+// one small sticker per photo, matched to what the photo shows, a one or
+// two word label (the section copy already asks the questions), none in the
+// hero (it sat beside the booking button).
+//   Story by the river   Snap the dragon   "stories"
+//   Highlights collage   the Cathedral     "history"
+//   Life in Norwich      Fine City sign    "best place to live"
+//   Tip                  £ coin            "tip"
+// Noindex, unlinked.
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -24,8 +22,8 @@ import { HeroV2 } from "../../_components/HeroV2";
 import { Testimonials } from "../../_components/Testimonials";
 import { BookingSectionV2 } from "../../_components/BookingSectionV2";
 import { InfoBar, WhatYouGet, ProofVideos, TheWalk, YourGuides, homeFaqs } from "../../_components/HomeSections";
-import { CastleSticker, CoinSticker } from "../_components/Doodles";
-import { CathedralSticker, DragonSticker, FineCitySticker, ShopSticker } from "../_components/MoreDoodles";
+import { CoinSticker, StickerLabel } from "../_components/Doodles";
+import { CathedralSticker, DragonSticker, FineCitySticker } from "../_components/MoreDoodles";
 import { ScrollSticker } from "../_components/ScrollSticker";
 
 export const metadata: Metadata = {
@@ -35,34 +33,26 @@ export const metadata: Metadata = {
 
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 
-/** A sticker stuck on a photo, with its handwritten question. */
-function OnPhoto({ art, question, className, rotate }: { art: ReactNode; question: string; className: string; rotate: number }) {
+/** A small sticker stuck on a photo's corner, with a short label. */
+function OnPhoto({ art, label, className, rotate }: { art: ReactNode; label: string; className: string; rotate: number }) {
   return (
-    <ScrollSticker rotate={rotate} className={`flex w-[136px] md:w-[160px] flex-col items-center gap-1 text-center ${className}`}>
+    <ScrollSticker rotate={rotate} className={`flex flex-col items-center gap-0.5 ${className}`}>
       {art}
-      <span
-        className="rounded-md bg-[#FFFDF7] px-2 py-1 text-[16px] md:text-[18px] font-bold leading-[1.05] text-[#1A6B47] shadow-[0_2px_4px_rgba(60,40,20,0.3)]"
-        style={{ fontFamily: "var(--font-caveat), cursive" }}
-      >
-        {question}
-      </span>
+      <StickerLabel>{label}</StickerLabel>
     </ScrollSticker>
   );
 }
 
 const pointStickers = [
-  <>
-    <OnPhoto key="c" art={<CathedralSticker className="h-20 w-20" />} question="Why did the Normans build a cathedral this big?" className="-left-6 -top-14" rotate={-6} />
-    <OnPhoto key="d" art={<DragonSticker className="h-16 w-20" />} question="Who was Snap the dragon?" className="-right-12 -bottom-16" rotate={6} />
-  </>,
-  <OnPhoto key="k" art={<CastleSticker className="h-12 w-14" />} question="What was the Castle really for?" className="-left-8 -bottom-10" rotate={-5} />,
-  <OnPhoto key="s" art={<ShopSticker className="h-14 w-14" />} question="Why are there so many independent shops in Norwich?" className="-right-8 -top-12" rotate={5} />,
+  <OnPhoto key="d" art={<DragonSticker className="h-10 w-12" />} label="stories" className="-right-5 -bottom-7" rotate={6} />,
+  <OnPhoto key="c" art={<CathedralSticker className="h-14 w-14" />} label="history" className="-left-6 -top-10" rotate={-6} />,
+  <OnPhoto key="f" art={<FineCitySticker className="h-10 w-14" />} label="best place to live" className="-right-6 -top-9" rotate={5} />,
 ];
 
 const beatStickers = [
   null,
   null,
-  <OnPhoto key="t" art={<CoinSticker className="h-12 w-12" />} question="How much should you tip?" className="-left-28 md:-left-24 -bottom-8" rotate={-6} />,
+  <OnPhoto key="t" art={<CoinSticker className="h-9 w-9" />} label="tip" className="-left-6 -bottom-5" rotate={-6} />,
 ];
 
 export default function FreeTourStickerPrototype() {
@@ -83,14 +73,6 @@ export default function FreeTourStickerPrototype() {
         buttonText="Book your spot (free)"
         buttonHref="#book-section"
         widget={<BookingFrame priority height={520} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />}
-        sticker={
-          <OnPhoto
-            art={<FineCitySticker className="h-14 w-20 md:h-16 md:w-24" />}
-            question="Why was Norwich voted the best place to live in the UK?"
-            className="hidden lg:flex lg:right-0 lg:bottom-2"
-            rotate={6}
-          />
-        }
       />
       <InfoBar />
       <WhatYouGet stickers={pointStickers} />
