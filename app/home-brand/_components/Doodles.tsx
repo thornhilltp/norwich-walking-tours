@@ -4,7 +4,7 @@
 //   stories     a canary: Norwich's Flemish "Strangers" bred canaries, which
 //               is why Norwich City are the Canaries
 //   local tips  a coffee cup
-// Plus castle (highlights), map pin (meet), footsteps (walk), coin (tip).
+// Plus castle (highlights) and coin (tip). More in MoreDoodles.tsx.
 // Shared so the free tour's own page can use them as its section marks.
 
 import type { CSSProperties, ReactNode } from "react";
@@ -73,25 +73,6 @@ export function CastleSticker({ className = "h-11 w-12" }: { className?: string 
       <path d="M6 50 V8 H12 V14 H18 V8 H24 V14 H30 V8 H36 V14 H42 V8 H48 V14 H54 V8 H60 V50 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.5" />
       <path d="M14 28 V24 Q17 20 20 24 V28 Z M30 28 V24 Q33 20 36 24 V28 Z M46 28 V24 Q49 20 52 24 V28 Z" fill="none" stroke={GREEN} strokeWidth="2" />
       <path d="M28 50 V40 Q33 33 38 40 V50" fill="none" stroke={GREEN} strokeWidth="2.5" />
-    </Sticker>
-  );
-}
-
-export function PinSticker({ className = "h-12 w-10" }: { className?: string }) {
-  return (
-    <Sticker viewBox="-16 -42 32 44" className={className}>
-      <path d="M0 0 C -9 -11 -14 -18 -14 -26 A 14 14 0 1 1 14 -26 C 14 -18 9 -11 0 0 Z" fill={GREEN} stroke={INK} strokeWidth="2" />
-      <circle cx="0" cy="-26" r="5.5" fill="#FFFDF7" stroke="none" />
-    </Sticker>
-  );
-}
-
-export function FootstepsSticker({ className = "h-11 w-12" }: { className?: string }) {
-  return (
-    <Sticker viewBox="0 0 56 48" className={className}>
-      <ellipse cx="16" cy="32" rx="6" ry="10" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.5" transform="rotate(-18 16 32)" />
-      <ellipse cx="38" cy="16" rx="6" ry="10" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.5" transform="rotate(-18 38 16)" />
-      <path d="M12 44 Q16 46 20 44 M34 28 Q38 30 42 28" fill="none" stroke={GREEN} strokeWidth="2" />
     </Sticker>
   );
 }
