@@ -229,10 +229,10 @@ export function BrandHeroPolaroids({
         <>
           <HeroSlideshow slides={HERO_SLIDES} />
           <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
-          <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.35) 100%)" }} />
+          <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.5) 100%)" }} />
         </>
       )}
-      <div className={`brand-container max-w-6xl flex flex-col gap-7 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10 pt-28 pb-10 lg:pb-16 ${onPhoto ? "min-h-[86svh] justify-end lg:min-h-[90vh]" : "lg:min-h-[80vh]"}`}>
+      <div className={`brand-container max-w-6xl flex flex-col gap-7 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-8 pt-28 pb-10 lg:pb-16 ${onPhoto ? "min-h-[86svh] justify-end lg:min-h-[90vh]" : "lg:min-h-[80vh]"}`}>
         <div className="max-w-xl text-left" style={onPhoto ? { textShadow: "0 2px 12px rgba(0,0,0,0.4)" } : undefined}>
           <h1 className="leading-[1.0]">
             <span className={`block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] ${onPhoto ? "text-white" : "text-brand-text"}`} style={lora}>

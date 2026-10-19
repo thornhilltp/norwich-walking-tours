@@ -13,12 +13,12 @@
 //   Desktop: polaroid + one line + button.  Phones: a list with arrows.
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
 import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "@/components/Doodles";
-import { openBooking, type TourCardData } from "./BrandBooking";
+import type { TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 
 
@@ -109,7 +109,50 @@ function hoverFor(key: TourCardData["key"]) {
 }
 
 /** The polaroid itself: same shape for every tour, each in its own light. */
-function Polaroid({ c, i, eater, small, mid }: { c: TourCardData; i: number; eater: CSSProperties; small?: boolean; mid?: boolean }) {
+/** Private tours' touch (Tom 2026-10-19: the plain polaroid was boring): a
+    brown-paper luggage tag on a string, "Reserved for your group". */
+function ReservedTag({ small }: { small?: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={`absolute z-30 origin-top-left transition-transform duration-500 ease-out group-hover:rotate-[4deg] ${small ? "-right-3 top-[30%] w-[58px]" : "-right-10 top-[26%] w-[104px]"}`}
+      style={{ transform: "rotate(14deg)" }}
+    >
+      <svg viewBox="0 0 104 54" className="block w-full drop-shadow-[0_3px_4px_rgba(0,0,0,0.35)]">
+        <path d="M14 2 H100 a2 2 0 0 1 2 2 V50 a2 2 0 0 1 -2 2 H14 L2 40 V14 Z" fill="#C9A06A" />
+        <path d="M14 2 H100 a2 2 0 0 1 2 2 V50 a2 2 0 0 1 -2 2 H14 L2 40 V14 Z" fill="none" stroke="#A97E46" strokeWidth="1.2" strokeDasharray="3 3" transform="translate(3 3) scale(0.94)" />
+        <circle cx="14" cy="27" r="4.5" fill="#FCFAF8" stroke="#8C6634" strokeWidth="1.5" />
+        <path d="M14 27 C 6 22, -2 18, -10 8" fill="none" stroke="#5B4630" strokeWidth="1.2" />
+        <text x="60" y="24" textAnchor="middle" fontFamily="var(--font-caveat), cursive" fontWeight="700" fontSize="17" fill="#3B2A16">
+          Reserved
+        </text>
+        <text x="60" y="42" textAnchor="middle" fontFamily="var(--font-caveat), cursive" fontWeight="700" fontSize="13" fill="#3B2A16">
+          {small ? "" : "for your group"}
+        </text>
+      </svg>
+    </span>
+  );
+}
+
+function Polaroid({
+  c,
+  i,
+  eater,
+  small,
+  mid,
+  hero,
+  extra,
+}: {
+  c: TourCardData;
+  i: number;
+  eater: CSSProperties;
+  small?: boolean;
+  mid?: boolean;
+  /** In the header, on photos: Dark History glows, Private gets its tag. */
+  hero?: boolean;
+  /** More lines under the name, inside the frame. */
+  extra?: ReactNode;
+}) {
   const dark = c.key === "dark";
   const soon = c.key === "soon";
   const free = c.key === "free";
@@ -120,8 +163,15 @@ function Polaroid({ c, i, eater, small, mid }: { c: TourCardData; i: number; eat
   return (
     <figure
       className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : mid ? "p-2 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
-      style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : "#FFFFFF", borderColor: dark ? "#2A2724" : free ? "#E6D7BF" : "#EAE0D4" } as CSSProperties}
+      style={{
+        ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`,
+        backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : "#FFFFFF",
+        borderColor: dark ? (hero ? "rgba(90,225,158,0.55)" : "#2A2724") : free ? "#E6D7BF" : "#EAE0D4",
+        // Lantern light round Dark History, so it lifts off a dark photo.
+        ...(hero && dark ? { boxShadow: "0 0 0 1px rgba(90,225,158,0.25), 0 0 34px 4px rgba(90,225,158,0.38), 2px 14px 28px -12px rgba(0,0,0,0.8)" } : {}),
+      } as CSSProperties}
     >
+      {hero && c.key === "private" && <ReservedTag small={small} />}
       {dark && !small && (
         <span className={`absolute z-20 origin-top ${mid ? "-top-9 right-2 scale-[0.6]" : "-top-12 right-3 scale-75"}`}>
           <StoryLantern />
@@ -165,6 +215,7 @@ function Polaroid({ c, i, eater, small, mid }: { c: TourCardData; i: number; eat
           <span className="block" style={caption}>
             {c.name}
           </span>
+          {extra}
         </figcaption>
       )}
     </figure>
@@ -316,27 +367,29 @@ function heroWhen(c: TourCardData) {
   return `Next: ${c.next.label}${few}`;
 }
 
-function HeroButton({ c, eater, onPhoto }: { c: TourCardData; eater: CSSProperties; onPhoto: boolean }) {
-  const base = "inline-flex items-center gap-2 rounded-full px-4 min-h-[44px] transition-all hover:gap-3";
-  if (c.key === "private")
-    return (
-      <a href={c.href} onClick={() => trackEvent("book_cta_click", { location: "hero_polaroid_private" })} className={`${base} border-2 ${onPhoto ? "border-white/80 text-white" : "border-brand-text/70 text-brand-text"}`} style={{ ...lora, fontSize: 15, fontWeight: 600 }}>
-        Ask us <span aria-hidden>→</span>
-      </a>
-    );
-  const dark = c.key === "dark";
+// Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
+// overlapping like prints dropped on a table; no route line on the photos;
+// the name, next walk and the ask all sit in the frame's bottom strip.
+const PILE = [
+  { left: 0, top: 46, rot: -5 },
+  { left: 220, top: 0, rot: 3 },
+  { left: 440, top: 58, rot: -2 },
+];
+
+function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
+  const ask = c.key === "private" ? "Ask about a date" : "See dates & book";
   return (
-    <a
-      href={c.href}
-      onClick={(e) => {
-        e.preventDefault();
-        openBooking(dark ? "dark" : "free", `hero_polaroid_${c.key}`);
-      }}
-      className={`${base} ${dark ? "border border-[#5AE19E]/60 shadow-[0_0_14px_rgba(90,225,158,0.3)]" : "bg-brand-accent text-white shadow-md"}`}
-      style={dark ? { ...eater, backgroundColor: NIGHT, color: GLOW, fontSize: 15 } : { ...caveat, fontSize: 22, fontWeight: 700 }}
-    >
-      Book free <span aria-hidden>→</span>
-    </a>
+    <>
+      <span className={`mt-1.5 block text-[13px] leading-snug ${onDark ? "text-white/75" : "text-brand-text/70"}`} style={lora}>
+        {heroWhen(c)}
+      </span>
+      <span
+        className={`mt-1.5 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-all group-hover:gap-2.5 ${onDark ? "text-[#5AE19E]" : c.key === "free" ? "text-[#1A6B47]" : "text-brand-text"}`}
+        style={lora}
+      >
+        {ask} <span aria-hidden>→</span>
+      </span>
+    </>
   );
 }
 
@@ -350,7 +403,7 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
         {cards.map((c, i) => (
           <li key={c.key} className={c.key === "free" ? "relative z-20" : "relative"}>
             <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
-              <Polaroid c={c} i={i} eater={eater} small />
+              <Polaroid c={c} i={i} eater={eater} small hero={onPhoto} />
               <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
                 {SHORT_NAME[c.key]}
               </p>
@@ -361,25 +414,23 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
           </li>
         ))}
       </ol>
-      {/* Desktop: staggered along the route */}
-      <div className="relative hidden lg:block">
-        <Route className="-left-[6%] top-[20%] h-44 w-[112%]" />
-        <ol className="relative m-0 flex list-none items-start gap-6 p-0 pt-12">
-          {cards.map((c, i) => (
-            <li key={c.key} className={`w-[200px] ${["mt-0", "mt-16", "mt-5"][i % 3]} ${c.key === "free" ? "relative z-20" : "relative z-10"}`}>
-              <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block" aria-label={`${c.name}: more about this tour`}>
-                <Polaroid c={c} i={i} eater={eater} mid />
+      {/* Desktop: a loose pile of prints */}
+      <ol className="relative hidden lg:block m-0 list-none p-0 h-[470px] w-[676px]">
+        {cards.map((c, i) => {
+          const p = PILE[i % PILE.length];
+          return (
+            <li
+              key={c.key}
+              className="absolute w-[236px] z-[var(--z)] hover:z-40"
+              style={{ left: p.left, top: p.top, ["--z" as string]: c.key === "dark" ? 30 : 20 - i, transform: `rotate(${p.rot}deg)` } as CSSProperties}
+            >
+              <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
+                <Polaroid c={c} i={i} eater={eater} mid hero={onPhoto} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
               </a>
-              <p className={`mt-3 text-[13px] font-semibold leading-snug ${when}`} style={lora}>
-                {heroWhen(c)}
-              </p>
-              <p className="mt-2">
-                <HeroButton c={c} eater={eater} onPhoto={onPhoto} />
-              </p>
             </li>
-          ))}
-        </ol>
-      </div>
+          );
+        })}
+      </ol>
     </div>
   );
 }
