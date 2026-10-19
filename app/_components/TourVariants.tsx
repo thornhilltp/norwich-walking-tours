@@ -164,7 +164,8 @@ function Polaroid({
     <figure
       className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : mid ? "p-2 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
       style={{
-        ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`,
+        // Header: the free tour sits straight (Tom 2026-10-19).
+        ["--r" as string]: hero && free ? "0deg" : `${i % 2 === 0 ? -2 : 2}deg`,
         backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : "#FFFFFF",
         borderColor: dark ? (hero ? "rgba(90,225,158,0.55)" : "#2A2724") : free ? "#E6D7BF" : "#EAE0D4",
         // Lantern light round Dark History, so it lifts off a dark photo.
@@ -403,9 +404,9 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
 // overlapping like prints dropped on a table; no route line on the photos;
 // the name, next walk and the ask all sit in the frame's bottom strip.
 const PILE = [
-  { left: 0, top: 46, rot: -5 },
-  { left: 220, top: 0, rot: 3 },
-  { left: 440, top: 58, rot: -2 },
+  { left: 0, top: 46, rot: -4 },
+  { left: 220, top: 0, rot: 0 },
+  { left: 440, top: 58, rot: 3 },
 ];
 
 function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
