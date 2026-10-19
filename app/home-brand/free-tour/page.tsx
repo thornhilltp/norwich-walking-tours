@@ -52,7 +52,7 @@ const pointStickers = [
 const beatStickers = [
   null,
   null,
-  <OnPhoto key="t" art={<CoinSticker className="h-9 w-9" />} label="tip" className="-left-6 -bottom-5" rotate={-6} />,
+  <OnPhoto key="t" art={<CoinSticker className="h-9 w-9" />} label="tip" className="-right-7 -bottom-6" rotate={6} />,
 ];
 
 // Header photos cycle like the brand homepage (Tom 2026-10-19), slower, as
