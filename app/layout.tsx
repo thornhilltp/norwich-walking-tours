@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     "Norwich guided tour",
     "what to do in Norwich",
   ],
-  alternates: {
-    canonical: "https://www.norwichfreewalkingtours.co.uk",
-  },
+  // No canonical here: Next.js passes it down to every page that doesn't set
+  // its own, which told Google those pages were copies of the homepage. Each
+  // indexable page sets its own (self) canonical.
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
