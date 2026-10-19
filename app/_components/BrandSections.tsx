@@ -1,12 +1,10 @@
 // Homepage sections (built as the /home-brand prototype). The homepage is the
-// collective's front door, not one tour's page. Order (Tom 2026-10-18):
-// the crew's own header (map, tagline, faces, the deal), then the four tours
-// as their own section, each in its tour's look, then reviews and videos,
-// what a free tour is, one booking box for every tour, guides, FAQs, email.
+// collective's front door, not one tour's page. Order (Tom 2026-10-19): the
+// header, which carries the tours as polaroids, then reviews, what a free
+// tour is, guides, FAQs, email.
 //
 // Real photos everywhere (Tom 2026-10-18: the drawn map looked AI-made).
-// Tour cards share one frame; each tour shows through its own photo
-// treatment, title lettering and colour.
+// Each tour shows through its own polaroid treatment, lettering and colour.
 // The free tour has its own page at /tours/free-walking-tour.
 
 import Image from "next/image";
@@ -17,8 +15,7 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { GoogleLogo, TripAdvisorLogo } from "./Testimonials";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
-import { HeroPolaroids, TourCards } from "./TourVariants";
-import { HeroTourChoices, type HeroChoiceVariant } from "./HeroTourChoices";
+import { HeroPolaroids } from "./TourVariants";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
 
@@ -29,11 +26,6 @@ const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
 const FREE_TOUR_HREF = "/tours/free-walking-tour";
-
-// /tours ("All tours & experiences") is still a hidden prototype. Until it is
-// built, the link under the tour cards stays off (the hero button already
-// jumps to #tours, where the cards are).
-const TOURS_HUB_READY = false;
 
 /* ── Tour data for this page ───────────────────────────────────────────── */
 
@@ -94,19 +86,6 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       image: { src: "/images/tour/group-cathedral-close.jpg", alt: "A tour group standing together with their guide by Norwich Market" },
       badge: "Your group",
     },
-    {
-      key: "soon",
-      vibe: "On the way",
-      name: "Something new",
-      meta: "",
-      hook: "A new way to see Norwich is coming. Hear about it first.",
-      perfectFor: "being first to hear",
-      sub: "A new way to see Norwich is on the way.",
-      action: "Tell me first",
-      href: "#updates",
-      badge: "Coming soon",
-      image: { src: "/images/tour/group-cobbled-lane.jpg", alt: "" },
-    },
   ];
   return darkIsOn() ? list : list.filter((c) => c.key !== "dark");
 }
@@ -120,15 +99,16 @@ function bookingTabs(): BookingTab[] {
   return darkIsOn() ? list : list.filter((t) => t.key !== "dark");
 }
 
-/* ── Shared bits ───────────────────────────────────────────────────────── */
+/* ── 1. Header: who we are, and the tours as polaroids ─────────────────── */
 
-/* ── 1. Header: a real photo, who we are, one button ───────────────────── */
-
-// Pattern from Shoebox, Sandemans and Free Tours by Foot: real photos, one
-// line, one button, all centred. Tom 2026-10-18: no booking card or faces
-// up here (it looked AI-made); the photos cycle; "Featured on" and the
-// ratings sit under the button. The tours section below does the choosing.
-// Pro shoots only (Tom 2026-10-18), wide Norwich shots mixed with groups.
+// Tom 2026-10-19 (picked from five header options he previewed): the
+// cycling pro photos stay behind; the mission line sits left; the tours are
+// taped polaroids on the right (a row on phones) and replace the old
+// "Pick your walk" section. Photo = the tour's page; button = booking pop-up.
+// Dark History on the left with a neon glow, the free tour straight in the
+// middle, Private with a "Reserved" luggage tag. No sub line (the polaroids
+// say what the tours are). Rating badges and "Featured on" under the
+// headline. Pro shoots only, wide Norwich shots mixed with groups.
 const HERO_SLIDES: HeroSlide[] = [
   {
     src: "/images/tour/group-city-hall-walk.jpg",
@@ -139,137 +119,46 @@ const HERO_SLIDES: HeroSlide[] = [
   { src: "/images/tour/group-street-laughing.jpg", alt: "", position: "40% 40%" },
   { src: "/images/tour/tom-erpingham-gate.jpg", alt: "", position: "center 45%" },
   { src: "/images/tour/elm-hill-lane.jpg", alt: "", position: "center 60%" },
-]
+];
 
-function Ratings() {
-  return (
-    <p className="text-[14px] text-white/85" style={lora}>
-      <span aria-hidden="true" className="text-[#F4B400]">★★★★★</span>{" "}
-      <strong className="text-white">{googleReviewStats.rating.toFixed(1)}</strong> Google ({googleReviewStats.count}) ·{" "}
-      <strong className="text-white">{tripAdvisorStats.rating.toFixed(1)}</strong> TripAdvisor ({tripAdvisorStats.count})
-    </p>
-  );
-}
+const HERO_ORDER: TourCardData["key"][] = ["dark", "free", "private"];
 
-// Tom 2026-10-18: cycling photos, text and button left-aligned.
-// `choice` swaps the one button for a pick-your-tour block (prototypes on
-// /home-hero, Tom 2026-10-19). Without it the header renders as live.
-export function BrandHero({
-  choice,
-  next,
-}: {
-  choice?: HeroChoiceVariant;
-  next?: { free: NextWalk | null; dark: NextWalk | null };
-} = {}) {
+export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
+  const cards = tourCards(next).sort((a, b) => HERO_ORDER.indexOf(a.key) - HERO_ORDER.indexOf(b.key));
   return (
     <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: "#121211" }}>
       <HeroSlideshow slides={HERO_SLIDES} />
-      <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.85) 100%)" }} />
-      <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.12) 80%)" }} />
-      <div className="brand-container max-w-6xl flex min-h-[86svh] lg:min-h-[90vh] items-end lg:items-center pt-28 pb-10 lg:pb-16">
-        <div className="max-w-2xl text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+      <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
+      <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.5) 100%)" }} />
+      <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end gap-7 pt-28 pb-10 lg:grid lg:min-h-[90vh] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-8 lg:pb-16">
+        <div className="max-w-xl text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
           {/* Mission line as the headline (Tom 2026-10-18). */}
           <h1 className="leading-[1.0]">
-            <span className="block text-[clamp(30px,4.2vw,56px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
+            <span className="block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
               Helping locals and travellers
             </span>
-            <span className="block text-[clamp(44px,6vw,88px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
+            <span className="block text-[clamp(44px,4.5vw,68px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
               love and discover Norwich.
             </span>
           </h1>
-          {/* The search words sit in the line under the mission (move plan §9). */}
-          <p className="mt-4 text-[17px] md:text-[20px] leading-relaxed text-white/90 max-w-xl" style={lora}>
-            {darkIsOn()
-              ? "Free walking tours, dark history and private walks, led by guides who live here."
-              : "Free walking tours and private walks, led by guides who live here."}
-          </p>
-          <div className="mt-7">
-            {choice ? (
-              <HeroTourChoices
-                variant={choice}
-                next={next ?? { free: null, dark: null }}
-                darkOn={darkIsOn()}
-                eaterFamily={eater.style.fontFamily}
-              />
-            ) : (
-              <a
-                href="#tours"
-                className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 min-h-[54px] text-[24px] font-bold text-white shadow-lg hover:opacity-90"
-                style={caveat}
-              >
-                Explore tours &amp; experiences
-              </a>
-            )}
-          </div>
-          <div className="mt-9 flex flex-col items-start gap-4">
-            <PartnerLogosInverted size="sm" label="Featured on" className="[&_p]:!text-left [&_ul]:!justify-start" />
-            <Ratings />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Prototype (Tom 2026-10-19, /home-hero d and e): the tour polaroids fill
-// the header's right-hand side and replace the "Pick your walk" section.
-//   photo  the cycling photos stay behind; polaroids sit on them
-//   cream  no photo behind; the polaroids are the pictures
-export function BrandHeroPolaroids({
-  next,
-  look,
-}: {
-  next: { free: NextWalk | null; dark: NextWalk | null };
-  look: "photo" | "cream";
-}) {
-  const onPhoto = look === "photo";
-  // Free tour in the middle, Dark History on the left (Tom 2026-10-19).
-  const order = ["dark", "free", "private"];
-  const cards = tourCards(next)
-    .filter((c) => c.key !== "soon")
-    .sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key));
-  return (
-    <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: onPhoto ? "#121211" : "#FCFAF8" }}>
-      {onPhoto && (
-        <>
-          <HeroSlideshow slides={HERO_SLIDES} />
-          <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
-          <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.5) 100%)" }} />
-        </>
-      )}
-      <div className={`brand-container max-w-6xl flex flex-col gap-7 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-8 pt-28 pb-10 lg:pb-16 ${onPhoto ? "min-h-[86svh] justify-end lg:min-h-[90vh]" : "lg:min-h-[80vh]"}`}>
-        <div className="max-w-xl text-left" style={onPhoto ? { textShadow: "0 2px 12px rgba(0,0,0,0.4)" } : undefined}>
-          <h1 className="leading-[1.0]">
-            <span className={`block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] ${onPhoto ? "text-white" : "text-brand-text"}`} style={lora}>
-              Helping locals and travellers
-            </span>
-            <span className={`block text-[clamp(44px,4.5vw,68px)] font-semibold leading-[0.95] ${onPhoto ? "text-[#7BE0AC]" : "text-brand-accent"}`} style={caveat}>
-              love and discover Norwich.
-            </span>
-          </h1>
-          {/* Tom 2026-10-19: no sub line; the polaroids say what the tours are. */}
           <div className="mt-9 hidden lg:flex flex-col items-start gap-5">
-            <HeroProof onPhoto={onPhoto} />
+            <HeroProof />
           </div>
         </div>
-        <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto={onPhoto} />
+        <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto />
         <div className="flex flex-col items-start gap-5 pt-2 lg:hidden">
-          <HeroProof onPhoto={onPhoto} />
+          <HeroProof />
         </div>
       </div>
     </section>
   );
 }
 
-function HeroProof({ onPhoto }: { onPhoto: boolean }) {
+function HeroProof() {
   return (
     <>
       <RatingBadges />
-      <PartnerLogosInverted
-        size="sm"
-        label="Featured on"
-        className={`mt-2 [&_p]:!text-left [&_ul]:!justify-start ${onPhoto ? "" : "[&_p]:!text-brand-text/55 [&_a]:![filter:brightness(0)]"}`}
-      />
+      <PartnerLogosInverted size="sm" label="Featured on" className="mt-2 [&_p]:!text-left [&_ul]:!justify-start" />
     </>
   );
 }
@@ -313,36 +202,7 @@ function RatingBadges() {
   );
 }
 
-/* ── 2. The tours, each in its own look ───────────────────────────────── */
-
-export function OurTours({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
-  return (
-    <section id="tours" className="scroll-mt-16 py-14 md:py-20 bg-white border-t border-brand-accent/10">
-      <div className="brand-container max-w-6xl">
-        <div className="text-center mb-4 md:mb-6">
-          <h2 className="leading-[1.0]">
-            <span className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
-              Pick your
-            </span>{" "}
-            <span className="inline text-[clamp(42px,5vw,64px)] leading-[0.95] text-brand-accent" style={caveat}>
-              <WalkUnderline>walk.</WalkUnderline>
-            </span>
-          </h2>
-        </div>
-        <TourCards cards={tourCards(next)} eaterFamily={eater.style.fontFamily} />
-        {TOURS_HUB_READY && (
-          <p className="mt-6 text-center" style={lora}>
-            <WalkLink href="/tours" className="text-brand-accent-text">
-              All tours &amp; experiences →
-            </WalkLink>
-          </p>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ── 3. What's a free walking tour? ─────────────────────────────────────── */
+/* ── 2. What's a free walking tour? ─────────────────────────────────────── */
 
 // Job: answer "what's the catch?" (Tom 2026-10-18). The format first, in
 // his words, then why we do it: so anyone can come. One link, no steps.

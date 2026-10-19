@@ -14,7 +14,6 @@ import {
   BrandBookingSheet,
   BrandHero,
   WhatIsFree,
-  OurTours,
   brandFaqs,
 } from "./_components/BrandSections";
 import { BrandStickyBar } from "./_components/BrandBooking";
@@ -63,15 +62,14 @@ export default async function HomePage() {
       <ScrollTrail
         sections={[
           { id: "top", label: "Hello" },
-          { id: "tours", label: "Our tours" },
           { id: "reviews", label: "Reviews" },
           { id: "free-tours", label: "Free tours" },
           { id: "guides", label: "Guides" },
           { id: "faq", label: "FAQs" },
         ]}
       />
-      <BrandHero />
-      <OurTours next={next} />
+      {/* The tours live in the header as polaroids (Tom 2026-10-19). */}
+      <BrandHero next={next} />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <WhatIsFree />
@@ -107,7 +105,8 @@ export default async function HomePage() {
         ]}
       />
       <BrandBookingSheet />
-      <BrandStickyBar />
+      {/* Hidden until the header's tour buttons scroll away (Tom 2026-10-19). */}
+      <BrandStickyBar revealAfter="tours" />
     </main>
   );
 }

@@ -1,26 +1,20 @@
 "use client";
 
-// Tours and experiences (Tom 2026-10-18: less text, an obvious ask). The
-// walking route runs BEHIND the polaroids, properly wobbly; one tap target
-// per tour; each tour's hover in its own mood. Dark History's polaroid has
-// the pop-up-book pieces from Holly's reel (Cathedral, Castle, grey girl).
-// The free tour gets its own touch, built from its promise ("our favourite
-// Norwich history, stories and local tips", Tom 2026-10-18): Norwich
-// Market's striped awning over a polaroid in the guides' cream (#F5EBDA), and three scrapbook
-// stickers (Doodles.tsx): Cathedral spire (history), canary (stories),
-// coffee cup (local tips).
-// Each card shows the next bookable walk, read live from the booking app.
-//   Desktop: polaroid + one line + button.  Phones: a list with arrows.
+// The tours as taped polaroids in the homepage header (Tom 2026-10-19).
+// Each in its own look: Dark History night-black with a neon glow, the
+// pop-up-book pieces from Holly's reel (Cathedral, Castle, grey girl) and a
+// lantern; the free tour in the guides' cream (#F5EBDA) under Norwich
+// Market's striped awning; Private with a "Reserved" luggage tag.
+// Each shows the next bookable walk, read live from the booking app.
+//   Desktop: a loose pile of prints.  Phones: a row of three with buttons.
 
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
-import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "@/components/Doodles";
 import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
-
 
 const lora: CSSProperties = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat: CSSProperties = { fontFamily: "var(--font-caveat), cursive" };
@@ -31,18 +25,6 @@ const sepia: CSSProperties = { filter: "sepia(0.55) contrast(1.15) brightness(0.
 const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
 
 /* ── Shared pieces ─────────────────────────────────────────────────────── */
-
-/** A very wobbly dashed route, drawn behind the polaroids. */
-function Route({ vertical, className }: { vertical?: boolean; className: string }) {
-  const d = vertical
-    ? "M50 0 C 10 5, 90 12, 50 20 S 5 33, 50 40 S 95 53, 50 60 S 5 73, 50 80 S 95 93, 50 100"
-    : "M0 50 C 5 8, 12 92, 20 50 S 33 6, 40 50 S 53 94, 60 50 S 73 6, 80 50 S 93 94, 100 50";
-  return (
-    <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="none" className={`pointer-events-none absolute z-0 ${className}`}>
-      <path d={d} fill="none" stroke={GREEN} strokeOpacity="0.5" strokeWidth="3.5" strokeDasharray="8 9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-    </svg>
-  );
-}
 
 /** Dark History's pop-up pieces. Hover devices: folded flat until hover;
     phones: standing all the time. */
@@ -75,29 +57,6 @@ function AwningTouch({ small }: { small?: boolean }) {
         return <path key={k} d={`M${x} 0 H${x + w} V14 A${w / 2} ${w / 2} 0 0 1 ${x} 14 Z`} fill={stripes[k % stripes.length]} />;
       })}
     </svg>
-  );
-}
-
-/** History, stories, local tips: scrapbook stickers stuck on the free
-    tour's polaroid (Tom 2026-10-18), kept inside its edges so they don't
-    clash with the cards either side. Pop on hover; always out on touch. */
-function Doodles() {
-  const sticker = `${s.doodle} absolute z-20 flex flex-col items-center gap-0.5`;
-  return (
-    <>
-      <span className={`${sticker} -left-3 top-12`} style={{ ["--d" as string]: "0ms", ["--r" as string]: "-8deg" } as CSSProperties}>
-        <SpireSticker className="h-14 w-8" />
-        <StickerLabel className="-rotate-6">history</StickerLabel>
-      </span>
-      <span className={`${sticker} -right-4 top-[38%]`} style={{ ["--d" as string]: "120ms", ["--r" as string]: "7deg" } as CSSProperties}>
-        <CanarySticker className="h-11 w-[52px]" />
-        <StickerLabel className="rotate-3">stories</StickerLabel>
-      </span>
-      <span className={`${sticker} left-[8%] bottom-[96px]`} style={{ ["--d" as string]: "240ms", ["--r" as string]: "-4deg" } as CSSProperties}>
-        <CupSticker className="h-10 w-10" />
-        <StickerLabel className="-rotate-2">local tips</StickerLabel>
-      </span>
-    </>
   );
 }
 
@@ -179,7 +138,6 @@ function Polaroid({
         </span>
       )}
       {free && <AwningTouch small={small} />}
-      {free && !small && !mid && <Doodles />}
       {showTape && (
         <span
           aria-hidden="true"
@@ -232,125 +190,10 @@ function hrefOf(c: TourCardData) {
   return c.details ?? c.href;
 }
 
-function actionOf(c: TourCardData) {
-  if (c.key === "free" || c.key === "dark") return "See dates & book";
-  if (c.key === "private") return "Ask about a date";
-  return "Tell me first";
-}
+/* ── Header: the three walks as polaroids ────────────────────────────── */
 
-/** One button per card, in the tour's own style (Dark History: black,
-    glowing Eater lettering, as on its own page). */
-function CardButton({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
-  const base = "inline-flex items-center gap-2 rounded-full px-5 min-h-[46px] transition-all group-hover:gap-3";
-  if (c.key === "dark")
-    return (
-      <span className={`${base} border border-[#5AE19E]/60 shadow-[0_0_14px_rgba(90,225,158,0.3)]`} style={{ ...eater, backgroundColor: NIGHT, color: GLOW, fontSize: 15 }}>
-        {actionOf(c)} <span aria-hidden>→</span>
-      </span>
-    );
-  if (c.key === "free")
-    return (
-      <span className={`${base} bg-brand-accent text-white shadow-md`} style={{ ...caveat, fontSize: 22, fontWeight: 700 }}>
-        {actionOf(c)} <span aria-hidden>→</span>
-      </span>
-    );
-  return (
-    <span className={`${base} border-2 border-brand-text/70 text-brand-text`} style={{ ...lora, fontSize: 15, fontWeight: 600 }}>
-      {actionOf(c)} <span aria-hidden>→</span>
-    </span>
-  );
-}
-
-/** Live "next walk" line from the booking app. */
-function NextLine({ c }: { c: TourCardData }) {
-  if (!c.next) return null;
-  const dark = c.key === "dark";
-  const few = c.next.spotsLeft <= 6;
-  return (
-    <p className="mt-1.5 flex items-center gap-2 text-[14px] font-semibold text-brand-text/80" style={lora}>
-      <span aria-hidden className={`${s.dot} inline-block h-2 w-2 rounded-full`} style={{ backgroundColor: dark ? "#3FB97E" : GREEN }} />
-      Next: {c.next.label}
-      {few && <span className="text-[#B4532A]">· {c.next.spotsLeft === 1 ? "1 spot" : `${c.next.spotsLeft} spots`} left</span>}
-    </p>
-  );
-}
-
-/* ── Desktop: polaroid + one line + button ────────────────────────────── */
-
-function Row({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
-  return (
-    <div className="relative -mx-4 lg:mx-0">
-      <ol className="relative flex lg:grid lg:grid-cols-4 gap-6 lg:gap-12 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-6 lg:px-0 pt-16 pb-6 list-none m-0 [scrollbar-width:none]" style={{ ["--n" as string]: cards.length } as CSSProperties}>
-        <Route className="left-0 top-[18%] h-40 w-[calc(var(--n)*82%)] sm:w-[calc(var(--n)*48%)] lg:w-full" />
-        {cards.map((c, i) => (
-          <li key={c.key} className={`relative shrink-0 w-[78%] sm:w-[46%] lg:w-auto snap-center ${c.key === "free" ? "z-20" : ""}`}>
-            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key })} className="group flex h-full flex-col">
-              <Polaroid c={c} i={i} eater={eater} />
-              <div className="relative z-10 flex flex-1 flex-col pt-4 px-1">
-                <p className="text-[16px] leading-snug text-brand-text/85" style={lora}>
-                  {c.sub}
-                </p>
-                <NextLine c={c} />
-                <p className="mt-auto pt-3">
-                  <CardButton c={c} eater={eater} />
-                </p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-/* ── Phones: a list, everything visible at once ───────────────────────── */
-
-function List({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties }) {
-  return (
-    <ol className="relative mx-auto max-w-3xl list-none p-0 m-0 flex flex-col gap-5">
-      <Route vertical className="left-[22px] sm:left-[34px] top-6 bottom-6 h-[calc(100%-3rem)] w-20" />
-      {cards.map((c, i) => {
-        const dark = c.key === "dark";
-        return (
-          <li key={c.key} className="relative">
-            <a
-              href={hrefOf(c)}
-              onClick={() => trackEvent("tour_card_click", { tour: c.key })}
-              className={`group relative z-10 flex items-center gap-4 sm:gap-6 rounded-sm px-2 py-3 transition-colors ${dark ? "hover:bg-[#121211]/[0.04]" : "hover:bg-brand-accent-light/40"}`}
-            >
-              <div className="w-[104px] sm:w-[132px] shrink-0">
-                <Polaroid c={c} i={i} eater={eater} small />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p
-                  className="leading-[1.0]"
-                  style={dark ? { ...eater, color: NIGHT, fontSize: 21 } : { ...caveat, fontWeight: 700, fontSize: 30, color: c.key === "soon" ? "#1A1A1A" : GREEN }}
-                >
-                  {c.name}
-                </p>
-                <p className="mt-1 text-[15px] leading-snug text-brand-text/75" style={lora}>
-                  {c.sub}
-                </p>
-                <NextLine c={c} />
-              </div>
-              <span
-                aria-hidden
-                className={`shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-full text-[22px] transition-transform group-hover:translate-x-1 ${dark ? "bg-[#121211] text-[#5AE19E] shadow-[0_0_12px_rgba(90,225,158,0.35)]" : "bg-brand-accent text-white"}`}
-              >
-                →
-              </span>
-            </a>
-          </li>
-        );
-      })}
-    </ol>
-  );
-}
-
-/* ── Header: the three walks as polaroids (prototype, /home-hero d and e) ── */
-
-// Tom 2026-10-19: the polaroids move up into the header's empty right-hand
-// side and replace the "Pick your walk" section. Photo = the tour's page;
+// Tom 2026-10-19: the polaroids sit in the header's right-hand side and
+// replace the old "Pick your walk" section. Photo = the tour's page;
 // the button under it opens booking on that tour. Phones: three small
 // polaroids in a row under the headline.
 const SHORT_NAME: Record<TourCardData["key"], string> = {
@@ -488,21 +331,5 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
         })}
       </ol>
     </div>
-  );
-}
-
-// Tom 2026-10-18: phones get the list (all four at a glance, each row
-// obviously tappable); desktop gets the polaroids along the route.
-export function TourCards({ cards, eaterFamily }: { cards: TourCardData[]; eaterFamily: string }) {
-  const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-  return (
-    <>
-      <div className="lg:hidden">
-        <List cards={cards} eater={eater} />
-      </div>
-      <div className="hidden lg:block">
-        <Row cards={cards} eater={eater} />
-      </div>
-    </>
   );
 }
