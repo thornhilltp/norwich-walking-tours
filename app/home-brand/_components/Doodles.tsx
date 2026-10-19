@@ -15,7 +15,7 @@ const caveat: CSSProperties = { fontFamily: "var(--font-caveat), cursive" };
 
 /** Draws the art twice: a fat white outline first (the sticker's die-cut
     edge), then the ink on top. */
-function Sticker({ viewBox, className, children }: { viewBox: string; className: string; children: ReactNode }) {
+export function Sticker({ viewBox, className, children }: { viewBox: string; className: string; children: ReactNode }) {
   return (
     <svg viewBox={viewBox} className={`overflow-visible drop-shadow-[0_3px_4px_rgba(60,40,20,0.35)] ${className}`} aria-hidden>
       <g stroke="#FFFFFF" strokeWidth="9" strokeLinejoin="round" strokeLinecap="round" fill="#FFFFFF">
