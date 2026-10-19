@@ -1,34 +1,21 @@
-// Sticker sheet (Tom 2026-10-19): every scrapbook sticker, numbered, with
-// what it stands for and a sample margin note, so Tom can pick the 5 to 10
-// the free tour page uses. Hidden: noindex, unlinked.
+// Sticker sheet (Tom 2026-10-19): the scrapbook stickers for the free tour
+// page, numbered, each with what it stands for and its margin note. Round
+// 2: Tom's shortlist, every note a question; footsteps and map pin dropped;
+// full cathedral and church; a shopfront for independent shops. Hidden:
+// noindex, unlinked.
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import {
-  CanarySticker,
-  CastleSticker,
-  CoinSticker,
-  CupSticker,
-  FootstepsSticker,
-  PinSticker,
-  SpireSticker,
-  StickerLabel,
-} from "../_components/Doodles";
+import { CanarySticker, CastleSticker, CoinSticker, StickerLabel } from "../_components/Doodles";
 import {
   AwningSticker,
-  BubbleSticker,
-  CameraSticker,
-  ChurchSticker,
+  CathedralSticker,
+  ChurchFullSticker,
   DragonSticker,
   FineCitySticker,
-  FlintSticker,
   MustardSticker,
-  PintSticker,
-  RiverSticker,
-  SheepSticker,
+  ShopSticker,
   StreetSignSticker,
-  TeeSticker,
-  TicketSticker,
 } from "../_components/MoreDoodles";
 
 export const metadata: Metadata = {
@@ -39,28 +26,19 @@ export const metadata: Metadata = {
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
+// Every note is a question: tease, don't tell (messaging playbook).
 const STICKERS: { name: string; means: string; note: string; art: ReactNode }[] = [
-  { name: "Cathedral spire", means: "History", note: "Norwich Cathedral was begun in 1096", art: <SpireSticker className="h-24 w-14" /> },
+  { name: "Norwich Cathedral", means: "History", note: "Why did the Normans build a cathedral this big?", art: <CathedralSticker className="h-20 w-28" /> },
   { name: "Canary", means: "Stories", note: "Why are Norwich City the Canaries?", art: <CanarySticker className="h-20 w-24" /> },
-  { name: "Coffee cup", means: "Local tips", note: "Ask us where to get coffee", art: <CupSticker className="h-20 w-20" /> },
   { name: "Castle keep", means: "Highlights", note: "What was the Castle really for?", art: <CastleSticker className="h-20 w-24" /> },
-  { name: "Map pin", means: "Meet", note: "Start at The Forum", art: <PinSticker className="h-20 w-16" /> },
-  { name: "Footsteps", means: "Walk", note: "Two easy hours on foot", art: <FootstepsSticker className="h-20 w-20" /> },
-  { name: "£ coin", means: "Tip", note: "Tip what it was worth", art: <CoinSticker className="h-20 w-20" /> },
-  { name: "Market stall", means: "The Market", note: "Lunch at the Market after?", art: <AwningSticker className="h-20 w-24" /> },
-  { name: "Pint", means: "Pubs", note: "Ask for our favourite pub", art: <PintSticker className="h-20 w-16" /> },
+  { name: "£ coin", means: "Tip", note: "How much should you tip?", art: <CoinSticker className="h-20 w-20" /> },
+  { name: "Market stall", means: "The Market's history", note: "How long has there been a market here?", art: <AwningSticker className="h-20 w-24" /> },
   { name: "Elm Hill sign", means: "Highlights", note: "How did Elm Hill survive?", art: <StreetSignSticker className="h-14 w-28" /> },
-  { name: "Flint", means: "History", note: "Why so much flint?", art: <FlintSticker className="h-20 w-20" /> },
-  { name: "Snap the dragon", means: "Stories", note: "Who was Snap?", art: <DragonSticker className="h-20 w-24" /> },
-  { name: "Mustard tin", means: "Norwich icons", note: "Ask about Colman's mustard", art: <MustardSticker className="h-20 w-16" /> },
-  { name: "Sheep", means: "History: the wool money", note: "Where did the wool money go?", art: <SheepSticker className="h-20 w-24" /> },
-  { name: "Church tower", means: "History", note: "Why so many medieval churches?", art: <ChurchSticker className="h-24 w-16" /> },
-  { name: "Camera", means: "Photo spots", note: "Our favourite photo spot is on the way", art: <CameraSticker className="h-16 w-20" /> },
-  { name: "Ticket", means: "Free to book", note: "£0 to book", art: <TicketSticker className="h-14 w-28" /> },
-  { name: "\"Did you know?\" bubble", means: "Stories", note: "(the bubble is the note)", art: <BubbleSticker className="h-16 w-28" /> },
-  { name: "Fine City sign", means: "Norwich", note: "Norwich, a fine city", art: <FineCitySticker className="h-20 w-28" /> },
-  { name: "Green t-shirt", means: "The guides", note: "Walk with a local", art: <TeeSticker className="h-20 w-24" /> },
-  { name: "River and boat", means: "The Wensum", note: "Ask about the river", art: <RiverSticker className="h-16 w-24" /> },
+  { name: "Snap the dragon", means: "Stories", note: "Who was Snap the dragon?", art: <DragonSticker className="h-20 w-24" /> },
+  { name: "Mustard tin", means: "Norwich icons", note: "What's Norwich got to do with mustard?", art: <MustardSticker className="h-20 w-16" /> },
+  { name: "Medieval church", means: "History", note: "Why so many medieval churches?", art: <ChurchFullSticker className="h-20 w-24" /> },
+  { name: "Fine City sign", means: "Life in Norwich", note: "Why is Norwich one of the best places to live?", art: <FineCitySticker className="h-20 w-28" /> },
+  { name: "Lanes shopfront", means: "Independent shops", note: "Where are our favourite independent shops?", art: <ShopSticker className="h-20 w-20" /> },
 ];
 
 export default function StickerSheet() {
@@ -76,7 +54,7 @@ export default function StickerSheet() {
           </span>
         </h1>
         <p className="mt-3 text-center text-[17px] text-brand-text/70" style={lora}>
-          Choose 5 to 10 by number. Each one shows what it stands for and a sample margin note.
+          Round 2: your shortlist. Choose 5 to 10 by number.
         </p>
         <ol className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 list-none p-0 m-0">
           {STICKERS.map((st, i) => (
@@ -92,7 +70,7 @@ export default function StickerSheet() {
                 {st.means}
               </p>
               <div className="mt-3">
-                <StickerLabel className="whitespace-normal">{st.note}</StickerLabel>
+                <StickerLabel className="!whitespace-normal leading-tight">{st.note}</StickerLabel>
               </div>
             </li>
           ))}

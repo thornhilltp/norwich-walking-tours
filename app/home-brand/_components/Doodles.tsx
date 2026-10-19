@@ -100,9 +100,8 @@ export function CoinSticker({ className = "h-11 w-11" }: { className?: string })
     <Sticker viewBox="0 0 48 48" className={className}>
       <circle cx="24" cy="24" r="19" fill="#F4C842" stroke={INK} strokeWidth="2.5" />
       <circle cx="24" cy="24" r="13.5" fill="none" stroke={INK} strokeWidth="1.5" strokeDasharray="2 3" />
-      <text x="24" y="31" textAnchor="middle" fontSize="20" fontWeight={700} fill={INK} stroke="none" style={caveat}>
-        £
-      </text>
+      {/* A drawn £, centred on the coin (a font glyph sat off-centre). */}
+      <path d="M29.5 16.5 Q27.5 13.5 24 13.8 Q19.5 14.2 19.5 19.5 V29 Q19.5 32.5 16.5 34 H31 M15.5 24.5 H26" fill="none" stroke={INK} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </Sticker>
   );
 }

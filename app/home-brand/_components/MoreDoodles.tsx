@@ -67,15 +67,72 @@ export function DragonSticker({ className = "h-12 w-14" }: { className?: string 
 }
 
 export function MustardSticker({ className = "h-12 w-10" }: { className?: string }) {
-  // A mustard tin, for Colman's of Norwich.
+  // A mustard tin in mustard yellow and red: a nod to Norwich's mustard
+  // without Colman's name, design or bull's-head logo (Unilever trademarks).
   return (
     <Sticker viewBox="0 0 44 56" className={className}>
-      <rect x="8" y="10" width="28" height="42" rx="3" fill="#F4C842" stroke={INK} strokeWidth="2.4" />
-      <rect x="6" y="6" width="32" height="7" rx="2" fill="#D93A2B" stroke={INK} strokeWidth="2.2" />
-      <path d="M12 24 H32 V40 H12 Z" fill="#D93A2B" stroke="none" />
-      <text x="22" y="36" textAnchor="middle" fontSize="12" fontWeight={700} fill="#F4C842" stroke="none" style={caveat}>
-        M
+      <rect x="8" y="10" width="28" height="42" rx="3" fill="#F4C21B" stroke={INK} strokeWidth="2.4" />
+      <rect x="6" y="5" width="32" height="8" rx="2" fill="#C8102E" stroke={INK} strokeWidth="2.2" />
+      <rect x="8" y="22" width="28" height="18" fill="#C8102E" stroke="none" />
+      <text x="22" y="30" textAnchor="middle" fontSize="5.4" fontWeight={700} fill="#F4C21B" stroke="none" style={{ ...serif, letterSpacing: 0.2 }}>
+        MUSTARD
       </text>
+      <text x="22" y="37" textAnchor="middle" fontSize="6" fill="#FFFDF7" stroke="none" style={serif}>
+        Norwich
+      </text>
+    </Sticker>
+  );
+}
+
+export function CathedralSticker({ className = "h-14 w-20" }: { className?: string }) {
+  // The whole Cathedral: long nave, central tower and spire, west front.
+  return (
+    <Sticker viewBox="0 0 96 64" className={className}>
+      {/* nave and choir */}
+      <path d="M6 60 V34 L14 28 H82 L90 34 V60 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* west front */}
+      <path d="M6 60 V30 H18 V60" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M10 30 V26 H14 V30" fill="none" stroke={GREEN} strokeWidth="2" />
+      {/* tower and spire */}
+      <path d="M44 34 V22 H56 V34" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M44 22 L50 2 L56 22 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* windows and buttresses */}
+      <path d="M24 50 V42 Q26 39 28 42 V50 M34 50 V42 Q36 39 38 42 V50 M62 50 V42 Q64 39 66 42 V50 M72 50 V42 Q74 39 76 42 V50" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      <path d="M10 60 V48 Q12 44 14 48 V60" fill="none" stroke={GREEN} strokeWidth="1.8" />
+    </Sticker>
+  );
+}
+
+export function ChurchFullSticker({ className = "h-12 w-16" }: { className?: string }) {
+  // A whole medieval parish church: west tower, nave, porch.
+  return (
+    <Sticker viewBox="0 0 76 58" className={className}>
+      {/* tower */}
+      <path d="M6 54 V14 H9 V9 H13 V14 H17 V9 H21 V14 H24 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* nave with pitched roof */}
+      <path d="M24 54 V30 L46 18 L70 30 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* porch */}
+      <path d="M38 54 V42 L44 37 L50 42 V54" fill="#FFFDF7" stroke={GREEN} strokeWidth="2" />
+      <path d="M12 30 V25 Q15 21 18 25 V30 Z M56 44 V38 Q59 34 62 38 V44 Z" fill="none" stroke={GREEN} strokeWidth="1.8" />
+    </Sticker>
+  );
+}
+
+export function ShopSticker({ className = "h-14 w-14" }: { className?: string }) {
+  // An independent shop in the Lanes: bay window, door, hanging sign.
+  return (
+    <Sticker viewBox="0 0 64 64" className={className}>
+      <path d="M8 60 V14 H52 V60 Z" fill="#FFFDF7" stroke={INK} strokeWidth="2.3" />
+      <rect x="8" y="14" width="44" height="8" fill="#1A6B47" stroke={INK} strokeWidth="2" />
+      {/* bay window */}
+      <path d="M12 52 V30 H32 V52 Z" fill="#CFE8DC" stroke={INK} strokeWidth="2" />
+      <path d="M22 30 V52 M12 41 H32" fill="none" stroke={INK} strokeWidth="1.5" />
+      {/* door */}
+      <path d="M38 60 V32 H48 V60" fill="#F2A7A0" stroke={INK} strokeWidth="2" />
+      <circle cx="45" cy="47" r="1.2" fill={INK} stroke="none" />
+      {/* hanging sign */}
+      <path d="M52 26 H62 M58 26 V30" fill="none" stroke={INK} strokeWidth="2" />
+      <rect x="53" y="30" width="10" height="9" rx="1.5" fill="#F4C26B" stroke={INK} strokeWidth="1.8" />
     </Sticker>
   );
 }
