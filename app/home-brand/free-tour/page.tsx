@@ -55,6 +55,17 @@ const beatStickers = [
   <OnPhoto key="t" art={<CoinSticker className="h-9 w-9" />} label="tip" className="-left-6 -bottom-5" rotate={-6} />,
 ];
 
+// Header photos cycle like the brand homepage (Tom 2026-10-19), slower, as
+// the booking widget sits on top. Pottergate first (it survives the tall
+// phone crop); every photo has its people near the middle; none repeat the
+// brand homepage's header.
+const HERO_SLIDES = [
+  { src: "/images/tour/pottergate-walk.jpg", alt: "Tour group walking down Pottergate in the Norwich Lanes with their guide on the Norwich Free Walking Tour", position: "center 55%" },
+  { src: "/images/tour/group-cobbled-lane.jpg", alt: "", position: "55% center" },
+  { src: "/images/tour/holly-elm-hill-group-smiles.jpg", alt: "", position: "62% center" },
+  { src: "/images/tour/holly-flag-group-lane.jpg", alt: "", position: "38% center" },
+];
+
 export default function FreeTourStickerPrototype() {
   return (
     <main className="relative" style={{ paddingTop: 0 }}>
@@ -72,6 +83,8 @@ export default function FreeTourStickerPrototype() {
         }
         buttonText="Book your spot (free)"
         buttonHref="#book-section"
+        slides={HERO_SLIDES}
+        slideMs={8000}
         widget={<BookingFrame priority height={520} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />}
       />
       <InfoBar />

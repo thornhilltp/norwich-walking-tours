@@ -45,6 +45,8 @@ interface HeroV2Props {
   badge?: string;
   /** Override the background photo(s); defaults to heroSlides. */
   slides?: HeroSlide[];
+  /** Time per photo when there are several (default 6s). */
+  slideMs?: number;
 }
 
 const containerVariants = {
@@ -82,13 +84,14 @@ export function HeroV2({
   subsubheading,
   badge,
   slides,
+  slideMs,
 }: HeroV2Props) {
   return (
     <section
       id="top"
       className={cn("relative isolate w-full overflow-hidden", className)}
     >
-      <HeroSlideshow slides={slides ?? heroSlides} />
+      <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
 
       {/* Darkened overlay, two variants. Phone: top-heavy vertical scrim
           (text sits at the top, widget is white anyway). Desktop: left

@@ -19,7 +19,8 @@ export type HeroSlide = {
 const SLIDE_MS = 6000;
 const FADE_S = 1.6;
 
-export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
+// `slideMs` (optional): time per photo. Defaults to SLIDE_MS.
+export function HeroSlideshow({ slides, slideMs = SLIDE_MS }: { slides: HeroSlide[]; slideMs?: number }) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -30,10 +31,10 @@ export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
     if (reduce || slides.length < 2) return;
     const id = window.setInterval(
       () => setIndex((i) => (i + 1) % slides.length),
-      SLIDE_MS
+      slideMs
     );
     return () => window.clearInterval(id);
-  }, [reduce, slides.length]);
+  }, [reduce, slides.length, slideMs]);
 
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
@@ -48,7 +49,7 @@ export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
             animate={{ opacity: active ? 1 : 0, scale: active ? 1.06 : 1 }}
             transition={{
               opacity: { duration: FADE_S, ease: "easeInOut" },
-              scale: { duration: SLIDE_MS / 1000 + FADE_S, ease: "linear" },
+              scale: { duration: slideMs / 1000 + FADE_S, ease: "linear" },
             }}
           >
             <Image
