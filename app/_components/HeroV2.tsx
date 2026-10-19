@@ -47,6 +47,8 @@ interface HeroV2Props {
   slides?: HeroSlide[];
   /** Time per photo when there are several (default 6s). */
   slideMs?: number;
+  /** Lighter phone scrim so the photos show (free tour page prototype). */
+  lightPhoneScrim?: boolean;
 }
 
 const containerVariants = {
@@ -85,6 +87,7 @@ export function HeroV2({
   badge,
   slides,
   slideMs,
+  lightPhoneScrim,
 }: HeroV2Props) {
   return (
     <section
@@ -101,7 +104,11 @@ export function HeroV2({
           utilities and dev served stale CSS when this was first tried. */}
       <div
         className="absolute inset-0 lg:hidden"
-        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.5) 100%)" }}
+        style={{
+          background: lightPhoneScrim
+            ? "linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.46) 42%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0.22) 100%)"
+            : "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.5) 100%)",
+        }}
       />
       <div
         className="absolute inset-0 hidden lg:block"
