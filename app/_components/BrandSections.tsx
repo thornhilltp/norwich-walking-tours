@@ -16,7 +16,7 @@ import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
-import { TourCards } from "./TourVariants";
+import { HeroPolaroids, TourCards } from "./TourVariants";
 import { HeroTourChoices, type HeroChoiceVariant } from "./HeroTourChoices";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
@@ -207,6 +207,77 @@ export function BrandHero({
         </div>
       </div>
     </section>
+  );
+}
+
+// Prototype (Tom 2026-10-19, /home-hero d and e): the tour polaroids fill
+// the header's right-hand side and replace the "Pick your walk" section.
+//   photo  the cycling photos stay behind; polaroids sit on them
+//   cream  no photo behind; the polaroids are the pictures
+export function BrandHeroPolaroids({
+  next,
+  look,
+}: {
+  next: { free: NextWalk | null; dark: NextWalk | null };
+  look: "photo" | "cream";
+}) {
+  const onPhoto = look === "photo";
+  const cards = tourCards(next).filter((c) => c.key !== "soon");
+  return (
+    <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: onPhoto ? "#121211" : "#FCFAF8" }}>
+      {onPhoto && (
+        <>
+          <HeroSlideshow slides={HERO_SLIDES} />
+          <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
+          <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.35) 100%)" }} />
+        </>
+      )}
+      <div className={`brand-container max-w-6xl flex flex-col gap-7 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10 pt-28 pb-10 lg:pb-16 ${onPhoto ? "min-h-[86svh] justify-end lg:min-h-[90vh]" : "lg:min-h-[80vh]"}`}>
+        <div className="max-w-xl text-left" style={onPhoto ? { textShadow: "0 2px 12px rgba(0,0,0,0.4)" } : undefined}>
+          <h1 className="leading-[1.0]">
+            <span className={`block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] ${onPhoto ? "text-white" : "text-brand-text"}`} style={lora}>
+              Helping locals and travellers
+            </span>
+            <span className={`block text-[clamp(44px,4.5vw,68px)] font-semibold leading-[0.95] ${onPhoto ? "text-[#7BE0AC]" : "text-brand-accent"}`} style={caveat}>
+              love and discover Norwich.
+            </span>
+          </h1>
+          <p className={`mt-4 text-[17px] md:text-[19px] leading-relaxed max-w-lg ${onPhoto ? "text-white/90" : "text-brand-text/80"}`} style={lora}>
+            {darkIsOn()
+              ? "Free walking tours, dark history and private walks, led by guides who live here."
+              : "Free walking tours and private walks, led by guides who live here."}
+          </p>
+          <div className="mt-8 hidden lg:flex flex-col items-start gap-4">
+            <HeroProof onPhoto={onPhoto} />
+          </div>
+        </div>
+        <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto={onPhoto} />
+        <div className="flex flex-col items-start gap-4 lg:hidden">
+          <HeroProof onPhoto={onPhoto} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroProof({ onPhoto }: { onPhoto: boolean }) {
+  return (
+    <>
+      <PartnerLogosInverted
+        size="sm"
+        label="Featured on"
+        className={`[&_p]:!text-left [&_ul]:!justify-start ${onPhoto ? "" : "[&_p]:!text-brand-text/55 [&_a]:![filter:brightness(0)]"}`}
+      />
+      {onPhoto ? (
+        <Ratings />
+      ) : (
+        <p className="text-[14px] text-brand-text/75" style={lora}>
+          <span aria-hidden="true" className="text-[#F4B400]">★★★★★</span>{" "}
+          <strong className="text-brand-text">{googleReviewStats.rating.toFixed(1)}</strong> Google ({googleReviewStats.count}) ·{" "}
+          <strong className="text-brand-text">{tripAdvisorStats.rating.toFixed(1)}</strong> TripAdvisor ({tripAdvisorStats.count})
+        </p>
+      )}
+    </>
   );
 }
 

@@ -18,7 +18,7 @@ import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
 import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "@/components/Doodles";
-import type { TourCardData } from "./BrandBooking";
+import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 
 
@@ -109,26 +109,26 @@ function hoverFor(key: TourCardData["key"]) {
 }
 
 /** The polaroid itself: same shape for every tour, each in its own light. */
-function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: CSSProperties; small?: boolean }) {
+function Polaroid({ c, i, eater, small, mid }: { c: TourCardData; i: number; eater: CSSProperties; small?: boolean; mid?: boolean }) {
   const dark = c.key === "dark";
   const soon = c.key === "soon";
   const free = c.key === "free";
   const caption: CSSProperties = dark
-    ? { ...eater, color: GLOW, fontSize: small ? 15 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
-    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : GREEN };
+    ? { ...eater, color: GLOW, fontSize: small ? 15 : mid ? 16 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
+    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : mid ? 24 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : GREEN };
   const showTape = !free;
   return (
     <figure
-      className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
+      className={`relative z-10 m-0 ${small ? "p-1.5 pb-2" : mid ? "p-2 pb-2" : "p-2.5 pb-4"} border shadow-[2px_12px_26px_-12px_rgba(60,40,20,0.6)] transition-[transform,box-shadow] duration-500 ease-out [transform:rotate(var(--r))] ${hoverFor(c.key)}`}
       style={{ ["--r" as string]: `${i % 2 === 0 ? -2 : 2}deg`, backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : "#FFFFFF", borderColor: dark ? "#2A2724" : free ? "#E6D7BF" : "#EAE0D4" } as CSSProperties}
     >
       {dark && !small && (
-        <span className="absolute -top-12 right-3 z-20 scale-75 origin-top">
+        <span className={`absolute z-20 origin-top ${mid ? "-top-9 right-2 scale-[0.6]" : "-top-12 right-3 scale-75"}`}>
           <StoryLantern />
         </span>
       )}
       {free && <AwningTouch small={small} />}
-      {free && !small && <Doodles />}
+      {free && !small && !mid && <Doodles />}
       {showTape && (
         <span
           aria-hidden="true"
@@ -142,7 +142,7 @@ function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: C
             src={c.image.src}
             alt={c.image.alt}
             fill
-            sizes={small ? "120px" : "(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"}
+            sizes={small ? "120px" : mid ? "210px" : "(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"}
             className={`object-cover transition-[filter] duration-700 ${dark ? "group-hover:brightness-75" : ""} ${soon ? "[filter:grayscale(1)_blur(4px)] group-hover:[filter:grayscale(1)_blur(1.5px)] scale-[1.08]" : ""}`}
             style={dark ? sepia : undefined}
             priority={i === 0 && !small}
@@ -161,7 +161,7 @@ function Polaroid({ c, i, eater, small }: { c: TourCardData; i: number; eater: C
         )}
       </div>
       {!small && (
-        <figcaption className="relative pt-3 px-1 min-h-[60px]">
+        <figcaption className={`relative px-1 ${mid ? "pt-2" : "pt-3 min-h-[60px]"}`}>
           <span className="block" style={caption}>
             {c.name}
           </span>
@@ -287,6 +287,100 @@ function List({ cards, eater }: { cards: TourCardData[]; eater: CSSProperties })
         );
       })}
     </ol>
+  );
+}
+
+/* ── Header: the three walks as polaroids (prototype, /home-hero d and e) ── */
+
+// Tom 2026-10-19: the polaroids move up into the header's empty right-hand
+// side and replace the "Pick your walk" section. Photo = the tour's page;
+// the button under it opens booking on that tour. Phones: three small
+// polaroids in a row under the headline.
+const SHORT_NAME: Record<TourCardData["key"], string> = {
+  free: "Free walking tour",
+  dark: "Dark History",
+  private: "Private tours",
+  soon: "Something new",
+};
+
+function heroName(c: TourCardData, eater: CSSProperties, onPhoto: boolean, size: number): CSSProperties {
+  if (c.key === "dark") return { ...eater, color: onPhoto ? GLOW : NIGHT, fontSize: size * 0.72, lineHeight: 1.05 };
+  const color = c.key === "free" ? (onPhoto ? "#7BE0AC" : GREEN) : onPhoto ? "#FFFFFF" : "#1A1A1A";
+  return { ...caveat, fontWeight: 700, fontSize: size, lineHeight: 0.95, color };
+}
+
+function heroWhen(c: TourCardData) {
+  if (c.key === "private") return "Any day you choose";
+  if (!c.next) return c.key === "dark" ? "Most evenings, 6pm" : "Most days, 10:30am";
+  const few = c.next.spotsLeft <= 6 ? ` · ${c.next.spotsLeft === 1 ? "1 spot" : `${c.next.spotsLeft} spots`} left` : "";
+  return `Next: ${c.next.label}${few}`;
+}
+
+function HeroButton({ c, eater, onPhoto }: { c: TourCardData; eater: CSSProperties; onPhoto: boolean }) {
+  const base = "inline-flex items-center gap-2 rounded-full px-4 min-h-[44px] transition-all hover:gap-3";
+  if (c.key === "private")
+    return (
+      <a href={c.href} onClick={() => trackEvent("book_cta_click", { location: "hero_polaroid_private" })} className={`${base} border-2 ${onPhoto ? "border-white/80 text-white" : "border-brand-text/70 text-brand-text"}`} style={{ ...lora, fontSize: 15, fontWeight: 600 }}>
+        Ask us <span aria-hidden>→</span>
+      </a>
+    );
+  const dark = c.key === "dark";
+  return (
+    <a
+      href={c.href}
+      onClick={(e) => {
+        e.preventDefault();
+        openBooking(dark ? "dark" : "free", `hero_polaroid_${c.key}`);
+      }}
+      className={`${base} ${dark ? "border border-[#5AE19E]/60 shadow-[0_0_14px_rgba(90,225,158,0.3)]" : "bg-brand-accent text-white shadow-md"}`}
+      style={dark ? { ...eater, backgroundColor: NIGHT, color: GLOW, fontSize: 15 } : { ...caveat, fontSize: 22, fontWeight: 700 }}
+    >
+      Book free <span aria-hidden>→</span>
+    </a>
+  );
+}
+
+export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCardData[]; eaterFamily: string; onPhoto: boolean }) {
+  const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
+  const when = onPhoto ? "text-white/85" : "text-brand-text/70";
+  return (
+    <div id="tours" className="scroll-mt-20">
+      {/* Phones and tablets */}
+      <ol className="lg:hidden m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2">
+        {cards.map((c, i) => (
+          <li key={c.key} className={c.key === "free" ? "relative z-20" : "relative"}>
+            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
+              <Polaroid c={c} i={i} eater={eater} small />
+              <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
+                {SHORT_NAME[c.key]}
+              </p>
+              <p className={`mt-1 text-[12px] leading-snug ${when}`} style={lora}>
+                {heroWhen(c)}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ol>
+      {/* Desktop: staggered along the route */}
+      <div className="relative hidden lg:block">
+        <Route className="-left-[6%] top-[20%] h-44 w-[112%]" />
+        <ol className="relative m-0 flex list-none items-start gap-6 p-0 pt-12">
+          {cards.map((c, i) => (
+            <li key={c.key} className={`w-[200px] ${["mt-0", "mt-16", "mt-5"][i % 3]} ${c.key === "free" ? "relative z-20" : "relative z-10"}`}>
+              <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block" aria-label={`${c.name}: more about this tour`}>
+                <Polaroid c={c} i={i} eater={eater} mid />
+              </a>
+              <p className={`mt-3 text-[13px] font-semibold leading-snug ${when}`} style={lora}>
+                {heroWhen(c)}
+              </p>
+              <p className="mt-2">
+                <HeroButton c={c} eater={eater} onPhoto={onPhoto} />
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
   );
 }
 
