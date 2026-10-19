@@ -17,6 +17,7 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 import { TourCards } from "./TourVariants";
+import { HeroTourChoices, type HeroChoiceVariant } from "./HeroTourChoices";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
 
@@ -150,7 +151,15 @@ function Ratings() {
 }
 
 // Tom 2026-10-18: cycling photos, text and button left-aligned.
-export function BrandHero() {
+// `choice` swaps the one button for a pick-your-tour block (prototypes on
+// /home-hero, Tom 2026-10-19). Without it the header renders as live.
+export function BrandHero({
+  choice,
+  next,
+}: {
+  choice?: HeroChoiceVariant;
+  next?: { free: NextWalk | null; dark: NextWalk | null };
+} = {}) {
   return (
     <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: "#121211" }}>
       <HeroSlideshow slides={HERO_SLIDES} />
@@ -174,13 +183,22 @@ export function BrandHero() {
               : "Free walking tours and private walks, led by guides who live here."}
           </p>
           <div className="mt-7">
-            <a
-              href="#tours"
-              className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 min-h-[54px] text-[24px] font-bold text-white shadow-lg hover:opacity-90"
-              style={caveat}
-            >
-              Explore tours &amp; experiences
-            </a>
+            {choice ? (
+              <HeroTourChoices
+                variant={choice}
+                next={next ?? { free: null, dark: null }}
+                darkOn={darkIsOn()}
+                eaterFamily={eater.style.fontFamily}
+              />
+            ) : (
+              <a
+                href="#tours"
+                className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 min-h-[54px] text-[24px] font-bold text-white shadow-lg hover:opacity-90"
+                style={caveat}
+              >
+                Explore tours &amp; experiences
+              </a>
+            )}
           </div>
           <div className="mt-9 flex flex-col items-start gap-4">
             <PartnerLogosInverted size="sm" label="Featured on" className="[&_p]:!text-left [&_ul]:!justify-start" />
