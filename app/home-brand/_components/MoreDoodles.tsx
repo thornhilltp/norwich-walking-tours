@@ -87,33 +87,37 @@ export function MustardSticker({ className = "h-12 w-10" }: { className?: string
 export function CathedralSticker({ className = "h-14 w-20" }: { className?: string }) {
   // The whole Cathedral: long nave, central tower and spire, west front.
   return (
-    <Sticker viewBox="0 0 96 64" className={className}>
+    <Sticker viewBox="0 0 96 96" className={className}>
       {/* nave and choir */}
-      <path d="M6 60 V34 L14 28 H82 L90 34 V60 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M6 92 V70 L12 64 H84 L90 70 V92 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
       {/* west front */}
-      <path d="M6 60 V30 H18 V60" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
-      <path d="M10 30 V26 H14 V30" fill="none" stroke={GREEN} strokeWidth="2" />
-      {/* tower and spire */}
-      <path d="M44 34 V22 H56 V34" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
-      <path d="M44 22 L50 2 L56 22 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
-      {/* windows and buttresses */}
-      <path d="M24 50 V42 Q26 39 28 42 V50 M34 50 V42 Q36 39 38 42 V50 M62 50 V42 Q64 39 66 42 V50 M72 50 V42 Q74 39 76 42 V50" fill="none" stroke={GREEN} strokeWidth="1.8" />
-      <path d="M10 60 V48 Q12 44 14 48 V60" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      <path d="M6 92 V66 H18 V92" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* central tower and its tall spire, the city's landmark */}
+      <path d="M42 70 V50 H54 V70" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M42 50 L48 2 L54 50 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M42 50 V45 M54 50 V45 M45 58 V54 Q48 51 51 54 V58" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      {/* windows */}
+      <path d="M24 84 V77 L26 74 L28 77 V84 M33 84 V77 L35 74 L37 77 V84 M60 84 V77 L62 74 L64 77 V84 M69 84 V77 L71 74 L73 77 V84" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      <path d="M10 92 V82 L12 79 L14 82 V92" fill="none" stroke={GREEN} strokeWidth="1.8" />
     </Sticker>
   );
 }
 
 export function ChurchFullSticker({ className = "h-12 w-16" }: { className?: string }) {
-  // A whole medieval parish church: west tower, nave, porch.
+  // A medieval parish church, Norwich style: battlemented west tower and a
+  // flat, parapeted nave with tall pointed windows (no pitched roof, so it
+  // doesn't read as a house).
   return (
     <Sticker viewBox="0 0 76 58" className={className}>
       {/* tower */}
-      <path d="M6 54 V14 H9 V9 H13 V14 H17 V9 H21 V14 H24 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
-      {/* nave with pitched roof */}
-      <path d="M24 54 V30 L46 18 L70 30 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
-      {/* porch */}
-      <path d="M38 54 V42 L44 37 L50 42 V54" fill="#FFFDF7" stroke={GREEN} strokeWidth="2" />
-      <path d="M12 30 V25 Q15 21 18 25 V30 Z M56 44 V38 Q59 34 62 38 V44 Z" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      <path d="M6 54 V9 H10 V13 H14 V9 H18 V13 H22 V9 H26 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      {/* nave, flat parapet */}
+      <path d="M26 54 V24 H70 V54 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.4" />
+      <path d="M26 28 H70" fill="none" stroke={GREEN} strokeWidth="1.6" />
+      {/* tall pointed windows */}
+      <path d="M33 48 V38 L36 33 L39 38 V48 Z M46 48 V38 L49 33 L52 38 V48 Z M59 48 V38 L62 33 L65 38 V48 Z" fill="none" stroke={GREEN} strokeWidth="1.8" />
+      {/* tower window and door */}
+      <path d="M13 30 V24 L16 20 L19 24 V30 Z M12 54 V46 L16 41 L20 46 V54" fill="none" stroke={GREEN} strokeWidth="1.8" />
     </Sticker>
   );
 }
@@ -236,6 +240,17 @@ export function RiverSticker({ className = "h-10 w-14" }: { className?: string }
       <path d="M4 30 Q12 24 20 30 T36 30 T52 30 T64 30 V42 H4 Z" fill="#A9D3E0" stroke={INK} strokeWidth="2" />
       <path d="M18 24 H44 L40 30 H22 Z" fill="#FFFDF7" stroke={INK} strokeWidth="2" />
       <path d="M31 24 V8 L42 20 H31" fill="#F4C26B" stroke={INK} strokeWidth="2" />
+    </Sticker>
+  );
+}
+
+export function BookSticker({ className = "h-12 w-16" }: { className?: string }) {
+  // An open book: Norwich, England's first UNESCO City of Literature (2012).
+  return (
+    <Sticker viewBox="0 0 72 52" className={className}>
+      <path d="M36 12 Q22 4 6 8 V46 Q22 42 36 50 Q50 42 66 46 V8 Q50 4 36 12 Z" fill="#FFFDF7" stroke={INK} strokeWidth="2.3" />
+      <path d="M36 12 V50" fill="none" stroke={INK} strokeWidth="2" />
+      <path d="M12 18 Q22 15 30 19 M12 25 Q22 22 30 26 M12 32 Q22 29 30 33 M42 19 Q50 15 60 18 M42 26 Q50 22 60 25 M42 33 Q50 29 60 32" fill="none" stroke={GREEN} strokeWidth="1.6" />
     </Sticker>
   );
 }

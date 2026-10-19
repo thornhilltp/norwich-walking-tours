@@ -68,10 +68,11 @@ export function CupSticker({ className = "h-12 w-12" }: { className?: string }) 
 export function CastleSticker({ className = "h-11 w-12" }: { className?: string }) {
   // Norwich Castle's keep: square, crenellated, arched windows.
   return (
-    <Sticker viewBox="0 0 60 52" className={className}>
-      <path d="M6 50 V14 H12 V8 H18 V14 H24 V8 H30 V14 H36 V8 H42 V14 H48 V8 H54 V14 V50 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.5" />
-      <path d="M14 26 V22 Q17 18 20 22 V26 Z M27 26 V22 Q30 18 33 22 V26 Z M40 26 V22 Q43 18 46 22 V26 Z" fill="none" stroke={GREEN} strokeWidth="2" />
-      <path d="M25 50 V40 Q30 33 35 40 V50" fill="none" stroke={GREEN} strokeWidth="2.5" />
+    <Sticker viewBox="0 0 66 52" className={className}>
+      {/* Battlements start and end high, so both corners match. */}
+      <path d="M6 50 V8 H12 V14 H18 V8 H24 V14 H30 V8 H36 V14 H42 V8 H48 V14 H54 V8 H60 V50 Z" fill="#FFFDF7" stroke={GREEN} strokeWidth="2.5" />
+      <path d="M14 28 V24 Q17 20 20 24 V28 Z M30 28 V24 Q33 20 36 24 V28 Z M46 28 V24 Q49 20 52 24 V28 Z" fill="none" stroke={GREEN} strokeWidth="2" />
+      <path d="M28 50 V40 Q33 33 38 40 V50" fill="none" stroke={GREEN} strokeWidth="2.5" />
     </Sticker>
   );
 }
@@ -100,8 +101,10 @@ export function CoinSticker({ className = "h-11 w-11" }: { className?: string })
     <Sticker viewBox="0 0 48 48" className={className}>
       <circle cx="24" cy="24" r="19" fill="#F4C842" stroke={INK} strokeWidth="2.5" />
       <circle cx="24" cy="24" r="13.5" fill="none" stroke={INK} strokeWidth="1.5" strokeDasharray="2 3" />
-      {/* A drawn £, centred on the coin (a font glyph sat off-centre). */}
-      <path d="M29.5 16.5 Q27.5 13.5 24 13.8 Q19.5 14.2 19.5 19.5 V29 Q19.5 32.5 16.5 34 H31 M15.5 24.5 H26" fill="none" stroke={INK} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+      {/* A small Caveat £, centred on the coin. */}
+      <text x="24" y="25" textAnchor="middle" dominantBaseline="central" fontSize="15" fontWeight={700} fill={INK} stroke="none" style={caveat}>
+        £
+      </text>
     </Sticker>
   );
 }

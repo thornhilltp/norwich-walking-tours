@@ -6,9 +6,10 @@
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { CanarySticker, CastleSticker, CoinSticker, StickerLabel } from "../_components/Doodles";
+import { CanarySticker, CastleSticker, CoinSticker, CupSticker, StickerLabel } from "../_components/Doodles";
 import {
   AwningSticker,
+  BookSticker,
   CathedralSticker,
   ChurchFullSticker,
   DragonSticker,
@@ -28,7 +29,7 @@ const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
 // Every note is a question: tease, don't tell (messaging playbook).
 const STICKERS: { name: string; means: string; note: string; art: ReactNode }[] = [
-  { name: "Norwich Cathedral", means: "History", note: "Why did the Normans build a cathedral this big?", art: <CathedralSticker className="h-20 w-28" /> },
+  { name: "Norwich Cathedral", means: "History", note: "Why did the Normans build a cathedral this big?", art: <CathedralSticker className="h-28 w-28" /> },
   { name: "Canary", means: "Stories", note: "Why are Norwich City the Canaries?", art: <CanarySticker className="h-20 w-24" /> },
   { name: "Castle keep", means: "Highlights", note: "What was the Castle really for?", art: <CastleSticker className="h-20 w-24" /> },
   { name: "£ coin", means: "Tip", note: "How much should you tip?", art: <CoinSticker className="h-20 w-20" /> },
@@ -38,7 +39,10 @@ const STICKERS: { name: string; means: string; note: string; art: ReactNode }[] 
   { name: "Mustard tin", means: "Norwich icons", note: "What's Norwich got to do with mustard?", art: <MustardSticker className="h-20 w-16" /> },
   { name: "Medieval church", means: "History", note: "Why so many medieval churches?", art: <ChurchFullSticker className="h-20 w-24" /> },
   { name: "Fine City sign", means: "Life in Norwich", note: "Why is Norwich one of the best places to live?", art: <FineCitySticker className="h-20 w-28" /> },
-  { name: "Lanes shopfront", means: "Independent shops", note: "Where are our favourite independent shops?", art: <ShopSticker className="h-20 w-20" /> },
+  { name: "Lanes shopfront", means: "Independent shops", note: "Why are there so many independent shops in Norwich?", art: <ShopSticker className="h-20 w-20" /> },
+  // New ideas (round 3)
+  { name: "Open book", means: "New idea: City of Literature", note: "Why is Norwich a UNESCO City of Literature?", art: <BookSticker className="h-20 w-24" /> },
+  { name: "Coffee cup", means: "New idea: local tips", note: "Where do locals get their coffee?", art: <CupSticker className="h-20 w-20" /> },
 ];
 
 export default function StickerSheet() {
@@ -54,7 +58,7 @@ export default function StickerSheet() {
           </span>
         </h1>
         <p className="mt-3 text-center text-[17px] text-brand-text/70" style={lora}>
-          Round 2: your shortlist. Choose 5 to 10 by number.
+          Round 3: your shortlist, plus two new ideas (12 and 13). Choose 5 to 10 by number.
         </p>
         <ol className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 list-none p-0 m-0">
           {STICKERS.map((st, i) => (
