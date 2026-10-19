@@ -38,7 +38,7 @@ const KEY_PHRASE_GREEN = "#1A6B47";
 // mount animation's transform instead of being overridden by it.
 const cardAngles = [-2, 1.5, -1.4, 2, -1.1, 1.7];
 
-function GoogleLogo({ className }: { className?: string }) {
+export function GoogleLogo({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 18 18" className={className} aria-hidden="true">
       <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" />
@@ -49,7 +49,7 @@ function GoogleLogo({ className }: { className?: string }) {
   );
 }
 
-function TripAdvisorLogo({ className }: { className?: string }) {
+export function TripAdvisorLogo({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
       <circle cx="12" cy="12" r="11" fill="#34E0A1" />

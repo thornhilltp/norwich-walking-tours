@@ -14,6 +14,7 @@ import { Eater } from "next/font/google";
 import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
+import { GoogleLogo, TripAdvisorLogo } from "./Testimonials";
 import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
 import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
 import { HeroPolaroids, TourCards } from "./TourVariants";
@@ -242,17 +243,13 @@ export function BrandHeroPolaroids({
               love and discover Norwich.
             </span>
           </h1>
-          <p className={`mt-4 text-[17px] md:text-[19px] leading-relaxed max-w-lg ${onPhoto ? "text-white/90" : "text-brand-text/80"}`} style={lora}>
-            {darkIsOn()
-              ? "Free walking tours, dark history and private walks, led by guides who live here."
-              : "Free walking tours and private walks, led by guides who live here."}
-          </p>
-          <div className="mt-8 hidden lg:flex flex-col items-start gap-4">
+          {/* Tom 2026-10-19: no sub line; the polaroids say what the tours are. */}
+          <div className="mt-9 hidden lg:flex flex-col items-start gap-5">
             <HeroProof onPhoto={onPhoto} />
           </div>
         </div>
         <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto={onPhoto} />
-        <div className="flex flex-col items-start gap-4 lg:hidden">
+        <div className="flex flex-col items-start gap-5 pt-2 lg:hidden">
           <HeroProof onPhoto={onPhoto} />
         </div>
       </div>
@@ -263,21 +260,52 @@ export function BrandHeroPolaroids({
 function HeroProof({ onPhoto }: { onPhoto: boolean }) {
   return (
     <>
+      <RatingBadges />
       <PartnerLogosInverted
         size="sm"
         label="Featured on"
-        className={`[&_p]:!text-left [&_ul]:!justify-start ${onPhoto ? "" : "[&_p]:!text-brand-text/55 [&_a]:![filter:brightness(0)]"}`}
+        className={`mt-2 [&_p]:!text-left [&_ul]:!justify-start ${onPhoto ? "" : "[&_p]:!text-brand-text/55 [&_a]:![filter:brightness(0)]"}`}
       />
-      {onPhoto ? (
-        <Ratings />
-      ) : (
-        <p className="text-[14px] text-brand-text/75" style={lora}>
-          <span aria-hidden="true" className="text-[#F4B400]">★★★★★</span>{" "}
-          <strong className="text-brand-text">{googleReviewStats.rating.toFixed(1)}</strong> Google ({googleReviewStats.count}) ·{" "}
-          <strong className="text-brand-text">{tripAdvisorStats.rating.toFixed(1)}</strong> TripAdvisor ({tripAdvisorStats.count})
-        </p>
-      )}
     </>
+  );
+}
+
+// Tom 2026-10-19: the plain ratings line was boring. Two badges taped on
+// like scrapbook cuttings, each linking to its reviews.
+function RatingBadges() {
+  const badges = [
+    { name: "Google", stats: googleReviewStats, logo: <GoogleLogo className="h-7 w-7" />, rot: -3, tape: "#F4C26B" },
+    { name: "Tripadvisor", stats: tripAdvisorStats, logo: <TripAdvisorLogo className="h-8 w-8" />, rot: 2.5, tape: "#9FD6B8" },
+  ];
+  return (
+    <ul className="m-0 flex w-max max-w-full list-none flex-nowrap gap-3 sm:gap-4 p-0" style={{ textShadow: "none" }}>
+      {badges.map((b) => (
+        <li key={b.name}>
+          <a
+            href={b.stats.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${b.stats.rating.toFixed(1)} out of 5 from ${b.stats.count} ${b.name} reviews (opens in a new tab)`}
+            className="relative flex items-center gap-2 sm:gap-2.5 rounded-md bg-[#FCFAF8] py-2 pl-2.5 pr-3 sm:pl-3 sm:pr-4 text-brand-text shadow-[2px_10px_22px_-10px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:[transform:rotate(0deg)_translateY(-3px)]"
+            style={{ transform: `rotate(${b.rot}deg)` }}
+          >
+            <span aria-hidden className="absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-3 rounded-[2px] opacity-90" style={{ backgroundColor: b.tape }} />
+            {b.logo}
+            <span className="flex flex-col">
+              <span className="flex items-center gap-1.5">
+                <span className="text-[30px] font-bold leading-none" style={caveat}>
+                  {b.stats.rating.toFixed(1)}
+                </span>
+                <span aria-hidden className="text-[14px] tracking-[1px] text-[#F4B400]">★★★★★</span>
+              </span>
+              <span className="whitespace-nowrap text-[11px] sm:text-[12px] leading-tight text-brand-text/70" style={lora}>
+                {b.stats.count} {b.name} reviews
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }
 
