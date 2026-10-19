@@ -85,7 +85,7 @@ export default function FreeTourStickerPrototype() {
         buttonHref="#book-section"
         slides={HERO_SLIDES}
         slideMs={8000}
-        lightPhoneScrim
+        phonePhotoBand
         widget={<BookingFrame priority height={520} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />}
       />
       <InfoBar />

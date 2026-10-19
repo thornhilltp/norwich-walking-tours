@@ -47,8 +47,9 @@ interface HeroV2Props {
   slides?: HeroSlide[];
   /** Time per photo when there are several (default 6s). */
   slideMs?: number;
-  /** Lighter phone scrim so the photos show (free tour page prototype). */
-  lightPhoneScrim?: boolean;
+  /** Phones: show the photos as their own band above the words, not
+      behind them (free tour page prototype, Tom 2026-10-19). */
+  phonePhotoBand?: boolean;
 }
 
 const containerVariants = {
@@ -87,14 +88,31 @@ export function HeroV2({
   badge,
   slides,
   slideMs,
-  lightPhoneScrim,
+  phonePhotoBand,
 }: HeroV2Props) {
   return (
     <section
       id="top"
       className={cn("relative isolate w-full overflow-hidden", className)}
     >
-      <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
+      {phonePhotoBand ? (
+        <>
+          {/* Desktop: photos behind, as usual. Phones: a dark background
+              and the photos in their own band at the top, people visible. */}
+          <div className="absolute inset-0 hidden lg:block">
+            <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
+          </div>
+          <div className="absolute inset-0 -z-10 lg:hidden" style={{ backgroundColor: "#121211" }} />
+          <div className="relative lg:hidden pt-[72px]">
+            <div className="relative isolate aspect-[16/11] w-full overflow-hidden">
+              <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
+              <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: "linear-gradient(to top, #121211, transparent)" }} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
+      )}
 
       {/* Darkened overlay, two variants. Phone: top-heavy vertical scrim
           (text sits at the top, widget is white anyway). Desktop: left
@@ -102,21 +120,22 @@ export function HeroV2({
           right so the slideshow actually shows around the widget.
           Inline gradients, not Tailwind classes: v4 renamed the gradient
           utilities and dev served stale CSS when this was first tried. */}
-      <div
-        className="absolute inset-0 lg:hidden"
-        style={{
-          background: lightPhoneScrim
-            ? "linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.46) 42%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0.22) 100%)"
-            : "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.5) 100%)",
-        }}
-      />
+      {!phonePhotoBand && (
+        <div
+          className="absolute inset-0 lg:hidden"
+          style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.5) 100%)" }}
+        />
+      )}
       <div
         className="absolute inset-0 hidden lg:block"
         style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.7) 42%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0.3) 100%)" }}
       />
 
       <motion.div
-        className="relative brand-container flex min-h-[80dvh] lg:min-h-[90dvh] items-center justify-between pt-32 pb-24 lg:py-24 flex-col lg:flex-row gap-12"
+        className={cn(
+          "relative brand-container flex lg:min-h-[90dvh] items-center justify-between pb-24 lg:py-24 flex-col lg:flex-row gap-12",
+          phonePhotoBand ? "pt-6" : "min-h-[80dvh] pt-32",
+        )}
         // initial={false}: render the visible state in server HTML. The old
         // initial="hidden" SSR'd the H1/CTA/widget at opacity:0, so the
         // above-the-fold content didn't paint until hydration (speed bug).
