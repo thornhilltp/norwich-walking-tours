@@ -274,8 +274,8 @@ function HeroProof({ onPhoto }: { onPhoto: boolean }) {
 // like scrapbook cuttings, each linking to its reviews.
 function RatingBadges() {
   const badges = [
-    { name: "Google", stats: googleReviewStats, logo: <GoogleLogo className="h-7 w-7" />, rot: -3, tape: "#F4C26B" },
-    { name: "Tripadvisor", stats: tripAdvisorStats, logo: <TripAdvisorLogo className="h-8 w-8" />, rot: 2.5, tape: "#9FD6B8" },
+    { name: "Google", stats: googleReviewStats, logo: <GoogleLogo className="h-5 w-5 sm:h-6 sm:w-6" />, rot: -3, tape: "#F4C26B" },
+    { name: "Tripadvisor", stats: tripAdvisorStats, logo: <TripAdvisorLogo className="h-6 w-6 sm:h-7 sm:w-7" />, rot: 2.5, tape: "#9FD6B8" },
   ];
   return (
     <ul className="m-0 flex w-max max-w-full list-none flex-nowrap gap-3 sm:gap-4 p-0" style={{ textShadow: "none" }}>
@@ -286,19 +286,19 @@ function RatingBadges() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${b.stats.rating.toFixed(1)} out of 5 from ${b.stats.count} ${b.name} reviews (opens in a new tab)`}
-            className="relative flex items-center gap-2 sm:gap-2.5 rounded-md bg-[#FCFAF8] py-2 pl-2.5 pr-3 sm:pl-3 sm:pr-4 text-brand-text shadow-[2px_10px_22px_-10px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:[transform:rotate(0deg)_translateY(-3px)]"
+            className="relative flex items-center gap-2 sm:gap-2.5 rounded-md bg-[#FCFAF8] py-1.5 pl-2 pr-2.5 sm:pl-2.5 sm:pr-3 text-brand-text shadow-[2px_10px_22px_-10px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:[transform:rotate(0deg)_translateY(-3px)]"
             style={{ transform: `rotate(${b.rot}deg)` }}
           >
-            <span aria-hidden className="absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-3 rounded-[2px] opacity-90" style={{ backgroundColor: b.tape }} />
+            <span aria-hidden className="absolute -top-2 left-1/2 h-3 w-10 -translate-x-1/2 -rotate-3 rounded-[2px] opacity-90" style={{ backgroundColor: b.tape }} />
             {b.logo}
             <span className="flex flex-col">
               <span className="flex items-center gap-1.5">
-                <span className="text-[30px] font-bold leading-none" style={caveat}>
+                <span className="text-[24px] font-bold leading-none" style={caveat}>
                   {b.stats.rating.toFixed(1)}
                 </span>
-                <span aria-hidden className="text-[14px] tracking-[1px] text-[#F4B400]">★★★★★</span>
+                <span aria-hidden className="text-[12px] tracking-[1px] text-[#F4B400]">★★★★★</span>
               </span>
-              <span className="whitespace-nowrap text-[11px] sm:text-[12px] leading-tight text-brand-text/70" style={lora}>
+              <span className="whitespace-nowrap text-[10.5px] sm:text-[11px] leading-tight text-brand-text/70" style={lora}>
                 {b.stats.count} {b.name} reviews
               </span>
             </span>

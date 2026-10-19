@@ -360,11 +360,38 @@ function heroName(c: TourCardData, eater: CSSProperties, onPhoto: boolean, size:
   return { ...caveat, fontWeight: 700, fontSize: size, lineHeight: 0.95, color };
 }
 
-function heroWhen(c: TourCardData) {
-  if (c.key === "private") return "Any day you choose";
-  if (!c.next) return c.key === "dark" ? "Most evenings, 6pm" : "Most days, 10:30am";
-  const few = c.next.spotsLeft <= 6 ? ` · ${c.next.spotsLeft === 1 ? "1 spot" : `${c.next.spotsLeft} spots`} left` : "";
-  return `Next: ${c.next.label}${few}`;
+/** The next walk, read live from the booking app (Tom 2026-10-19: make it
+    obvious it's live). A pulsing "Next walk" dot only when there is real
+    data; without it, the plain schedule line and no dot. */
+function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?: boolean }) {
+  const muted = onDark ? "text-white/75" : "text-brand-text/70";
+  if (c.key === "private" || !c.next)
+    return (
+      <span className={`block ${tiny ? "mt-1 text-[12px]" : "mt-1.5 text-[13px]"} leading-snug ${muted}`} style={lora}>
+        {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Most evenings, 6pm" : "Most days, 10:30am"}
+      </span>
+    );
+  const dot = onDark ? GLOW : GREEN;
+  const few = c.next.spotsLeft <= 6;
+  return (
+    <span className={`block ${tiny ? "mt-1" : "mt-2"}`} style={lora}>
+      <span className={`flex items-center gap-1.5 font-semibold uppercase tracking-[0.12em] ${tiny ? "text-[9.5px]" : "text-[10.5px]"}`} style={{ color: dot }}>
+        <span aria-hidden className="relative inline-flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 motion-reduce:animate-none" style={{ backgroundColor: dot }} />
+          <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: dot }} />
+        </span>
+        Next walk
+      </span>
+      <span className={`mt-0.5 block font-bold leading-snug ${tiny ? "text-[12.5px]" : "text-[15px]"} ${onDark ? "text-white" : "text-brand-text"}`}>
+        {c.next.label}
+      </span>
+      {few && (
+        <span className={`block font-semibold leading-snug ${tiny ? "text-[11.5px]" : "text-[13px]"} ${onDark ? "text-[#F4B860]" : "text-[#B4532A]"}`}>
+          {c.next.spotsLeft === 1 ? "1 spot left" : `${c.next.spotsLeft} spots left`}
+        </span>
+      )}
+    </span>
+  );
 }
 
 // Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
@@ -380,9 +407,7 @@ function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
   const ask = c.key === "private" ? "Ask about a date" : "See dates & book";
   return (
     <>
-      <span className={`mt-1.5 block text-[13px] leading-snug ${onDark ? "text-white/75" : "text-brand-text/70"}`} style={lora}>
-        {heroWhen(c)}
-      </span>
+      <HeroNext c={c} onDark={onDark} />
       <span
         className={`mt-1.5 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-all group-hover:gap-2.5 ${onDark ? "text-[#5AE19E]" : c.key === "free" ? "text-[#1A6B47]" : "text-brand-text"}`}
         style={lora}
@@ -395,7 +420,6 @@ function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
 
 export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCardData[]; eaterFamily: string; onPhoto: boolean }) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-  const when = onPhoto ? "text-white/85" : "text-brand-text/70";
   return (
     <div id="tours" className="scroll-mt-20">
       {/* Phones and tablets */}
@@ -407,9 +431,7 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
               <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
                 {SHORT_NAME[c.key]}
               </p>
-              <p className={`mt-1 text-[12px] leading-snug ${when}`} style={lora}>
-                {heroWhen(c)}
-              </p>
+              <HeroNext c={c} onDark={onPhoto} tiny />
             </a>
           </li>
         ))}
