@@ -270,10 +270,13 @@ never ships):
 - links from VisitNorwich, GuruWalk and FreeTour.com: do they point at the free
   tour page yet?
 
-What it can't see: Search Console rankings and clicks, and GA4 bookings. Those
-need your login. Either paste the Search Console Performance export into the
-chat on Monday, or connect Search Console to Claude so the check can read it
-itself.
+- Search Console (positions and clicks for the tracked searches, which page
+  ranks for "free walking tour norwich", new indexing errors) and GA4 (organic
+  sessions and bookings), read through Tom's own Chrome (Claude in Chrome),
+  where he's signed in. Read only: it never changes a setting.
+
+It needs Chrome open with the Claude extension connected. If Google asks it to
+sign in again, it notes that in the report and skips that part.
 
 **Rollback triggers.** If any "Worry" column holds for the time shown, undo
 the move (below) and we look at why before trying again. A dip in weeks 1 to 3
