@@ -183,7 +183,12 @@ function Polaroid({
         <span
           aria-hidden="true"
           className={`absolute ${small ? "-top-[7px] w-10 h-4" : "-top-[11px] w-20 h-6"} left-1/2 rounded-[2px] z-10`}
-          style={{ transform: "translateX(-50%) rotate(-3deg)", backgroundColor: dark ? "#3A3530" : tapes[i % tapes.length], boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }}
+          style={{
+            transform: "translateX(-50%) rotate(-3deg)",
+            // Header: Dark History's tape in its neon green (Tom 2026-10-19).
+            backgroundColor: dark ? (hero ? GLOW : "#3A3530") : tapes[i % tapes.length],
+            boxShadow: hero && dark ? "0 0 14px rgba(90,225,158,0.7)" : "0 1px 3px rgba(0,0,0,0.18)",
+          }}
         />
       )}
       <div className="relative aspect-square overflow-hidden bg-brand-accent-light">
@@ -195,7 +200,7 @@ function Polaroid({
             sizes={small ? "120px" : mid ? "210px" : "(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"}
             className={`object-cover transition-[filter] duration-700 ${dark ? "group-hover:brightness-75" : ""} ${soon ? "[filter:grayscale(1)_blur(4px)] group-hover:[filter:grayscale(1)_blur(1.5px)] scale-[1.08]" : ""}`}
             style={dark ? sepia : undefined}
-            priority={i === 0 && !small}
+            priority={(free || i === 0) && !small}
           />
         )}
         {dark && (
@@ -444,7 +449,7 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
             <li
               key={c.key}
               className="absolute w-[236px] z-[var(--z)] hover:z-40"
-              style={{ left: p.left, top: p.top, ["--z" as string]: c.key === "dark" ? 30 : 20 - i, transform: `rotate(${p.rot}deg)` } as CSSProperties}
+              style={{ left: p.left, top: p.top, ["--z" as string]: c.key === "free" ? 30 : 20 - i, transform: `rotate(${p.rot}deg)` } as CSSProperties}
             >
               <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
                 <Polaroid c={c} i={i} eater={eater} mid hero={onPhoto} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />

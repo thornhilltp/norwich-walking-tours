@@ -223,7 +223,11 @@ export function BrandHeroPolaroids({
   look: "photo" | "cream";
 }) {
   const onPhoto = look === "photo";
-  const cards = tourCards(next).filter((c) => c.key !== "soon");
+  // Free tour in the middle, Dark History on the left (Tom 2026-10-19).
+  const order = ["dark", "free", "private"];
+  const cards = tourCards(next)
+    .filter((c) => c.key !== "soon")
+    .sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key));
   return (
     <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: onPhoto ? "#121211" : "#FCFAF8" }}>
       {onPhoto && (
