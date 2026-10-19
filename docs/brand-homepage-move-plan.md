@@ -231,9 +231,15 @@ redirect chains with a crawl after deploy.
 - If you've set a separate "Booking" or "Products" link for the free tour, point
   it at `/tours/free-walking-tour`.
 
-### Elsewhere (when you have time)
-- GuruWalk, FreeTour.com and VisitNorwich listings: change the link for the free
-  tour to `/tours/free-walking-tour`.
+### VisitNorwich listing (same day, 5 minutes)
+- Change the website link on our VisitNorwich listing to
+  `https://www.norwichfreewalkingtours.co.uk/tours/free-walking-tour`. It's the
+  most trusted outside link we have (the official city tourism site), so it
+  should point straight at the tour page, not via the homepage.
+
+### Elsewhere (that week)
+- GuruWalk and FreeTour.com listings: change the link for the free tour to
+  `/tours/free-walking-tour`.
 - Instagram, TikTok and Facebook bios can stay on the homepage.
 - Printed QR codes keep working (they go to `/updates` or `/book`).
 
@@ -250,8 +256,24 @@ Check once a week (Monday, 10 minutes), against the Part 0 baseline:
 | Errors | Search Console → Pages (indexing) | no new "Not found" or "Redirect error" | any new 404 or redirect error |
 | Speed | PageSpeed Insights, mobile | no worse than before | LCP over 2.5s |
 
-Claude can run the crawl and speed checks on request; the Search Console and
-GA4 numbers need you (or a pasted export).
+**Automated Monday check (set up 2026-10-19).** A scheduled task runs every
+Monday at 9am while the Claude app is open (if the app is closed, it runs next
+time it opens). It checks the live site and writes a short report to
+`C:\Users\Tom\Desktop\NFWT SEO reports\YYYY-MM-DD.md` (outside the code, so it
+never ships):
+- every sitemap page loads (no 404s), redirects are one hop, each page has the
+  right title, canonical and no stray `noindex`;
+- `/tour` lands on the free tour page; the free tour page carries the
+  `TouristTrip` and `FAQPage` labels;
+- PageSpeed (mobile) for the homepage and the free tour page, compared with
+  last week;
+- links from VisitNorwich, GuruWalk and FreeTour.com: do they point at the free
+  tour page yet?
+
+What it can't see: Search Console rankings and clicks, and GA4 bookings. Those
+need your login. Either paste the Search Console Performance export into the
+chat on Monday, or connect Search Console to Claude so the check can read it
+itself.
 
 **Rollback triggers.** If any "Worry" column holds for the time shown, undo
 the move (below) and we look at why before trying again. A dip in weeks 1 to 3
