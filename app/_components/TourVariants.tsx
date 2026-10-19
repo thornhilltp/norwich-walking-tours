@@ -18,7 +18,7 @@ import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
 import { CanarySticker, CupSticker, SpireSticker, StickerLabel } from "@/components/Doodles";
-import type { TourCardData } from "./BrandBooking";
+import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
 
 
@@ -424,6 +424,33 @@ function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
   );
 }
 
+/** Phones (Tom 2026-10-19): a button under each tour. Photo = the tour's
+    page; button = booking pop-up on that tour (private: its page). */
+function PhoneCta({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
+  const base = "mt-3 flex min-h-[44px] w-full items-center justify-center rounded-full px-2 text-center leading-none transition active:scale-95";
+  if (c.key === "private")
+    return (
+      <a href={c.href} onClick={() => trackEvent("book_cta_click", { location: "hero_phone_private" })} className={`${base} border-2 border-white/85 text-white`} style={{ ...lora, fontSize: 14, fontWeight: 600 }}>
+        Ask us
+      </a>
+    );
+  const dark = c.key === "dark";
+  return (
+    <a
+      href={c.href}
+      onClick={(e) => {
+        e.preventDefault();
+        trackEvent("book_cta_click", { location: `hero_phone_${c.key}` });
+        openBooking(dark ? "dark" : "free", `hero_phone_${c.key}`);
+      }}
+      className={`${base} ${dark ? "border border-[#5AE19E]/70 shadow-[0_0_14px_rgba(90,225,158,0.4)]" : "bg-brand-accent text-white shadow-md"}`}
+      style={dark ? { ...eater, backgroundColor: NIGHT, color: GLOW, fontSize: 14 } : { ...caveat, fontSize: 21, fontWeight: 700 }}
+    >
+      Book free
+    </a>
+  );
+}
+
 export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCardData[]; eaterFamily: string; onPhoto: boolean }) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
   return (
@@ -431,14 +458,15 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
       {/* Phones and tablets */}
       <ol className="lg:hidden m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2">
         {cards.map((c, i) => (
-          <li key={c.key} className={c.key === "free" ? "relative z-20" : "relative"}>
-            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
+          <li key={c.key} className={`relative flex flex-col ${c.key === "free" ? "z-20" : ""}`}>
+            <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block flex-1">
               <Polaroid c={c} i={i} eater={eater} small hero={onPhoto} />
               <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
                 {SHORT_NAME[c.key]}
               </p>
               <HeroNext c={c} onDark={onPhoto} tiny />
             </a>
+            <PhoneCta c={c} eater={eater} />
           </li>
         ))}
       </ol>
