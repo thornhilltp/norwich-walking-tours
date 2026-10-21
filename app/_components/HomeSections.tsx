@@ -370,9 +370,11 @@ export function YourGuides({ intro }: { intro?: ReactNode } = {}) {
             {intro}
           </p>
         )}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8 text-center">
+        {/* Phones: a sideways swipe row so three tall polaroids don't fill three
+            screens (Tom 2026-10-21); the next card peeks in. */}
+        <div className="-mx-4 mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-8 pt-5 pb-4 text-center [scrollbar-width:none] sm:mx-0 sm:mt-12 sm:grid sm:grid-cols-3 sm:gap-8 sm:overflow-visible sm:px-0 sm:pt-0 sm:pb-0">
           {guides.map((g) => (
-            <div key={g.name} className="flex flex-col items-center">
+            <div key={g.name} className="flex w-[80%] shrink-0 snap-center flex-col items-center sm:w-auto">
               <div
                 className="p-3 pb-12 shadow-xl border border-brand-text/5 relative w-full max-w-[300px]"
                 style={{ backgroundColor: "#F5EBDA", transform: `rotate(${g.rotate})` }}

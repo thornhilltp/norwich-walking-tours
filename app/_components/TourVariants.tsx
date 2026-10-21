@@ -216,26 +216,47 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
   const muted = onDark ? "text-white/75" : "text-brand-text/70";
   if (c.key === "private" || !c.next)
     return (
-      <span className={`block ${tiny ? "mt-1 text-[12px]" : "mt-1.5 text-[13px]"} leading-snug ${muted}`} style={lora}>
+      <span className={`block ${tiny ? "mt-1 text-[13px]" : "mt-1.5 text-[13px]"} leading-snug ${muted}`} style={lora}>
         {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Most evenings, 6pm" : "Most days, 10:30am"}
       </span>
     );
   const dot = onDark ? GLOW : GREEN;
   const few = c.next.spotsLeft <= 6;
-  return (
-    <span className={`block ${tiny ? "mt-1" : "mt-2"}`} style={lora}>
-      <span className={`flex items-center gap-1.5 font-semibold uppercase tracking-[0.12em] ${tiny ? "text-[9.5px]" : "text-[10.5px]"}`} style={{ color: dot }}>
-        <span aria-hidden className="relative inline-flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 motion-reduce:animate-none" style={{ backgroundColor: dot }} />
-          <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: dot }} />
+  const pulse = (
+    <span aria-hidden className="relative inline-flex h-2 w-2 shrink-0">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 motion-reduce:animate-none" style={{ backgroundColor: dot }} />
+      <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: dot }} />
+    </span>
+  );
+  // Phones (Tom 2026-10-21): no "Next walk" words, just the live dot beside
+  // the date. Desktop keeps the label.
+  if (tiny)
+    return (
+      <span className="mt-1 block" style={lora}>
+        <span className={`block font-bold leading-snug text-[14px] ${onDark ? "text-white" : "text-brand-text"}`}>
+          {/* Inline so the dot sits beside the first word when the date wraps. */}
+          <span className="mr-1.5 inline-flex align-middle -mt-0.5">{pulse}</span>
+          <span className="sr-only">Next walk: </span>
+          {c.next.label}
         </span>
+        {few && (
+          <span className={`block font-semibold leading-snug text-[13px] ${onDark ? "text-[#F4B860]" : "text-[#B4532A]"}`}>
+            {c.next.spotsLeft === 1 ? "1 spot left" : `${c.next.spotsLeft} spots left`}
+          </span>
+        )}
+      </span>
+    );
+  return (
+    <span className="mt-2 block" style={lora}>
+      <span className="flex items-center gap-1.5 font-semibold uppercase tracking-[0.12em] text-[10.5px]" style={{ color: dot }}>
+        {pulse}
         Next walk
       </span>
-      <span className={`mt-0.5 block font-bold leading-snug ${tiny ? "text-[12.5px]" : "text-[15px]"} ${onDark ? "text-white" : "text-brand-text"}`}>
+      <span className={`mt-0.5 block font-bold leading-snug text-[15px] ${onDark ? "text-white" : "text-brand-text"}`}>
         {c.next.label}
       </span>
       {few && (
-        <span className={`block font-semibold leading-snug ${tiny ? "text-[11.5px]" : "text-[13px]"} ${onDark ? "text-[#F4B860]" : "text-[#B4532A]"}`}>
+        <span className={`block font-semibold leading-snug text-[13px] ${onDark ? "text-[#F4B860]" : "text-[#B4532A]"}`}>
           {c.next.spotsLeft === 1 ? "1 spot left" : `${c.next.spotsLeft} spots left`}
         </span>
       )}
@@ -269,12 +290,16 @@ function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
 
 /** Phones (Tom 2026-10-19): a button under each tour. Photo = the tour's
     page; button = booking pop-up on that tour (private: its page). */
-function PhoneCta({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
-  const base = "mt-3 flex min-h-[44px] w-full items-center justify-center rounded-full px-2 text-center leading-none transition active:scale-95";
+// Phones (Tom 2026-10-21): a small link under each card, not a row of three
+// chunky buttons. The card itself is tappable and the sticky bar carries the
+// big "Book a tour" button once you scroll.
+function PhoneCta({ c }: { c: TourCardData; eater: CSSProperties }) {
+  const base =
+    "mt-1.5 inline-flex min-h-[44px] items-center justify-center self-center px-1 text-[14px] font-semibold underline underline-offset-4 decoration-2 transition active:scale-95";
   if (c.key === "private")
     return (
-      <a href={c.href} onClick={() => trackEvent("book_cta_click", { location: "hero_phone_private" })} className={`${base} border-2 border-white/85 text-white`} style={{ ...lora, fontSize: 14, fontWeight: 600 }}>
-        Ask us
+      <a href={c.href} onClick={() => trackEvent("book_cta_click", { location: "hero_phone_private" })} className={`${base} text-white decoration-white/40`} style={lora}>
+        Ask us &rarr;
       </a>
     );
   const dark = c.key === "dark";
@@ -286,10 +311,10 @@ function PhoneCta({ c, eater }: { c: TourCardData; eater: CSSProperties }) {
         trackEvent("book_cta_click", { location: `hero_phone_${c.key}` });
         openBooking(dark ? "dark" : "free", `hero_phone_${c.key}`);
       }}
-      className={`${base} ${dark ? "border border-[#5AE19E]/70 shadow-[0_0_14px_rgba(90,225,158,0.4)]" : "bg-brand-accent text-white shadow-md"}`}
-      style={dark ? { ...eater, backgroundColor: NIGHT, color: GLOW, fontSize: 14 } : { ...caveat, fontSize: 21, fontWeight: 700 }}
+      className={base}
+      style={{ ...lora, color: dark ? GLOW : "#7BE0AC", textDecorationColor: dark ? "rgba(90,225,158,0.45)" : "rgba(123,224,172,0.45)" }}
     >
-      Book free
+      Book free &rarr;
     </a>
   );
 }
@@ -301,7 +326,7 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
       {/* Phones and tablets */}
       <ol className="lg:hidden m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2">
         {cards.map((c, i) => (
-          <li key={c.key} className={`relative flex flex-col ${c.key === "free" ? "z-20" : ""}`}>
+          <li key={c.key} className={`relative flex flex-col text-center ${c.key === "free" ? "z-20" : ""}`}>
             <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block flex-1">
               <Polaroid c={c} i={i} eater={eater} small hero={onPhoto} />
               <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
