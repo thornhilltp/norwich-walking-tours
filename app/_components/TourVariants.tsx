@@ -437,7 +437,20 @@ export function HeroPolaroids({
             >
 {full ? (
                 <DealtPrint i={i}>
-                  <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" })} className="group block">
+                  {/* "See dates & book" means it (Tom 2026-10-21): free and Dark
+                      History open booking on that tour; Private goes to its
+                      page to ask. The pop-up links to the tour's page. */}
+                  <a
+                    href={c.key === "private" ? c.href : hrefOf(c)}
+                    onClick={(e) => {
+                      trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" });
+                      if (c.key === "free" || c.key === "dark") {
+                        e.preventDefault();
+                        openBooking(c.key, `pick_your_walk_${c.key}`);
+                      }
+                    }}
+                    className="group block"
+                  >
                     <Polaroid c={c} i={i} eater={eater} mid hero={prints} quietPopUp extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
                   </a>
                 </DealtPrint>

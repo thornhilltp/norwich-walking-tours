@@ -93,8 +93,8 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
 function bookingTabs(): BookingTab[] {
   const dark = bySlug("dark-history-of-norwich");
   const list: BookingTab[] = [
-    { key: "free", label: "Free Walking Tour", when: "Most days, 10:30am" },
-    { key: "dark", label: "Dark History", when: "Evenings until 6 Nov", bookingTour: dark.details?.bookingTour },
+    { key: "free", label: "Free Walking Tour", when: "Most days, 10:30am", details: FREE_TOUR_HREF },
+    { key: "dark", label: "Dark History", when: "Evenings until 6 Nov", bookingTour: dark.details?.bookingTour, details: dark.ctaHref },
   ];
   return darkIsOn() ? list : list.filter((t) => t.key !== "dark");
 }

@@ -110,8 +110,9 @@ export default async function HomePage() {
         ]}
       />
       <BrandBookingSheet />
-      {/* Hidden until the header's tour buttons scroll away (Tom 2026-10-19). */}
-      <BrandStickyBar revealAfter="tours" />
+      {/* Hidden until the tours scroll away (Tom 2026-10-19); glides back up
+          to Pick your walk (Tom 2026-10-21). */}
+      <BrandStickyBar revealAfter="tours" glideTo="pick-your-walk" />
     </main>
   );
 }

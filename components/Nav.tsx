@@ -35,6 +35,17 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toursOpen, setToursOpen] = useState(false);
   const pathname = usePathname();
+  // Homepage (Tom 2026-10-21): "Book a tour" glides to Pick your walk, so
+  // people choose the right tour first. Everywhere else it goes to /book.
+  const onHome = pathname === "/";
+  const bookHref = onHome ? "/#pick-your-walk" : "/book";
+  const toWalks = (e: { preventDefault: () => void }) => {
+    const el = onHome ? document.getElementById("pick-your-walk") : null;
+    if (!el) return;
+    e.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  };
   // Nav is transparent at top of pages with dark image heroes (currently
   // just / — the homepage with its photo+overlay hero). Otherwise opaque
   // so nav text is legible against cream content bg.
@@ -189,8 +200,11 @@ export function Nav() {
               );
             })}
             <a
-              href="/book"
-              onClick={() => trackEvent("book_cta_click", { location: "nav_desktop" })}
+              href={bookHref}
+              onClick={(e) => {
+                trackEvent("book_cta_click", { location: "nav_desktop" });
+                toWalks(e);
+              }}
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
               Book a tour
@@ -259,10 +273,11 @@ export function Nav() {
           })}
           <div className="mt-2 pt-2 border-t border-brand-accent/10">
             <a
-              href="/book"
-              onClick={() => {
+              href={bookHref}
+              onClick={(e) => {
                 trackEvent("book_cta_click", { location: "nav_mobile" });
                 setMobileOpen(false);
+                toWalks(e);
               }}
               className="btn-cta flex items-center justify-center w-full h-11 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-base"
             >

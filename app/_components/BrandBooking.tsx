@@ -30,6 +30,8 @@ export type BookingTab = {
   when: string;
   /** Booking-app slug; undefined = the free tour. */
   bookingTour?: string;
+  /** The tour's own page, linked from the booking pop-up. */
+  details?: string;
 };
 
 export type TourCardData = {
@@ -214,6 +216,17 @@ export function BookingSheet({ tabs, eaterFamily }: { tabs: BookingTab[]; eaterF
               <BookingHeading dark={dark} eater={eater} small />
               <p className={`mt-1 text-[14px] ${dark ? "text-white/65" : "text-brand-text/65"}`} style={lora}>
                 Free to book. Tip what it was worth.
+                {tabs.find((t) => t.key === active)?.details && (
+                  <>
+                    {" "}
+                    <a
+                      href={tabs.find((t) => t.key === active)?.details}
+                      className={`inline-block py-1 font-semibold underline underline-offset-4 ${dark ? "text-[#5AE19E] decoration-[#5AE19E]/40" : "text-brand-accent-text decoration-brand-accent/40"}`}
+                    >
+                      About this walk &rarr;
+                    </a>
+                  </>
+                )}
               </p>
             </div>
             <button
@@ -238,7 +251,9 @@ export function BookingSheet({ tabs, eaterFamily }: { tabs: BookingTab[]; eaterF
 // on screen or below, and slides in once the visitor has scrolled past it.
 // Used when the header has its own booking buttons (Tom 2026-10-19), so the
 // first screen doesn't show four of them.
-export function BrandStickyBar({ revealAfter }: { revealAfter?: string } = {}) {
+// `glideTo` (an element id, homepage, Tom 2026-10-21): the button glides
+// there (Pick your walk) instead of opening booking, so people choose a tour.
+export function BrandStickyBar({ revealAfter, glideTo }: { revealAfter?: string; glideTo?: string } = {}) {
   const [shown, setShown] = useState(!revealAfter);
   useEffect(() => {
     if (!revealAfter) return;
@@ -259,16 +274,27 @@ export function BrandStickyBar({ revealAfter }: { revealAfter?: string } = {}) {
       className={`fixed bottom-0 left-0 right-0 z-40 md:hidden bg-brand-bg/95 backdrop-blur-sm border-t border-brand-accent/15 px-4 py-3 transition-transform duration-300 ease-out motion-reduce:transition-none ${shown ? "translate-y-0" : "pointer-events-none translate-y-full"}`}
     >
       <a
-        href="#book-section"
+        href={glideTo ? `#${glideTo}` : "#book-section"}
         onClick={(e) => {
           e.preventDefault();
-          openBooking("free", "brand_sticky");
+          const el = glideTo ? document.getElementById(glideTo) : null;
+          if (el) {
+            trackEvent("book_cta_click", { location: "brand_sticky" });
+            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+          } else openBooking("free", "brand_sticky");
         }}
         tabIndex={shown ? undefined : -1}
-        className="flex items-center justify-center w-full h-12 bg-brand-accent text-white rounded-xl text-[22px] font-bold"
+        className="flex items-center justify-center gap-2 w-full h-12 bg-brand-accent text-white rounded-xl text-[22px] font-bold"
         style={caveat}
       >
-        Book a tour (free)
+        {glideTo ? (
+          <>
+            Book a tour (free to book) <span aria-hidden className="text-[0.8em] leading-none">&uarr;</span>
+          </>
+        ) : (
+          "Book a tour (free)"
+        )}
       </a>
     </div>
   );
