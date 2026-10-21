@@ -131,7 +131,7 @@ export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextW
       <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
       <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.5) 100%)" }} />
       <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end gap-7 pt-28 pb-10 lg:grid lg:min-h-[90vh] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-8 lg:pb-16">
-        <div className="max-w-xl text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+        <div className="max-w-xl mx-auto text-center lg:mx-0 lg:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
           {/* Mission line as the headline (Tom 2026-10-18). */}
           <h1 className="leading-[1.0]">
             <span className="block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
@@ -146,19 +146,24 @@ export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextW
           </div>
         </div>
         <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto />
-        <div className="flex flex-col items-start gap-5 pt-2 lg:hidden">
-          <HeroProof />
+        {/* Phones: centred under the centred headline (Tom 2026-10-21). */}
+        <div className="flex flex-col items-center gap-5 pt-2 lg:hidden">
+          <HeroProof center />
         </div>
       </div>
     </section>
   );
 }
 
-function HeroProof() {
+function HeroProof({ center = false }: { center?: boolean }) {
   return (
     <>
       <RatingBadges />
-      <PartnerLogosInverted size="sm" label="Featured on" className="mt-2 [&_p]:!text-left [&_ul]:!justify-start" />
+      <PartnerLogosInverted
+        size="sm"
+        label="Featured on"
+        className={center ? "mt-2 [&_p]:!text-center [&_ul]:!justify-center" : "mt-2 [&_p]:!text-left [&_ul]:!justify-start"}
+      />
     </>
   );
 }
