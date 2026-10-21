@@ -60,7 +60,8 @@ export function HeroVideo({ film }: { film: HeroFilm }) {
         {/* Posters behind the video, so the right crop shows before it plays. */}
         <picture>
           <source media="(max-width: 767px)" srcSet={film.tall.poster} />
-          <img src={film.wide.poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          {/* The still is the header's first paint: fetch it before anything else. */}
+          <img src={film.wide.poster} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
         </picture>
         <video
           ref={ref}

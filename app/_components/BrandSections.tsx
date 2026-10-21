@@ -165,7 +165,8 @@ export function TourPolaroids({ next }: { next: { free: NextWalk | null; dark: N
             walk.
           </span>
         </h2>
-        <div className="w-full">
+        {/* The width the pile shrinks to (container query units). */}
+        <div className="w-full [container-type:inline-size]">
           <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto={false} prints full />
         </div>
       </div>

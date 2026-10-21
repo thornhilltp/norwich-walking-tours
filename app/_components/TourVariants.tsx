@@ -41,9 +41,9 @@ function PopUp({ hoverOnly = false }: { hoverOnly?: boolean }) {
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/dark-history/cutout-cathedral.svg" alt="" className={`${piece} left-[2%] h-[78%] w-auto`} />
+      <img src="/images/dark-history/cutout-cathedral.svg" alt="" loading="lazy" className={`${piece} left-[2%] h-[78%] w-auto`} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/dark-history/cutout-castle.svg" alt="" className={`${piece} left-[30%] h-[34%] w-auto`} style={{ transitionDelay: "120ms" }} />
+      <img src="/images/dark-history/cutout-castle.svg" alt="" loading="lazy" className={`${piece} left-[30%] h-[34%] w-auto`} style={{ transitionDelay: "120ms" }} />
       <span className={`absolute -bottom-2 right-1 h-[62%] transition-all duration-700 ease-out ${hidden}`} style={{ transitionDelay: "240ms" }}>
         <LetterGirl className="h-full w-auto" />
       </span>
@@ -110,6 +110,7 @@ function Polaroid({
   hero,
   extra,
   quietPopUp,
+  eager = true,
 }: {
   c: TourCardData;
   i: number;
@@ -118,6 +119,9 @@ function Polaroid({
   mid?: boolean;
   /** Dark History's pop-ups only on hover (folded on phones). */
   quietPopUp?: boolean;
+  /** Preload the photo (header use). Off below the fold, so the film's
+      still frame loads first. */
+  eager?: boolean;
   /** In the header, on photos: Dark History glows, Private gets its tag. */
   hero?: boolean;
   /** More lines under the name, inside the frame. */
@@ -170,7 +174,7 @@ function Polaroid({
             sizes={small ? "120px" : mid ? "210px" : "(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 260px"}
             className={`object-cover transition-[filter] duration-700 ${dark ? "group-hover:brightness-75" : ""} ${soon ? "[filter:grayscale(1)_blur(4px)] group-hover:[filter:grayscale(1)_blur(1.5px)] scale-[1.08]" : ""}`}
             style={dark ? sepia : undefined}
-            priority={(free || i === 0) && !small}
+            priority={eager && (free || i === 0) && !small}
           />
         )}
         {dark && (
@@ -362,7 +366,7 @@ function PhoneCta({ c }: { c: TourCardData; eater: CSSProperties }) {
 // `prints` (default: onPhoto): the header's print look (glow, straight free
 // tour, luggage tag), kept when the cards sit on the light page colour.
 // `full`: full prints everywhere (Tom 2026-10-21, "Pick your walk"): the pile
-// (shrunk to fit) from 560px up, stacked prints on phones, no buttons.
+// on every screen, shrunk to fit on phones, no buttons.
 export function HeroPolaroids({
   cards,
   eaterFamily,
@@ -377,10 +381,12 @@ export function HeroPolaroids({
   full?: boolean;
 }) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
-  // Full mode, 560px and up: the desktop pile, shrunk to fit the width so
-  // all three prints are always whole on screen.
+  // Full mode: the desktop pile on every screen, shrunk to fit the width so
+  // all three prints are always whole. The height is reserved in CSS from
+  // the server HTML on (cqw of the section), so the page below never jumps
+  // when the pile shrinks; only the transform waits for JavaScript.
   const fit = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState<number | null>(null);
   useEffect(() => {
     const el = fit.current;
     if (!full || !el) return;
@@ -390,24 +396,9 @@ export function HeroPolaroids({
   }, [full]);
   return (
     <div id="tours" className="scroll-mt-20">
-      {/* Full mode, phones: the same prints stacked down the page, tilted. */}
-      {full && (
-        <ol className="hidden m-0 flex list-none flex-col items-center gap-8 p-0 pb-2 pt-4">
-          {cards.map((c, i) => {
-            const p = PILE[i % PILE.length];
-            const nudge = i === 0 ? -14 : i === 2 ? 14 : 0;
-            return (
-              <li key={c.key} className="w-[min(260px,78vw)]" style={{ transform: `translateX(${nudge}px) rotate(${p.rot}deg)` }}>
-                <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" })} className="group block">
-                  <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
-                </a>
-              </li>
-            );
-          })}
-        </ol>
-      )}
-      {/* Phones and tablets */}
-      <ol className={`${full ? "hidden" : "lg:hidden"} m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2`}>
+      {/* Phones and tablets (header use only; full mode is the pile everywhere) */}
+      {!full && (
+      <ol className="lg:hidden m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2">
         {cards.map((c, i) => (
           <li key={c.key} className={`relative flex flex-col text-center ${c.key === "free" ? "z-20" : ""}`}>
             <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block flex-1">
@@ -421,11 +412,16 @@ export function HeroPolaroids({
           </li>
         ))}
       </ol>
+      )}
       {/* Desktop: a loose pile of prints */}
-      <div ref={fit} className={full ? "w-full" : "contents"} style={full ? { height: PILE_H * scale } : undefined}>
+      <div
+        ref={fit}
+        className={full ? "w-full h-[min(470px,calc(100cqw*0.6953))]" : "contents"}
+        style={full && scale !== null ? { height: PILE_H * scale } : undefined}
+      >
       <ol
         className={`relative hidden ${full ? "!block left-1/2" : "lg:block"} m-0 list-none p-0 h-[470px] w-[676px]`}
-        style={full ? { transform: `translateX(-50%) scale(${scale})`, transformOrigin: "top center" } : undefined}
+        style={full ? { transform: `translateX(-50%) scale(${scale ?? 1})`, transformOrigin: "top center" } : undefined}
       >
         {cards.map((c, i) => {
           const p = PILE[i % PILE.length];
@@ -451,7 +447,7 @@ export function HeroPolaroids({
                     }}
                     className="group block"
                   >
-                    <Polaroid c={c} i={i} eater={eater} mid hero={prints} quietPopUp extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                    <Polaroid c={c} i={i} eater={eater} mid hero={prints} quietPopUp eager={false} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
                   </a>
                 </DealtPrint>
               ) : (
