@@ -60,7 +60,10 @@ export function openBooking(key: BookableKey, location: string) {
 }
 
 /** The film header's one button (Tom 2026-10-21):
-    glides down to "Pick your walk", where each tour has its own button. */
+    glides down to "Pick your walk", where each tour has its own button.
+    "free to book" (Tom 2026-10-21) because Private is free to ask about but
+    not a free tour; the arrow says it moves you down the page, unlike the
+    phone bar's "Book a tour (free)", which opens booking. */
 export function HeroBookButton({ target, className = "" }: { target: string; className?: string }) {
   return (
     <a
@@ -73,10 +76,11 @@ export function HeroBookButton({ target, className = "" }: { target: string; cla
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
       }}
-      className={`inline-flex min-h-[52px] items-center justify-center rounded-full bg-brand-accent px-8 text-white shadow-lg transition active:scale-95 hover:brightness-105 ${className}`}
-      style={{ ...caveat, fontSize: 26, fontWeight: 700 }}
+      className={`inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-brand-accent px-6 sm:px-8 text-[23px] sm:text-[26px] text-white shadow-lg transition active:scale-95 hover:brightness-105 ${className}`}
+      style={{ ...caveat, fontWeight: 700 }}
     >
-      Book a tour (free)
+      Book a tour (free to book)
+      <span aria-hidden className="text-[0.8em] leading-none">&darr;</span>
     </a>
   );
 }
