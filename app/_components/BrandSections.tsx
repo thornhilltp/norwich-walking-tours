@@ -134,10 +134,10 @@ export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextW
         <div className="max-w-xl mx-auto text-center lg:mx-0 lg:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
           {/* Mission line as the headline (Tom 2026-10-18). */}
           <h1 className="leading-[1.0]">
-            <span className="block text-[clamp(30px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
+            <span className="block text-[clamp(36px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
               Helping locals and travellers
             </span>
-            <span className="block text-[clamp(44px,4.5vw,68px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
+            <span className="block text-[clamp(52px,4.5vw,68px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
               love and discover Norwich.
             </span>
           </h1>
