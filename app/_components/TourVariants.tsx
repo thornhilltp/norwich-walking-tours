@@ -9,7 +9,7 @@
 //   Desktop: a loose pile of prints.  Phones: a row of three with buttons.
 
 import Image from "next/image";
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { LetterGirl } from "./LetterGirl";
@@ -267,6 +267,8 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
 // Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
 // overlapping like prints dropped on a table; no route line on the photos;
 // the name, next walk and the ask all sit in the frame's bottom strip.
+const PILE_W = 676;
+const PILE_H = 470;
 const PILE = [
   { left: 0, top: 46, rot: -4 },
   { left: 220, top: 0, rot: 0 },
@@ -319,16 +321,59 @@ function PhoneCta({ c }: { c: TourCardData; eater: CSSProperties }) {
   );
 }
 
-export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCardData[]; eaterFamily: string; onPhoto: boolean }) {
+// `prints` (default: onPhoto): the header's print look (glow, straight free
+// tour, luggage tag), kept when the cards sit on the light page colour.
+// `full`: full prints everywhere (Tom 2026-10-21, "Pick your walk"): the pile
+// (shrunk to fit) from 560px up, stacked prints on phones, no buttons.
+export function HeroPolaroids({
+  cards,
+  eaterFamily,
+  onPhoto,
+  prints = onPhoto,
+  full = false,
+}: {
+  cards: TourCardData[];
+  eaterFamily: string;
+  onPhoto: boolean;
+  prints?: boolean;
+  full?: boolean;
+}) {
   const eater: CSSProperties = { fontFamily: eaterFamily, fontWeight: 400 };
+  // Full mode, 560px and up: the desktop pile, shrunk to fit the width so
+  // all three prints are always whole on screen.
+  const fit = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = fit.current;
+    if (!full || !el) return;
+    const ro = new ResizeObserver(() => setScale(Math.min(1, el.clientWidth / PILE_W)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [full]);
   return (
     <div id="tours" className="scroll-mt-20">
+      {/* Full mode, phones: the same prints stacked down the page, tilted. */}
+      {full && (
+        <ol className="hidden m-0 flex list-none flex-col items-center gap-8 p-0 pb-2 pt-4">
+          {cards.map((c, i) => {
+            const p = PILE[i % PILE.length];
+            const nudge = i === 0 ? -14 : i === 2 ? 14 : 0;
+            return (
+              <li key={c.key} className="w-[min(260px,78vw)]" style={{ transform: `translateX(${nudge}px) rotate(${p.rot}deg)` }}>
+                <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" })} className="group block">
+                  <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      )}
       {/* Phones and tablets */}
-      <ol className="lg:hidden m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2">
+      <ol className={`${full ? "hidden" : "lg:hidden"} m-0 grid list-none grid-cols-3 gap-3 p-0 pt-2`}>
         {cards.map((c, i) => (
           <li key={c.key} className={`relative flex flex-col text-center ${c.key === "free" ? "z-20" : ""}`}>
             <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block flex-1">
-              <Polaroid c={c} i={i} eater={eater} small hero={onPhoto} />
+              <Polaroid c={c} i={i} eater={eater} small hero={prints} />
               <p className="mt-2.5" style={heroName(c, eater, onPhoto, 21)}>
                 {SHORT_NAME[c.key]}
               </p>
@@ -339,7 +384,11 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
         ))}
       </ol>
       {/* Desktop: a loose pile of prints */}
-      <ol className="relative hidden lg:block m-0 list-none p-0 h-[470px] w-[676px]">
+      <div ref={fit} className={full ? "w-full" : "contents"} style={full ? { height: PILE_H * scale } : undefined}>
+      <ol
+        className={`relative hidden ${full ? "!block left-1/2" : "lg:block"} m-0 list-none p-0 h-[470px] w-[676px]`}
+        style={full ? { transform: `translateX(-50%) scale(${scale})`, transformOrigin: "top center" } : undefined}
+      >
         {cards.map((c, i) => {
           const p = PILE[i % PILE.length];
           return (
@@ -349,12 +398,13 @@ export function HeroPolaroids({ cards, eaterFamily, onPhoto }: { cards: TourCard
               style={{ left: p.left, top: p.top, ["--z" as string]: c.key === "free" ? 30 : 20 - i, transform: `rotate(${p.rot}deg)` } as CSSProperties}
             >
               <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
-                <Polaroid c={c} i={i} eater={eater} mid hero={onPhoto} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
               </a>
             </li>
           );
         })}
       </ol>
+      </div>
     </div>
   );
 }

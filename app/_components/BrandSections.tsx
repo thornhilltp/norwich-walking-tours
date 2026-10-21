@@ -13,8 +13,8 @@ import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
 import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { GoogleLogo, TripAdvisorLogo } from "./Testimonials";
-import { BookingSheet, type BookingTab, type TourCardData } from "./BrandBooking";
-import { HeroSlideshow, type HeroSlide } from "@/app/_components/HeroSlideshow";
+import { BookingSheet, HeroBookButton, type BookingTab, type TourCardData } from "./BrandBooking";
+import { HeroVideo, type HeroFilm } from "@/app/_components/HeroVideo";
 import { HeroPolaroids } from "./TourVariants";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
 import type { NextWalk } from "@/lib/nextWalks";
@@ -99,40 +99,35 @@ function bookingTabs(): BookingTab[] {
   return darkIsOn() ? list : list.filter((t) => t.key !== "dark");
 }
 
-/* ── 1. Header: who we are, and the tours as polaroids ─────────────────── */
+/* ── 1. Header: the film, then the tours as polaroids ──────────────────── */
 
-// Tom 2026-10-19 (picked from five header options he previewed): the
-// cycling pro photos stay behind; the mission line sits left; the tours are
-// taped polaroids on the right (a row on phones) and replace the old
-// "Pick your walk" section. Photo = the tour's page; button = booking pop-up.
-// Dark History on the left with a neon glow, the free tour straight in the
-// middle, Private with a "Reserved" luggage tag. No sub line (the polaroids
-// say what the tours are). Rating badges and "Featured on" under the
-// headline. Pro shoots only, wide Norwich shots mixed with groups.
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    src: "/images/tour/group-city-hall-walk.jpg",
-    alt: "A tour group walking across the square below Norwich City Hall in the evening sun",
-    position: "center 55%",
-  },
-  { src: "/images/tour/cathedral-west-front-wide.jpg", alt: "", position: "center 55%" },
-  { src: "/images/tour/group-street-laughing.jpg", alt: "", position: "40% 40%" },
-  { src: "/images/tour/tom-erpingham-gate.jpg", alt: "", position: "center 45%" },
-  { src: "/images/tour/elm-hill-lane.jpg", alt: "", position: "center 60%" },
-];
+// Header film (Tom 2026-10-21; replaced the cycling photos and the tours
+// in the header, which are in git history): our free tour, from
+// Visit Norwich's summer 2026 film (written permission held). 6.4s to 12.8s
+// of their cut, starting on the guide, at 0.7 speed, sound off.
+// Credit: VisitNorwich and JH Film Production, who shot it.
+const HERO_FILM: HeroFilm = {
+  wide: { src: "/videos/visit-norwich-lanes-wide.mp4", poster: "/videos/visit-norwich-lanes-wide-poster.jpg" },
+  tall: { src: "/videos/visit-norwich-lanes-tall.mp4", poster: "/videos/visit-norwich-lanes-tall-poster.jpg" },
+  credit: [
+    { name: "VisitNorwich", href: "https://www.visitnorwich.co.uk/" },
+    { name: "JH Film Production", href: "https://www.jhfilmproduction.co.uk/" },
+  ],
+};
 
 const HERO_ORDER: TourCardData["key"][] = ["dark", "free", "private"];
 
-export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
-  const cards = tourCards(next).sort((a, b) => HERO_ORDER.indexOf(a.key) - HERO_ORDER.indexOf(b.key));
+// Tom 2026-10-21: the film gets the header to itself.
+// Headline, one booking button, the proof. The tours move to their own
+// section straight after (TourPolaroids), since on the film they hid it.
+export function FilmHero() {
   return (
     <section id="top" className="relative isolate overflow-hidden" style={{ backgroundColor: "#121211" }}>
-      <HeroSlideshow slides={HERO_SLIDES} />
-      <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.88) 100%)" }} />
-      <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.5) 100%)" }} />
-      <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end gap-7 pt-28 pb-10 lg:grid lg:min-h-[90vh] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-8 lg:pb-16">
-        <div className="max-w-xl mx-auto text-center lg:mx-0 lg:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
-          {/* Mission line as the headline (Tom 2026-10-18). */}
+      <HeroVideo film={HERO_FILM} />
+      <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.85) 100%)" }} />
+      <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.1) 100%)" }} />
+      <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end pt-28 pb-12 lg:min-h-[90vh] lg:justify-center lg:pb-16">
+        <div className="max-w-xl mx-auto flex flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
           <h1 className="leading-[1.0]">
             <span className="block text-[clamp(36px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
               Helping locals and travellers
@@ -141,14 +136,37 @@ export function BrandHero({ next }: { next: { free: NextWalk | null; dark: NextW
               love and discover Norwich.
             </span>
           </h1>
-          <div className="mt-9 hidden lg:flex flex-col items-start gap-5">
-            <HeroProof />
+          <div className="mt-8">
+            <HeroBookButton target="pick-your-walk" />
+          </div>
+          <div className={`mt-9 flex flex-col gap-5 items-center lg:items-start`}>
+            <HeroProof center />
           </div>
         </div>
-        <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto />
-        {/* Phones: centred under the centred headline (Tom 2026-10-21). */}
-        <div className="flex flex-col items-center gap-5 pt-2 lg:hidden">
-          <HeroProof center />
+      </div>
+    </section>
+  );
+}
+
+// The tours as they sit in the live header (glowing, taped), in their own
+// section on the light page colour (Tom 2026-10-21). Phones: a row of three with a button each; desktop: the
+// loose pile. The header's button glides here.
+export function TourPolaroids({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
+  const cards = tourCards(next)
+    .sort((a, b) => HERO_ORDER.indexOf(a.key) - HERO_ORDER.indexOf(b.key));
+  return (
+    <section id="pick-your-walk" className="relative scroll-mt-16 overflow-x-clip bg-brand-bg py-14 lg:py-20">
+      <div className="brand-container max-w-6xl flex flex-col items-center">
+        <h2 className="mb-8 text-center leading-[1.0] lg:mb-6">
+          <span className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text" style={lora}>
+            Pick your
+          </span>{" "}
+          <span className="inline text-[clamp(48px,5.6vw,76px)] font-semibold leading-[0.95] text-brand-accent" style={caveat}>
+            walk.
+          </span>
+        </h2>
+        <div className="w-full">
+          <HeroPolaroids cards={cards} eaterFamily={eater.style.fontFamily} onPhoto={false} prints full />
         </div>
       </div>
     </section>

@@ -59,6 +59,28 @@ export function openBooking(key: BookableKey, location: string) {
   window.dispatchEvent(new CustomEvent(OPEN, { detail: key }));
 }
 
+/** The film header's one button (Tom 2026-10-21):
+    glides down to "Pick your walk", where each tour has its own button. */
+export function HeroBookButton({ target, className = "" }: { target: string; className?: string }) {
+  return (
+    <a
+      href={`#${target}`}
+      onClick={(e) => {
+        const el = document.getElementById(target);
+        if (!el) return;
+        e.preventDefault();
+        trackEvent("book_cta_click", { location: "hero_film" });
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      }}
+      className={`inline-flex min-h-[52px] items-center justify-center rounded-full bg-brand-accent px-8 text-white shadow-lg transition active:scale-95 hover:brightness-105 ${className}`}
+      style={{ ...caveat, fontSize: 26, fontWeight: 700 }}
+    >
+      Book a tour (free)
+    </a>
+  );
+}
+
 /* ── Booking panel: tabs + widget, themed to the tour picked ──────────── */
 
 function BookingPanel({

@@ -12,7 +12,8 @@ import { Testimonials } from "./_components/Testimonials";
 import { YourGuides, homeFaqs } from "./_components/HomeSections";
 import {
   BrandBookingSheet,
-  BrandHero,
+  FilmHero,
+  TourPolaroids,
   WhatIsFree,
   brandFaqs,
 } from "./_components/BrandSections";
@@ -62,14 +63,18 @@ export default async function HomePage() {
       <ScrollTrail
         sections={[
           { id: "top", label: "Hello" },
+          { id: "pick-your-walk", label: "Tours" },
           { id: "reviews", label: "Reviews" },
           { id: "free-tours", label: "Free tours" },
           { id: "guides", label: "Guides" },
           { id: "faq", label: "FAQs" },
         ]}
       />
-      {/* The tours live in the header as polaroids (Tom 2026-10-19). */}
-      <BrandHero next={next} />
+      {/* Tom 2026-10-21: our free tour on film in the header (from
+          VisitNorwich's summer film), then the tours as polaroids in their
+          own section. The header's button glides down to them. */}
+      <FilmHero />
+      <TourPolaroids next={next} />
       <Testimonials showCta={false} />
       {/* Guest videos live on each tour's own page (Tom 2026-10-18). */}
       <WhatIsFree />
