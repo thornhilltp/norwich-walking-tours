@@ -9,6 +9,7 @@
 //   Desktop: a loose pile of prints.  Phones: a row of three with buttons.
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
@@ -27,16 +28,23 @@ const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
 /* ── Shared pieces ─────────────────────────────────────────────────────── */
 
 /** Dark History's pop-up pieces. Hover devices: folded flat until hover;
-    phones: standing all the time. */
-function PopUp() {
-  const piece = "absolute bottom-0 origin-bottom transition-transform duration-700 ease-out [@media(hover:hover)]:[transform:perspective(500px)_rotateX(88deg)] [@media(hover:hover)]:group-hover:[transform:perspective(500px)_rotateX(0deg)]";
+    phones: standing all the time, unless `hoverOnly` (Pick your walk, Tom
+    2026-10-21: on phones they covered the photo), then they stay folded. */
+function PopUp({ hoverOnly = false }: { hoverOnly?: boolean }) {
+  const folded = hoverOnly
+    ? "[transform:perspective(500px)_rotateX(88deg)] [@media(hover:hover)]:group-hover:[transform:perspective(500px)_rotateX(0deg)]"
+    : "[@media(hover:hover)]:[transform:perspective(500px)_rotateX(88deg)] [@media(hover:hover)]:group-hover:[transform:perspective(500px)_rotateX(0deg)]";
+  const hidden = hoverOnly
+    ? "translate-x-[40%] opacity-0 [@media(hover:hover)]:group-hover:translate-x-0 [@media(hover:hover)]:group-hover:opacity-100"
+    : "[@media(hover:hover)]:translate-x-[40%] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:translate-x-0 [@media(hover:hover)]:group-hover:opacity-100";
+  const piece = `absolute bottom-0 origin-bottom transition-transform duration-700 ease-out ${folded}`;
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/dark-history/cutout-cathedral.svg" alt="" className={`${piece} left-[2%] h-[78%] w-auto`} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/dark-history/cutout-castle.svg" alt="" className={`${piece} left-[30%] h-[34%] w-auto`} style={{ transitionDelay: "120ms" }} />
-      <span className="absolute -bottom-2 right-1 h-[62%] transition-all duration-700 ease-out [@media(hover:hover)]:translate-x-[40%] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:translate-x-0 [@media(hover:hover)]:group-hover:opacity-100" style={{ transitionDelay: "240ms" }}>
+      <span className={`absolute -bottom-2 right-1 h-[62%] transition-all duration-700 ease-out ${hidden}`} style={{ transitionDelay: "240ms" }}>
         <LetterGirl className="h-full w-auto" />
       </span>
     </>
@@ -101,12 +109,15 @@ function Polaroid({
   mid,
   hero,
   extra,
+  quietPopUp,
 }: {
   c: TourCardData;
   i: number;
   eater: CSSProperties;
   small?: boolean;
   mid?: boolean;
+  /** Dark History's pop-ups only on hover (folded on phones). */
+  quietPopUp?: boolean;
   /** In the header, on photos: Dark History glows, Private gets its tag. */
   hero?: boolean;
   /** More lines under the name, inside the frame. */
@@ -165,7 +176,7 @@ function Polaroid({
         {dark && (
           <>
             <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(10,6,2,0.75) 100%)" }} />
-            {!small && <PopUp />}
+            {!small && <PopUp hoverOnly={quietPopUp} />}
           </>
         )}
         {soon && (
@@ -267,6 +278,33 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
 // Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
 // overlapping like prints dropped on a table; no route line on the photos;
 // the name, next walk and the ask all sit in the frame's bottom strip.
+/** Pick your walk (Tom 2026-10-21, "quite static"): the prints are dealt
+    onto the table one by one as the section scrolls in, then drift gently,
+    each on its own beat. Never hidden (no opacity), so they show without
+    JavaScript. Reduced motion: no movement (MotionProvider). */
+function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
+  const from = [
+    { x: -60, y: 90, rotate: -14 },
+    { x: 0, y: 120, rotate: 8 },
+    { x: 60, y: 90, rotate: 14 },
+  ][i % 3];
+  return (
+    <motion.div
+      initial={{ scale: 0.92, ...from }}
+      whileInView={{ scale: 1, x: 0, y: 0, rotate: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.15 + i * 0.18 }}
+    >
+      <motion.div
+        animate={{ y: [0, -5, 0], rotate: [0, i % 2 ? 0.8 : -0.8, 0] }}
+        transition={{ duration: 5 + i * 0.7, delay: 1.4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
 const PILE_W = 676;
 const PILE_H = 470;
 const PILE = [
@@ -397,9 +435,17 @@ export function HeroPolaroids({
               className="absolute w-[236px] z-[var(--z)] hover:z-40"
               style={{ left: p.left, top: p.top, ["--z" as string]: c.key === "free" ? 30 : 20 - i, transform: `rotate(${p.rot}deg)` } as CSSProperties}
             >
-              <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
-                <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
-              </a>
+{full ? (
+                <DealtPrint i={i}>
+                  <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" })} className="group block">
+                    <Polaroid c={c} i={i} eater={eater} mid hero={prints} quietPopUp extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                  </a>
+                </DealtPrint>
+              ) : (
+                <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
+                  <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                </a>
+              )}
             </li>
           );
         })}
