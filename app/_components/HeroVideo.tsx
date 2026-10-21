@@ -4,8 +4,11 @@
 // Phones get the tall cut, wider screens the wide one (<source media>).
 // The poster paints first, so there is never an empty box. Users with
 // prefers-reduced-motion get the poster only: the film never starts.
+// If the phone blocks autoplay (iPhone Low Power Mode, data saver), the video
+// hides so the still shows, never a play button, and it starts on the first
+// tap anywhere on the page (a tap is allowed to start it).
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
 export type HeroFilm = {
@@ -18,12 +21,37 @@ export type HeroFilm = {
 export function HeroVideo({ film }: { film: HeroFilm }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
+  const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    if (reduce) v.pause();
-    else v.play().catch(() => {});
+    // React doesn't write `muted` into the HTML; phones only autoplay muted.
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    if (reduce) {
+      v.pause();
+      return;
+    }
+    const tryPlay = () =>
+      v.play().then(
+        () => setBlocked(false),
+        () => setBlocked(true)
+      );
+    tryPlay();
+    const onTap = () => {
+      if (v.paused) tryPlay();
+    };
+    window.addEventListener("touchend", onTap, { passive: true });
+    window.addEventListener("click", onTap);
+    const onPlaying = () => setBlocked(false);
+    v.addEventListener("playing", onPlaying);
+    return () => {
+      v.removeEventListener("playing", onPlaying);
+      window.removeEventListener("touchend", onTap);
+      window.removeEventListener("click", onTap);
+    };
   }, [reduce]);
 
   return (
@@ -36,7 +64,7 @@ export function HeroVideo({ film }: { film: HeroFilm }) {
         </picture>
         <video
           ref={ref}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={`hero-film absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${blocked ? "opacity-0" : "opacity-100"}`}
           muted
           loop
           playsInline

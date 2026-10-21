@@ -240,3 +240,12 @@
 details[open] .tour-stop-chevron {
   transform: rotate(180deg);
 }
+
+/* Homepage film header: never show the phone's own play button (iPhone Low
+   Power Mode blocks autoplay and draws one). HeroVideo shows the still instead. */
+.hero-film::-webkit-media-controls,
+.hero-film::-webkit-media-controls-start-playback-button,
+.hero-film::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
