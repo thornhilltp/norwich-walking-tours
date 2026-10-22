@@ -695,17 +695,14 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                             {d.murderBoard && <Vignette />}
                           </div>
                           <div className="p-6">
-                            <h3 className="text-[28px] leading-[1.05] mb-3" style={{ ...script, color: "#5AE19E" }}>
+                            <h3 className={`text-[28px] leading-[1.05] ${st.text ? "mb-3" : "m-0"}`} style={{ ...script, color: "#5AE19E" }}>
                               {st.title}
                             </h3>
-                            {st.questions && (
-                              <p className="text-[17.5px] font-semibold leading-snug text-white m-0 mb-2" style={lora}>
-                                {st.questions}
+                            {st.text && (
+                              <p className="text-[16.5px] text-white leading-relaxed m-0" style={lora}>
+                                {st.text}
                               </p>
                             )}
-                            <p className={`text-[16.5px] leading-relaxed m-0 ${st.questions ? "text-white/75" : "text-white"}`} style={lora}>
-                              {st.text}
-                            </p>
                           </div>
                         </li>
                       ))}
@@ -732,19 +729,16 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                           <div className={`relative ${d.murderBoard ? "text-center md:text-left" : ""}`}>
                             {d.murderBoard && storiesDark && <StoryLantern />}
                             <h3
-                              className="relative text-[clamp(30px,3.4vw,44px)] leading-[1.05] mb-4 text-brand-accent"
+                              className={`relative text-[clamp(30px,3.4vw,44px)] leading-[1.05] text-brand-accent ${st.text ? "mb-4" : "m-0"}`}
                               style={{ ...script, ...accent(storiesDark) }}
                             >
                               {st.title}
                             </h3>
-                            {st.questions && (
-                              <p className={`relative text-[19px] md:text-[21px] font-semibold leading-snug m-0 mb-2.5 ${ink(storiesDark)}`} style={lora}>
-                                {st.questions}
+                            {st.text && (
+                              <p className={`relative text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
+                                {st.text}
                               </p>
                             )}
-                            <p className={`relative text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
-                              {st.text}
-                            </p>
                           </div>
                         </li>
                       ))}
