@@ -60,7 +60,8 @@ export interface TourDetails {
   bookingTour?: string;
   /** Always-visible dark story teasers. When set, replaces the highlight
       cards, story and walk sections (Tom 2026-10-10: say it once). */
-  darkStories?: { title: string; text: string; img: string; alt: string }[];
+  /** `questions` (optional): the hook in bold, as on the free tour page. */
+  darkStories?: { title: string; questions?: string; text: string; img: string; alt: string }[];
   /** Where black sections appear (prototype variants). */
   darkVariant?: "a" | "b" | "c";
   /** Guides who wrote/lead the tour, shown after the Dare section. */
@@ -294,9 +295,12 @@ export const tours: Tour[] = [
       darkStories: [
         // High level, no names (Tom 2026-10-10): the vibe of the script's
         // stories, framed as true. Themes only from the script.
+        // Tom 2026-10-22: questions as the hook, as on the free tour page.
+        // Rewordings of the approved lines only; nothing new added.
         {
           title: "Murder on these streets",
-          text: "Real murders on streets you walk past every day, and every word of it true.",
+          questions: "What happened on the streets you walk past every day? Who did it, and did they get away with it?",
+          text: "Real murders, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
@@ -304,12 +308,15 @@ export const tours: Tour[] = [
           title: "The dead who went missing",
           // Folklore, not documented (Tom 2026-10-11): the missing body and the
           // plague girl are legends. Say legend, never "true".
-          text: "A body that vanished from Elm Hill, and the legend that's followed it ever since.",
+          questions: "Whose body vanished from Elm Hill? And why won't the legend go away?",
+          text: "Folklore, not fact, told on the cobbles where it's set.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           title: "The horrors of Tombland Alley",
+          // Don't reveal the plague girl as the finale (Tom 2026-10-10).
+          questions: "What happened in Tombland Alley when plague came? And why do we save it for last?",
           text: "Plague, death and despair in one crooked alley, told in the dark where it happened.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",

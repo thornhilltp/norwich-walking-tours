@@ -698,7 +698,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                             <h3 className="text-[28px] leading-[1.05] mb-3" style={{ ...script, color: "#5AE19E" }}>
                               {st.title}
                             </h3>
-                            <p className="text-[16.5px] text-white leading-relaxed m-0" style={lora}>
+                            {st.questions && (
+                              <p className="text-[17.5px] font-semibold leading-snug text-white m-0 mb-2" style={lora}>
+                                {st.questions}
+                              </p>
+                            )}
+                            <p className={`text-[16.5px] leading-relaxed m-0 ${st.questions ? "text-white/75" : "text-white"}`} style={lora}>
                               {st.text}
                             </p>
                           </div>
@@ -732,6 +737,11 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                             >
                               {st.title}
                             </h3>
+                            {st.questions && (
+                              <p className={`relative text-[19px] md:text-[21px] font-semibold leading-snug m-0 mb-2.5 ${ink(storiesDark)}`} style={lora}>
+                                {st.questions}
+                              </p>
+                            )}
                             <p className={`relative text-[18px] md:text-[19px] leading-relaxed m-0 ${body(storiesDark)}`} style={lora}>
                               {st.text}
                             </p>

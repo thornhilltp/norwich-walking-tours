@@ -11,7 +11,6 @@ import { FAQ } from "@/components/FAQ";
 import { Testimonials } from "./_components/Testimonials";
 import { YourGuides, homeFaqs } from "./_components/HomeSections";
 import {
-  BrandBookingSheet,
   FilmHero,
   TourPolaroids,
   WhatIsFree,
@@ -109,7 +108,8 @@ export default async function HomePage() {
           { name: "Dark History: City Hall steps", lines: ["St Peter's Street", "Norwich, NR2 1NH"] },
         ]}
       />
-      <BrandBookingSheet />
+      {/* No booking pop-up here since 2026-10-22: every homepage button leads
+          to Pick your walk, and the prints open each tour's own page. */}
       {/* Hidden until the tours scroll away (Tom 2026-10-19); glides back up
           to Pick your walk (Tom 2026-10-21). */}
       <BrandStickyBar revealAfter="tours" glideTo="pick-your-walk" />

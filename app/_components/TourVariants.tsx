@@ -15,8 +15,8 @@ import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
 import { MOTION_EVENT } from "./HeroVideo";
 import { ScrollSticker } from "@/components/ScrollSticker";
-import { StickerLabel } from "@/components/Doodles";
-import { DragonSticker } from "@/components/MoreDoodles";
+import { CupSticker, StickerLabel } from "@/components/Doodles";
+import { CathedralSticker, DragonSticker } from "@/components/MoreDoodles";
 import { LetterGirl } from "./LetterGirl";
 import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
@@ -290,16 +290,28 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
 // Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
 // overlapping like prints dropped on a table; no route line on the photos;
 // the name, next walk and the ask all sit in the frame's bottom strip.
-/** The free tour's print gets one sticker, as on its own page (Tom
-    2026-10-22): the dragon, "stories" (the photo is Tom mid-story). It pops
-    on once the card is in view, at the top corner, clear of the
-    neighbouring prints. */
+/** The free tour's print gets three stickers, one per thing the tour
+    gives you, as on its own page (Tom 2026-10-22): history (the Cathedral),
+    stories (the dragon; the photo is Tom mid-story) and local tips (a
+    coffee cup; "tips" alone would read as tipping). They pop on once the
+    card is in view, placed clear of the neighbouring prints and the
+    lantern on Dark History's corner. */
 function FreeTourSticker() {
   return (
-    <ScrollSticker rotate={8} className="-right-5 -top-7 flex flex-col items-center gap-0.5">
-      <DragonSticker className="h-11 w-12" />
-      <StickerLabel>stories</StickerLabel>
-    </ScrollSticker>
+    <>
+      <ScrollSticker rotate={-7} className="left-8 -top-9 flex flex-col items-center gap-0.5">
+        <CathedralSticker className="h-11 w-12" />
+        <StickerLabel>history</StickerLabel>
+      </ScrollSticker>
+      <ScrollSticker rotate={8} className="-right-5 -top-7 flex flex-col items-center gap-0.5">
+        <DragonSticker className="h-11 w-12" />
+        <StickerLabel>stories</StickerLabel>
+      </ScrollSticker>
+      <ScrollSticker rotate={5} className="-bottom-12 right-3 flex flex-col items-center gap-0.5">
+        <CupSticker className="h-10 w-10" />
+        <StickerLabel>local tips</StickerLabel>
+      </ScrollSticker>
+    </>
   );
 }
 
@@ -461,18 +473,12 @@ export function HeroPolaroids({
             >
 {full ? (
                 <DealtPrint i={i}>
-                  {/* "See dates & book" means it (Tom 2026-10-21): free and Dark
-                      History open booking on that tour; Private goes to its
-                      page to ask. The pop-up links to the tour's page. */}
+                  {/* Each print opens its tour's own page (Tom 2026-10-22), where
+                      the dates and booking sit beside everything that sells
+                      the walk. Private goes to its page to ask. */}
                   <a
-                    href={c.key === "private" ? c.href : hrefOf(c)}
-                    onClick={(e) => {
-                      trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" });
-                      if (c.key === "free" || c.key === "dark") {
-                        e.preventDefault();
-                        openBooking(c.key, `pick_your_walk_${c.key}`);
-                      }
-                    }}
+                    href={hrefOf(c)}
+                    onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "pick_your_walk" })}
                     className="group block"
                   >
                     <Polaroid
