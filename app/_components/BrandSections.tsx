@@ -17,7 +17,7 @@ import { BookingSheet, HeroBookButton, type BookingTab, type TourCardData } from
 import { HeroVideo, type HeroFilm } from "@/app/_components/HeroVideo";
 import { HeroPolaroids } from "./TourVariants";
 import { WalkLink, WalkUnderline } from "./WalkUnderline";
-import type { NextWalk } from "@/lib/nextWalks";
+import type { DarkRun, Walks } from "@/lib/nextWalks";
 
 // Dark History's Halloween face, for its card and its booking theme.
 const eater = Eater({ weight: "400", subsets: ["latin"], display: "swap" });
@@ -29,15 +29,27 @@ const FREE_TOUR_HREF = "/tours/free-walking-tour";
 
 /* ── Tour data for this page ───────────────────────────────────────────── */
 
-// Dark History runs until 6 November 2026. After that its card, and every
-// homepage mention of it (title, description, FAQs, tour list for Google,
-// footer meeting point), drop off by themselves: the page re-renders every
-// 5 minutes (revalidate), so no deploy is needed.
+// Dark History shows on the homepage while the booking app has walks for
+// it (Tom 2026-10-22: more dates coming after 6 Nov). When the last one has
+// passed, its card and every homepage mention (title, description, FAQs,
+// tour list for Google, footer meeting point) drop off by themselves; add
+// dates in the booking app and they come back, no deploy needed (the page
+// re-renders every 5 minutes). If the booking app can't be read, the
+// published end date below decides instead.
 const DARK_HISTORY_ENDS = new Date("2026-11-07T00:00:00Z");
-export const darkIsOn = () => Date.now() < DARK_HISTORY_ENDS.getTime();
+export function darkIsOn(run?: DarkRun) {
+  if (run?.known) return run.last !== null;
+  return Date.now() < DARK_HISTORY_ENDS.getTime();
+}
+
+/** "6 Nov" (short) or "6 November" (long) for Dark History's last walk. */
+export function darkUntil(run: DarkRun | undefined, long = false) {
+  const iso = run?.known && run.last ? run.last : "2026-11-06";
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: long ? "long" : "short", timeZone: "UTC" });
+}
 const bySlug = (slug: string) => tours.find((t) => t.slug === slug)!;
 
-function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): TourCardData[] {
+function tourCards(next: Walks): TourCardData[] {
   const dark = bySlug("dark-history-of-norwich");
   const priv = bySlug("private-tours");
   const list: TourCardData[] = [
@@ -62,7 +74,7 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       key: "dark",
       vibe: "Dark and true",
       name: dark.name,
-      meta: "Most evenings, 6pm · until 6 Nov · Free to book",
+      meta: `Most evenings, 6pm · until ${darkUntil(next.darkRun)} · Free to book`,
       // Live Dark History wording.
       hook: "Love a ghost story? The true history behind them is even darker.",
       perfectFor: "a night out with a difference",
@@ -89,7 +101,7 @@ function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): Tour
       badge: "Your group",
     },
   ];
-  return darkIsOn() ? list : list.filter((c) => c.key !== "dark");
+  return darkIsOn(next.darkRun) ? list : list.filter((c) => c.key !== "dark");
 }
 
 function bookingTabs(): BookingTab[] {
@@ -160,7 +172,7 @@ export function FilmHero() {
 // The tours as they sit in the live header (glowing, taped), in their own
 // section on the light page colour (Tom 2026-10-21). Phones: a row of three with a button each; desktop: the
 // loose pile. The header's button glides here.
-export function TourPolaroids({ next }: { next: { free: NextWalk | null; dark: NextWalk | null } }) {
+export function TourPolaroids({ next }: { next: Walks }) {
   const cards = tourCards(next)
     .sort((a, b) => HERO_ORDER.indexOf(a.key) - HERO_ORDER.indexOf(b.key));
   return (
@@ -315,8 +327,8 @@ export function BrandBookingSheet() {
 /* ── 6. FAQs across every tour ────────────────────────────────────────── */
 
 // A function, not a constant, so the Dark History lines go when it ends.
-export function brandFaqs() {
-  const dark = darkIsOn();
+export function brandFaqs(run?: DarkRun) {
+  const dark = darkIsOn(run);
   return [
   {
     q: "How does a free walking tour work, and how much should I tip?",
@@ -325,7 +337,7 @@ export function brandFaqs() {
   {
     q: "Which tour should I pick?",
     a: dark
-      ? "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs most evenings at 6pm until 6 November. Bringing a group? Ask us about a private tour."
+      ? `First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs most evenings at 6pm until ${darkUntil(run, true)}. Bringing a group? Ask us about a private tour.`
       : "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Bringing a group? Ask us about a private tour.",
   },
   {

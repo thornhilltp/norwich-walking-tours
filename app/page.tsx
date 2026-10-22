@@ -23,10 +23,13 @@ import { getNextWalks } from "@/lib/nextWalks";
 
 const BASE = "https://www.norwichfreewalkingtours.co.uk";
 
-// Brand first, then the tours (move plan §9). Dark History leaves the title
-// and description once it ends (6 Nov 2026), with no deploy needed.
-export function generateMetadata(): Metadata {
-  const dark = darkIsOn();
+const darkSlug = () => tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.bookingTour;
+
+// Brand first, then the tours (move plan §9). Dark History is in the title
+// and description while the booking app has walks for it.
+export async function generateMetadata(): Promise<Metadata> {
+  const { darkRun } = await getNextWalks(darkSlug());
+  const dark = darkIsOn(darkRun);
   return {
     title: dark
       ? "Norwich Free Walking Tours | Free Walking Tour, Dark History and Private Tours"
@@ -61,10 +64,9 @@ const toursListOf = (dark: boolean) => ({
 
 export default async function HomePage() {
   // Next walks, read live from the booking app (refreshed every 5 minutes).
-  const darkSlug = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.bookingTour;
-  const next = await getNextWalks(darkSlug);
-  const dark = darkIsOn();
-  const faqs = brandFaqs();
+  const next = await getNextWalks(darkSlug());
+  const dark = darkIsOn(next.darkRun);
+  const faqs = brandFaqs(next.darkRun);
   return (
     <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toursListOf(dark)) }} />

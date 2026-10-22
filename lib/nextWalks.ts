@@ -12,6 +12,14 @@ const FREE_PRODUCT_ID = "00000000-0000-4000-8000-000000000001";
 
 export type NextWalk = { label: string; spotsLeft: number };
 
+/** Dark History's run, read from the booking app: `last` is the last
+    scheduled walk from today on (ISO date), null when none are left.
+    `known` is false when the booking app couldn't be read, so callers can
+    fall back to the published end date instead of hiding the tour. */
+export type DarkRun = { known: boolean; last: string | null };
+
+export type Walks = { free: NextWalk | null; dark: NextWalk | null; darkRun: DarkRun };
+
 function londonNow() {
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/London",
@@ -50,8 +58,8 @@ function formatWhen(date: string, time: string, today: string) {
 
 type Row = { date: string; time: string; total_slots: number; booked_slots: number; product_id: string | null };
 
-export async function getNextWalks(darkSlug?: string): Promise<{ free: NextWalk | null; dark: NextWalk | null }> {
-  const empty = { free: null, dark: null };
+export async function getNextWalks(darkSlug?: string): Promise<Walks> {
+  const empty: Walks = { free: null, dark: null, darkRun: { known: false, last: null } };
   const sb = getSupabaseClient();
   if (!sb) return empty;
   try {
@@ -73,6 +81,23 @@ export async function getNextWalks(darkSlug?: string): Promise<{ free: NextWalk 
     const rows = ((data ?? []) as Row[]).filter(
       (r) => r.booked_slots < r.total_slots && (r.date > now.date || r.time.slice(0, 5) > now.time),
     );
+    // Dark History's last scheduled date (Tom 2026-10-22: dates get added
+    // after 6 Nov). Its own query, so a long run of free tours can't push
+    // Dark History dates past the 60-row window above.
+    let darkRun: DarkRun = { known: false, last: null };
+    if (darkId) {
+      const { data: lastRow, error } = await sb
+        .from("tours")
+        .select("date")
+        .eq("product_id", darkId)
+        .gte("date", now.date)
+        .eq("active", true)
+        .eq("unlisted", false)
+        .order("date", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!error) darkRun = { known: true, last: (lastRow as { date?: string } | null)?.date ?? null };
+    }
     const pick = (match: (r: Row) => boolean): NextWalk | null => {
       const r = rows.find(match);
       return r ? { label: formatWhen(r.date, r.time.slice(0, 5), now.date), spotsLeft: r.total_slots - r.booked_slots } : null;
@@ -80,6 +105,7 @@ export async function getNextWalks(darkSlug?: string): Promise<{ free: NextWalk 
     return {
       free: pick((r) => r.product_id === null || r.product_id === FREE_PRODUCT_ID),
       dark: darkId ? pick((r) => r.product_id === darkId) : null,
+      darkRun,
     };
   } catch {
     return empty;
