@@ -303,17 +303,17 @@ export const tours: Tour[] = [
         {
           title: "Who was murdered on these streets?",
           text: "Real murders on streets you walk past every day.",
-          img: "/images/tour/walking-ethelbert-gate.jpg",
-          alt: "Walking under St Ethelbert's Gate",
+          img: "/images/tour/elm-hill-group.jpg",
+          alt: "A guide with a group on a Norwich street",
         },
         {
-          // Tom 2026-10-22: Elm Hill is the fire and flood stop (the guides'
-          // script), not the missing-body legend. The Elm Hill photo moved here
-          // from the murder card.
-          title: "What did fire and flood do to Elm Hill?",
-          text: "Over the cobbles of Elm Hill, where fire and flood both struck.",
-          img: "/images/tour/elm-hill-group.jpg",
-          alt: "A tour group on the cobbles of Elm Hill",
+          // Tom 2026-10-22, his questions: Robert Goodale at the Castle (the
+          // script's Shirehall stop) and the Guildhall stop. Second question
+          // as the line, so the title stays short in the wide display face.
+          title: "Whose head popped off at Norwich Castle?",
+          text: "And who's buried in the Guildhall?",
+          img: "/images/tour/guide-guildhall.jpg",
+          alt: "A guide talking to a tour group outside Norwich Guildhall",
         },
         {
           // Folklore, not documented (Tom 2026-10-11): the plague girl is a
