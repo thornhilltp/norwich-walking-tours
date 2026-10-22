@@ -295,12 +295,14 @@ export const tours: Tour[] = [
       darkStories: [
         // High level, no names (Tom 2026-10-10): the vibe of the script's
         // stories, framed as true. Themes only from the script.
-        // Tom 2026-10-22: the title is the question, and no line under it.
-        // Short, plain questions (the display face is wide). Was: "Murder on
+        // Tom 2026-10-22: the title is the question (short and plain: the
+        // display face is wide), with the approved line under it in white,
+        // trimmed where it repeated the question. Titles were: "Murder on
         // these streets" / "The dead who went missing" / "The horrors of
-        // Tombland Alley", each with a line.
+        // Tombland Alley".
         {
           title: "Who was murdered on these streets?",
+          text: "Real murders on streets you walk past every day, and every word of it true.",
           img: "/images/tour/elm-hill-group.jpg",
           alt: "A guide with a group on a Norwich street",
         },
@@ -308,12 +310,14 @@ export const tours: Tour[] = [
           // Folklore, not documented (Tom 2026-10-11): the missing body and the
           // plague girl are legends. Say legend, never "true".
           title: "Why won't the Elm Hill legend die?",
+          text: "A body that vanished from Elm Hill, and the story that's followed it ever since.",
           img: "/images/tour/walking-ethelbert-gate.jpg",
           alt: "Walking under St Ethelbert's Gate",
         },
         {
           // Don't reveal the plague girl as the finale (Tom 2026-10-10).
           title: "What happened in Tombland Alley?",
+          text: "Plague, death and despair in one crooked alley, told in the dark.",
           img: "/images/tour/tom-tombland.jpg",
           alt: "A guide with a tour group in Tombland",
         },
