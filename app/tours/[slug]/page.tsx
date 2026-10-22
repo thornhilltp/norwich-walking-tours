@@ -18,6 +18,8 @@ import { ReelFogBack, ReelFogFront } from "@/app/tours/_components/ReelFog";
 import { MurderBoard, bandFrame } from "@/app/tours/_components/MurderBoard";
 import { NightSkyline, Fog, MoonDivider, Lantern, Grain, StoryLantern, TornEdge } from "@/app/tours/_components/Spooky";import { googleReviewStats, tripAdvisorStats } from "@/lib/testimonials";
 import { tours } from "@/lib/tours";
+import { getTourWalks } from "@/lib/nextWalks";
+import { describeRun, londonToday, type RunInfo, type RunWalk } from "@/lib/tourRun";
 import { Eater } from "next/font/google";
 
 // PROTOTYPE — per-tour landing page in the homepage's own language:
@@ -37,8 +39,51 @@ const ready = (v?: string): v is string => Boolean(v) && !v!.includes("[");
 
 const BASE = "https://www.norwichfreewalkingtours.co.uk";
 
-// Rebuild daily so past dates drop out of the Event data.
-export const revalidate = 86400;
+// Re-render every 5 minutes: tours with a booking product read their dates
+// live from the booking app (Tom 2026-10-22), so new dates show up and
+// past ones drop out of the wording and the Event data by themselves.
+export const revalidate = 300;
+
+type Details = NonNullable<(typeof tours)[number]["details"]>;
+
+/** The walks still to come: live from the booking app, else the published
+    schedule. `live` says whether spaces left are real numbers. */
+async function upcomingWalks(d: Details): Promise<{ walks: RunWalk[]; live: boolean } | null> {
+  if (!d.schedule) return null;
+  if (d.bookingTour) {
+    const run = await getTourWalks(d.bookingTour);
+    if (run.known) return { walks: run.walks, live: true };
+  }
+  const s = d.schedule;
+  const today = londonToday();
+  const dates = s.dates ? s.dates.filter((x) => x >= today) : eventDates(s.first, s.last);
+  return { walks: dates.map((date) => ({ date, time: s.time, spotsLeft: 1 })), live: false };
+}
+
+// The dates wording, filled from the run. The approved sentences are
+// swapped whole, so if the copy is ever reworded the swap simply stops.
+const PUBLISHED = {
+  seo: "most evenings at 6pm until 6 Nov",
+  faqWhen: "Most evenings at 6pm from 16 October to 6 November.",
+  faqHalloween: "most evenings from 16 October to 6 November at 6pm",
+};
+
+function runSeo(desc: string, r: RunInfo) {
+  return desc.replace(PUBLISHED.seo, r.empty ? "new dates coming soon" : `${r.pattern.toLowerCase()} at ${r.timeLabel} until ${r.untilShort}`);
+}
+
+function runFaqs(faqs: Details["faqs"], r: RunInfo) {
+  return faqs
+    // Halloween's question goes once Halloween has passed, or with no dates.
+    .filter((f) => !(f.q === "Is it on over Halloween?" && (r.empty || londonToday() >= "2026-11-01")))
+    .map((f) => ({
+      ...f,
+      a: f.a
+        .replace(`${PUBLISHED.faqWhen} Pick a date in the booking calendar.`, r.empty ? "New dates are coming soon." : `${PUBLISHED.faqWhen} Pick a date in the booking calendar.`)
+        .replace(PUBLISHED.faqWhen, `${r.pattern} at ${r.timeLabel} until ${r.untilLong}.`)
+        .replace(PUBLISHED.faqHalloween, `${r.pattern.toLowerCase()} at ${r.timeLabel} until ${r.untilLong}`),
+    }));
+}
 
 // UK offset for a date: BST (+01:00) from the last Sunday of March to the
 // last Sunday of October, otherwise GMT. Good enough for event times.
@@ -68,12 +113,14 @@ export function generateStaticParams() {
   return tours.filter(isShown).map((t) => ({ slug: t.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const tour = tours.find((t) => t.slug === params.slug);
   if (!tour?.details || !isShown(tour)) return {};
   const live = tour.status === "live";
   const title = tour.details.seoTitle ?? tour.name;
-  const description = tour.details.seoDescription ?? tour.details.promise;
+  const upcoming = await upcomingWalks(tour.details);
+  const baseDescription = tour.details.seoDescription ?? tour.details.promise;
+  const description = upcoming ? runSeo(baseDescription, describeRun(upcoming.walks)) : baseDescription;
   const url = `${BASE}/tours/${tour.slug}`;
   return {
     // seoTitle already reads as a full title; the layout template adds nothing.
@@ -144,12 +191,20 @@ function SplitHeading({
   );
 }
 
-export default function TourPage({ params }: { params: { slug: string } }) {
+export default async function TourPage({ params }: { params: { slug: string } }) {
   const tour = tours.find((t) => t.slug === params.slug);
   if (!tour?.details || !isShown(tour)) notFound();
   const live = tour.status === "live";
   const d = tour.details;
   const script = d.scriptFont === "eater" ? eaterStyle : caveat;
+  // Dates wording from the run (Tom 2026-10-22). Tours without a schedule
+  // keep their typed-in words.
+  const upcoming = await upcomingWalks(d);
+  const run = upcoming ? describeRun(upcoming.walks) : null;
+  const byline = run && tour.byline?.startsWith("Exclusive") ? (run.empty ? "New dates coming soon" : `Exclusive: until ${run.untilLong}`) : tour.byline;
+  const whenLine = run ? (run.empty ? "New dates coming soon" : `${run.pattern} until ${run.untilShort}`) : "Most evenings, 16 Oct to 6 Nov";
+  const description = run ? runSeo(d.seoDescription ?? d.promise, run) : d.seoDescription ?? d.promise;
+  const faqs = run ? runFaqs(d.faqs, run) : d.faqs;
 
   return (
     <main className="bg-brand-bg" data-dark-tour={d.murderBoard ? "" : undefined}>
@@ -184,7 +239,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
               "@context": "https://schema.org",
               "@type": "TouristTrip",
               name: tour.name,
-              description: d.seoDescription ?? d.promise,
+              description,
               url: `${BASE}/tours/${tour.slug}`,
               touristType: "Walking tour",
               provider: { "@id": `${BASE}/#localbusiness` },
@@ -211,26 +266,24 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           }}
         />
       )}
-      {live && d.schedule && (
+      {live && d.schedule && upcoming && upcoming.walks.length > 0 && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(
-              (d.schedule.dates
-                ? d.schedule.dates.filter((x) => x >= new Date().toISOString().slice(0, 10))
-                : eventDates(d.schedule.first, d.schedule.last)
-              ).map((ymd) => {
+              // One Event per walk still to come, live from the booking app.
+              upcoming.walks.map(({ date: ymd, time, spotsLeft }) => {
                 const s = d.schedule!;
                 const off = ukOffset(ymd);
-                const [hh, mm] = s.time.split(":").map(Number);
+                const [hh, mm] = time.split(":").map(Number);
                 const endMin = hh * 60 + mm + s.durationMin;
                 const end = `${String(Math.floor(endMin / 60)).padStart(2, "0")}:${String(endMin % 60).padStart(2, "0")}`;
                 return {
                   "@context": "https://schema.org",
                   "@type": "Event",
                   name: tour.name,
-                  description: d.seoDescription ?? d.promise,
-                  startDate: `${ymd}T${s.time}:00${off}`,
+                  description,
+                  startDate: `${ymd}T${time}:00${off}`,
                   endDate: `${ymd}T${end}:00${off}`,
                   eventStatus: "https://schema.org/EventScheduled",
                   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
@@ -255,7 +308,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                     "@type": "Offer",
                     price: "0",
                     priceCurrency: "GBP",
-                    availability: "https://schema.org/InStock",
+                    availability: upcoming.live && spotsLeft === 0 ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
                     url: `${BASE}/tours/${tour.slug}`,
                     validFrom: "2026-10-01",
                   },
@@ -296,12 +349,12 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
         <div className="relative brand-container pt-32 pb-24 lg:pt-36 lg:pb-28 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
-            {tour.byline && (
+            {byline && (
               <span
                 className="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-accent text-white text-sm font-semibold"
                 style={lora}
               >
-                {tour.byline}
+                {byline}
               </span>
             )}
 
@@ -801,7 +854,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
                       }`}
                       style={lora}
                     >
-                      <span>Most evenings, 16 Oct to 6 Nov</span>
+                      <span>{whenLine}</span>
                     </p>
                     <a
                       href={d.bookingTour ? "#book" : "#notify"}
@@ -1033,7 +1086,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
       {d.murderBoard && <MoonDivider />}
       <FAQ
         dark={Boolean(d.murderBoard)}
-        items={d.faqs.filter((f) => ready(f.q) && ready(f.a))}
+        items={faqs.filter((f) => ready(f.q) && ready(f.a))}
         emitSchema={live}
         customHeading={
           d.murderBoard ? (

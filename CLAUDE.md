@@ -131,6 +131,9 @@ Top-menu and footer label for `/our-guides` is **"Our Guides"** (2026-09-26). UR
 
 Decorative elements: **ScrollTrail** (`components/ScrollTrail.tsx`) — fixed right-edge in-page navigation, dashed wiggly thread, animated travelling map-pin. Free tour page: 7 dots (Hello, The tour, Reviews, Guides, How it works, FAQs, Book); homepage: 6 (Hello, Tours, Reviews, Free tours, Guides, FAQs). Hidden on tablet; dots-only on phone + laptop; labels added on 2xl+.
 
+### `/tours/dark-history-of-norwich` — the Dark History of Norwich
+Dates come live from the booking app (Tom 2026-10-22, more dates being added after 6 Nov 2026): the hero badge ("Exclusive: until …"), the "Most evenings until …" line, the When and Halloween FAQ answers, the search description and one Google `Event` per walk still to come (marked SoldOut when full) all follow the booking app's walks for `bookingTour` (`getTourWalks` in `lib/nextWalks.ts`, wording in `lib/tourRun.ts`, page re-renders every 5 minutes). With no walks left they read "New dates coming soon" and the Halloween FAQ hides. If the booking app can't be read, the published `schedule` in `lib/tours.ts` is used. To change the wording, edit the approved sentences in `PUBLISHED` in `app/tours/[slug]/page.tsx` together with the copy in `lib/tours.ts`, or the swap silently stops.
+
 ### `/tour` — retired
 Removed 2026-10-17. 301s straight to `/tours/free-walking-tour` since the brand homepage move (`next.config.mjs`), as does `/free-walking-tour`. Do not link to `/tour`.
 

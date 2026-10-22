@@ -58,6 +58,42 @@ function formatWhen(date: string, time: string, today: string) {
 
 type Row = { date: string; time: string; total_slots: number; booked_slots: number; product_id: string | null };
 
+/** Every walk still to come for one tour (booking-app product slug), for
+    its page's dates wording and Google event listings. `known` is false
+    when the booking app can't be read, so the page can fall back to its
+    published dates. */
+export async function getTourWalks(bookingSlug: string): Promise<{ known: boolean; walks: { date: string; time: string; spotsLeft: number }[] }> {
+  const unknown = { known: false, walks: [] };
+  const sb = getSupabaseClient();
+  if (!sb) return unknown;
+  try {
+    const now = londonNow();
+    const { data: product } = await sb.rpc("get_product_by_slug", { p_slug: bookingSlug }).maybeSingle();
+    const id = (product as { id?: string } | null)?.id;
+    if (!id) return unknown;
+    const { data, error } = await sb
+      .from("tours")
+      .select("date, time, total_slots, booked_slots")
+      .eq("product_id", id)
+      .gte("date", now.date)
+      .eq("active", true)
+      .eq("unlisted", false)
+      .order("date")
+      .order("time")
+      .limit(200);
+    if (error) return unknown;
+    const rows = (data ?? []) as Pick<Row, "date" | "time" | "total_slots" | "booked_slots">[];
+    return {
+      known: true,
+      walks: rows
+        .filter((r) => r.date > now.date || r.time.slice(0, 5) > now.time)
+        .map((r) => ({ date: r.date, time: r.time.slice(0, 5), spotsLeft: Math.max(0, r.total_slots - r.booked_slots) })),
+    };
+  } catch {
+    return unknown;
+  }
+}
+
 export async function getNextWalks(darkSlug?: string): Promise<Walks> {
   const empty: Walks = { free: null, dark: null, darkRun: { known: false, last: null } };
   const sb = getSupabaseClient();
