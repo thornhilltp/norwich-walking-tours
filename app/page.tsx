@@ -15,6 +15,7 @@ import {
   TourPolaroids,
   WhatIsFree,
   brandFaqs,
+  darkIsOn,
 } from "./_components/BrandSections";
 import { BrandStickyBar } from "./_components/BrandBooking";
 import { tours } from "@/lib/tours";
@@ -22,23 +23,30 @@ import { getNextWalks } from "@/lib/nextWalks";
 
 const BASE = "https://www.norwichfreewalkingtours.co.uk";
 
-export const metadata: Metadata = {
-  // Brand first, then the tours (move plan §9).
-  title: "Norwich Free Walking Tours | Free Walking Tour, Dark History and Private Tours",
-  description:
-    "The Norwich Free Walking Tour most days, the Dark History of Norwich by night, and private walks for your group. Led by locals. Free to book.",
-  alternates: { canonical: BASE },
-};
+// Brand first, then the tours (move plan §9). Dark History leaves the title
+// and description once it ends (6 Nov 2026), with no deploy needed.
+export function generateMetadata(): Metadata {
+  const dark = darkIsOn();
+  return {
+    title: dark
+      ? "Norwich Free Walking Tours | Free Walking Tour, Dark History and Private Tours"
+      : "Norwich Free Walking Tours | Free Walking Tour and Private Tours",
+    description: dark
+      ? "The Norwich Free Walking Tour most days, the Dark History of Norwich by night, and private walks for your group. Led by locals. Free to book."
+      : "The Norwich Free Walking Tour most days, free to book, and private walks for your group. Led by locals.",
+    alternates: { canonical: BASE },
+  };
+}
 
 export const revalidate = 300;
 
 // Some homepage questions are also asked on the free tour page. Only the
 // business-wide ones go in this page's FAQPage markup, so the same question
 // is never marked up on two URLs.
-const homeSchemaFaqs = brandFaqs.filter((f) => !homeFaqs.some((h) => h.q === f.q));
+const schemaFaqsOf = (faqs: { q: string; a: string }[]) => faqs.filter((f) => !homeFaqs.some((h) => h.q === f.q));
 
 // The tours, for Google: one list, each pointing at its own page.
-const toursList = {
+const toursListOf = (dark: boolean) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Tours by Norwich Free Walking Tours",
@@ -46,16 +54,20 @@ const toursList = {
     { name: "The Norwich Free Walking Tour", url: `${BASE}/tours/free-walking-tour` },
     { name: "The Dark History of Norwich", url: `${BASE}/tours/dark-history-of-norwich` },
     { name: "Private & Group Tours", url: `${BASE}/private-tours` },
-  ].map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: t.url })),
-};
+  ]
+    .filter((t) => dark || !t.url.endsWith("/dark-history-of-norwich"))
+    .map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: t.url })),
+});
 
 export default async function HomePage() {
   // Next walks, read live from the booking app (refreshed every 5 minutes).
   const darkSlug = tours.find((t) => t.slug === "dark-history-of-norwich")?.details?.bookingTour;
   const next = await getNextWalks(darkSlug);
+  const dark = darkIsOn();
+  const faqs = brandFaqs();
   return (
     <main className="relative" style={{ paddingTop: 0 }} data-brand-home="">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toursList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toursListOf(dark)) }} />
       {/* This page has its own "Book a tour" bar; hide the site-wide
           free-tour one. */}
       <style dangerouslySetInnerHTML={{ __html: "body:has([data-brand-home]) .sticky-book-bar{display:none}" }} />
@@ -80,8 +92,8 @@ export default async function HomePage() {
       {/* The free tour page's guides section, with the About us line (Tom 2026-10-18). */}
       <YourGuides intro="We show people round the city we actually live in. It started with one free tour, and it's grown from there." />
       <FAQ
-        items={brandFaqs}
-        schemaItems={homeSchemaFaqs}
+        items={faqs}
+        schemaItems={schemaFaqsOf(faqs)}
         customHeading={
           <h2 className="leading-[1.0]">
             <span
@@ -105,7 +117,7 @@ export default async function HomePage() {
       <Footer
         meetingPoints={[
           { name: "Free Walking Tour: outside The Forum", lines: ["Millennium Plain", "Norwich, NR2 1TF"] },
-          { name: "Dark History: City Hall steps", lines: ["St Peter's Street", "Norwich, NR2 1NH"] },
+          ...(dark ? [{ name: "Dark History: City Hall steps", lines: ["St Peter's Street", "Norwich, NR2 1NH"] }] : []),
         ]}
       />
       {/* No booking pop-up here since 2026-10-22: every homepage button leads

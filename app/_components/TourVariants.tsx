@@ -315,10 +315,10 @@ function FreeTourSticker() {
   );
 }
 
-/** Pick your walk (Tom 2026-10-21, "quite static"): the prints are dealt
-    onto the table one by one as the section scrolls in, then drift gently,
-    each on its own beat. Never hidden (no opacity), so they show without
-    JavaScript. Reduced motion: no movement (MotionProvider). */
+/** Pick your walk (Tom 2026-10-21, "quite static"): the prints drift
+    gently, each on its own beat. Tom 2026-10-22: no fly-in as the section
+    scrolls into view; the prints are simply there. Reduced motion: no
+    movement (MotionProvider). */
 function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
   // The header's pause button stills the drift too.
   const [still, setStill] = useState(false);
@@ -327,24 +327,12 @@ function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
     window.addEventListener(MOTION_EVENT, on);
     return () => window.removeEventListener(MOTION_EVENT, on);
   }, []);
-  const from = [
-    { x: -60, y: 90, rotate: -14 },
-    { x: 0, y: 120, rotate: 8 },
-    { x: 60, y: 90, rotate: 14 },
-  ][i % 3];
   return (
     <motion.div
-      initial={{ scale: 0.92, ...from }}
-      whileInView={{ scale: 1, x: 0, y: 0, rotate: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.15 + i * 0.18 }}
+      animate={still ? { y: 0, rotate: 0 } : { y: [0, -5, 0], rotate: [0, i % 2 ? 0.8 : -0.8, 0] }}
+      transition={still ? { duration: 0.4 } : { duration: 5 + i * 0.7, delay: i * 0.6, repeat: Infinity, ease: "easeInOut" }}
     >
-      <motion.div
-        animate={still ? { y: 0, rotate: 0 } : { y: [0, -5, 0], rotate: [0, i % 2 ? 0.8 : -0.8, 0] }}
-        transition={still ? { duration: 0.4 } : { duration: 5 + i * 0.7, delay: 1.4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
-      >
-        {children}
-      </motion.div>
+      {children}
     </motion.div>
   );
 }

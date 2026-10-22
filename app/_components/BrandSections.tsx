@@ -29,10 +29,12 @@ const FREE_TOUR_HREF = "/tours/free-walking-tour";
 
 /* ── Tour data for this page ───────────────────────────────────────────── */
 
-// Dark History runs until 6 November 2026. After that its card and booking
-// tab drop off on the next build.
+// Dark History runs until 6 November 2026. After that its card, and every
+// homepage mention of it (title, description, FAQs, tour list for Google,
+// footer meeting point), drop off by themselves: the page re-renders every
+// 5 minutes (revalidate), so no deploy is needed.
 const DARK_HISTORY_ENDS = new Date("2026-11-07T00:00:00Z");
-const darkIsOn = () => Date.now() < DARK_HISTORY_ENDS.getTime();
+export const darkIsOn = () => Date.now() < DARK_HISTORY_ENDS.getTime();
 const bySlug = (slug: string) => tours.find((t) => t.slug === slug)!;
 
 function tourCards(next: { free: NextWalk | null; dark: NextWalk | null }): TourCardData[] {
@@ -312,18 +314,25 @@ export function BrandBookingSheet() {
 
 /* ── 6. FAQs across every tour ────────────────────────────────────────── */
 
-export const brandFaqs = [
+// A function, not a constant, so the Dark History lines go when it ends.
+export function brandFaqs() {
+  const dark = darkIsOn();
+  return [
   {
     q: "How does a free walking tour work, and how much should I tip?",
     a: "Book free, walk with a local guide, and at the end you pay what you think it was worth. Most guests tip £10 to £20 a person. If it wasn't worth it, you don't pay. Card, Apple Pay, Google Pay and cash all work.",
   },
   {
     q: "Which tour should I pick?",
-    a: "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs most evenings at 6pm until 6 November. Bringing a group? Ask us about a private tour.",
+    a: dark
+      ? "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs most evenings at 6pm until 6 November. Bringing a group? Ask us about a private tour."
+      : "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Bringing a group? Ask us about a private tour.",
   },
   {
     q: "Where do the tours meet?",
-    a: "The Norwich Free Walking Tour meets outside The Forum on Millennium Plain. The Dark History of Norwich meets on the City Hall steps, St Peter's Street. Your booking email has the details.",
+    a: dark
+      ? "The Norwich Free Walking Tour meets outside The Forum on Millennium Plain. The Dark History of Norwich meets on the City Hall steps, St Peter's Street. Your booking email has the details."
+      : "The Norwich Free Walking Tour meets outside The Forum on Millennium Plain. Your booking email has the details.",
   },
   {
     q: "Do I need to book in advance?",
@@ -345,4 +354,5 @@ export const brandFaqs = [
     q: "Is Norwich worth visiting for a day?",
     a: "Absolutely. Norwich Cathedral, Norwich Castle, the Lanes and Elm Hill are all within 15 minutes' walk of each other. Start with the free tour, finish at Norwich Market for lunch, and you'll know exactly where to spend the afternoon.",
   },
-];
+  ];
+}
