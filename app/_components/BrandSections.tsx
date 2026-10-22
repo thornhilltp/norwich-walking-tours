@@ -126,12 +126,19 @@ export function FilmHero() {
       <HeroVideo film={HERO_FILM} />
       <div aria-hidden className="absolute inset-0 -z-[5] lg:hidden" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.85) 100%)" }} />
       <div aria-hidden className="absolute inset-0 -z-[5] hidden lg:block" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.1) 100%)" }} />
-      <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end pt-28 pb-12 lg:min-h-[90vh] lg:justify-center lg:pb-16">
+      <div className="brand-container max-w-6xl flex min-h-[86svh] flex-col justify-end pt-28 pb-16 lg:min-h-[90vh] lg:justify-center lg:pb-16">
         <div className="max-w-xl mx-auto flex flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+          {/* Tom 2026-10-22: the first screen named no tours once the polaroids
+              moved down, so the business name sits on a pill inside the H1
+              (Google reads it as part of the headline). */}
           <h1 className="leading-[1.0]">
+            <span className="mb-5 inline-flex rounded-full bg-brand-accent px-4 py-1.5 text-sm font-semibold leading-normal text-white shadow-md" style={{ ...lora, textShadow: "none" }}>
+              Norwich Free Walking Tours
+            </span>
+            <span className="sr-only">: </span>
             <span className="block text-[clamp(36px,3.8vw,52px)] font-semibold leading-[1.08] tracking-[-0.02em] text-white" style={lora}>
               Helping locals and travellers
-            </span>
+            </span>{" "}
             <span className="block text-[clamp(52px,4.5vw,68px)] font-semibold leading-[0.95] text-[#7BE0AC]" style={caveat}>
               love and discover Norwich.
             </span>
@@ -157,7 +164,7 @@ export function TourPolaroids({ next }: { next: { free: NextWalk | null; dark: N
   return (
     <section id="pick-your-walk" className="relative scroll-mt-16 overflow-x-clip bg-brand-bg py-14 lg:py-20">
       <div className="brand-container max-w-6xl flex flex-col items-center">
-        <h2 className="mb-8 text-center leading-[1.0] lg:mb-6">
+        <h2 className="mb-8 text-center leading-[1.0] md:mb-14">
           <span className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text" style={lora}>
             Pick your
           </span>{" "}

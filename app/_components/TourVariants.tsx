@@ -13,6 +13,10 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { StoryLantern } from "@/app/tours/_components/Spooky";
 import { trackEvent } from "@/lib/tracking";
+import { MOTION_EVENT } from "./HeroVideo";
+import { ScrollSticker } from "@/components/ScrollSticker";
+import { StickerLabel } from "@/components/Doodles";
+import { DragonSticker } from "@/components/MoreDoodles";
 import { LetterGirl } from "./LetterGirl";
 import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
@@ -111,6 +115,7 @@ function Polaroid({
   extra,
   quietPopUp,
   eager = true,
+  sticker,
 }: {
   c: TourCardData;
   i: number;
@@ -122,6 +127,8 @@ function Polaroid({
   /** Preload the photo (header use). Off below the fold, so the film's
       still frame loads first. */
   eager?: boolean;
+  /** A scrapbook sticker stuck on the print (Pick your walk). */
+  sticker?: ReactNode;
   /** In the header, on photos: Dark History glows, Private gets its tag. */
   hero?: boolean;
   /** More lines under the name, inside the frame. */
@@ -153,6 +160,7 @@ function Polaroid({
         </span>
       )}
       {free && <AwningTouch small={small} />}
+      {sticker}
       {showTape && (
         <span
           aria-hidden="true"
@@ -282,11 +290,31 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
 // Desktop pile (Tom 2026-10-19: spread out and busy). Bigger polaroids,
 // overlapping like prints dropped on a table; no route line on the photos;
 // the name, next walk and the ask all sit in the frame's bottom strip.
+/** The free tour's print gets one sticker, as on its own page (Tom
+    2026-10-22): the dragon, "stories" (the photo is Tom mid-story). It pops
+    on once the card is in view, at the top corner, clear of the
+    neighbouring prints. */
+function FreeTourSticker() {
+  return (
+    <ScrollSticker rotate={8} className="-right-5 -top-7 flex flex-col items-center gap-0.5">
+      <DragonSticker className="h-11 w-12" />
+      <StickerLabel>stories</StickerLabel>
+    </ScrollSticker>
+  );
+}
+
 /** Pick your walk (Tom 2026-10-21, "quite static"): the prints are dealt
     onto the table one by one as the section scrolls in, then drift gently,
     each on its own beat. Never hidden (no opacity), so they show without
     JavaScript. Reduced motion: no movement (MotionProvider). */
 function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
+  // The header's pause button stills the drift too.
+  const [still, setStill] = useState(false);
+  useEffect(() => {
+    const on = (e: Event) => setStill((e as CustomEvent<{ paused: boolean }>).detail.paused);
+    window.addEventListener(MOTION_EVENT, on);
+    return () => window.removeEventListener(MOTION_EVENT, on);
+  }, []);
   const from = [
     { x: -60, y: 90, rotate: -14 },
     { x: 0, y: 120, rotate: 8 },
@@ -300,8 +328,8 @@ function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
       transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.15 + i * 0.18 }}
     >
       <motion.div
-        animate={{ y: [0, -5, 0], rotate: [0, i % 2 ? 0.8 : -0.8, 0] }}
-        transition={{ duration: 5 + i * 0.7, delay: 1.4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+        animate={still ? { y: 0, rotate: 0 } : { y: [0, -5, 0], rotate: [0, i % 2 ? 0.8 : -0.8, 0] }}
+        transition={still ? { duration: 0.4 } : { duration: 5 + i * 0.7, delay: 1.4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
       >
         {children}
       </motion.div>
@@ -447,7 +475,16 @@ export function HeroPolaroids({
                     }}
                     className="group block"
                   >
-                    <Polaroid c={c} i={i} eater={eater} mid hero={prints} quietPopUp eager={false} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                    <Polaroid
+                      c={c}
+                      i={i}
+                      eater={eater}
+                      mid
+                      hero={prints}
+                      quietPopUp
+                      eager={false}
+                      sticker={c.key === "free" ? <FreeTourSticker /> : undefined}
+                      extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
                   </a>
                 </DealtPrint>
               ) : (

@@ -7,9 +7,15 @@
 // If the phone blocks autoplay (iPhone Low Power Mode, data saver), the video
 // hides so the still shows, never a play button, and it starts on the first
 // tap anywhere on the page (a tap is allowed to start it).
+// A pause / play button sits bottom left (moving content that plays on its
+// own needs one); pausing also stills the Pick your walk cards' drift.
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import { Pause, Play } from "lucide-react";
+
+/** Window event: the visitor paused or resumed the page's motion. */
+export const MOTION_EVENT = "nfwt:motion";
 
 export type HeroFilm = {
   wide: { src: string; poster: string };
@@ -22,6 +28,9 @@ export function HeroVideo({ film }: { film: HeroFilm }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
   const [blocked, setBlocked] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  // The visitor pressed pause: never restart on their behalf.
+  const held = useRef(false);
 
   useEffect(() => {
     const v = ref.current;
@@ -41,18 +50,36 @@ export function HeroVideo({ film }: { film: HeroFilm }) {
       );
     tryPlay();
     const onTap = () => {
-      if (v.paused) tryPlay();
+      if (v.paused && !held.current) tryPlay();
     };
     window.addEventListener("touchend", onTap, { passive: true });
     window.addEventListener("click", onTap);
-    const onPlaying = () => setBlocked(false);
+    const onPlaying = () => {
+      setBlocked(false);
+      setPlaying(true);
+    };
+    const onPause = () => setPlaying(false);
     v.addEventListener("playing", onPlaying);
+    v.addEventListener("pause", onPause);
+    // Autoplay may have started before these listeners existed.
+    if (!v.paused) setPlaying(true);
     return () => {
       v.removeEventListener("playing", onPlaying);
+      v.removeEventListener("pause", onPause);
       window.removeEventListener("touchend", onTap);
       window.removeEventListener("click", onTap);
     };
   }, [reduce]);
+
+  const toggle = () => {
+    const v = ref.current;
+    if (!v) return;
+    const pause = !v.paused;
+    held.current = pause;
+    if (pause) v.pause();
+    else v.play().catch(() => setBlocked(true));
+    window.dispatchEvent(new CustomEvent(MOTION_EVENT, { detail: { paused: pause } }));
+  };
 
   return (
     <>
@@ -77,6 +104,14 @@ export function HeroVideo({ film }: { film: HeroFilm }) {
           <source src={film.wide.src} type="video/mp4" />
         </video>
       </div>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pause the film" : "Play the film"}
+        className="absolute bottom-1.5 left-2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white ring-1 ring-white/30 backdrop-blur-sm transition hover:bg-black/55 focus-visible:outline-2 focus-visible:outline-white"
+      >
+        {playing ? <Pause className="h-4 w-4" fill="currentColor" aria-hidden /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden />}
+      </button>
       {film.credit && film.credit.length > 0 && (
         <p className="absolute bottom-1 right-2 z-10 m-0 text-[11px] leading-none text-white/65" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
           Film:{" "}
