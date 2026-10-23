@@ -337,6 +337,8 @@ export const tours: Tour[] = [
           focal: "50% 15%",
           blurb: "Tells the lesser-known Norwich stories. The dark ones, the funny ones, and the where's-the-evidence ones.",
           reviews: [
+            { quote: "Did The Dark History of Norwich Tour tonight led by Holly. It was very interesting and was delivered with **enthusiasm and humour**. Would recommend.", author: "Mary Walmesley-Browne, Google" },
+            { quote: "I thought October would be the perfect time with it being spooky season. Holly had **a great theatrical way of storytelling** and we were all enthralled in every story.", author: "flora mol, Google" },
             { quote: "Holly was an absolutely brilliant guide, **one of the very best, perhaps the best**, on our numerous city walking tours around Europe.", author: "Andrew Wright" },
             { quote: "She kept our group totally engaged with **interesting, funny and warm-hearted stories**.", author: "OwlQueen, TripAdvisor" },
             { quote: "Holly's tour is **fabulous**. Very fun and loads of info.", author: "Caroline" },
@@ -349,6 +351,7 @@ export const tours: Tour[] = [
           focal: "50% 25%",
           blurb: "Norfolk born and proud. Paranormal investigator, Reiki master, and every so often a Viking. Or an Abbess.",
           reviews: [
+            { quote: "The Dark History of Norwich special tour led by Joolz. Despite being a Norwich local, **every story told was something new** and I was hanging onto every word.", author: "James Edwards, Google" },
             { quote: "Joolz really **brought it to life**. She was the best thing about our trip.", author: "Andy, from Wales" },
             { quote: "Joolz is an **absolutely superb tour guide**. Can't recommend her enough.", author: "Caroline, from Basingstoke" },
             { quote: "Joolz brings **a passion and magic to her storytelling** which enhances her considerable knowledge and brings the history to life.", author: "Sandhauer, TripAdvisor" },
