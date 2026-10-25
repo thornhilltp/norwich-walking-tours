@@ -240,7 +240,7 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
   if (c.key === "private" || !c.next)
     return (
       <span className={`block ${tiny ? "mt-1 text-[13px]" : "mt-1.5 text-[13px]"} leading-snug ${muted}`} style={lora}>
-        {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Most evenings, 6pm" : "Most days, 10:30am"}
+        {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Selected evenings, 6pm" : "Most days, 10:30am"}
       </span>
     );
   const dot = onDark ? GLOW : GREEN;

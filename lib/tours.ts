@@ -273,9 +273,9 @@ export const tours: Tour[] = [
     tint: "#F5EBDA",
     status: "live",
     details: {
-      seoTitle: "Dark History Tour Norwich | Halloween Ghost Walk Alternative, Free",
+      seoTitle: "Dark History Tour Norwich | Ghost Walk Alternative, Free",
       seoDescription:
-        "Ghost walk in Norwich this Halloween? The true stories are darker. Murder, riot, fire and plague, most evenings at 6pm until 6 Nov. Free to book.",
+        "Ghost walk in Norwich? The true stories are darker. Murder, riot, fire and plague, most evenings at 6pm until 6 Nov. Free to book.",
       heroTitle: ["Norwich has a", "dark side."],
       bookingTour: "the-dark-history-of-norwich",
       darkVariant: "b",
@@ -436,7 +436,7 @@ export const tours: Tour[] = [
       logistics: [
         // Tom 2026-10-08: time + length on one line, start + finish on
         // one line. Booking system: every date 18:00, 90 minutes.
-        { label: "When", value: "Most evenings, 6pm (1h 30m)" },
+        { label: "When", value: "Selected evenings, 6pm (1h 30m)" },
         { label: "Route", value: "City Hall steps to Tombland Alley" },
         { label: "Price", value: "Free to book, pay what it was worth" },
       ],

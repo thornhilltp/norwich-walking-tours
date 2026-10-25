@@ -9,7 +9,8 @@ export type RunWalk = { date: string; time: string; spotsLeft: number };
 export type RunInfo = {
   /** No walks left. */
   empty: boolean;
-  /** "Most evenings" when at least half the nights in the run have a walk. */
+  /** "Most evenings" when at least 70% of the nights in the run have a walk.
+      Tom 2026-10-25: the November run (9 walks in 22 nights) is "Selected evenings". */
   pattern: "Most evenings" | "Selected evenings";
   /** The usual start time, e.g. "6pm". */
   timeLabel: string;
@@ -36,7 +37,7 @@ export function describeRun(walks: RunWalk[]): RunInfo {
   const first = dates[0];
   const last = dates[dates.length - 1];
   const spanDays = Math.round((Date.parse(`${last}T12:00:00Z`) - Date.parse(`${first}T12:00:00Z`)) / 86400000) + 1;
-  const pattern = dates.length >= 2 && dates.length / spanDays >= 0.5 ? "Most evenings" : "Selected evenings";
+  const pattern = dates.length >= 2 && dates.length / spanDays >= 0.7 ? "Most evenings" : "Selected evenings";
   // The most common start time.
   const counts = new Map<string, number>();
   for (const w of walks) counts.set(w.time, (counts.get(w.time) ?? 0) + 1);

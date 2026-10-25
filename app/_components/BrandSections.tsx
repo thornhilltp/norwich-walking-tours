@@ -74,7 +74,7 @@ function tourCards(next: Walks): TourCardData[] {
       key: "dark",
       vibe: "Dark and true",
       name: dark.name,
-      meta: `Most evenings, 6pm · until ${darkUntil(next.darkRun)} · Free to book`,
+      meta: `Selected evenings, 6pm · until ${darkUntil(next.darkRun)} · Free to book`,
       // Live Dark History wording.
       hook: "Love a ghost story? The true history behind them is even darker.",
       perfectFor: "a night out with a difference",
@@ -337,7 +337,7 @@ export function brandFaqs(run?: DarkRun) {
   {
     q: "Which tour should I pick?",
     a: dark
-      ? `First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs most evenings at 6pm until ${darkUntil(run, true)}. Bringing a group? Ask us about a private tour.`
+      ? `First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Want the darker side? The Dark History of Norwich runs selected evenings at 6pm until ${darkUntil(run, true)}. Bringing a group? Ask us about a private tour.`
       : "First time in Norwich? The Norwich Free Walking Tour: two hours of our favourite history and stories, the highlights and local tips, most days at 10:30am. Bringing a group? Ask us about a private tour.",
   },
   {

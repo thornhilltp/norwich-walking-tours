@@ -74,8 +74,9 @@ function runSeo(desc: string, r: RunInfo) {
 
 function runFaqs(faqs: Details["faqs"], r: RunInfo) {
   return faqs
-    // Halloween's question goes once Halloween has passed, or with no dates.
-    .filter((f) => !(f.q === "Is it on over Halloween?" && (r.empty || londonToday() >= "2026-11-01")))
+    // Halloween's question goes once the Halloween walks are full (Tom
+    // 2026-10-25: all sold out), or with no dates.
+    .filter((f) => !(f.q === "Is it on over Halloween?" && (r.empty || londonToday() >= "2026-10-25")))
     .map((f) => ({
       ...f,
       a: f.a
@@ -1191,7 +1192,7 @@ export default async function TourPage({ params }: { params: { slug: string } })
               </span>
             </h2>
             <p className="m-0 text-[17px] text-white/80" style={lora}>
-              Most evenings, 6pm (1h 30m). City Hall steps to Tombland Alley.
+              Selected evenings, 6pm (1h 30m). City Hall steps to Tombland Alley.
             </p>
             <a
               href="#book"
