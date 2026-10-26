@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { loadContentsquare } from "@/lib/contentsquare";
+import { loadClarity } from "@/lib/clarity";
 
 const CONSENT_KEY = "cookie-consent";
 
@@ -42,7 +42,7 @@ export function CookieConsent() {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === "accepted") {
       pushConsent(true);
-      loadContentsquare();
+      loadClarity();
     } else if (stored === "declined") {
       pushConsent(false);
     } else {
@@ -54,7 +54,7 @@ export function CookieConsent() {
   function handleAccept() {
     localStorage.setItem(CONSENT_KEY, "accepted");
     pushConsent(true);
-    loadContentsquare();
+    loadClarity();
     setVisible(false);
   }
 
@@ -77,8 +77,9 @@ export function CookieConsent() {
           className="text-sm text-brand-text/80 leading-relaxed"
           style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
         >
-          We use Google Analytics and Google Ads cookies to understand how
-          visitors reach this site. No personal data is sold or shared.{" "}
+          We use Google Analytics, Google Ads and Microsoft Clarity cookies to
+          understand how visitors reach and use this site. No personal data is
+          sold or shared.{" "}
           <a
             href="/privacy"
             className="underline underline-offset-2 hover:text-brand-accent transition-colors duration-150"

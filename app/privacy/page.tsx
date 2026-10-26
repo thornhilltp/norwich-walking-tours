@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           </p>
           <h1 className="font-caveat text-4xl md:text-5xl font-bold mb-2">Privacy Policy</h1>
           <p className="font-lora text-sm text-muted-foreground mb-10">
-            Last updated: April 2026
+            Last updated: October 2026
           </p>
 
           <Section title="Who we are">
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
               information is collected through analytics.
             </p>
             <p>
-              <strong>Behaviour analytics:</strong> With your consent, we also use Contentsquare to see
+              <strong>Behaviour analytics:</strong> With your consent, we also use Microsoft Clarity to see
               how people move through our pages (clicks, scrolling, and anonymised session
               recordings). Text you type into forms is masked and not recorded.
             </p>
@@ -193,7 +193,7 @@ export default function PrivacyPage() {
 
           <Section title="Cookies">
             <p>
-              We use Google Analytics and Contentsquare, which place cookies to distinguish users
+              We use Google Analytics and Microsoft Clarity, which place cookies to distinguish users
               and analyse site usage. No other cookies are set by this website.
             </p>
             <p>
@@ -225,8 +225,18 @@ export default function PrivacyPage() {
                 analytics cookies.
               </li>
               <li>
-                <strong>Contentsquare</strong>: receives anonymised usage data and session
-                recordings if you accept analytics cookies.
+                <strong>Microsoft Clarity</strong>: receives anonymised usage data and session
+                recordings if you accept analytics cookies. Microsoft may also use this data to
+                improve its own products, as set out in the{" "}
+                <a
+                  href="https://www.microsoft.com/privacy/privacystatement"
+                  className="underline underline-offset-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Microsoft Privacy Statement
+                </a>
+                . We do not let Microsoft use it for advertising.
               </li>
             </ul>
             <p>No personal data is sold or shared for marketing purposes.</p>

@@ -10,9 +10,9 @@ const scriptSrc = [
   ...(isDev ? ["'unsafe-eval'"] : []),
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
-  // Contentsquare tag (loaded only after cookie consent)
-  "https://*.contentsquare.net",
-  "https://app.contentsquare.com",
+  // Microsoft Clarity tag (loaded only after cookie consent)
+  "https://www.clarity.ms",
+  "https://*.clarity.ms",
 ].join(" ");
 
 const securityHeaders = [
@@ -51,9 +51,9 @@ const securityHeaders = [
       // Images: self, Unsplash, data URIs, blob.
       // googletagmanager.com needed for GTM's image beacon pings (/td, /a).
       // google.com + google.co.uk for Google Ads conversion image beacons.
-      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.google.com https://www.google.co.uk https://*.contentsquare.net",
+      "img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.google.com https://www.google.co.uk https://*.clarity.ms https://c.bing.com",
       // Google Analytics + GTM + Google Ads (conversion + remarketing endpoints)
-      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://*.contentsquare.net https://*.contentsquare.com",
+      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://www.google.co.uk https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://*.clarity.ms https://c.bing.com",
       // Booking widget iframe
       "frame-src https://norwich-booking.vercel.app",
       "worker-src blob:",
