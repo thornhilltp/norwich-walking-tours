@@ -3,6 +3,9 @@
 // session recording as non-essential, so declined visitors never load it.
 // Project ID from clarity.microsoft.com → Settings → Overview.
 const CLARITY_PROJECT_ID = "z3q0b7e320";
+// Only record the live site, so localhost and Vercel preview visits stay out
+// of the heatmaps.
+const LIVE_HOST = "www.norwichfreewalkingtours.co.uk";
 
 type ClarityFn = ((...args: unknown[]) => void) & { q?: unknown[][] };
 
@@ -16,6 +19,7 @@ let injected = false;
 
 export function loadClarity() {
   if (injected || typeof window === "undefined" || !CLARITY_PROJECT_ID) return;
+  if (window.location.hostname !== LIVE_HOST) return;
   injected = true;
 
   // Microsoft's standard snippet: queue calls until the tag arrives.
