@@ -147,27 +147,25 @@ export function HeroV2({
         {/* Left: Text */}
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:w-1/2">
 
-          <motion.div variants={itemVariants} className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-              {badge ?? "Norwich Free Walking Tours"}
-            </span>
-          </motion.div>
-
-          {/* H1 — value prop, not brand name. Brand name is in nav logo
-              + page title + JSON-LD already; H1 should answer
-              "what is this?" not "who runs it?". Lora bold →
-              Caveat green inline pattern (signature on this site). */}
+          {/* H1 = green pill + value prop, so Google reads "The Norwich
+              Free Walking Tour: England's best-kept medieval city." (Tom
+              2026-11-02, same as the homepage pill). Lora bold → Caveat
+              green inline pattern (signature on this site). */}
           <motion.h1
-            className="mt-2 leading-[0.95]"
+            className="leading-[0.95]"
             style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}
             variants={itemVariants}
           >
+            <span className="mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold leading-normal bg-brand-accent text-white" style={{ fontFamily: "var(--font-lora), Georgia, serif", textShadow: "none" }}>
+              {badge ?? "Norwich Free Walking Tours"}
+            </span>
+            <span className="sr-only">: </span>
             <span
               className="block text-[clamp(34px,4.6vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
               style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
             >
               {heading?.[0] ?? "See Norwich with"}
-            </span>
+            </span>{" "}
             <span
               className="block text-[clamp(54px,7.2vw,88px)] font-semibold leading-[0.95]"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#5AE19E" }}
