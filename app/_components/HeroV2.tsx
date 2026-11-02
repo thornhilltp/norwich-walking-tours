@@ -103,7 +103,7 @@ export function HeroV2({
             <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
           </div>
           <div className="absolute inset-0 -z-10 lg:hidden" style={{ backgroundColor: "#121211" }} />
-          <div className="relative lg:hidden pt-[72px]">
+          <div className="relative lg:hidden pt-24">
             <div className="relative isolate aspect-[16/11] w-full overflow-hidden">
               <HeroSlideshow slides={slides ?? heroSlides} slideMs={slideMs} />
               <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: "linear-gradient(to top, #121211, transparent)" }} />
@@ -133,7 +133,7 @@ export function HeroV2({
 
       <motion.div
         className={cn(
-          "relative brand-container flex lg:min-h-[90dvh] items-center justify-between pb-24 lg:py-24 flex-col lg:flex-row gap-12",
+          "relative brand-container flex lg:min-h-[90dvh] items-center justify-between pb-24 lg:pt-40 lg:pb-24 flex-col lg:flex-row gap-12",
           phonePhotoBand ? "pt-6" : "min-h-[80dvh] pt-32",
         )}
         // initial={false}: render the visible state in server HTML. The old

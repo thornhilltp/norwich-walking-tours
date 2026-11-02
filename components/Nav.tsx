@@ -46,10 +46,10 @@ export function Nav() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
-  // Nav is transparent at top of pages with dark image heroes (currently
-  // just / — the homepage with its photo+overlay hero). Otherwise opaque
-  // so nav text is legible against cream content bg.
-  const hasDarkHero = pathname === "/";
+  // Nav is transparent at top of pages with dark image heroes (the
+  // homepage film and the free tour photo hero). Otherwise opaque so nav
+  // text is legible against cream content bg.
+  const hasDarkHero = pathname === "/" || pathname === "/tours/free-walking-tour";
   const isOpaque = scrolled || mobileOpen || !hasDarkHero;
   // Dark History pages: black bar with white links when scrolled (Tom
   // 2026-10-11). lightUI = the cream bar styling everywhere else.
