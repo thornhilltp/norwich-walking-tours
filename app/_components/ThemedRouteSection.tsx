@@ -31,7 +31,6 @@ type Group = RouteGroup;
 interface ThemedRouteSectionProps {
   /** Overrides for tour pages. Defaults reproduce the homepage exactly. */
   id?: string;
-  eyebrow?: string;
   heading?: { plain: string; script: string };
   groups?: RouteGroup[];
   /** null = no map column (tours without their own route map yet). */
@@ -92,7 +91,6 @@ function PinMarker({ index }: { index: number }) {
 
 export function ThemedRouteSection({
   id = "tour-map",
-  eyebrow = "The walk",
   heading = { plain: "Three threads through", script: "the medieval city." },
   groups: groupsProp,
   map = {
@@ -114,12 +112,6 @@ export function ThemedRouteSection({
       <div className="brand-container">
         {/* Heading — Lora→Caveat pattern */}
         <div className="text-center mb-14 max-w-3xl mx-auto">
-          <p
-            className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            {eyebrow}
-          </p>
           <h2 className="leading-[1.0]">
             <span
               className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"

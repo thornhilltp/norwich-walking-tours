@@ -12,7 +12,6 @@ type Status = "idle" | "submitting" | "success" | "already" | "error";
 // different promise (e.g. a tour page's waiting list). Defaults are the
 // homepage "new tours first" block.
 interface EmailCaptureProps {
-  eyebrow?: string;
   heading?: string;
   body?: string;
   /** Tags the signup onto a tour's waiting list (tour slug). */
@@ -43,10 +42,10 @@ const GUIDES = [
   { name: "Tom", img: "/images/tour/tom-portrait-river.jpg", focal: "50% 20%", zoom: "cover" },
   { name: "Holly", img: "/images/tour/holly-portrait.jpg", focal: "50% 15%", zoom: "cover" },
   { name: "Joolz", img: "/images/guides/joolz.png", focal: "34% 38%", zoom: "125%" },
+  { name: "Clara", img: "/images/tour/clara-portrait.jpg", focal: "50% 30%", zoom: "cover" },
 ];
 
 export function EmailCapture({
-  eyebrow = "New walks, first",
   heading = "Hear about new tours before anyone else",
   body = "We're adding new routes and themed walks. Join the list and you'll hear first. A few emails a year, only when there's news.",
   tourInterest,
@@ -171,17 +170,11 @@ export function EmailCapture({
                   className="mt-2 text-xl text-brand-text"
                   style={{ fontFamily: "var(--font-caveat), cursive" }}
                 >
-                  From Tom, Holly and Joolz
+                  From Tom, Holly, Joolz and Clara
                 </p>
               </div>
             )}
 
-            <p
-              className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-2"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              {eyebrow}
-            </p>
             <Heading className={`font-caveat text-4xl md:text-5xl font-bold mb-3 leading-tight ${darkSection ? "text-white" : "text-brand-text"}`}>
               {heading}
             </Heading>

@@ -24,9 +24,9 @@ export const guides: Guide[] = [
     tint: "linear-gradient(150deg,#2DA96B,#1f6d47)",
     img: "/images/tour/tom-portrait-river.jpg",
     focal: "50% 20%",
+    zoom: "170%",
     rotate: "-2deg",
-    blurb:
-      "Tom came for a history degree and never left. That was 13 years ago. He picked up the free walking tour habit travelling the world, and brought it home.",
+    blurb: "Tom came for a history degree and never left. He found free walking tours on his travels and brought one home.",
     accent: { ac: "#2DA96B", ad: "#1A6B47" },
     reviews: [
       { quote: "We're always sceptical of historical tours. But **Tom is the real thing**.", author: "Vina", source: "Google" },
@@ -75,6 +75,31 @@ export const guides: Guide[] = [
         author: "Andrew Wright",
       },
       { quote: "Holly's tour is **fabulous**. Very fun and loads of info. What an amazing intro to historic Norwich.", author: "Caroline" },
+    ],
+  },
+  {
+    name: "Clara",
+    initial: "C",
+    tint: "linear-gradient(150deg,#3f7fb5,#24486b)",
+    img: "/images/tour/clara-portrait.jpg",
+    focal: "50% 30%",
+    rotate: "1deg",
+    blurb: "Clara is our medievalist, currently doing her PhD. If it happened in Norwich before 1700, she knows. Loves a myth to bust and a messy drama.",
+    handle: { label: "@clarabchamberlain", href: "https://www.instagram.com/clarabchamberlain" },
+    accent: { ac: "#C4476A", ad: "#8A2742" },
+    // An empty list is fine: the "What guests say" toggle hides itself.
+    reviews: [
+      {
+        quote:
+          "Clara was **massively knowledgeable about Norwich** and its history and presented it in such an accessible and interesting way. The time just flew by.",
+        author: "HelenaSharp",
+        source: "TripAdvisor",
+      },
+      {
+        quote: "Clara's tour was incredibly informative, especially about the **medieval history of Norwich**, which was fascinating.",
+        author: "Laura",
+        source: "Google",
+      },
     ],
   },
 ];

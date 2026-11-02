@@ -145,12 +145,6 @@ export default function GuidePage({ searchParams }: GuidePageProps) {
               />
             </div>
             <div className="flex-grow">
-              <p
-                className="text-brand-accent-text text-[10px] font-semibold tracking-[0.18em] uppercase mb-1"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                Tom’s Norwich
-              </p>
               <h1 className="leading-[0.95] text-balance">
                 <span
                   className="block text-[26px] font-semibold text-brand-text"

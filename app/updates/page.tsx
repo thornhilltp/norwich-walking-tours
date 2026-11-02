@@ -20,7 +20,6 @@ export default function UpdatesPage() {
         source="updates"
         asPageHeading
         visual={{ kind: "guides" }}
-        eyebrow="Thanks for walking with us"
       />
 
       <Footer />

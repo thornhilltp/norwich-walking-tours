@@ -15,14 +15,9 @@ import { guides } from "@/lib/guides";
 const lora = { fontFamily: "var(--font-lora), Georgia, serif" };
 const caveat = { fontFamily: "var(--font-caveat), cursive" };
 
-function Heading({ eyebrow, a, b, center }: { eyebrow?: string; a: string; b: string; center?: boolean }) {
+function Heading({ a, b, center }: { a: string; b: string; center?: boolean }) {
   return (
     <div className={center ? "text-center" : undefined}>
-      {eyebrow && (
-        <p className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-3" style={lora}>
-          {eyebrow}
-        </p>
-      )}
       <h2 className="leading-[1.0]">
         <span
           className="inline text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
@@ -323,7 +318,7 @@ export function TheWalk({ stickers }: { stickers?: ReactNode[] } = {}) {
   return (
     <section id="the-walk" className="py-14 md:py-20 bg-white border-t border-brand-accent/10">
       <div className="brand-container max-w-5xl">
-        <Heading eyebrow="How it works" a="Meet. Walk." b="Tip." center />
+        <Heading a="Meet. Walk." b="Tip." center />
         <ol className="relative mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
           <Route />
           <Route vertical />
@@ -370,9 +365,10 @@ export function YourGuides({ intro }: { intro?: ReactNode } = {}) {
             {intro}
           </p>
         )}
-        {/* Phones: a sideways swipe row so three tall polaroids don't fill three
-            screens (Tom 2026-10-21); the next card peeks in. */}
-        <div className="-mx-4 mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-8 pt-5 pb-4 text-center [scrollbar-width:none] sm:mx-0 sm:mt-12 sm:grid sm:grid-cols-3 sm:gap-8 sm:overflow-visible sm:px-0 sm:pt-0 sm:pb-0">
+        {/* Phones: a sideways swipe row so the tall polaroids don't fill four
+            screens (Tom 2026-10-21); the next card peeks in. Tablets 2x2,
+            desktop four across, blurbs always visible (Tom 2026-11-02). */}
+        <div className="-mx-4 mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-8 pt-5 pb-4 text-center [scrollbar-width:none] sm:mx-0 sm:mt-12 sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 sm:overflow-visible sm:px-0 sm:pt-0 sm:pb-0 lg:grid-cols-4">
           {guides.map((g) => (
             <div key={g.name} className="flex w-[80%] shrink-0 snap-center flex-col items-center sm:w-auto">
               <div
@@ -403,17 +399,23 @@ export function YourGuides({ intro }: { intro?: ReactNode } = {}) {
                     fill
                     sizes="(max-width: 640px) 90vw, 300px"
                     className="object-cover"
-                    style={{ objectPosition: g.focal }}
+                    style={{
+                      objectPosition: g.focal,
+                      transform: g.zoom ? `scale(${parseInt(g.zoom) / 100})` : undefined,
+                      transformOrigin: g.focal,
+                    }}
                   />
                 </div>
                 <p className="absolute bottom-3 left-0 right-0 text-center font-caveat font-bold text-brand-text text-3xl leading-none">
                   {g.name}
                 </p>
               </div>
-              <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[300px]">{g.blurb}</p>
-              <GuideExpand name={g.name} count={g.reviews.length} accent={g.accent}>
-                <GuideReviews reviews={g.reviews} accent={g.accent} />
-              </GuideExpand>
+              <p className="font-lora text-brand-text/80 leading-relaxed mt-6 max-w-[300px] lg:text-[15px]">{g.blurb}</p>
+              {g.reviews.length > 0 && (
+                <GuideExpand name={g.name} count={g.reviews.length} accent={g.accent}>
+                  <GuideReviews reviews={g.reviews} accent={g.accent} />
+                </GuideExpand>
+              )}
             </div>
           ))}
         </div>

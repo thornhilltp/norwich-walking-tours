@@ -37,9 +37,6 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="section-padding border-b border-brand-accent/10">
         <div className="brand-container max-w-3xl mx-auto text-center">
-          <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-            Contact
-          </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold text-brand-text mb-4 leading-tight">
             Get in touch with Norwich Free Walking Tours
           </h1>
@@ -116,9 +113,6 @@ export default function ContactPage() {
       <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
         <div className="brand-container max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3 font-lora">
-              Before you write
-            </p>
             <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
               What we usually get asked
             </h2>
@@ -160,9 +154,6 @@ export default function ContactPage() {
       {/* About the tour, briefly */}
       <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
         <div className="brand-container max-w-2xl mx-auto text-center">
-          <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-            About the tour
-          </p>
           <h2 className="font-caveat text-3xl md:text-4xl font-bold text-brand-text mb-4">
             Free to book. Pay what it was worth.
           </h2>

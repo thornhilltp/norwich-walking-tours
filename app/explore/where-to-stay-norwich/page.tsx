@@ -158,9 +158,6 @@ export default function WhereToStayPage() {
         <article className="brand-container max-w-2xl mx-auto px-4 sm:px-6">
           {/* Header */}
           <header className="mb-10 text-center">
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              A local&apos;s guide
-            </p>
             <h1 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text leading-tight mb-4">
               Where to stay in Norwich (from someone who lives here)
             </h1>

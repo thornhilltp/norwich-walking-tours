@@ -112,12 +112,6 @@ export default function RoysPlazaPage() {
           <div className="brand-container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               <div>
-                <p
-                  className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-                  style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-                >
-                  The case for Roy&apos;s Plaza
-                </p>
                 <h2 className="mb-6 leading-tight">
                   <span
                     className="block text-2xl md:text-3xl font-bold text-brand-text"
@@ -205,12 +199,6 @@ export default function RoysPlazaPage() {
         <section className="section-padding">
           <div className="brand-container">
             <div className="max-w-3xl mb-10">
-              <p
-                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                What your signature unlocks
-              </p>
               <h2 className="mb-4 leading-tight">
                 <span
                   className="block text-2xl md:text-3xl font-bold text-brand-text"
@@ -313,12 +301,6 @@ export default function RoysPlazaPage() {
         <section className="section-padding bg-brand-accent-light">
           <div className="brand-container">
             <div className="max-w-3xl mb-8">
-              <p
-                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-              >
-                Proposed revision
-              </p>
               <h2 className="mb-4 leading-tight">
                 <span
                   className="block text-2xl md:text-3xl font-bold text-brand-text"

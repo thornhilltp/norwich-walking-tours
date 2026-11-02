@@ -45,12 +45,6 @@ export function BookingSectionV2({ phoneCta = false }: { phoneCta?: boolean } = 
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
           >
-            <p
-              className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              Pick a date
-            </p>
             {/* H2 order swapped — Lora→Caveat to match every other H2 on
                 the page. Green Caveat lands on the punchline ("Tip what it
                 was worth") rather than the prosaic "Free to book". */}

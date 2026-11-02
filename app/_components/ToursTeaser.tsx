@@ -18,12 +18,6 @@ export function ToursTeaser() {
       className="section-padding bg-white border-y border-brand-accent/10"
     >
       <div className="brand-container">
-        <p
-          className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-          style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-        >
-          More tours
-        </p>
         <h2 id="tours-heading" className="leading-[1.0] mb-4">
           <span
             className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"

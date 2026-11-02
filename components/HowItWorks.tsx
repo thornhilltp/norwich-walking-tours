@@ -48,9 +48,6 @@ export function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-            How it works
-          </p>
           <h2 className="font-caveat text-4xl md:text-5xl font-bold">
             Three steps. No faff.
           </h2>

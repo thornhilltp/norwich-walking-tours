@@ -118,9 +118,6 @@ export default function ExplorePage() {
       <main className="bg-brand-bg pt-20 pb-16">
         {/* Header */}
         <section className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">
-          <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-            Explore Norwich
-          </p>
           <h1 className="font-caveat text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight mb-4">
             Norwich guides, from someone who walks it for a living.
           </h1>

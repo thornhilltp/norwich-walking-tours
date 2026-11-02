@@ -158,12 +158,6 @@ export function Testimonials({ showCta = true }: { showCta?: boolean } = {}) {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <p
-            className="text-brand-accent-text text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Reviews
-          </p>
           <h2 className="leading-[1.0] mb-5">
             <span
               className="inline text-[clamp(36px,4.4vw,56px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"

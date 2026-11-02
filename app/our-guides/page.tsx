@@ -16,14 +16,14 @@ import { PhilosophyCards } from "./_components/PhilosophyCards";
 export const metadata: Metadata = {
   title: "About Us | Norwich Free Walking Tours",
   description:
-    "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz and Holly, the guides behind the Norwich free walking tour.",
+    "A few Norwich locals who show people round the city we live in. Meet Tom, Joolz, Holly and Clara, the guides behind the Norwich free walking tour.",
   alternates: {
     canonical: "https://www.norwichfreewalkingtours.co.uk/our-guides",
   },
   openGraph: {
     title: "About Us | Norwich Free Walking Tours",
     description:
-      "Meet the Norwich locals who show you round: Tom, Joolz and Holly.",
+      "Meet the Norwich locals who show you round: Tom, Joolz, Holly and Clara.",
     url: "https://www.norwichfreewalkingtours.co.uk/our-guides",
     type: "website",
     images: [{ url: "/og-image.jpg", alt: "The Norwich Free Walking Tours guides." }],
@@ -36,9 +36,6 @@ export default function AboutUsPage() {
       <main className="bg-brand-bg pt-24 md:pt-28 pb-4">
         {/* Intro */}
         <section className="brand-container max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <p className="font-lora text-brand-accent text-sm font-semibold tracking-[0.18em] uppercase mb-3">
-            About us
-          </p>
           <h1 className="leading-[0.95] mb-5">
             <span className="block font-lora text-3xl md:text-4xl font-semibold text-brand-text">
               A few Norwich locals
@@ -55,7 +52,7 @@ export default function AboutUsPage() {
         {/* The locals — polaroid grid. Leads the page (faces first) per
             Tom; the values/creed band sits below it. */}
         <section className="brand-container max-w-6xl mx-auto px-4 sm:px-6 mt-16 text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-8 sm:gap-y-14">
             {guides.map((g) => (
               <div key={g.name} className="flex flex-col items-center">
                 {/* Cream polaroid — matches PhotoShowcaseV2 / About */}

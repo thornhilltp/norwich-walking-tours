@@ -7,7 +7,7 @@
 // The reviews stay in the DOM when closed (grid 0fr -> 1fr trick), so
 // search engines and screen readers still get them.
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 
 export function GuideExpand({
@@ -21,14 +21,11 @@ export function GuideExpand({
   accent?: { ac: string; ad: string };
   children: ReactNode;
 }) {
-  // Open by default on desktop (3 cards side by side, room for reviews),
-  // closed on phones (cards stack, page gets long). Transition is off until
-  // the visitor taps, so desktop doesn't visibly animate open on load.
+  // Closed by default everywhere: with four guides side by side, open
+  // reviews made a wall of text (Tom 2026-11-02). Transition is off until
+  // the visitor taps.
   const [open, setOpen] = useState(false);
   const [touched, setTouched] = useState(false);
-  useEffect(() => {
-    if (window.matchMedia("(min-width: 640px)").matches) setOpen(true);
-  }, []);
   const id = useId();
   const ac = accent?.ac ?? "#2DA96B";
   const ad = accent?.ad ?? "#1A6B47";
@@ -39,11 +36,12 @@ export function GuideExpand({
         type="button"
         aria-expanded={open}
         aria-controls={id}
+        aria-label={`What guests say about ${name}`}
         onClick={() => { setTouched(true); setOpen((o) => !o); }}
         className="group inline-flex items-center gap-2 min-h-[44px] pl-4 pr-3 rounded-full border bg-white shadow-sm hover:shadow-md transition-all duration-200"
         style={{ borderColor: `${ac}55`, color: ad }}
       >
-        <span className="font-lora text-sm font-semibold">What guests say about {name}</span>
+        <span className="font-lora text-sm font-semibold">What guests say</span>
         <span
           className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full text-xs font-bold text-white"
           style={{ backgroundColor: ac }}

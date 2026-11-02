@@ -9,12 +9,6 @@ export function WhatIsFreeTour() {
       <div className="brand-container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div>
-            <p
-              className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              How free tours work
-            </p>
             <h2 className="font-caveat text-4xl md:text-5xl font-bold mb-5 leading-tight">
               What&apos;s a free tour?
             </h2>

@@ -128,7 +128,7 @@ export const tours: Tour[] = [
   {
     slug: "free-walking-tour",
     name: "The Free Walking Tour",
-    byline: "Led by Tom, Joolz or Holly",
+    byline: "Led by Tom, Joolz, Holly or Clara",
     image: "/images/tour/tom-tombland-talk.jpg",
     imageAlt:
       "Tom telling a story to a tour group in Tombland",

@@ -25,9 +25,6 @@ export default function TermsPage() {
     <>
       <main className="bg-brand-bg pt-24 pb-16">
         <div className="brand-container max-w-2xl mx-auto">
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3 font-lora">
-            Legal
-          </p>
           <h1 className="font-caveat text-4xl md:text-5xl font-bold mb-2">Terms &amp; Conditions</h1>
           <p className="font-lora text-sm text-muted-foreground mb-10">
             Last updated: April 2026

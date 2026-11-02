@@ -164,12 +164,6 @@ export default async function BestInNorwichPage() {
         <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
           <div className="brand-container">
             <div className="max-w-2xl mb-8 sm:mb-10">
-              <p
-                className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3"
-                style={lora}
-              >
-                The results
-              </p>
               <h2 className="mb-3 leading-tight">
                 <span
                   className="block text-2xl md:text-3xl font-bold text-brand-text"

@@ -83,12 +83,6 @@ export default function BookPage() {
           />
           <div className="absolute inset-0 bg-black/75" />
           <div className="relative brand-container pt-28 pb-12 md:pt-32 md:pb-14 text-center">
-            <p
-              className="text-white/85 text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-              style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-            >
-              Reserve your spot
-            </p>
             <h1 className="leading-[1.0] mb-4" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}>
               <span
                 className="block text-[clamp(28px,4.4vw,48px)] font-semibold leading-[1.05] tracking-[-0.02em] text-white"
@@ -174,9 +168,6 @@ export default function BookPage() {
         <section className="section-padding bg-brand-bg border-t border-brand-accent/10">
           <div className="brand-container max-w-4xl mx-auto">
             <div className="text-center mb-12 md:mb-14">
-              <p className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                On the day
-              </p>
               <h2 className="leading-[1.0]">
                 <span className="inline text-[clamp(32px,4.4vw,52px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
                   Here&apos;s
@@ -258,9 +249,6 @@ export default function BookPage() {
         <section className="section-padding bg-brand-accent-light border-t border-brand-accent/10">
           <div className="brand-container max-w-2xl mx-auto">
             <div className="text-center mb-10">
-              <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-lora), Georgia, serif" }}>
-                Before you book
-              </p>
               <h2 className="font-caveat text-4xl md:text-5xl font-bold">
                 A few quick answers
               </h2>

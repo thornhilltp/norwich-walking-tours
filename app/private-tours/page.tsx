@@ -111,9 +111,6 @@ export default function PrivateToursPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative brand-container max-w-3xl mx-auto text-center">
-          <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-            Private tours
-          </p>
           <h1 className="font-caveat text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
             Your own private guide to Norwich.
           </h1>
@@ -134,9 +131,6 @@ export default function PrivateToursPage() {
         <div className="brand-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div>
-              <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                What&apos;s included
-              </p>
               <h2 id="whats-included" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text mb-6">
                 Everything handled. Nothing left to chance.
               </h2>
@@ -160,9 +154,6 @@ export default function PrivateToursPage() {
       <section id="occasions" aria-labelledby="occasions" className="section-padding bg-brand-accent-light">
         <div className="brand-container">
           <div className="text-center mb-12">
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              Who it&apos;s for
-            </p>
             <h2 id="occasions" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
               Any group. Any occasion.
             </h2>
@@ -197,9 +188,6 @@ export default function PrivateToursPage() {
       <section id="durations" aria-labelledby="durations" className="section-padding bg-brand-bg">
         <div className="brand-container">
           <div className="text-center mb-12">
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              Tour options
-            </p>
             <h2 id="durations" className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
               Pick your duration.
             </h2>

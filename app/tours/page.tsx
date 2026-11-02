@@ -39,12 +39,6 @@ export default function ToursPage() {
       {/* Header */}
       <section className="pt-14 md:pt-20 pb-10 md:pb-12">
         <div className="brand-container">
-          <p
-            className="text-brand-accent text-xs font-semibold tracking-[0.18em] uppercase mb-4"
-            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
-          >
-            Norwich Free Walking Tours
-          </p>
           <h1 className="leading-[1.0] mb-6 max-w-4xl">
             <span
               className="inline text-[clamp(36px,4.6vw,58px)] font-semibold leading-[1.05] tracking-[-0.02em] text-brand-text"
@@ -116,9 +110,8 @@ export default function ToursPage() {
       <div id="notify" className="scroll-mt-28">
         {/* Same form as /updates (same source tag, same guides visual),
             kept inline so a visitor browsing tours never leaves the page
-            to sign up. Only the eyebrow differs: /updates speaks to people
-            who have just walked with us. */}
-        <EmailCapture source="updates" visual={{ kind: "guides" }} eyebrow="New tours" />
+            to sign up. */}
+        <EmailCapture source="updates" visual={{ kind: "guides" }} />
       </div>
 
       <Footer />

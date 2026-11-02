@@ -142,9 +142,6 @@ export default function WhatIsAFreeTourPage() {
           />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative brand-container max-w-3xl mx-auto text-center">
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              The free-tour model
-            </p>
             <h1 className="font-caveat text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
               What is a free walking tour?
             </h1>

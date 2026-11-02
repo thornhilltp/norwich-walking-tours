@@ -228,9 +228,6 @@ export default function FreeThingsToDoNorwichPage() {
         <article className="brand-container max-w-2xl mx-auto">
           {/* Header */}
           <header className="mb-8 text-center">
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              A local&apos;s guide
-            </p>
             <h1 className="font-caveat text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight mb-3">
               Free things to do in Norwich
             </h1>

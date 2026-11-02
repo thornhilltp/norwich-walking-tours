@@ -230,9 +230,6 @@ export function FAQ({ customHeading, items, emitSchema = true, schemaItems, dark
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="font-lora text-brand-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              FAQs
-            </p>
             {customHeading ?? (
               <h2 className="font-caveat text-4xl md:text-5xl font-bold text-brand-text">
                 Everything you need to know
