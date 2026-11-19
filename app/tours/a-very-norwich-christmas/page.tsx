@@ -389,7 +389,7 @@ export default async function ChristmasTourPage() {
               Who made Norwich&apos;s Christmas crackers? Why did turkeys walk to London? And which king came here for Christmas?
             </p>
             <p className="mt-3 max-w-md mx-auto lg:mx-0 text-[15px] md:text-base italic text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
-              Ninety minutes of our favourite Christmas stories, from Chantry Place to the Cathedral, with a guide who lives here.
+              Ninety minutes of our favourite Norwich Christmas stories, from Chantry Place to the Cathedral, with a guide who lives here.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
