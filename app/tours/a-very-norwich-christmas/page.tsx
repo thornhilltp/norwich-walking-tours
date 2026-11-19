@@ -386,10 +386,10 @@ export default async function ChristmasTourPage() {
             </h1>
 
             <p className="mt-5 max-w-md mx-auto lg:mx-0 text-lg md:text-xl text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
-              Crackers, chocolate, turkeys and a king. The city&apos;s Christmas stories, told by a local.
+              Who made Norwich&apos;s Christmas crackers? Why did turkeys walk to London? And which king came here for Christmas?
             </p>
             <p className="mt-3 max-w-md mx-auto lg:mx-0 text-[15px] md:text-base italic text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
-              A 90-minute Christmas walking tour from Chantry Place to the Cathedral, past the market lights.
+              Ninety minutes of our favourite Christmas stories, from Chantry Place to the Cathedral, with a guide who lives here.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
@@ -462,14 +462,12 @@ export default async function ChristmasTourPage() {
       {/* Facts card, overlapping the hero's bottom edge. */}
       <div className="relative z-10 -mt-10 md:-mt-12">
         <div className="brand-container">
-          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-flow-col lg:auto-cols-fr gap-x-8 gap-y-5">
+          <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5">
             {[
-              { label: "When", value: "Thu & Fri 6pm, Sat & Sun 2pm" },
-              { label: "Dates", value: "26 Nov to 20 Dec 2026" },
-              { label: "How long", value: "About 90 minutes" },
-              { label: "Start", value: "Chantry Place square", href: MAP },
-              { label: "Finish", value: "Norwich Cathedral" },
-              { label: "Price", value: "£12 adults, £9 children" },
+              // Three facts, like the free tour's card (Tom 2026-11-19).
+              { label: "When", value: "26 Nov to 20 Dec. Thu & Fri 6pm, Sat & Sun 2pm (90 min)" },
+              { label: "Route", value: "Chantry Place to Norwich Cathedral", href: MAP },
+              { label: "Price", value: "£12 adults, £9 children, paid when you book" },
             ].map((row) => (
               <div key={row.label} className="min-w-0">
                 <dt className="text-[11px] uppercase tracking-[0.16em] font-semibold mb-1" style={{ ...lora, color: RED }}>
