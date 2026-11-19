@@ -21,7 +21,6 @@ import {
   MincePieSticker,
   MugSticker,
   MustardHollySticker,
-  TurkeySticker,
   XMAS_STICKER_CSS,
 } from "@/app/tours/_components/ChristmasStickers";
 import { googleReviewStats } from "@/lib/testimonials";
@@ -138,7 +137,7 @@ const stories = [
 
 const beats = [
   {
-    when: "6pm or 2pm",
+    when: "",
     place: "Chantry Place",
     text: "Meet in the square, where Caley's once made its chocolate and crackers. The first story: how Christmas got its English name.",
     Sticker: CrackerSticker,
@@ -500,15 +499,25 @@ export default async function ChristmasTourPage() {
       </div>
 
       {/* Holly's Reel (Tom 2026-11-19): hooks filmed at the Royal Arcade and
-          the Chantry Place lights. Plays muted with burned-in captions. */}
-      <section className="pt-20 pb-4 md:pt-28">
-        <div className="brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
+          the Chantry Place lights. Plays muted with burned-in captions. On a
+          berry-red band with snow so it reads as its own moment (Tom 2026-11-19). */}
+      <section className="relative overflow-hidden mt-16 md:mt-20 pt-20 pb-20 md:pt-24 md:pb-24" style={{ backgroundColor: RED }}>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              "radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 90px 80px,#fff 50%,transparent),radial-gradient(2.5px 2.5px at 160px 20px,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 210px 120px,#fff 50%,transparent)",
+            backgroundSize: "240px 160px",
+          }}
+        />
+        <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
           <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
             <h2 className="leading-[1.0]">
-              <span className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
+              <span className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-[#FFF8F0]" style={lora}>
                 You&apos;ve been told
               </span>
-              <span className="block mt-1 text-[clamp(40px,4.8vw,58px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
+              <span className="block mt-1 text-[clamp(44px,5.2vw,64px)] leading-[0.95]" style={{ ...xmasStyle, color: "#FFE7A8" }}>
                 the wrong stories.
               </span>
             </h2>
@@ -516,13 +525,19 @@ export default async function ChristmasTourPage() {
               href="https://www.instagram.com/norwichfreewalkingtours"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
-              style={{ ...lora, color: RED }}
+              className="mt-4 inline-block text-[15px] font-semibold text-[#FFF8F0] underline underline-offset-4 decoration-[#FFF8F0]/40 hover:decoration-[#FFF8F0]"
+              style={lora}
             >
               Watch more on Instagram @norwichfreewalkingtours
             </a>
           </div>
-          <div className="md:order-1">
+          <div className="relative md:order-1">
+            <ScrollSticker className="-top-8 -left-6 z-[5]" rotate={-10}>
+              <BellSticker className="h-[72px] w-16" />
+            </ScrollSticker>
+            <ScrollSticker className="-bottom-6 -right-6 z-[5]" rotate={8}>
+              <MincePieSticker className="h-16 w-[72px]" />
+            </ScrollSticker>
             <StorytellerReel
               plain
               src="/videos/holly-christmas-reel.mp4"
@@ -639,9 +654,11 @@ export default async function ChristmasTourPage() {
                     <Sticker className="h-14 w-14" />
                   </ScrollSticker>
                 </div>
-                <div className="text-[15px] font-bold text-[#FFE7A8]" style={lora}>
-                  {when}
-                </div>
+                {when && (
+                  <div className="text-[15px] font-bold text-[#FFE7A8]" style={lora}>
+                    {when}
+                  </div>
+                )}
                 <h3 className="mt-2 mb-2 text-[32px] leading-[1.05] text-[#FFF8F0]" style={xmasStyle}>
                   {p}
                 </h3>
@@ -652,10 +669,6 @@ export default async function ChristmasTourPage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <span className="inline-block rounded-full bg-[#FFF8F0] text-brand-text px-5 py-2 text-[14px] mb-4" style={lora}>
-              Thu &amp; Fri 6pm, Sat &amp; Sun 2pm, 26 Nov to 20 Dec
-            </span>
-            <br />
             <BookButton>Book your ticket</BookButton>
           </div>
         </div>
@@ -699,29 +712,14 @@ export default async function ChristmasTourPage() {
         }
       />
 
-      {/* Closing band: the turkey's dashed trail, then one last booking moment. */}
+      {/* Closing band: one last booking moment. */}
       <section className="relative overflow-hidden py-20 md:py-28 text-center" style={{ backgroundColor: "#F4EFE7" }}>
         <div className="brand-container flex flex-col items-center gap-7">
-          <div className="flex flex-wrap items-end justify-center gap-3">
-            <TurkeySticker className="h-20 w-20 -rotate-[4deg]" />
-            <svg aria-hidden viewBox="0 0 150 40" className="w-[150px] h-10 overflow-visible">
-              <path d="M4 30 C40 6 80 40 146 14" fill="none" stroke={RED} strokeWidth="2.6" strokeDasharray="8 7" strokeLinecap="round" />
-            </svg>
-            <p className="m-0 max-w-[17ch] text-left text-[22px] leading-[1.1]" style={{ ...xmasStyle, color: RED }}>
-              Norfolk turkeys walked to London. You&apos;ve got 90 minutes.
-            </p>
-          </div>
           <h2 className="leading-[1.0] m-0">
-            <span className="block text-[clamp(26px,3.2vw,40px)] font-semibold leading-[1.15] text-brand-text" style={lora}>
-              Ninety minutes, one city,
-            </span>
-            <span className="block mt-2 text-[clamp(40px,5.4vw,64px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
-              one very Norwich Christmas.
+            <span className="block text-[clamp(40px,5.4vw,64px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
+              One very Norwich Christmas.
             </span>
           </h2>
-          <p className="m-0 text-[17px] text-brand-text/80" style={lora}>
-            Thu &amp; Fri 6pm, Sat &amp; Sun 2pm, 26 Nov to 20 Dec. Chantry Place to Norwich Cathedral.
-          </p>
           <BookButton>Book your ticket</BookButton>
           <p className="m-0 text-[14px] text-brand-text/70" style={lora}>
             £12 adults, £9 children, paid when you book.
