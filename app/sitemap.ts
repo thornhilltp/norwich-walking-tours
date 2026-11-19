@@ -49,6 +49,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${base}/tours/a-very-norwich-christmas`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${base}/private-tours`,
       changeFrequency: "monthly",
       priority: 0.7,

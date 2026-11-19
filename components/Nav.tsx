@@ -21,6 +21,7 @@ import { trackEvent } from "@/lib/tracking";
 const tourLinks = [
   { label: "Free Walking Tour", href: "/tours/free-walking-tour" },
   { label: "Dark History Tour", href: "/tours/dark-history-of-norwich" },
+  { label: "A Very Norwich Christmas", href: "/tours/a-very-norwich-christmas" },
 ];
 
 const navLinks = [
@@ -38,7 +39,11 @@ export function Nav() {
   // Homepage (Tom 2026-10-21): "Book a tour" glides to Pick your walk, so
   // people choose the right tour first. Everywhere else it goes to /book.
   const onHome = pathname === "/";
-  const bookHref = onHome ? "/#pick-your-walk" : "/book";
+  // Christmas tour (Tom 2026-11-19): a paid walk with its own booking
+  // widget on the page, so the nav button books that, not the free tour.
+  const onXmas = pathname === "/tours/a-very-norwich-christmas";
+  const bookHref = onHome ? "/#pick-your-walk" : onXmas ? "#book" : "/book";
+  const bookLabel = onXmas ? "Book your ticket" : "Book a tour";
   const toWalks = (e: { preventDefault: () => void }) => {
     const el = onHome ? document.getElementById("pick-your-walk") : null;
     if (!el) return;
@@ -49,7 +54,7 @@ export function Nav() {
   // Nav is transparent at top of pages with dark image heroes (the
   // homepage film and the free tour photo hero). Otherwise opaque so nav
   // text is legible against cream content bg.
-  const hasDarkHero = pathname === "/" || pathname === "/tours/free-walking-tour";
+  const hasDarkHero = pathname === "/" || pathname === "/tours/free-walking-tour" || onXmas;
   const isOpaque = scrolled || mobileOpen || !hasDarkHero;
   // Dark History pages: black bar with white links when scrolled (Tom
   // 2026-10-11). lightUI = the cream bar styling everywhere else.
@@ -207,7 +212,7 @@ export function Nav() {
               }}
               className="btn-cta inline-flex items-center h-10 px-5 text-base bg-brand-accent hover:bg-brand-accent/90 text-white rounded-xl transition-colors duration-150 focus-brand"
             >
-              Book a tour
+              {bookLabel}
             </a>
           </div>
 
@@ -281,7 +286,7 @@ export function Nav() {
               }}
               className="btn-cta flex items-center justify-center w-full h-11 bg-brand-accent text-white rounded-xl hover:bg-brand-accent/90 transition-colors duration-150 text-base"
             >
-              Book a tour
+              {bookLabel}
             </a>
           </div>
         </div>

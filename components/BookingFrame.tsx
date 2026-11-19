@@ -78,9 +78,18 @@ interface BookingFrameProps {
   priority?: boolean;
   /** Booking-app tour slug, e.g. "the-dark-history-of-norwich". Omit for the free tour. */
   tour?: string;
+  /** Accessible name for the iframe. */
+  title?: string;
 }
 
-export function BookingFrame({ className, height = 700, sandbox, priority = false, tour }: BookingFrameProps) {
+export function BookingFrame({
+  className,
+  height = 700,
+  sandbox,
+  priority = false,
+  tour,
+  title = "Book your Norwich walking tour",
+}: BookingFrameProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [currentHeight, setCurrentHeight] = useState(height);
   // Priority (above-the-fold) embed: seed with the bare widget URL so the
@@ -116,6 +125,17 @@ export function BookingFrame({ className, height = 700, sandbox, priority = fals
         return;
       }
 
+      // The widget also sends its own nfwt-* layout messages (Tom 2026-11-19).
+      // nfwt-height duplicates the resize above; nfwt-scroll-top asks us to
+      // bring the widget back into view (e.g. after a step change). Neither
+      // is an analytics event, so neither reaches the dataLayer.
+      if (data.type === "nfwt-height") return;
+      if (data.type === "nfwt-scroll-top") {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        iframeRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+        return;
+      }
+
       // Forward any other typed message from the widget to the dataLayer.
       // type becomes the GA4 event name; remaining fields become parameters.
       const { type, ...rest } = data as { type: string; [key: string]: unknown };
@@ -148,7 +168,7 @@ export function BookingFrame({ className, height = 700, sandbox, priority = fals
     <iframe
       ref={iframeRef}
       src={iframeSrc}
-      title="Book your Norwich walking tour"
+      title={title}
       allow="payment"
       // Above-the-fold hero embed: fetch eagerly at high priority. Below-the-fold
       // embed: keep loading="lazy" so it only fetches as it nears the viewport.

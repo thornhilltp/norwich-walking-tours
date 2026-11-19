@@ -63,7 +63,8 @@ export function StickyBookCTA() {
 
   const isTourPage = /^\/tours\/.+/.test(pathname ?? "");
   const href = isTourPage ? "#book" : "/book";
-  const label = "Book your spot (free)";
+  // The Christmas walk is paid (Tom 2026-11-19), so no "(free)" there.
+  const label = pathname === "/tours/a-very-norwich-christmas" ? "Book your ticket" : "Book your spot (free)";
   // Tours are bookable now, so name the tour rather than "waitlist" (Tom 2026-10-11)
   const tourSlug = isTourPage ? pathname!.split("/")[2] : "";
   const location = isTourPage ? `sticky_tour_${tourSlug}` : "sticky_mobile";
