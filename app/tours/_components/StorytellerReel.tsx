@@ -25,6 +25,7 @@ export function StorytellerReel({
   captionStyle,
   tag,
   trackingLocation,
+  plain = false,
 }: {
   src: string;
   poster: string;
@@ -33,6 +34,9 @@ export function StorytellerReel({
   captionStyle?: React.CSSProperties;
   tag?: string;
   trackingLocation: string;
+  /** Clean white polaroid with candy-stripe tape, no nail or stains
+      (Christmas page, Tom 2026-11-19). */
+  plain?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
@@ -82,8 +86,19 @@ export function StorytellerReel({
 
   return (
     <div className="relative w-[290px] md:w-[330px] rotate-[-1.5deg]">
-      <span className={s.nail} aria-hidden />
-      <div className={s.pol} style={{ width: "100%", margin: 0 }}>
+      {plain ? (
+        <span
+          aria-hidden
+          className="absolute -top-3.5 left-1/2 z-[4] h-[30px] w-[110px] -translate-x-1/2 -rotate-[4deg] shadow-sm"
+          style={{ background: "repeating-linear-gradient(45deg,rgba(185,43,43,.8) 0 10px,rgba(255,255,255,.8) 10px 20px)" }}
+        />
+      ) : (
+        <span className={s.nail} aria-hidden />
+      )}
+      <div
+        className={plain ? "bg-white p-3 pb-4 rounded-[3px] shadow-[0_18px_40px_rgba(0,0,0,0.25)]" : s.pol}
+        style={{ width: "100%", margin: 0 }}
+      >
         {tag && (
           <span className={s.tag} aria-hidden>
             {tag}
@@ -128,10 +143,14 @@ export function StorytellerReel({
             </span>
           </button>
         </div>
-        <span className={s.ring} aria-hidden />
-        <span className={s.smudge} aria-hidden />
-        <span className={s.spat} aria-hidden />
-        <p className={s.cap} style={{ textAlign: "center", ...captionStyle }}>
+        {!plain && (
+          <>
+            <span className={s.ring} aria-hidden />
+            <span className={s.smudge} aria-hidden />
+            <span className={s.spat} aria-hidden />
+          </>
+        )}
+        <p className={plain ? "mt-2 mb-0 leading-none text-brand-text" : s.cap} style={{ textAlign: "center", ...captionStyle }}>
           {caption}
         </p>
       </div>

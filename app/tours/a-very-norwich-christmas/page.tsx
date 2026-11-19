@@ -10,6 +10,7 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { ScrollSticker } from "@/components/ScrollSticker";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
+import { StorytellerReel } from "@/app/tours/_components/StorytellerReel";
 import {
   BellSticker,
   CandleSticker,
@@ -141,18 +142,27 @@ const beats = [
     place: "Chantry Place",
     text: "Meet in the square, where Caley's once made its chocolate and crackers. The first story: how Christmas got its English name.",
     Sticker: CrackerSticker,
+    img: "/images/tour/holly-chantry-place-lights.jpg",
+    alt: "Holly under the Christmas light arches in Chantry Place",
+    pos: "center 45%",
   },
   {
     when: "The walk",
     place: "Through the market",
     text: "St Peter Mancroft, the market, the Castle where a king kept Christmas in 1121, the Royal Arcade, Jarrolds and St Andrew's.",
     Sticker: CrownSticker,
+    img: "/images/tour/guide-norwich-market.jpg",
+    alt: "A guide telling a story at Norwich Market",
+    pos: "center 40%",
   },
   {
     when: "The end",
     place: "The Cathedral",
     text: "Over the cobbles of Elm Hill and along the Quayside to Norwich Cathedral, where the monks kept Christmas for centuries.",
     Sticker: CandleSticker,
+    img: "/images/tour/group-cathedral-west-front.jpg",
+    alt: "A tour group in front of the west front of Norwich Cathedral",
+    pos: "center 40%",
   },
 ];
 
@@ -489,6 +499,43 @@ export default async function ChristmasTourPage() {
         </div>
       </div>
 
+      {/* Holly's Reel (Tom 2026-11-19): hooks filmed at the Royal Arcade and
+          the Chantry Place lights. Plays muted with burned-in captions. */}
+      <section className="pt-20 pb-4 md:pt-28">
+        <div className="brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
+          <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
+            <h2 className="leading-[1.0]">
+              <span className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text" style={lora}>
+                You&apos;ve been told
+              </span>
+              <span className="block mt-1 text-[clamp(40px,4.8vw,58px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
+                the wrong stories.
+              </span>
+            </h2>
+            <a
+              href="https://www.instagram.com/norwichfreewalkingtours"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block text-[15px] font-semibold underline-offset-4 hover:underline"
+              style={{ ...lora, color: RED }}
+            >
+              Watch more on Instagram @norwichfreewalkingtours
+            </a>
+          </div>
+          <div className="md:order-1">
+            <StorytellerReel
+              plain
+              src="/videos/holly-christmas-reel.mp4"
+              poster="/videos/holly-christmas-reel-poster.jpg"
+              label="Holly, the Christmas guide, asking what year Christmas was cancelled in Norwich, at the Royal Arcade and under the Chantry Place lights"
+              caption={holly?.handle?.label ?? "Holly"}
+              captionStyle={{ ...xmasStyle, fontSize: "clamp(26px, 7.5vw, 30px)", color: RED }}
+              trackingLocation={`tour_reel_${SLUG}`}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Three question stories on a dashed walking route, polaroid photos
           with candy-stripe tape and a sticker each. */}
       <section className="pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
@@ -582,9 +629,16 @@ export default async function ChristmasTourPage() {
             </span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-9">
-            {beats.map(({ when, place: p, text, Sticker }) => (
-              <div key={p} className="border-t-2 border-[#FFE7A8]/70 pt-5">
-                <Sticker className="h-14 w-14 mb-3 -rotate-[5deg]" />
+            {beats.map(({ when, place: p, text, Sticker, img, alt, pos }, i) => (
+              <div key={p} className="border-t-2 border-[#FFE7A8]/70 pt-6">
+                <div className="relative mb-5 mx-1 bg-white p-2.5 pb-6 rounded-[3px] shadow-[0_14px_30px_rgba(0,0,0,0.3)]" style={{ transform: `rotate(${[-1.5, 1.2, -1][i]}deg)` }}>
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <Image src={img} alt={alt} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover" style={{ objectPosition: pos }} />
+                  </div>
+                  <ScrollSticker className="-top-6 -right-4" rotate={[-5, 8, -6][i]}>
+                    <Sticker className="h-14 w-14" />
+                  </ScrollSticker>
+                </div>
                 <div className="text-[15px] font-bold text-[#FFE7A8]" style={lora}>
                   {when}
                 </div>
@@ -614,8 +668,9 @@ export default async function ChristmasTourPage() {
             <div className="flex justify-center lg:justify-start">
               <GuideProfileCard
                 name={holly.name}
-                image={holly.img!}
-                focal={holly.focal}
+                // Christmas shoot at Chantry Place (Tom 2026-11-19).
+                image="/images/tour/holly-chantry-place-lights-story.jpg"
+                focal="50% 35%"
                 eyebrow="Your Christmas guide"
                 caps={false}
                 blurb={holly.blurb}
