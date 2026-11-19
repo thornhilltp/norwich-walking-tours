@@ -470,7 +470,7 @@ export default async function ChristmasTourPage() {
               { label: "Price", value: "£12 adults, £9 children, paid when you book" },
             ].map((row) => (
               <div key={row.label} className="min-w-0">
-                <dt className="text-[11px] uppercase tracking-[0.16em] font-semibold mb-1" style={{ ...lora, color: RED }}>
+                <dt className="text-[14px] font-semibold mb-1" style={{ ...lora, color: RED }}>
                   {row.label}
                 </dt>
                 <dd className="text-[17px] md:text-[18px] font-bold m-0 leading-snug text-brand-text" style={lora}>
@@ -585,7 +585,7 @@ export default async function ChristmasTourPage() {
             {beats.map(({ when, place: p, text, Sticker }) => (
               <div key={p} className="border-t-2 border-[#FFE7A8]/70 pt-5">
                 <Sticker className="h-14 w-14 mb-3 -rotate-[5deg]" />
-                <div className="text-[12px] font-bold uppercase tracking-[0.16em] text-[#FFE7A8]" style={lora}>
+                <div className="text-[15px] font-bold text-[#FFE7A8]" style={lora}>
                   {when}
                 </div>
                 <h3 className="mt-2 mb-2 text-[32px] leading-[1.05] text-[#FFF8F0]" style={xmasStyle}>
@@ -617,6 +617,7 @@ export default async function ChristmasTourPage() {
                 image={holly.img!}
                 focal={holly.focal}
                 eyebrow="Your Christmas guide"
+                caps={false}
                 blurb={holly.blurb}
                 handle={holly.handle}
               />
