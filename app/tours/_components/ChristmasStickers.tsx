@@ -41,7 +41,7 @@ function Holly({ x, y }: { x: number; y: number }) {
     the art on top. */
 function S({ viewBox, className, children }: { viewBox: string; className: string; children: ReactNode }) {
   return (
-    <svg viewBox={viewBox} className={`overflow-visible drop-shadow-[0_3px_4px_rgba(60,40,20,0.35)] ${className}`} aria-hidden>
+    <svg viewBox={viewBox} className={`select-none overflow-visible drop-shadow-[0_3px_4px_rgba(60,40,20,0.35)] ${className}`} aria-hidden>
       <g className="xmas-sticker-edge">{children}</g>
       <g strokeLinejoin="round" strokeLinecap="round">{children}</g>
     </svg>

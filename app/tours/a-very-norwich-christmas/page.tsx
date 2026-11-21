@@ -642,18 +642,27 @@ export default async function ChristmasTourPage() {
       {holly && (
         <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
           <div className="brand-container grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-center">
-            {/* The draft's gift-tag polaroid (Tom 2026-11-21): white frame,
-                candy-stripe tape, red tag, Holly's Chantry Place photo. */}
+            {/* Holly's polaroid wrapped as a present (Tom 2026-11-21): red
+                ribbon round the frame, a bow on top, a "To: you" gift tag
+                hanging from it, her handle as the caption. */}
             <div className="flex flex-col items-center lg:items-start">
               <div className="relative w-[280px] md:w-[320px] bg-white p-3 pb-5 rounded-[3px] shadow-[0_18px_40px_rgba(0,0,0,0.22)] -rotate-2">
+                {/* ribbon: down the frame's right edge and along its foot */}
+                <span aria-hidden className="absolute top-0 bottom-0 right-8 w-3.5 z-[1]" style={{ backgroundColor: RED }} />
+                <span aria-hidden className="absolute left-0 right-0 bottom-12 h-3.5 z-[1]" style={{ backgroundColor: RED }} />
+                <svg aria-hidden viewBox="0 0 80 50" className="absolute -top-7 right-[3px] z-[3] h-[50px] w-[80px] drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]">
+                  <path d="M40 26 C26 4 4 6 8 20 C11 30 30 30 40 26Z" fill={RED} stroke="#8A1F1F" strokeWidth="1.5" />
+                  <path d="M40 26 C54 4 76 6 72 20 C69 30 50 30 40 26Z" fill={RED} stroke="#8A1F1F" strokeWidth="1.5" />
+                  <path d="M36 28 L28 48 L35 44 L38 49 L40 30Z M44 28 L52 48 L45 44 L42 49 L40 30Z" fill="#A12424" />
+                  <circle cx="40" cy="26" r="6" fill="#A12424" stroke="#8A1F1F" strokeWidth="1.5" />
+                </svg>
+                {/* gift tag on a string from the bow */}
+                <svg aria-hidden viewBox="0 0 60 40" className="absolute -top-1 right-14 z-[2] h-10 w-[60px] overflow-visible">
+                  <path d="M58 2 Q40 14 22 22" fill="none" stroke="#8A1F1F" strokeWidth="1.2" />
+                </svg>
                 <span
-                  aria-hidden
-                  className="absolute -top-3.5 left-1/2 h-[30px] w-[110px] -translate-x-1/2 -rotate-[4deg] shadow-sm"
-                  style={{ background: "repeating-linear-gradient(45deg,rgba(185,43,43,.8) 0 10px,rgba(255,255,255,.8) 10px 20px)" }}
-                />
-                <span
-                  className="absolute -top-3 left-4 z-[2] text-white text-[16px] pl-4 pr-3 py-1"
-                  style={{ ...xmasStyle, backgroundColor: RED, clipPath: "polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%)" }}
+                  className="absolute top-4 right-[88px] z-[3] -rotate-[8deg] text-white text-[16px] pl-5 pr-3 py-1 shadow-md"
+                  style={{ ...xmasStyle, backgroundColor: RED, clipPath: "polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%)" }}
                 >
                   To: you
                 </span>
@@ -668,21 +677,16 @@ export default async function ChristmasTourPage() {
                     style={{ objectPosition: "50% 35%" }}
                   />
                 </div>
-                <p className="mt-3 mb-0 text-center text-[30px] leading-none" style={{ ...xmasStyle, color: RED }}>
-                  Holly
-                </p>
-              </div>
-              {holly.handle && (
                 <a
-                  href={holly.handle.href}
+                  href={holly.handle?.href ?? "https://www.instagram.com/historyhollydays"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 text-[15px] font-semibold underline-offset-4 hover:underline"
-                  style={{ ...lora, color: RED }}
+                  className="relative z-[2] block mt-6 text-center text-[26px] leading-none hover:underline underline-offset-4"
+                  style={{ ...xmasStyle, color: RED }}
                 >
-                  {holly.handle.label}
+                  {holly.handle?.label ?? "@historyhollydays"}
                 </a>
-              )}
+              </div>
             </div>
             <div className="min-w-0">
               <SplitHeading plain="Your guide," script="Holly." />
@@ -705,21 +709,6 @@ export default async function ChristmasTourPage() {
           </h2>
         }
       />
-
-      {/* Closing band: one last booking moment. */}
-      <section className="relative overflow-hidden py-20 md:py-28 text-center" style={{ backgroundColor: "#F4EFE7" }}>
-        <div className="brand-container flex flex-col items-center gap-7">
-          <h2 className="leading-[1.0] m-0">
-            <span className="block text-[clamp(40px,5.4vw,64px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
-              One very Norwich Christmas.
-            </span>
-          </h2>
-          <BookButton>Book your ticket</BookButton>
-          <p className="m-0 text-[14px] text-brand-text/70" style={lora}>
-            £12 adults, £9 children, paid when you book.
-          </p>
-        </div>
-      </section>
 
       <div id="notify" className="relative scroll-mt-28">
         <div className="pointer-events-none absolute left-6 top-10 md:left-4 md:top-16 z-20 -rotate-[9deg]">
