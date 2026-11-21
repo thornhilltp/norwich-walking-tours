@@ -145,7 +145,7 @@ const beats = [
     pos: "center 45%",
   },
   {
-    when: "The walk",
+    when: "",
     place: "Through the market",
     text: "St Peter Mancroft, the market, the Castle where a king kept Christmas in 1121, the Royal Arcade, Jarrolds and St Andrew's.",
     Sticker: CrownSticker,
@@ -154,7 +154,7 @@ const beats = [
     pos: "center 40%",
   },
   {
-    when: "The end",
+    when: "",
     place: "The Cathedral",
     text: "Over the cobbles of Elm Hill and along the Quayside to Norwich Cathedral, where the monks kept Christmas for centuries.",
     Sticker: CandleSticker,
