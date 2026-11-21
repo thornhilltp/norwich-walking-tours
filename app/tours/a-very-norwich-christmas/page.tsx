@@ -10,7 +10,6 @@ import { EmailCapture } from "@/components/EmailCapture";
 import { ScrollSticker } from "@/components/ScrollSticker";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
-import { StorytellerReel } from "@/app/tours/_components/StorytellerReel";
 import {
   BellSticker,
   CandleSticker,
@@ -497,59 +496,6 @@ export default async function ChristmasTourPage() {
           </dl>
         </div>
       </div>
-
-      {/* Holly's Reel (Tom 2026-11-19): hooks filmed at the Royal Arcade and
-          the Chantry Place lights. Plays muted with burned-in captions. On a
-          berry-red band with snow so it reads as its own moment (Tom 2026-11-19). */}
-      <section className="relative overflow-hidden mt-16 md:mt-20 pt-20 pb-20 md:pt-24 md:pb-24" style={{ backgroundColor: RED }}>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              "radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 90px 80px,#fff 50%,transparent),radial-gradient(2.5px 2.5px at 160px 20px,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 210px 120px,#fff 50%,transparent)",
-            backgroundSize: "240px 160px",
-          }}
-        />
-        <div className="relative brand-container flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-20">
-          <div className="text-center md:text-left md:order-2 md:max-w-[460px]">
-            <h2 className="leading-[1.0]">
-              <span className="block text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-[#FFF8F0]" style={lora}>
-                You&apos;ve been told
-              </span>
-              <span className="block mt-1 text-[clamp(44px,5.2vw,64px)] leading-[0.95]" style={{ ...xmasStyle, color: "#FFE7A8" }}>
-                the wrong stories.
-              </span>
-            </h2>
-            <a
-              href="https://www.instagram.com/norwichfreewalkingtours"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block text-[15px] font-semibold text-[#FFF8F0] underline underline-offset-4 decoration-[#FFF8F0]/40 hover:decoration-[#FFF8F0]"
-              style={lora}
-            >
-              Watch more on Instagram @norwichfreewalkingtours
-            </a>
-          </div>
-          <div className="relative md:order-1">
-            <ScrollSticker className="-top-8 -left-6 z-[5]" rotate={-10}>
-              <BellSticker className="h-[72px] w-16" />
-            </ScrollSticker>
-            <ScrollSticker className="-bottom-6 -right-6 z-[5]" rotate={8}>
-              <MincePieSticker className="h-16 w-[72px]" />
-            </ScrollSticker>
-            <StorytellerReel
-              plain
-              src="/videos/holly-christmas-reel.mp4"
-              poster="/videos/holly-christmas-reel-poster.jpg"
-              label="Holly, the Christmas guide, asking what year Christmas was cancelled in Norwich, at the Royal Arcade and under the Chantry Place lights"
-              caption={holly?.handle?.label ?? "Holly"}
-              captionStyle={{ ...xmasStyle, fontSize: "clamp(26px, 7.5vw, 30px)", color: RED }}
-              trackingLocation={`tour_reel_${SLUG}`}
-            />
-          </div>
-        </div>
-      </section>
 
       {/* Three question stories on a dashed walking route, polaroid photos
           with candy-stripe tape and a sticker each. */}
