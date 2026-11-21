@@ -11,9 +11,6 @@ import { ScrollSticker } from "@/components/ScrollSticker";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
 import {
   BellSticker,
-  CandleSticker,
-  CrackerSticker,
-  CrownSticker,
   HollySticker,
   JesterSticker,
   MincePieSticker,
@@ -133,36 +130,6 @@ const stories = [
   },
 ];
 
-const beats = [
-  {
-    when: "",
-    place: "Chantry Place",
-    text: "Meet in the square, where Caley's once made its chocolate and crackers. The first story: how Christmas got its English name.",
-    Sticker: CrackerSticker,
-    img: "/images/tour/holly-chantry-place-lights.jpg",
-    alt: "Holly under the Christmas light arches in Chantry Place",
-    pos: "center 45%",
-  },
-  {
-    when: "",
-    place: "Through the market",
-    text: "St Peter Mancroft, the market, the Castle where a king kept Christmas in 1121, the Royal Arcade, Jarrolds and St Andrew's.",
-    Sticker: CrownSticker,
-    img: "/images/tour/guide-norwich-market.jpg",
-    alt: "A guide telling a story at Norwich Market",
-    pos: "center 40%",
-  },
-  {
-    when: "",
-    place: "The Cathedral",
-    text: "Over the cobbles of Elm Hill and along the Quayside to Norwich Cathedral, where the monks kept Christmas for centuries.",
-    Sticker: CandleSticker,
-    img: "/images/tour/group-cathedral-west-front.jpg",
-    alt: "A tour group in front of the west front of Norwich Cathedral",
-    pos: "center 40%",
-  },
-];
-
 // Undecided items stay as [placeholders] and are filtered out by ready().
 const faqs = [
   // Eight, like Dark History (Tom 2026-11-21). The two [TBC] ones stay
@@ -214,11 +181,11 @@ const faqs = [
 // ones until Tom swaps in Christmas-specific ones. A second guide is [TBC].
 const holly = guides.find((g) => g.name === "Holly");
 
-function BookButton({ children, className = "", light = false }: { children: React.ReactNode; className?: string; light?: boolean }) {
+function BookButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <a
       href="#book"
-      className={`btn-cta ${light ? "xmas-btn-light " : ""}inline-flex items-center justify-center h-12 px-7 text-white rounded-xl transition-colors duration-150 focus-brand ${className}`}
+      className={`btn-cta inline-flex items-center justify-center h-12 px-7 text-white rounded-xl transition-colors duration-150 focus-brand ${className}`}
     >
       {children}
       <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -281,8 +248,6 @@ export default async function ChristmasTourPage() {
             color: #fff;
           }
           body:has([data-xmas-tour]) .btn-cta:hover { background-color: #A12424; }
-          body:has([data-xmas-tour]) .btn-cta.xmas-btn-light { background-color: #FFF8F0; color: ${RED}; }
-          body:has([data-xmas-tour]) .btn-cta.xmas-btn-light:hover { background-color: #FFE7A8; }
           /* Shared sections (FAQ, email sign-up) use the free tour's green.
              The theme is "@theme inline", so the colours are baked into the
              utilities and can't be swapped by variable: restyle them here,
@@ -481,7 +446,9 @@ export default async function ChristmasTourPage() {
       </section>
 
       {/* Facts card, overlapping the hero's bottom edge. */}
-      <div className="relative z-10 -mt-10 md:-mt-12">
+      {/* Green starts where the hero ends (-mt-10 / -mt-12), so no cream strip
+          shows between the facts card and the green stories (Tom 2026-11-21). */}
+      <div className="relative z-10 -mt-10 md:-mt-12 bg-[linear-gradient(to_bottom,transparent_0,transparent_2.5rem,#1E5B3A_2.5rem)] md:bg-[linear-gradient(to_bottom,transparent_0,transparent_3rem,#1E5B3A_3rem)]">
         <div className="brand-container">
           <dl className="bg-white rounded-2xl shadow-[0_10px_40px_-12px_rgba(26,26,26,0.25)] border border-brand-text/[0.05] px-6 py-6 md:px-10 md:py-7 grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5">
             {[
@@ -580,57 +547,6 @@ export default async function ChristmasTourPage() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Route band: berry red after the green stories, zigzag top edge. */}
-      <section className="relative pt-24 pb-20 text-[#FFF8F0]" style={{ backgroundColor: RED }}>
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-[14px]"
-          style={{
-            backgroundColor: GREEN,
-            clipPath:
-              "polygon(0 0,100% 0,100% 0,97% 100%,94% 0,91% 100%,88% 0,85% 100%,82% 0,79% 100%,76% 0,73% 100%,70% 0,67% 100%,64% 0,61% 100%,58% 0,55% 100%,52% 0,49% 100%,46% 0,43% 100%,40% 0,37% 100%,34% 0,31% 100%,28% 0,25% 100%,22% 0,19% 100%,16% 0,13% 100%,10% 0,7% 100%,4% 0,1% 100%,0 0)",
-          }}
-        />
-        <div className="brand-container">
-          <h2 className="text-center leading-[1.0] mb-12">
-            <span className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] text-[#FFF8F0]" style={lora}>
-              Wrap up,
-            </span>{" "}
-            <span className="inline text-[clamp(40px,4.8vw,58px)] leading-[0.95]" style={{ ...xmasStyle, color: "#FFE7A8" }}>
-              let&apos;s walk.
-            </span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-9">
-            {beats.map(({ when, place: p, text, Sticker, img, alt, pos }, i) => (
-              <div key={p} className="border-t-2 border-[#FFE7A8]/70 pt-6">
-                <div className="relative mb-5 mx-1 bg-white p-2.5 pb-6 rounded-[3px] shadow-[0_14px_30px_rgba(0,0,0,0.3)]" style={{ transform: `rotate(${[-1.5, 1.2, -1][i]}deg)` }}>
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image src={img} alt={alt} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover" style={{ objectPosition: pos }} />
-                  </div>
-                  <ScrollSticker className="-top-6 -right-4" rotate={[-5, 8, -6][i]}>
-                    <Sticker className="h-14 w-14" />
-                  </ScrollSticker>
-                </div>
-                {when && (
-                  <div className="text-[15px] font-bold text-[#FFE7A8]" style={lora}>
-                    {when}
-                  </div>
-                )}
-                <h3 className="mt-2 mb-2 text-[32px] leading-[1.05] text-[#FFF8F0]" style={xmasStyle}>
-                  {p}
-                </h3>
-                <p className="m-0 text-[16px] leading-relaxed text-[#FFF8F0]/90" style={lora}>
-                  {text}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <BookButton light>Book your ticket</BookButton>
-          </div>
         </div>
       </section>
 
