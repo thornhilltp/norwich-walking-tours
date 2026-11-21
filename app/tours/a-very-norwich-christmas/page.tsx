@@ -372,10 +372,7 @@ export default async function ChristmasTourPage() {
             </h1>
 
             <p className="mt-5 max-w-md mx-auto lg:mx-0 text-lg md:text-xl text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
-              Who made Norwich&apos;s Christmas crackers? Why did turkeys walk to London? And which king came here for Christmas?
-            </p>
-            <p className="mt-3 max-w-md mx-auto lg:mx-0 text-[15px] md:text-base italic text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
-              Crackers, mince pies, a royal Christmas and the year it was cancelled, told where it happened.
+              Crackers, mince pies, a royal Christmas and the year it was cancelled, as told on our Christmas walking tour.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
