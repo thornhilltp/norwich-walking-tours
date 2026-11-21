@@ -214,11 +214,11 @@ const faqs = [
 // ones until Tom swaps in Christmas-specific ones. A second guide is [TBC].
 const holly = guides.find((g) => g.name === "Holly");
 
-function BookButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function BookButton({ children, className = "", light = false }: { children: React.ReactNode; className?: string; light?: boolean }) {
   return (
     <a
       href="#book"
-      className={`btn-cta inline-flex items-center justify-center h-12 px-7 text-white rounded-xl transition-colors duration-150 focus-brand ${className}`}
+      className={`btn-cta ${light ? "xmas-btn-light " : ""}inline-flex items-center justify-center h-12 px-7 text-white rounded-xl transition-colors duration-150 focus-brand ${className}`}
     >
       {children}
       <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -226,16 +226,16 @@ function BookButton({ children, className = "" }: { children: React.ReactNode; c
   );
 }
 
-function SplitHeading({ plain, script, center = false }: { plain: string; script: string; center?: boolean }) {
+function SplitHeading({ plain, script, center = false, dark = false }: { plain: string; script: string; center?: boolean; dark?: boolean }) {
   return (
     <h2 className={`leading-[1.0] mb-8 ${center ? "text-center" : ""}`}>
       <span
-        className="inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] text-brand-text"
+        className={`inline text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.05] tracking-[-0.01em] ${dark ? "text-[#FFF8F0]" : "text-brand-text"}`}
         style={lora}
       >
         {plain}
       </span>{" "}
-      <span className="inline text-[clamp(40px,4.8vw,58px)] leading-[0.95]" style={{ ...xmasStyle, color: RED }}>
+      <span className="inline text-[clamp(40px,4.8vw,58px)] leading-[0.95]" style={{ ...xmasStyle, color: dark ? "#FFE7A8" : RED }}>
         {script}
       </span>
     </h2>
@@ -243,13 +243,13 @@ function SplitHeading({ plain, script, center = false }: { plain: string; script
 }
 
 // Dashed wiggly walking route between the stories, like the free tour page.
-function Wiggle() {
+function Wiggle({ color = RED }: { color?: string }) {
   return (
     <svg aria-hidden viewBox="0 0 420 46" className="block mx-auto my-6 md:my-2 w-[min(420px,80%)] h-[46px] overflow-visible">
       <path
         d="M4 30 C60 4 110 44 170 22 S280 4 330 26 S400 40 416 18"
         fill="none"
-        stroke={RED}
+        stroke={color}
         strokeWidth="2.6"
         strokeDasharray="9 8"
         strokeLinecap="round"
@@ -281,6 +281,8 @@ export default async function ChristmasTourPage() {
             color: #fff;
           }
           body:has([data-xmas-tour]) .btn-cta:hover { background-color: #A12424; }
+          body:has([data-xmas-tour]) .btn-cta.xmas-btn-light { background-color: #FFF8F0; color: ${RED}; }
+          body:has([data-xmas-tour]) .btn-cta.xmas-btn-light:hover { background-color: #FFE7A8; }
           /* Shared sections (FAQ, email sign-up) use the free tour's green.
              The theme is "@theme inline", so the colours are baked into the
              utilities and can't be swapped by variable: restyle them here,
@@ -510,12 +512,12 @@ export default async function ChristmasTourPage() {
 
       {/* Three question stories on a dashed walking route, polaroid photos
           with candy-stripe tape and a sticker each. */}
-      <section className="pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+      <section className="pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden" style={{ backgroundColor: GREEN }}>
         <div className="brand-container">
-          <SplitHeading plain="What's on" script="the walk?" center />
+          <SplitHeading plain="What's on" script="the walk?" center dark />
           {stories.map((s, i) => (
             <div key={s.q}>
-              {i > 0 && <Wiggle />}
+              {i > 0 && <Wiggle color="#FFE7A8" />}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
                 <div className={i % 2 ? "md:order-2" : ""}>
                   <div
@@ -568,10 +570,10 @@ export default async function ChristmasTourPage() {
                   >
                     {i + 1}
                   </span>
-                  <h3 className="text-[clamp(30px,3.4vw,40px)] leading-[1.05]" style={{ ...xmasStyle, color: RED }}>
+                  <h3 className="text-[clamp(30px,3.4vw,40px)] leading-[1.05]" style={{ ...xmasStyle, color: "#FFE7A8" }}>
                     {s.q}
                   </h3>
-                  <p className="mt-3 text-[18px] text-brand-text/80 leading-relaxed" style={lora}>
+                  <p className="mt-3 text-[18px] text-[#FFF8F0]/90 leading-relaxed" style={lora}>
                     {s.line}
                   </p>
                 </div>
@@ -581,12 +583,13 @@ export default async function ChristmasTourPage() {
         </div>
       </section>
 
-      {/* Route band: holly green, zigzag top edge. */}
-      <section className="relative pt-24 pb-20 text-[#FFF8F0]" style={{ backgroundColor: GREEN }}>
+      {/* Route band: berry red after the green stories, zigzag top edge. */}
+      <section className="relative pt-24 pb-20 text-[#FFF8F0]" style={{ backgroundColor: RED }}>
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-[14px] bg-brand-bg"
+          className="absolute inset-x-0 top-0 h-[14px]"
           style={{
+            backgroundColor: GREEN,
             clipPath:
               "polygon(0 0,100% 0,100% 0,97% 100%,94% 0,91% 100%,88% 0,85% 100%,82% 0,79% 100%,76% 0,73% 100%,70% 0,67% 100%,64% 0,61% 100%,58% 0,55% 100%,52% 0,49% 100%,46% 0,43% 100%,40% 0,37% 100%,34% 0,31% 100%,28% 0,25% 100%,22% 0,19% 100%,16% 0,13% 100%,10% 0,7% 100%,4% 0,1% 100%,0 0)",
           }}
@@ -626,7 +629,7 @@ export default async function ChristmasTourPage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <BookButton>Book your ticket</BookButton>
+            <BookButton light>Book your ticket</BookButton>
           </div>
         </div>
       </section>
