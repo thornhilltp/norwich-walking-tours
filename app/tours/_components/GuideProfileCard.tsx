@@ -18,7 +18,6 @@ export function GuideProfileCard({
   image,
   focal = "50% 30%",
   eyebrow,
-  caps = true,
   blurb,
   handle,
 }: {
@@ -26,8 +25,6 @@ export function GuideProfileCard({
   image: string;
   focal?: string;
   eyebrow: string;
-  /** false = sentence-case eyebrow (Christmas page, Tom 2026-11-19). */
-  caps?: boolean;
   blurb: string;
   handle?: { label: string; href: string };
 }) {
@@ -67,7 +64,7 @@ export function GuideProfileCard({
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-          <p className={`text-[#5AE19E] font-semibold mb-1 ${caps ? "text-[12px] tracking-[0.16em] uppercase" : "text-[15px]"}`} style={lora}>
+          <p className="text-[#5AE19E] text-[12px] font-semibold tracking-[0.16em] uppercase mb-1" style={lora}>
             {eyebrow}
           </p>
           <p className="text-white text-[40px] font-bold leading-none" style={caveat}>
@@ -121,7 +118,7 @@ export function GuideProfileCard({
                 transition={{ delay: 0.15 }}
                 className="flex w-full flex-col overflow-y-auto p-7 md:w-1/2 md:p-9"
               >
-                <p className={`text-brand-accent font-semibold mb-2 ${caps ? "text-[12px] tracking-[0.16em] uppercase" : "text-[15px]"}`} style={lora}>
+                <p className="text-brand-accent text-[12px] font-semibold tracking-[0.16em] uppercase mb-2" style={lora}>
                   {eyebrow}
                 </p>
                 <p className="text-brand-text text-[44px] font-bold leading-none mb-5" style={caveat}>

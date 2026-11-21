@@ -9,7 +9,6 @@ import { PartnerLogosInverted } from "@/components/PartnerLogosInverted";
 import { EmailCapture } from "@/components/EmailCapture";
 import { ScrollSticker } from "@/components/ScrollSticker";
 import { GuideReviews } from "@/app/our-guides/_components/GuideReviews";
-import { GuideProfileCard } from "@/app/tours/_components/GuideProfileCard";
 import {
   BellSticker,
   CandleSticker,
@@ -292,6 +291,28 @@ export default async function ChristmasTourPage() {
             color: #fff;
           }
           body:has([data-xmas-tour]) .btn-cta:hover { background-color: #A12424; }
+          /* Shared sections (FAQ, email sign-up) use the free tour's green.
+             The theme is "@theme inline", so the colours are baked into the
+             utilities and can't be swapped by variable: restyle them here,
+             on this page's own sections only, never the footer
+             (Tom 2026-11-21). */
+          [data-xmas-tour] > :not(footer) .text-brand-accent,
+          [data-xmas-tour] > :not(footer) .group:hover .group-hover\\:text-brand-accent { color: ${RED}; }
+          [data-xmas-tour] > :not(footer) .bg-brand-accent,
+          [data-xmas-tour] > :not(footer) .group:hover .group-hover\\:bg-brand-accent { background-color: ${RED}; }
+          [data-xmas-tour] > :not(footer) .bg-brand-accent\\/10 { background-color: rgba(185, 43, 43, 0.1); }
+          [data-xmas-tour] > :not(footer) .border-brand-accent\\/10,
+          [data-xmas-tour] > :not(footer) .border-brand-accent\\/15,
+          [data-xmas-tour] > :not(footer) .border-brand-accent\\/25 { border-color: rgba(185, 43, 43, 0.2); }
+          [data-xmas-tour] > :not(footer) .bg-brand-accent-light,
+          [data-xmas-tour] > #notify > section { background-color: #FCFAF8; }
+          [data-xmas-tour] > :not(footer) .focus-visible\\:ring-brand-accent:focus-visible,
+          [data-xmas-tour] > :not(footer) .focus\\:ring-brand-accent:focus { --tw-ring-color: ${RED}; }
+          [data-xmas-tour] #notify h2 {
+            font-family: ${xmas.style.fontFamily}, var(--font-caveat), cursive;
+            font-weight: 700;
+            color: ${RED};
+          }
           ${XMAS_STICKER_CSS}
         `,
         }}
@@ -624,17 +645,47 @@ export default async function ChristmasTourPage() {
       {holly && (
         <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
           <div className="brand-container grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-center">
-            <div className="flex justify-center lg:justify-start">
-              <GuideProfileCard
-                name={holly.name}
-                // Christmas shoot at Chantry Place (Tom 2026-11-19).
-                image="/images/tour/holly-chantry-place-lights-story.jpg"
-                focal="50% 35%"
-                eyebrow="Your Christmas guide"
-                caps={false}
-                blurb={holly.blurb}
-                handle={holly.handle}
-              />
+            {/* The draft's gift-tag polaroid (Tom 2026-11-21): white frame,
+                candy-stripe tape, red tag, Holly's Chantry Place photo. */}
+            <div className="flex flex-col items-center lg:items-start">
+              <div className="relative w-[280px] md:w-[320px] bg-white p-3 pb-5 rounded-[3px] shadow-[0_18px_40px_rgba(0,0,0,0.22)] -rotate-2">
+                <span
+                  aria-hidden
+                  className="absolute -top-3.5 left-1/2 h-[30px] w-[110px] -translate-x-1/2 -rotate-[4deg] shadow-sm"
+                  style={{ background: "repeating-linear-gradient(45deg,rgba(185,43,43,.8) 0 10px,rgba(255,255,255,.8) 10px 20px)" }}
+                />
+                <span
+                  className="absolute -top-3 left-4 z-[2] text-white text-[16px] pl-4 pr-3 py-1"
+                  style={{ ...xmasStyle, backgroundColor: RED, clipPath: "polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%)" }}
+                >
+                  To: you
+                </span>
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
+                  <Image
+                    // Christmas shoot at Chantry Place (Tom 2026-11-19).
+                    src="/images/tour/holly-chantry-place-lights-story.jpg"
+                    alt="Holly, the Christmas guide, under the light arches in Chantry Place"
+                    fill
+                    sizes="320px"
+                    className="object-cover"
+                    style={{ objectPosition: "50% 35%" }}
+                  />
+                </div>
+                <p className="mt-3 mb-0 text-center text-[30px] leading-none" style={{ ...xmasStyle, color: RED }}>
+                  Holly
+                </p>
+              </div>
+              {holly.handle && (
+                <a
+                  href={holly.handle.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 text-[15px] font-semibold underline-offset-4 hover:underline"
+                  style={{ ...lora, color: RED }}
+                >
+                  {holly.handle.label}
+                </a>
+              )}
             </div>
             <div className="min-w-0">
               <SplitHeading plain="Your guide," script="Holly." />
@@ -674,7 +725,7 @@ export default async function ChristmasTourPage() {
       </section>
 
       <div id="notify" className="relative scroll-mt-28">
-        <div className="pointer-events-none absolute left-4 top-16 z-20 hidden md:block -rotate-[9deg]">
+        <div className="pointer-events-none absolute left-6 top-10 md:left-4 md:top-16 z-20 -rotate-[9deg]">
           <MustardHollySticker className="h-16 w-12" />
         </div>
         <EmailCapture tourInterest={SLUG} />
