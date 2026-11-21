@@ -17,6 +17,7 @@ import { MOTION_EVENT } from "./HeroVideo";
 import { ScrollSticker } from "@/components/ScrollSticker";
 import { CupSticker, StickerLabel } from "@/components/Doodles";
 import { CathedralSticker, DragonSticker } from "@/components/MoreDoodles";
+import { BellSticker, HollySticker, XMAS_STICKER_CSS } from "@/app/tours/_components/ChristmasStickers";
 import { LetterGirl } from "./LetterGirl";
 import { openBooking, type TourCardData } from "./BrandBooking";
 import s from "./tourCards.module.css";
@@ -28,6 +29,9 @@ const GLOW = "#5AE19E";
 const GREEN = "#2DA96B";
 const sepia: CSSProperties = { filter: "sepia(0.55) contrast(1.15) brightness(0.85) saturate(0.8)" };
 const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
+// A Very Norwich Christmas (Tom 2026-11-21): berry red, candy-stripe tape.
+const XMAS_RED = "#B92B2B";
+const CANDY = "repeating-linear-gradient(45deg,rgba(185,43,43,.85) 0 7px,rgba(255,255,255,.9) 7px 14px)";
 
 /* ── Shared pieces ─────────────────────────────────────────────────────── */
 
@@ -139,7 +143,7 @@ function Polaroid({
   const free = c.key === "free";
   const caption: CSSProperties = dark
     ? { ...eater, color: GLOW, fontSize: small ? 15 : mid ? 16 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
-    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : mid ? 24 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : GREEN };
+    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : mid ? 24 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : c.key === "xmas" ? XMAS_RED : GREEN };
   const showTape = !free;
   return (
     <figure
@@ -168,7 +172,8 @@ function Polaroid({
           style={{
             transform: "translateX(-50%) rotate(-3deg)",
             // Header: Dark History's tape in its neon green (Tom 2026-10-19).
-            backgroundColor: dark ? (hero ? GLOW : "#3A3530") : tapes[i % tapes.length],
+            background: c.key === "xmas" ? CANDY : undefined,
+            backgroundColor: c.key === "xmas" ? undefined : dark ? (hero ? GLOW : "#3A3530") : tapes[i % tapes.length],
             boxShadow: hero && dark ? "0 0 14px rgba(90,225,158,0.7)" : "0 1px 3px rgba(0,0,0,0.18)",
           }}
         />
@@ -224,6 +229,7 @@ const SHORT_NAME: Record<TourCardData["key"], string> = {
   dark: "Dark History",
   private: "Private tours",
   soon: "Something new",
+  xmas: "A Very Norwich Christmas",
 };
 
 function heroName(c: TourCardData, eater: CSSProperties, onPhoto: boolean, size: number): CSSProperties {
@@ -240,7 +246,7 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
   if (c.key === "private" || !c.next)
     return (
       <span className={`block ${tiny ? "mt-1 text-[13px]" : "mt-1.5 text-[13px]"} leading-snug ${muted}`} style={lora}>
-        {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Selected evenings, 6pm" : "Most days, 10:30am"}
+        {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Selected evenings, 6pm" : c.key === "xmas" ? "Thu to Sun, until 20 Dec" : "Most days, 10:30am"}
       </span>
     );
   const dot = onDark ? GLOW : GREEN;
@@ -319,6 +325,22 @@ function FreeTourSticker() {
     gently, each on its own beat. Tom 2026-10-22: no fly-in as the section
     scrolls into view; the prints are simply there. Reduced motion: no
     movement (MotionProvider). */
+/** A Very Norwich Christmas: a bell and a sprig of holly, the page's own
+    stickers (Tom 2026-11-21). */
+function XmasSticker() {
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: XMAS_STICKER_CSS }} />
+      <ScrollSticker rotate={-9} className="-left-6 -top-8">
+        <BellSticker className="h-14 w-12" />
+      </ScrollSticker>
+      <ScrollSticker rotate={10} className="-right-5 bottom-16">
+        <HollySticker className="h-8 w-12" />
+      </ScrollSticker>
+    </>
+  );
+}
+
 function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
   // The header's pause button stills the drift too.
   const [still, setStill] = useState(false);
@@ -337,13 +359,20 @@ function DealtPrint({ i, children }: { i: number; children: ReactNode }) {
   );
 }
 
-const PILE_W = 676;
 const PILE_H = 470;
 const PILE = [
   { left: 0, top: 46, rot: -4 },
   { left: 220, top: 0, rot: 0 },
   { left: 440, top: 58, rot: 3 },
 ];
+// Four prints while Dark History and the Christmas walk overlap.
+const PILE4 = [
+  { left: 0, top: 46, rot: -4 },
+  { left: 256, top: 0, rot: 2 },
+  { left: 512, top: 52, rot: -1 },
+  { left: 768, top: 12, rot: 3 },
+];
+const pileW = (n: number) => (n > 3 ? 1004 : 676);
 
 function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
   const ask = c.key === "private" ? "Ask about a date" : "See dates & book";
@@ -418,10 +447,11 @@ export function HeroPolaroids({
   useEffect(() => {
     const el = fit.current;
     if (!full || !el) return;
-    const ro = new ResizeObserver(() => setScale(Math.min(1, el.clientWidth / PILE_W)));
+    const ro = new ResizeObserver(() => setScale(Math.min(1, el.clientWidth / pileW(cards.length))));
     ro.observe(el);
     return () => ro.disconnect();
-  }, [full]);
+  }, [full, cards.length]);
+  const four = cards.length > 3;
   return (
     <div id="tours" className="scroll-mt-20">
       {/* Phones and tablets (header use only; full mode is the pile everywhere) */}
@@ -444,15 +474,15 @@ export function HeroPolaroids({
       {/* Desktop: a loose pile of prints */}
       <div
         ref={fit}
-        className={full ? "w-full h-[min(470px,calc(100cqw*0.6953))]" : "contents"}
+        className={full ? (four ? "w-full h-[min(470px,calc(100cqw*0.4681))]" : "w-full h-[min(470px,calc(100cqw*0.6953))]") : "contents"}
         style={full && scale !== null ? { height: PILE_H * scale } : undefined}
       >
       <ol
-        className={`relative hidden ${full ? "!block left-1/2" : "lg:block"} m-0 list-none p-0 h-[470px] w-[676px]`}
+        className={`relative hidden ${full ? "!block left-1/2" : "lg:block"} m-0 list-none p-0 h-[470px] ${four ? "w-[1004px]" : "w-[676px]"}`}
         style={full ? { transform: `translateX(-50%) scale(${scale ?? 1})`, transformOrigin: "top center" } : undefined}
       >
         {cards.map((c, i) => {
-          const p = PILE[i % PILE.length];
+          const p = four ? PILE4[i % PILE4.length] : PILE[i % PILE.length];
           return (
             <li
               key={c.key}
@@ -477,7 +507,7 @@ export function HeroPolaroids({
                       hero={prints}
                       quietPopUp
                       eager={false}
-                      sticker={c.key === "free" ? <FreeTourSticker /> : undefined}
+                      sticker={c.key === "free" ? <FreeTourSticker /> : c.key === "xmas" ? <XmasSticker /> : undefined}
                       extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
                   </a>
                 </DealtPrint>

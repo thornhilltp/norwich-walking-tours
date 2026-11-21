@@ -16,6 +16,7 @@ import {
   WhatIsFree,
   brandFaqs,
   darkIsOn,
+  xmasIsOn,
 } from "./_components/BrandSections";
 import { BrandStickyBar } from "./_components/BrandBooking";
 import { tours } from "@/lib/tours";
@@ -56,9 +57,11 @@ const toursListOf = (dark: boolean) => ({
   itemListElement: [
     { name: "The Norwich Free Walking Tour", url: `${BASE}/tours/free-walking-tour` },
     { name: "The Dark History of Norwich", url: `${BASE}/tours/dark-history-of-norwich` },
+    { name: "A Very Norwich Christmas", url: `${BASE}/tours/a-very-norwich-christmas` },
     { name: "Private & Group Tours", url: `${BASE}/private-tours` },
   ]
     .filter((t) => dark || !t.url.endsWith("/dark-history-of-norwich"))
+    .filter((t) => xmasIsOn() || !t.url.endsWith("/a-very-norwich-christmas"))
     .map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: t.url })),
 });
 

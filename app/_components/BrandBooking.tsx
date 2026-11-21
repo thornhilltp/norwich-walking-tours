@@ -35,7 +35,7 @@ export type BookingTab = {
 };
 
 export type TourCardData = {
-  key: BookableKey | "private" | "soon";
+  key: BookableKey | "private" | "soon" | "xmas";
   vibe: string;
   name: string;
   meta: string;

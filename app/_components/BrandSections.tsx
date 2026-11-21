@@ -49,6 +49,10 @@ export function darkUntil(run: DarkRun | undefined, long = false) {
 }
 const bySlug = (slug: string) => tours.find((t) => t.slug === slug)!;
 
+/** A Very Norwich Christmas runs 26 Nov to 20 Dec 2026. */
+export const XMAS_HREF = "/tours/a-very-norwich-christmas";
+export const xmasIsOn = () => Date.now() < Date.parse("2026-12-21T00:00:00Z");
+
 function tourCards(next: Walks): TourCardData[] {
   const dark = bySlug("dark-history-of-norwich");
   const priv = bySlug("private-tours");
@@ -87,6 +91,22 @@ function tourCards(next: Walks): TourCardData[] {
       image: { src: dark.image, alt: dark.imageAlt },
     },
     {
+      // A Very Norwich Christmas (Tom 2026-11-21): paid, so the price shows.
+      // Wording from its live page. Shown until its last walk.
+      key: "xmas",
+      vibe: "Christmas history",
+      name: "A Very Norwich Christmas",
+      meta: "Thu & Fri 6pm, Sat & Sun 2pm · until 20 Dec · £12 adults, £9 children",
+      hook: "Crackers, mince pies, a royal Christmas and the year it was cancelled, as told on our Christmas walking tour.",
+      perfectFor: "a Christmas day out in Norwich",
+      sub: "Crackers, mince pies, a royal Christmas and the year it was cancelled.",
+      action: "Book your ticket",
+      href: `${XMAS_HREF}#book`,
+      details: XMAS_HREF,
+      badge: "Christmas",
+      image: { src: "/images/tour/holly-chantry-place-lights-story.jpg", alt: "Holly under the Christmas light arches in Chantry Place" },
+    },
+    {
       key: "private",
       vibe: "Just your group",
       name: "Private & Group Tours",
@@ -101,7 +121,7 @@ function tourCards(next: Walks): TourCardData[] {
       badge: "Your group",
     },
   ];
-  return darkIsOn(next.darkRun) ? list : list.filter((c) => c.key !== "dark");
+  return list.filter((c) => (c.key === "dark" ? darkIsOn(next.darkRun) : c.key === "xmas" ? xmasIsOn() : true));
 }
 
 function bookingTabs(): BookingTab[] {
@@ -129,7 +149,7 @@ const HERO_FILM: HeroFilm = {
   ],
 };
 
-const HERO_ORDER: TourCardData["key"][] = ["dark", "free", "private"];
+const HERO_ORDER: TourCardData["key"][] = ["dark", "xmas", "free", "private"];
 
 // Tom 2026-10-21: the film gets the header to itself.
 // Headline, one booking button, the proof. The tours move to their own
