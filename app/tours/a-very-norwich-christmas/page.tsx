@@ -165,13 +165,11 @@ const beats = [
 
 // Undecided items stay as [placeholders] and are filtered out by ready().
 const faqs = [
+  // Eight, like Dark History (Tom 2026-11-21). The two [TBC] ones stay
+  // hidden until decided.
   {
-    q: "When is it?",
-    a: "Thursdays and Fridays at 6pm, Saturdays and Sundays at 2pm, from 26 November to 20 December 2026. It takes about 90 minutes. Pick a date in the booking calendar.",
-  },
-  {
-    q: "Where do we meet?",
-    a: "Chantry Place square, Norwich NR2 1SH. The walk finishes at Norwich Cathedral.",
+    q: "When and where is it?",
+    a: "Thursdays and Fridays at 6pm, Saturdays and Sundays at 2pm, from 26 November to 20 December 2026. We meet in Chantry Place square, Norwich NR2 1SH, and finish about 90 minutes later at Norwich Cathedral. Pick a date in the booking calendar.",
   },
   {
     q: "How much is it?",
@@ -194,29 +192,21 @@ const faqs = [
     a: "We can't wait for latecomers. If you miss the start, we can't refund.",
   },
   {
-    q: "Is mulled wine included?",
-    a: "[Mulled wine TBC: included, discounted, or pay your own at Sir Toby's and the Britons Arms]",
-  },
-  {
-    q: "Is it suitable for children?",
+    q: "Can I bring children or a pushchair?",
     // [Age guidance TBC]: add it to this answer once decided.
-    a: "Children are welcome on a child ticket (£9).",
-  },
-  {
-    q: "Can I bring a pushchair or mobility scooter?",
-    a: "We'd love to have you along. The route goes over the cobbles of Elm Hill, which are pretty bumpy. Not sure? Drop us a message and we'll talk it through.",
-  },
-  {
-    q: "How many people are on a walk?",
-    a: "Up to 25 per walk.",
-  },
-  {
-    q: "Can I give it as a present?",
-    a: "[Gift vouchers TBC]",
+    a: "Children are welcome on a child ticket (£9). The route goes over the cobbles of Elm Hill, which are pretty bumpy for pushchairs and mobility scooters. Not sure? Drop us a message and we'll talk it through.",
   },
   {
     q: "Can we book a private Christmas walk for our team?",
     a: "Yes. See our private tours, and tell us your date and group size.",
+  },
+  {
+    q: "Is mulled wine included?",
+    a: "[Mulled wine TBC: included, discounted, or pay your own at Sir Toby's and the Britons Arms]",
+  },
+  {
+    q: "Can I give it as a present?",
+    a: "[Gift vouchers TBC]",
   },
 ];
 
@@ -416,6 +406,9 @@ export default async function ChristmasTourPage() {
 
             <p className="mt-5 max-w-md mx-auto lg:mx-0 text-lg md:text-xl text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
               Who made Norwich&apos;s Christmas crackers? Why did turkeys walk to London? And which king came here for Christmas?
+            </p>
+            <p className="mt-3 max-w-md mx-auto lg:mx-0 text-[15px] md:text-base italic text-white leading-snug" style={{ ...lora, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
+              Crackers, mince pies, a royal Christmas and the year it was cancelled, told where it happened.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
