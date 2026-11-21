@@ -21,7 +21,7 @@ import { trackEvent } from "@/lib/tracking";
 const tourLinks = [
   { label: "Free Walking Tour", href: "/tours/free-walking-tour" },
   { label: "Dark History Tour", href: "/tours/dark-history-of-norwich" },
-  { label: "A Very Norwich Christmas", href: "/tours/a-very-norwich-christmas" },
+  // A Very Norwich Christmas joins this menu after launch (Tom 2026-11-21).
 ];
 
 const navLinks = [

@@ -55,7 +55,6 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Norwich Free Walking Tour", href: "/tours/free-walking-tour" },
   { label: "Dark History of Norwich", href: "/tours/dark-history-of-norwich" },
-  { label: "A Very Norwich Christmas", href: "/tours/a-very-norwich-christmas" },
   { label: "Our Guides", href: "/our-guides" },
   { label: "Private Tours", href: "/private-tours" },
   { label: "Book your spot (free)", href: "/book" },
