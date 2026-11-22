@@ -569,9 +569,10 @@ export default async function ChristmasTourPage() {
                       src="/images/tour/holly-chantry-place-lights-story.jpg"
                       alt="Holly, the Christmas guide, under the light arches in Chantry Place"
                       fill
-                      sizes="300px"
+                      sizes="(min-width: 768px) 600px, 520px"
                       className="object-cover"
-                      style={{ objectPosition: "50% 35%" }}
+                      // Zoomed in on Holly (Tom 2026-11-22).
+                      style={{ objectPosition: "50% 55%", transform: "scale(1.75)", transformOrigin: "48% 52%" }}
                     />
                   </div>
                 </div>
