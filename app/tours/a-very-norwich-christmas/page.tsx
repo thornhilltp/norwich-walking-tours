@@ -551,50 +551,41 @@ export default async function ChristmasTourPage() {
       {holly && (
         <section className="section-padding" style={{ backgroundColor: "#F5EBDA" }}>
           <div className="brand-container grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-center">
-            {/* Holly's polaroid wrapped as a present (Tom 2026-11-21): red
-                ribbon round the frame, a bow on top, a "To: you" gift tag
-                hanging from it, her handle as the caption. */}
-            <div className="flex flex-col items-center lg:items-start">
-              <div className="relative w-[280px] md:w-[320px] bg-white p-3 pb-5 rounded-[3px] shadow-[0_18px_40px_rgba(0,0,0,0.22)] -rotate-2">
-                {/* ribbon: down the frame's right edge and along its foot */}
-                <span aria-hidden className="absolute top-0 bottom-0 right-8 w-3.5 z-[1]" style={{ backgroundColor: RED }} />
-                <span aria-hidden className="absolute left-0 right-0 bottom-12 h-3.5 z-[1]" style={{ backgroundColor: RED }} />
-                <svg aria-hidden viewBox="0 0 80 50" className="absolute -top-7 right-[3px] z-[3] h-[50px] w-[80px] drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]">
-                  <path d="M40 26 C26 4 4 6 8 20 C11 30 30 30 40 26Z" fill={RED} stroke="#8A1F1F" strokeWidth="1.5" />
-                  <path d="M40 26 C54 4 76 6 72 20 C69 30 50 30 40 26Z" fill={RED} stroke="#8A1F1F" strokeWidth="1.5" />
-                  <path d="M36 28 L28 48 L35 44 L38 49 L40 30Z M44 28 L52 48 L45 44 L42 49 L40 30Z" fill="#A12424" />
-                  <circle cx="40" cy="26" r="6" fill="#A12424" stroke="#8A1F1F" strokeWidth="1.5" />
-                </svg>
-                {/* gift tag on a string from the bow */}
-                <svg aria-hidden viewBox="0 0 60 40" className="absolute -top-1 right-14 z-[2] h-10 w-[60px] overflow-visible">
-                  <path d="M58 2 Q40 14 22 22" fill="none" stroke="#8A1F1F" strokeWidth="1.2" />
-                </svg>
-                <span
-                  className="absolute top-4 right-[88px] z-[3] -rotate-[8deg] text-white text-[16px] pl-5 pr-3 py-1 shadow-md"
-                  style={{ ...xmasStyle, backgroundColor: RED, clipPath: "polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%)" }}
-                >
-                  To: you
-                </span>
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
-                  <Image
-                    // Christmas shoot at Chantry Place (Tom 2026-11-19).
-                    src="/images/tour/holly-chantry-place-lights-story.jpg"
-                    alt="Holly, the Christmas guide, under the light arches in Chantry Place"
-                    fill
-                    sizes="320px"
-                    className="object-cover"
-                    style={{ objectPosition: "50% 35%" }}
-                  />
+            {/* Holly's Christmas card in its envelope (Tom 2026-11-22, picked
+                over three present designs): the photo is the card, half out
+                of a deep red envelope with a cream lining, a handwritten
+                line across the top, her handle on the envelope. */}
+            <div className="flex justify-center lg:justify-start pt-4">
+              <div className="relative w-[300px] md:w-[340px] h-[450px] md:h-[500px]">
+                <div aria-hidden className="absolute left-0 right-0 bottom-0 h-[52%] rounded-[3px] shadow-[0_24px_40px_-14px_rgba(60,20,10,0.55)]" style={{ background: "linear-gradient(180deg,#9b1f1f,#7a1515)" }} />
+                <div aria-hidden className="absolute left-0 right-0 bottom-[52%] h-[22%]" style={{ background: "linear-gradient(180deg,#efe3cc,#e2d1b1)", clipPath: "polygon(0 100%,50% 0,100% 100%)" }} />
+                <div className="absolute left-[9%] right-[9%] top-0 bg-[#FFFDF7] px-3 pt-11 pb-3 -rotate-3 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.4)]">
+                  <p className="absolute left-0 right-0 top-2.5 m-0 text-center text-[23px] leading-none text-[#3a2410]" style={{ fontFamily: "var(--font-caveat), cursive", fontWeight: 700 }}>
+                    Merry Christmas, from Holly x
+                  </p>
+                  <div className="relative aspect-[4/5] w-full overflow-hidden">
+                    <Image
+                      // Christmas shoot at Chantry Place (Tom 2026-11-19).
+                      src="/images/tour/holly-chantry-place-lights-story.jpg"
+                      alt="Holly, the Christmas guide, under the light arches in Chantry Place"
+                      fill
+                      sizes="300px"
+                      className="object-cover"
+                      style={{ objectPosition: "50% 35%" }}
+                    />
+                  </div>
                 </div>
+                <div aria-hidden className="absolute left-0 right-0 bottom-0 h-[40%] rounded-b-[3px]" style={{ background: "linear-gradient(180deg,#b52a2a,#8f1d1d)", clipPath: "polygon(0 0,50% 38%,100% 0,100% 100%,0 100%)" }} />
                 <a
                   href={holly.handle?.href ?? "https://www.instagram.com/historyhollydays"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-[2] block mt-6 text-center text-[26px] leading-none hover:underline underline-offset-4"
-                  style={{ ...xmasStyle, color: RED }}
+                  className="absolute left-0 right-0 bottom-[16%] text-center text-[24px] leading-none text-[#F5EBDA] hover:underline underline-offset-4"
+                  style={xmasStyle}
                 >
                   {holly.handle?.label ?? "@historyhollydays"}
                 </a>
+                <span aria-hidden className="absolute right-6 bottom-6 h-12 w-10 rotate-[8deg] border-2 border-dashed border-[#F5EBDA]/70 bg-[#1E5B3A] shadow-sm" />
               </div>
             </div>
             <div className="min-w-0">
