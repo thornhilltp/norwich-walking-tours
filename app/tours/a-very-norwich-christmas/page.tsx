@@ -113,20 +113,20 @@ const stories = [
     img: "/images/tour/guide-talk-st-peter-mancroft.jpg",
     alt: "A guide with a tour group outside St Peter Mancroft",
     q: "Who tried to cancel Christmas?",
-    line: "And how did Norwich take it? Told under the bells of St Peter Mancroft.",
+    line: "And how did Norwich take it?",
     stamp: true,
   },
   {
     img: "/images/tour/group-market-sunset.jpg",
     alt: "A tour group at Norwich Market at sunset",
     q: "What was really in a mince pie?",
-    line: "You'd send it back. Told at the market.",
+    line: "You'd send it back.",
   },
   {
     img: "/images/tour/group-britons-arms.jpg",
     alt: "A tour group outside the Britons Arms on Elm Hill",
     q: "Who put the Lord of Misrule in charge?",
-    line: "Wassail, boy bishops and a feast of fools, on the cobbles of Elm Hill.",
+    line: "Wassail, boy bishops and a feast of fools.",
   },
 ];
 
