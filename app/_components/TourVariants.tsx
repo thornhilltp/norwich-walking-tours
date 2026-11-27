@@ -31,7 +31,7 @@ const sepia: CSSProperties = { filter: "sepia(0.55) contrast(1.15) brightness(0.
 const tapes = ["#F4C26B", "#9FD6B8", "#F2A7A0", "#C9B8E8"];
 // A Very Norwich Christmas (Tom 2026-11-21): berry red, candy-stripe tape.
 const XMAS_RED = "#B92B2B";
-const CANDY = "repeating-linear-gradient(45deg,rgba(185,43,43,.85) 0 7px,rgba(255,255,255,.9) 7px 14px)";
+const CANDY_GREEN = "repeating-linear-gradient(45deg,rgba(30,91,58,.9) 0 7px,rgba(255,255,255,.9) 7px 14px)";
 
 /* ── Shared pieces ─────────────────────────────────────────────────────── */
 
@@ -143,7 +143,7 @@ function Polaroid({
   const free = c.key === "free";
   const caption: CSSProperties = dark
     ? { ...eater, color: GLOW, fontSize: small ? 15 : mid ? 16 : 21, lineHeight: 1.05, textShadow: "0 0 12px rgba(90,225,158,0.45)" }
-    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : mid ? 24 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : c.key === "xmas" ? XMAS_RED : GREEN };
+    : { ...caveat, fontWeight: 700, fontSize: small ? 20 : mid ? 24 : 30, lineHeight: 0.95, color: soon ? "#1A1A1A" : free ? "#1A6B47" : c.key === "xmas" ? "#FFF4E2" : GREEN };
   const showTape = !free;
   return (
     <figure
@@ -151,8 +151,9 @@ function Polaroid({
       style={{
         // Header: the free tour sits straight (Tom 2026-10-19).
         ["--r" as string]: hero && free ? "0deg" : `${i % 2 === 0 ? -2 : 2}deg`,
-        backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : "#FFFFFF",
-        borderColor: dark ? (hero ? "rgba(90,225,158,0.55)" : "#2A2724") : free ? "#E6D7BF" : "#EAE0D4",
+        // Christmas: a red print (Tom 2026-11-27, option A).
+        backgroundColor: dark ? "#1B1A18" : free ? "#F5EBDA" : c.key === "xmas" ? XMAS_RED : "#FFFFFF",
+        borderColor: dark ? (hero ? "rgba(90,225,158,0.55)" : "#2A2724") : free ? "#E6D7BF" : c.key === "xmas" ? "#8E1F1F" : "#EAE0D4",
         // Lantern light round Dark History, so it lifts off a dark photo.
         ...(hero && dark ? { boxShadow: "0 0 0 1px rgba(90,225,158,0.25), 0 0 34px 4px rgba(90,225,158,0.38), 2px 14px 28px -12px rgba(0,0,0,0.8)" } : {}),
       } as CSSProperties}
@@ -172,7 +173,7 @@ function Polaroid({
           style={{
             transform: "translateX(-50%) rotate(-3deg)",
             // Header: Dark History's tape in its neon green (Tom 2026-10-19).
-            background: c.key === "xmas" ? CANDY : undefined,
+            background: c.key === "xmas" ? CANDY_GREEN : undefined,
             backgroundColor: c.key === "xmas" ? undefined : dark ? (hero ? GLOW : "#3A3530") : tapes[i % tapes.length],
             boxShadow: hero && dark ? "0 0 14px rgba(90,225,158,0.7)" : "0 1px 3px rgba(0,0,0,0.18)",
           }}
@@ -380,7 +381,7 @@ function FrameLines({ c, onDark }: { c: TourCardData; onDark: boolean }) {
     <>
       <HeroNext c={c} onDark={onDark} />
       <span
-        className={`mt-1.5 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-all group-hover:gap-2.5 ${onDark ? "text-[#5AE19E]" : c.key === "free" ? "text-[#1A6B47]" : "text-brand-text"}`}
+        className={`mt-1.5 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-all group-hover:gap-2.5 ${c.key === "xmas" ? "text-white" : onDark ? "text-[#5AE19E]" : c.key === "free" ? "text-[#1A6B47]" : "text-brand-text"}`}
         style={lora}
       >
         {ask} <span aria-hidden>→</span>
@@ -508,12 +509,12 @@ export function HeroPolaroids({
                       quietPopUp
                       eager={false}
                       sticker={c.key === "free" ? <FreeTourSticker /> : c.key === "xmas" ? <XmasSticker /> : undefined}
-                      extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                      extra={<FrameLines c={c} onDark={c.key === "dark" || c.key === "xmas"} />} />
                   </a>
                 </DealtPrint>
               ) : (
                 <a href={hrefOf(c)} onClick={() => trackEvent("tour_card_click", { tour: c.key, location: "hero" })} className="group block">
-                  <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark"} />} />
+                  <Polaroid c={c} i={i} eater={eater} mid hero={prints} extra={<FrameLines c={c} onDark={c.key === "dark" || c.key === "xmas"} />} />
                 </a>
               )}
             </li>
