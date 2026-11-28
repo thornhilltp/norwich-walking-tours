@@ -104,6 +104,7 @@ function tourCards(next: Walks): TourCardData[] {
       href: `${XMAS_HREF}#book`,
       details: XMAS_HREF,
       badge: "Christmas",
+      next: next.xmas,
       image: { src: "/images/tour/holly-chantry-place-lights-story.jpg", alt: "Holly under the Christmas light arches in Chantry Place" },
     },
     {

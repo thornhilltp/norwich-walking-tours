@@ -250,7 +250,8 @@ function HeroNext({ c, onDark, tiny }: { c: TourCardData; onDark: boolean; tiny?
         {c.key === "private" ? "Any day you choose" : c.key === "dark" ? "Selected evenings, 6pm" : c.key === "xmas" ? "Thu to Sun, until 20 Dec" : "Most days, 10:30am"}
       </span>
     );
-  const dot = onDark ? GLOW : GREEN;
+  // Christmas print is red: a white dot reads better than neon green.
+  const dot = c.key === "xmas" ? "#FFFFFF" : onDark ? GLOW : GREEN;
   const few = c.next.spotsLeft <= 6;
   const pulse = (
     <span aria-hidden className="relative inline-flex h-2 w-2 shrink-0">

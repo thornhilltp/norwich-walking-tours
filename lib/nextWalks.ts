@@ -18,7 +18,10 @@ export type NextWalk = { label: string; spotsLeft: number };
     fall back to the published end date instead of hiding the tour. */
 export type DarkRun = { known: boolean; last: string | null };
 
-export type Walks = { free: NextWalk | null; dark: NextWalk | null; darkRun: DarkRun };
+export type Walks = { free: NextWalk | null; dark: NextWalk | null; xmas: NextWalk | null; darkRun: DarkRun };
+
+// A Very Norwich Christmas, its product slug in the booking app.
+const XMAS_SLUG = "a-very-norwich-christmas";
 
 function londonNow() {
   const parts = new Intl.DateTimeFormat("en-GB", {
@@ -95,7 +98,7 @@ export async function getTourWalks(bookingSlug: string): Promise<{ known: boolea
 }
 
 export async function getNextWalks(darkSlug?: string): Promise<Walks> {
-  const empty: Walks = { free: null, dark: null, darkRun: { known: false, last: null } };
+  const empty: Walks = { free: null, dark: null, xmas: null, darkRun: { known: false, last: null } };
   const sb = getSupabaseClient();
   if (!sb) return empty;
   try {
@@ -134,6 +137,29 @@ export async function getNextWalks(darkSlug?: string): Promise<Walks> {
         .maybeSingle();
       if (!error) darkRun = { known: true, last: (lastRow as { date?: string } | null)?.date ?? null };
     }
+    // Christmas walk (Tom 2026-11-28: show its next date like Dark History).
+    // Its own query, so free tours can't push it out of the 60-row window.
+    let xmasRow: Row | null = null;
+    {
+      const { data: prod } = await sb.rpc("get_product_by_slug", { p_slug: XMAS_SLUG }).maybeSingle();
+      const xmasId = (prod as { id?: string } | null)?.id ?? null;
+      if (xmasId) {
+        const { data: xr } = await sb
+          .from("tours")
+          .select("date, time, total_slots, booked_slots, product_id")
+          .eq("product_id", xmasId)
+          .gte("date", now.date)
+          .eq("active", true)
+          .eq("unlisted", false)
+          .order("date")
+          .order("time")
+          .limit(20);
+        xmasRow =
+          ((xr ?? []) as Row[]).find(
+            (r) => r.booked_slots < r.total_slots && (r.date > now.date || r.time.slice(0, 5) > now.time),
+          ) ?? null;
+      }
+    }
     const pick = (match: (r: Row) => boolean): NextWalk | null => {
       const r = rows.find(match);
       return r ? { label: formatWhen(r.date, r.time.slice(0, 5), now.date), spotsLeft: r.total_slots - r.booked_slots } : null;
@@ -141,6 +167,9 @@ export async function getNextWalks(darkSlug?: string): Promise<Walks> {
     return {
       free: pick((r) => r.product_id === null || r.product_id === FREE_PRODUCT_ID),
       dark: darkId ? pick((r) => r.product_id === darkId) : null,
+      xmas: xmasRow
+        ? { label: formatWhen(xmasRow.date, xmasRow.time.slice(0, 5), now.date), spotsLeft: xmasRow.total_slots - xmasRow.booked_slots }
+        : null,
       darkRun,
     };
   } catch {
